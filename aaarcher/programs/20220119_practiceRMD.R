@@ -1,11 +1,15 @@
 #' # Althea's First Reproducible Script
 #' 
-#' Programmer: Althea Archer
+#' Programmer: Althea (first name is acceptable to maintain privacy)
 #' 
 #' Date: January 17, 2022
 #' 
 #' 
 #' ## Header
+#' 
+#' This chunk of code will load in all required packages and clear environment
+#' 
+#+ header
 library(knitr)
 library(ezknitr)
 remove(list = ls())
