@@ -203,11 +203,13 @@ hr {
 <body>
 <h1>Althea&#39;s First Reproducible Script</h1>
 
-<p>Programmer: Althea Archer</p>
+<p>Programmer: Althea (first name is acceptable to maintain privacy)</p>
 
 <p>Date: January 17, 2022</p>
 
 <h2>Header</h2>
+
+<p>This chunk of code will load in all required packages and clear environment</p>
 
 <pre><code class="r">library(knitr)
 library(ezknitr)
@@ -216,15 +218,30 @@ remove(list = ls())
 
 <h2>Tasks to complete for this assignment for all students</h2>
 
-<ul>
+<ol>
 <li>Turn this into a numerical list</li>
 <li>Write some text in 3rd-level header format</li>
+</ol>
+
+<h3>Third level Header</h3>
+
+<ol>
 <li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format</li>
+</ol>
+
+<h4>This is a 4th-level header</h4>
+
+<ol>
 <li>Write some plain text with one word bolded and one italicized</li>
-<li>Make the code below print without being evaluated</li>
-<li>Create a new chunk of code that is a copy of the code below but that is evaluated</li>
-<li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
-</ul>
+</ol>
+
+<p><strong>one</strong> <em>word</em></p>
+
+<ol>
+<li><p>Make the code below print without being evaluated</p></li>
+<li><p>Create a new chunk of code that is a copy of the code below but that is evaluated</p></li>
+<li><p>Create a third chunk of code that evaluates x/y when x = 500, y = 50</p></li>
+</ol>
 
 <p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
 
@@ -252,7 +269,7 @@ print( # prints out anything inside this to the console
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
-<p>ezspin(file = &ldquo;aaarcher/programs/20220119_practiceRMD.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>ezspin(file = &ldquo;MOlinger/programs/20220126_practiceRMD.R&rdquo;,out_dir = &ldquo;MOlinger/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
 
 <p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
 
