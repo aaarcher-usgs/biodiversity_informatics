@@ -49,7 +49,7 @@ print( # prints out anything inside this to the console
 
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "ebengtson/programs/20220119_practiceRMD.R",out_dir = "ebengtson/output",fig_dir = "figures",keep_md = FALSE)
+#' ezspin(file = "ebengtson/program/Erin_programs_practiceRMD.R",out_dir = "ebengtson/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
