@@ -245,6 +245,21 @@ print( # prints out anything inside this to the console
  )
 )</p>
 
+<p>Chunk 2:</p>
+
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this to the console
+  past0( #pastes items together, separated by a comma, with 0 char in between
+    &quot;x divided by y is &quot;,
+    x/y
+    )
+  )
+</code></pre>
+
+<pre><code>## Error in past0(&quot;x divided by y is &quot;, x/y): could not find function &quot;past0&quot;
+</code></pre>
+
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
 
 <ul>

@@ -41,6 +41,16 @@ remove(list = ls())
 #'    x/y
 #'  )
 #' )
+#' 
+#' Chunk 2:
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+  past0( #pastes items together, separated by a comma, with 0 char in between
+    "x divided by y is ",
+    x/y
+    )
+  )
 
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
