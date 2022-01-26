@@ -12,7 +12,8 @@
 #+ header
 library(knitr)
 library(ezknitr)
-remove(list = ls())
+# This line clears the environment
+remove(list = ls()) 
 
 #' 
 #' ## Tasks to complete for this assignment for all students
