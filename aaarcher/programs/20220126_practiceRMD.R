@@ -1,8 +1,8 @@
 #' # Althea's First Reproducible Script
 #' 
-#' Programmer: Althea (first name is acceptable to maintain privacy)
+#' Programmer: Althea Archer
 #' 
-#' Date: January 17, 2022
+#' Date: January 26, 2022
 #' 
 #' 
 #' ## Header
@@ -12,7 +12,11 @@
 #+ header
 library(knitr)
 library(ezknitr)
-remove(list = ls())
+# This line clears the environment
+remove(list = ls()) 
+
+
+#' superscript^2
 
 #' 
 #' ## Tasks to complete for this assignment for all students
@@ -49,7 +53,7 @@ print( # prints out anything inside this to the console
 
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "aaarcher/programs/20220119_practiceRMD.R",out_dir = "aaarcher/output",fig_dir = "figures",keep_md = FALSE)
+#' ezspin(file = "aaarcher/programs/20220126_practiceRMD.R",out_dir = "aaarcher/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
