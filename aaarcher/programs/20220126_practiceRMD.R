@@ -15,6 +15,9 @@ library(ezknitr)
 # This line clears the environment
 remove(list = ls()) 
 
+
+#' superscript^2
+
 #' 
 #' ## Tasks to complete for this assignment for all students
 #' 
