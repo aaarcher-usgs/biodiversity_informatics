@@ -52,6 +52,16 @@ print( # prints out anything inside this to the console
     )
   )
 
+#' Chunk 3
+x <- 500
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with a 0 char in between
+    "x divided by y is ",
+    x/y
+    )
+  )
+
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
 #' - Write an equation in LaTeX format
