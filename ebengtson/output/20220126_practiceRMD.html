@@ -219,7 +219,7 @@ remove(list = ls())
 <h2>Tasks to complete for this assignment for all students</h2>
 
 <ol>
-<li>Turn this into a numerical list</li>
+<li>Turn this into a numerical list .done.</li>
 <li>Write some text in 3rd-level header format .done.</li>
 <li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format .done.</li>
 <li>Write some plain text with one word bolded and one italicized .done.</li>
@@ -247,6 +247,52 @@ print( # prints out anything inside this to the console
 </code></pre>
 
 <pre><code>## [1] &quot;x divided by y is 4&quot;
+</code></pre>
+
+<p>Chunk 2: To create an unevaluated code</p>
+
+<ul>
+<li>chunk2</li>
+</ul>
+
+<pre><code class="r">#x &lt;- 200
+#y &lt;- 50
+# print( # prints out anything inside this to the console
+#  paste0( #pastes items together, separated by a comma, with 0 chars in between
+#    &quot;x divided by y is &quot;, 
+#    x/y
+#  )
+#)
+</code></pre>
+
+<p>chunk 3</p>
+
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;, 
+    x/y
+  )
+)
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 4&quot;
+</code></pre>
+
+<p>chunk 4</p>
+
+<pre><code class="r">x &lt;- 500
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;, 
+    x/y
+  )
+)
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 10&quot;
 </code></pre>
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
