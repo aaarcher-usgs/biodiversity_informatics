@@ -38,14 +38,15 @@ remove(list = ls())
 #+ chunk1
 x <- 200
 y <- 50
-echo(
   print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     "x divided by y is ", 
-    x/y
+    
+   x/y
   )
 )
-)
+
+
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     "x divided by y is ", 
