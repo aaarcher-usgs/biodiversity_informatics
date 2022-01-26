@@ -28,6 +28,8 @@ remove(list = ls())
 #' 
 #' 4. Write some plain text with one word bolded and one italicized
 #' 
+#' this is **bold** and this is *italics*
+#' 
 #' 5. Make the code below print without being evaluated
 #' 
 #' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
