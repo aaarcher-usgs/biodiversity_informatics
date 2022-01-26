@@ -26,7 +26,7 @@ remove(list = ls())
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
 
-#' Work Here:
+#' *Work* **Here**:
 #' ### This is my 3rd level header
 #' #### This is a 4th-level header
 #' 
