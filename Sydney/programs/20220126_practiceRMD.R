@@ -74,7 +74,7 @@ print( # prints out anything inside this to the console
 
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "Sydney/programs/20222126_practiceRMD.R",out_dir = "Sydney/output",fig_dir = "figures",keep_md = FALSE)
+#' ezspin(file = "Sydney/programs/20220126_practiceRMD.R",out_dir = "Sydney/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
