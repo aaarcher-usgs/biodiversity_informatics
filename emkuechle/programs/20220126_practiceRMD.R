@@ -26,20 +26,41 @@ remove(list = ls())
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
 
-#' Work Here:
+#' *Work* **Here**:
 #' ### This is my 3rd level header
+#' #### This is a 4th-level header
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
 #+ chunk1
+#' x <- 200
+#' y <- 50
+#' print( # prints out anything inside this to the console
+#'  paste0( #pastes items together, separated by a comma, with 0 chars in between
+#'    "x divided by y is ", 
+#'    x/y
+#'  )
+#' )
+#' 
+#' Chunk 2:
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    "x divided by y is ", 
+  paste0( #pastes items together, separated by a comma, with 0 char in between
+    "x divided by y is ",
     x/y
+    )
   )
-)
+
+#' Chunk 3
+x <- 500
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with a 0 char in between
+    "x divided by y is ",
+    x/y
+    )
+  )
 
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 

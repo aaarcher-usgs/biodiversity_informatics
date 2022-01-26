@@ -228,23 +228,51 @@ remove(list = ls())
 <li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
 </ol>
 
-<p>Work Here:</p>
+<p><em>Work</em> <strong>Here</strong>:</p>
 
 <h3>This is my 3rd level header</h3>
 
+<h4>This is a 4th-level header</h4>
+
 <p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
+
+<p>x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this to the console
+ paste0( #pastes items together, separated by a comma, with 0 chars in between
+   &ldquo;x divided by y is &rdquo;, 
+   x/y
+ )
+)</p>
+
+<p>Chunk 2:</p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
 print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;, 
+  paste0( #pastes items together, separated by a comma, with 0 char in between
+    &quot;x divided by y is &quot;,
     x/y
+    )
   )
-)
 </code></pre>
 
 <pre><code>## [1] &quot;x divided by y is 4&quot;
+</code></pre>
+
+<p>Chunk 3</p>
+
+<pre><code class="r">x &lt;- 500
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with a 0 char in between
+    &quot;x divided by y is &quot;,
+    x/y
+    )
+  )
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 10&quot;
 </code></pre>
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
