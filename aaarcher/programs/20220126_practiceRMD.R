@@ -22,9 +22,9 @@ remove(list = ls())
 #' ## Tasks to complete for this assignment for all students
 #' 
 #' - Turn this into a numerical list
-#' - Write some text in 3rd-level header format
-#' - Write "This is a 4th-level header" in 4th-level header format
-#' - Write some plain text with one word bolded and one italicized
+#'     - Write some text in 3rd-level header format
+#'     - Write "This is a 4th-level header" in 4th-level header format
+#'     - Write some plain text with one word bolded and one italicized
 #' - Make the code below print without being evaluated
 #' - Create a new chunk of code that is a copy of the code below but that is evaluated
 #' - Create a third chunk of code that evaluates x/y when x = 500, y = 50
