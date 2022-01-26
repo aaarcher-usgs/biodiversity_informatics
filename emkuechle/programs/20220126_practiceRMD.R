@@ -34,13 +34,23 @@ remove(list = ls())
 #' 
 #+ chunk1
 #' x <- 200
-#" y <- 50
+#' y <- 50
 #' print( # prints out anything inside this to the console
 #'  paste0( #pastes items together, separated by a comma, with 0 chars in between
 #'    "x divided by y is ", 
 #'    x/y
 #'  )
 #' )
+#' 
+#' Chunk 2:
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 char in between
+    "x divided by y is ",
+    x/y
+    )
+  )
 
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
