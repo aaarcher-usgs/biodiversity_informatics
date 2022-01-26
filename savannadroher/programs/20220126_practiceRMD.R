@@ -1,6 +1,6 @@
-#' # Emmas's First Reproducible Script
+#' # Savanna's First Reproducible Script
 #' 
-#' Programmer: Emma Kuechle
+#' Programmer: Savanna (first name is acceptable to maintain privacy)
 #' 
 #' Date: January 26, 2022
 #' 
@@ -49,7 +49,7 @@ print( # prints out anything inside this to the console
 
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "emkuechle/programs/20220126_practiceRMD.R",out_dir = "emkuechle/output",fig_dir = "figures",keep_md = FALSE)
+#' ezspin(file = "savannadroher/programs/20220119_practiceRMD.R",out_dir = "savannadroher/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
