@@ -28,6 +28,7 @@ remove(list = ls())
 
 #' Work Here:
 #' ### This is my 3rd level header
+#' #### This is a 4th-level header
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
