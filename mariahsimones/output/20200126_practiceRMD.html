@@ -246,7 +246,34 @@ print( # prints out anything inside this to the console
 )
 </code></pre>
 
+<p>Chunk 2: Evaluate x/y when x =200, y = 50</p>
+
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this console
+  paste0 (#pastes items together separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;,
+    x/y
+    )
+  )
+</code></pre>
+
 <pre><code>## [1] &quot;x divided by y is 4&quot;
+</code></pre>
+
+<p>Chunk 3: Evaluate x/y when x = 500, y = 50</p>
+
+<pre><code class="r">x &lt;- 500
+y &lt;- 50
+print( # prints out anything inside this console
+  paste0 (#pastes items together seperated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;,
+    x/y
+  )
+  )
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 10&quot;
 </code></pre>
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
@@ -257,6 +284,46 @@ print( # prints out anything inside this to the console
 <li>Include a 3 (row) by 4 (column) table with fake data</li>
 <li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
 </ul>
+
+<p>\begin 10 + 10 =6\end</p>
+
+<blockquote>
+<p>block quote of choice</p>
+</blockquote>
+
+<table><thead>
+<tr>
+<th>height</th>
+<th>weight</th>
+<th>gender</th>
+<th>eye color</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>5</td>
+<td>60</td>
+<td>M</td>
+<td>GRN</td>
+</tr>
+<tr>
+<td>6</td>
+<td>80</td>
+<td>F</td>
+<td>BLU</td>
+</tr>
+<tr>
+<td>7</td>
+<td>90</td>
+<td>M</td>
+<td>BRN</td>
+</tr>
+</tbody></table>
+
+<pre><code class="r">mean(4,6,7,10)
+</code></pre>
+
+<pre><code>## [1] 4
+</code></pre>
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 

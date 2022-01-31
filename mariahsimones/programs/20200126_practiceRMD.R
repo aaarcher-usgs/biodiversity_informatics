@@ -32,7 +32,7 @@ remove(list = ls())
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
-#+ chunk1
+#+ chunk1, eval = FALSE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
@@ -43,8 +43,7 @@ print( # prints out anything inside this to the console
 )
 
 #'
-#'chunk1, eval=FALSE
-#'
+#+ 
 #'
 #' Chunk 2: Evaluate x/y when x =200, y = 50
 #' 
@@ -63,8 +62,8 @@ print( # prints out anything inside this console
 #+ chunk3
 x <- 500
 y <- 50
-Print( 
-  Paste0 (
+print( # prints out anything inside this console
+  paste0 (#pastes items together seperated by a comma, with 0 chars in between
     "x divided by y is ",
     x/y
   )
@@ -77,8 +76,20 @@ Print(
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
-
+#' \begin 10 + 10 =6\end
+#'
+#'> block quote of choice
+#'
+#'height | weight | gender | eye color
+#'-------|--------|----| ---
+#'5      | 60 | M | GRN
+#'6     | 80 | F | BLU
+#'7     | 90  | M | BRN
+#'
+mean(4,6,7,10)
+#'
 #' To test (and finalize) your work, spin the document to html using this code:
+
 #' 
 #' ezspin(file = "mariahsimones/programs/20200126_practiceRMD.R",out_dir = "mariahsimones/output",fig_dir = "figures",keep_md = FALSE)
 #' 
