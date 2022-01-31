@@ -25,8 +25,11 @@ remove(list = ls())
 #' 6 Create a new chunk of code that is a copy of the code below but that is evaluated
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
+#' 
+#' **this is my work here**: 
 #' ### This is third level header format.
 #' #### This is a 4th-level header
+#' 
 #' # some plain text with one word __bolded__ and one *italicized*
 #' print(x <- 200
          y <- 50
