@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Erin&#39;s First Reproducible Script</title>
+<title>Jenna&#39;s First Reproducible Script</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -57,6 +57,9 @@ var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/<
 hljs.initHighlightingOnLoad();
 </script>
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 
 <style type="text/css">
@@ -201,13 +204,16 @@ hr {
 </head>
 
 <body>
-<h1>Erin&#39;s First Reproducible Script</h1>
+<h1>Jenna&#39;s First Reproducible Script</h1>
 
-<p>Programmer: Erin (first name is acceptable to maintain privacy)</p>
+<p>Programmer: Jenna </p>
 
 <p>Date: January 26, 2022</p>
 
-<h2>Header</h2>
+<p>Description: Introduction to script work using R Markdown. Learning how 
+different syntax translates from R into an html file with a few exercises.</p>
+
+<h2>Load Packages</h2>
 
 <p>This chunk of code will load in all required packages and clear environment</p>
 
@@ -219,53 +225,40 @@ remove(list = ls())
 <h2>Tasks to complete for this assignment for all students</h2>
 
 <ol>
-<li>Turn this into a numerical list .done.</li>
-<li>Write some text in 3rd-level header format .done.</li>
-<li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format .done.</li>
-<li>Write some plain text with one word bolded and one italicized .done.</li>
+<li>Turn this into a numerical list</li>
+<li>Write some text in 3rd-level header format</li>
+<li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format</li>
+<li>Write some plain text with one word bolded and one italicized</li>
 <li>Make the code below print without being evaluated</li>
 <li>Create a new chunk of code that is a copy of the code below but that is evaluated</li>
 <li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
 </ol>
 
-<h3>This is level 3 header</h3>
+<h3>My work:</h3>
 
-<h4>This is a 4th-level header</h4>
+<h3>This is a third level header</h3>
 
-<p>this should be <strong>bold</strong> this should be <em>italics</em></p>
+<h4>This is a fourth level header</h4>
+
+<p>Some plain text with one word <strong>bold</strong> and one <em>italicized</em></p>
 
 <p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
 
-<pre><code class="r">x &lt;- 200
-y &lt;- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;, 
-    x/y
-  )
-)
+<p><strong>this chunk will print without being evaluated</strong></p>
+
+<pre><code class="r">#  x &lt;- 200
+#  y &lt;- 50
+#  print( # prints out anything inside this to the console
+#   paste0( #pastes items together, separated by a comma, with 0 chars in between
+#     &quot;x divided by y is &quot;, 
+#     x/y
+#   )
+# )
 </code></pre>
 
-<pre><code>## [1] &quot;x divided by y is 4&quot;
-</code></pre>
+<p>Chunk 2: Here, we will evaluate x/y when x = 200, y = 50</p>
 
-<p>Chunk 2: To create an unevaluated code</p>
-
-<ul>
-<li>chunk2</li>
-</ul>
-
-<pre><code class="r">#x &lt;- 200
-#y &lt;- 50
-# print( # prints out anything inside this to the console
-#  paste0( #pastes items together, separated by a comma, with 0 chars in between
-#    &quot;x divided by y is &quot;, 
-#    x/y
-#  )
-#)
-</code></pre>
-
-<p>chunk 3</p>
+<p><strong>this chunk will print and be evaluated</strong></p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
@@ -280,7 +273,7 @@ print( # prints out anything inside this to the console
 <pre><code>## [1] &quot;x divided by y is 4&quot;
 </code></pre>
 
-<p>chunk 4</p>
+<p>Chunk 3: Here, we will evaluate x/y when x = 500, y = 50</p>
 
 <pre><code class="r">x &lt;- 500
 y &lt;- 50
@@ -297,16 +290,52 @@ print( # prints out anything inside this to the console
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
 
-<ul>
+<ol>
 <li>Write an equation in LaTeX format</li>
 <li>Include a block quote of your choice</li>
 <li>Include a 3 (row) by 4 (column) table with fake data</li>
 <li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
-</ul>
+</ol>
+
+<h3>My work:</h3>
+
+<p>Equation in LaTex format: \(\beta = \gamma/\alpha\)</p>
+
+<p>My block quote</p>
+
+<blockquote>
+<p>What did you do as a child that made the hours pass by like minutes? </p>
+
+<p>Therein lies the key to your Earthly pursuits.</p>
+</blockquote>
+
+<p>Three by four table with data</p>
+
+<pre><code class="r">df &lt;- data.frame(site1=rep(c(&#39;A&#39;, &#39;B&#39;, &#39;C&#39;)),
+                 site2=rep(c(&#39;G&#39;, &#39;F&#39;, &#39;B&#39;)),
+                 site3=rep(c(&#39;A&#39;, &#39;G&#39;, &#39;C&#39;)),
+                 site4=rep(c(&#39;A&#39;, &#39;C&#39;, &#39;C&#39;))
+)
+head(df)
+</code></pre>
+
+<pre><code>##   site1 site2 site3 site4
+## 1     A     G     A     A
+## 2     B     F     G     C
+## 3     C     B     C     C
+</code></pre>
+
+<p>Code using mean function</p>
+
+<pre><code class="r">mean(c(2, 4, 10,20))
+</code></pre>
+
+<pre><code>## [1] 9
+</code></pre>
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
-<p>ezspin(file = &ldquo;ebengtson/programs/20220126_practiceRMD.R&rdquo;,out_dir = &ldquo;ebengtson/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>ezspin(file = &ldquo;Jenna/programs/20220126_practiceRMD.R&rdquo;,out_dir = &ldquo;Jenna/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
 
 <p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
 
