@@ -25,6 +25,13 @@ remove(list = ls())
 #' - Create a new chunk of code that is a copy of the code below but that is evaluated
 #' - Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
+#' ### This is third level header format.
+#' #### This is a 4th-level header
+#' # some plain text with one word **bolded** and one *italicized*
+#' 
+#' 
+#' 
+#
 
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
