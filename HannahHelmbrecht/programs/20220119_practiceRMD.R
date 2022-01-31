@@ -1,4 +1,4 @@
-#' # Althea's First Reproducible Script
+#' # Hannah's First Reproducible Script
 #' 
 #' Programmer: Althea (first name is acceptable to maintain privacy)
 #' 
