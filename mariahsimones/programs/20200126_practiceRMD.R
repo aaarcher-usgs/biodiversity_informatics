@@ -26,6 +26,9 @@ remove(list = ls())
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
 
+#' ### This is 3rd-level header format
+#' #### This is a 4th-level header
+#' one word **bolded** and one word *italicized*
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
@@ -39,6 +42,34 @@ print( # prints out anything inside this to the console
   )
 )
 
+#'
+#'chunk1, eval=FALSE
+#'
+#'
+#' Chunk 2: Evaluate x/y when x =200, y = 50
+#' 
+#+ chunk2
+x <- 200
+y <- 50
+print( # prints out anything inside this console
+  paste0 (#pastes items together separated by a comma, with 0 chars in between
+    "x divided by y is ",
+    x/y
+    )
+  )
+#'
+#' Chunk 3: Evaluate x/y when x = 500, y = 50
+#' 
+#+ chunk3
+x <- 500
+y <- 50
+Print( 
+  Paste0 (
+    "x divided by y is ",
+    x/y
+  )
+  )
+#'
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
 #' - Write an equation in LaTeX format
