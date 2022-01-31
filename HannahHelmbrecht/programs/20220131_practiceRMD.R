@@ -11,7 +11,6 @@
 #' 
 #+ header
 library(knitr)
-library(ezknitr)
 remove(list = ls())
 
 #' 
