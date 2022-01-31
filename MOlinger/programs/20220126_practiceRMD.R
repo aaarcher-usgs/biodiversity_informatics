@@ -31,17 +31,12 @@ remove(list = ls())
 #' **one** *word*
 #' 
 #' 5. Make the code below print without being evaluated
-#' 
-#' 
-#' 
 #' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
-#' 
-#' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
-#+ chunk1
+#+ chunk1, eval = FALSE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
@@ -50,7 +45,29 @@ print( # prints out anything inside this to the console
     x/y
   )
 )
-
+#' Chunk 2: Here, we will evaluate x/y when x = 200, y = 50
+#' 
+#+ chunk2
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a commam with 0 chars in betweem
+    "x divided by y is ",
+    x/y
+  )
+)
+#' Chunk 3: Here, we will evaluate x/y when x = 500, y = 50
+#' 
+#+ chunk3
+#'
+x <- 500
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ",
+    x/y
+  )
+)  
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
 #' - Write an equation in LaTeX format
@@ -58,7 +75,18 @@ print( # prints out anything inside this to the console
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
+#' 
+#' > block quote
+#' 
+#' Sepal | Petal | Stamen | Ovary
+#' ----- |-------|--------|-----
+#'   4   |  3    |  3     | 1
+#'   2   |  1    |  2     | 1
+#'   3   |  2    |  1     | 4
+#'
+mean(2,4,6,8,10,12,14)
 
+  
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
 #' ezspin(file = "MOlinger/programs/20220126_practiceRMD.R",out_dir = "MOlinger/output",fig_dir = "figures",keep_md = FALSE)

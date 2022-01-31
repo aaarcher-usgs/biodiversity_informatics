@@ -238,9 +238,9 @@ remove(list = ls())
 <p><strong>one</strong> <em>word</em></p>
 
 <ol>
-<li><p>Make the code below print without being evaluated</p></li>
-<li><p>Create a new chunk of code that is a copy of the code below but that is evaluated</p></li>
-<li><p>Create a third chunk of code that evaluates x/y when x = 500, y = 50</p></li>
+<li>Make the code below print without being evaluated</li>
+<li>Create a new chunk of code that is a copy of the code below but that is evaluated</li>
+<li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
 </ol>
 
 <p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
@@ -255,7 +255,34 @@ print( # prints out anything inside this to the console
 )
 </code></pre>
 
+<p>Chunk 2: Here, we will evaluate x/y when x = 200, y = 50</p>
+
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a commam with 0 chars in betweem
+    &quot;x divided by y is &quot;,
+    x/y
+  )
+)
+</code></pre>
+
 <pre><code>## [1] &quot;x divided by y is 4&quot;
+</code></pre>
+
+<p>Chunk 3: Here, we will evaluate x/y when x = 500, y = 50</p>
+
+<pre><code class="r">x &lt;- 500
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;,
+    x/y
+  )
+)  
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 10&quot;
 </code></pre>
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
@@ -266,6 +293,44 @@ print( # prints out anything inside this to the console
 <li>Include a 3 (row) by 4 (column) table with fake data</li>
 <li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
 </ul>
+
+<blockquote>
+<p>block quote</p>
+</blockquote>
+
+<table><thead>
+<tr>
+<th>Sepal</th>
+<th>Petal</th>
+<th>Stamen</th>
+<th>Ovary</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+</tr>
+</tbody></table>
+
+<pre><code class="r">mean(2,4,6,8,10,12,14)
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 

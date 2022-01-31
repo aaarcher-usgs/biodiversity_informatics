@@ -33,9 +33,9 @@ remove(list = ls())
 #' This is in *italics* and this is in **bold**
 
 #' 
-#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
+#' Chunk 1: Here, we will make the code below print without being evaluated 
 #' 
-#+ chunk1
+#+ chunk1, eval = FALSE 
 x <- 200
 y <- 50
   print( # prints out anything inside this to the console
@@ -44,15 +44,18 @@ y <- 50
     x/y
   )
 )
-
-
+#' Chunk 2: Here, we will evaluate x/y when x = 200, y = 50
+#+ chunk2
+x <- 200
+y <- 50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     "x divided by y is ", 
     x/y
   )
 )
-
+#' Chunk 3: Here, we will evaluate x/y when x = 500, y = 50
+#+ chunk3
 x <- 500
 y <- 50
 print( # prints out anything inside this to the console
