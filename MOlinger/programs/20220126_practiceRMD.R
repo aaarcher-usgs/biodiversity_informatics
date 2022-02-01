@@ -85,7 +85,7 @@ print( # prints out anything inside this to the console
 #'   2   |  1    |  2     | 1
 #'   3   |  2    |  1     | 4
 #'
-mean(2,4,6,8,10,12,14)
+mean(2,4,6,8,10,12)
 
   
 #' To test (and finalize) your work, spin the document to html using this code:
