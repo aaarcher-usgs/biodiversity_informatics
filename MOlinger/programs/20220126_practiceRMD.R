@@ -75,6 +75,7 @@ print( # prints out anything inside this to the console
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
+#' This is the equation: y = 2x + b^2
 #' 
 #' > block quote
 #' 
