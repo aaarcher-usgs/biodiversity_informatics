@@ -1,8 +1,8 @@
-#' # Emmas's First Reproducible Script
+#' # Hannah's First Reproducible Script
 #' 
-#' Programmer: Emma Kuechle
+#' Programmer: Hannah Helmbrecht (first name is acceptable to maintain privacy)
 #' 
-#' Date: January 26, 2022
+#' Date: January 31, 2022
 #' 
 #' 
 #' ## Header
@@ -22,45 +22,42 @@ remove(list = ls())
 #' 3. Write "This is a 4th-level header" in 4th-level header format
 #' 4. Write some plain text with one word bolded and one italicized
 #' 5. Make the code below print without being evaluated
-#' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
+#' 6 Create a new chunk of code that is a copy of the code below but that is evaluated
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
-
-#' *Work* **Here**:
-#' ### This is my 3rd level header
+#' 
+#' **this is my work here**: 
+#' ### This is third level header format.
 #' #### This is a 4th-level header
 #' 
-#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
+#' # some plain text with one word __bolded__ and one *italicized*
 #' 
-#+ chunk1
+#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
+#+ chunk 1
 #' x <- 200
-#' y <- 50
-#' print( # prints out anything inside this to the console
-#'  paste0( #pastes items together, separated by a comma, with 0 chars in between
-#'    "x divided by y is ", 
-#'    x/y
-#'  )
-#' )
+#' y <-50 
 #' 
 #' Chunk 2:
-x <- 200
-y <- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 char in between
-    "x divided by y is ",
-    x/y
-    )
-  )
-
-#' Chunk 3
-x <- 500
-y <- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with a 0 char in between
-    "x divided by y is ",
-    x/y
-    )
-  )
+#' x <-200
+#' y <- 50
+#' print( # prints out anything inside this console
+#'    paste0( #pastes items together, separated by a comma, with 0 char in between
+#'    "x divided by y is ",
+#'    x/y
+#'      )
+#'    )
+#'    
+#'    
+#' Chunk 3:
+#' x <- 500
+#' y <- 50
+#' print( # prints out anything inside this to the console
+#'    paste0( #pastes items together, separated by a comma, with 0 char in between 
+#'       "x divided by y is ", 
+#'       x/y
+#'       )
+#'   )     
+#'    
 
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
@@ -72,7 +69,7 @@ print( # prints out anything inside this to the console
 
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "emkuechle/programs/20220126_practiceRMD.R",out_dir = "emkuechle/output",fig_dir = "figures",keep_md = FALSE)
+#' ezspin(file = "HannahHelmbrecht/programs/20220131_practiceRMD.R",out_dir = "HannahHelmbrecht/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
