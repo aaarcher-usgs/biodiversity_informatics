@@ -234,25 +234,23 @@ remove(list = ls())
 
 <p>This is in <em>italics</em> and this is in <strong>bold</strong></p>
 
-<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
+<p>Chunk 1: Here, we will make the code below print without being evaluated </p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
-print(
   print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     &quot;x divided by y is &quot;, 
     x/y
   )
 )
-)
 </code></pre>
 
-<pre><code>## [1] &quot;x divided by y is 4&quot;
-## [1] &quot;x divided by y is 4&quot;
-</code></pre>
+<p>Chunk 2: Here, we will evaluate x/y when x = 200, y = 50</p>
 
-<pre><code class="r">print( # prints out anything inside this to the console
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     &quot;x divided by y is &quot;, 
     x/y
@@ -263,9 +261,9 @@ print(
 <pre><code>## [1] &quot;x divided by y is 4&quot;
 </code></pre>
 
-<pre><code class="r">remove(list = ls())
+<p>Chunk 3: Here, we will evaluate x/y when x = 500, y = 50</p>
 
-x &lt;- 500
+<pre><code class="r">x &lt;- 500
 y &lt;- 50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
@@ -289,7 +287,7 @@ print( # prints out anything inside this to the console
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
-<p>ezspin(file = &ldquo;Sydney/programs/20222119_practiceRMD.R&rdquo;,out_dir = &ldquo;Sydney/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>ezspin(file = &ldquo;Sydney/programs/20220126_practiceRMD.R&rdquo;,out_dir = &ldquo;Sydney/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
 
 <p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
 
