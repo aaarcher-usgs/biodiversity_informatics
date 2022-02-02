@@ -1,8 +1,8 @@
-#' # Althea's First Reproducible Script
+#' # Mason's First Reproducible Script
 #' 
-#' Programmer: Althea (first name is acceptable to maintain privacy)
+#' Programmer: Mason
 #' 
-#' Date: January 17, 2022
+#' Date: January 26, 2022
 #' 
 #' 
 #' ## Header
