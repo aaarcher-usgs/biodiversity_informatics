@@ -58,6 +58,8 @@ remove(list = ls())
 #'       )
 #'   )     
 #'    
+#'    
+#'    
 
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
