@@ -78,8 +78,20 @@ print( # prints out anything inside this to the console
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
-#' 
-#' 
+#'  \pi(\omicron)=\sum
+#'  
+#'  
+#'  left | Right | Right
+#'  ----|------|-------
+#'   3 | \sigma | ^37^
+#'   
+#'
+#' chunk4
+#' here we will calculate the mean of number from 2 through 15
+ numbers.example <- 2:15
+ 
+ mean(numbers.example)
+ mean(2:15)
 #' 
 #' 
 #' 
