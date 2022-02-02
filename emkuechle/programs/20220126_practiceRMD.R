@@ -83,7 +83,6 @@ print( # prints out anything inside this to the console
 #'
 #' > good morning kanye
 #'
-#'
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
 #' ezspin(file = "emkuechle/programs/20220126_practiceRMD.R",out_dir = "emkuechle/output",fig_dir = "figures",keep_md = FALSE)
