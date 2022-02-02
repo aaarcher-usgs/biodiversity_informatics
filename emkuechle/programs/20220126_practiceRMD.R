@@ -75,6 +75,15 @@ print( # prints out anything inside this to the console
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
 
+#'$\pi (\omicron) = \sum^2_{i=1} \zeta_i + \frac{\theta}{\sigma}$
+#'
+#'$$
+#'\pi (\omicron) = \sum^2_{i=1} \zeta_i + \frac{\theta}{\sigma}
+#'$$
+#'
+#' > good morning kanye
+#'
+#'
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
 #' ezspin(file = "emkuechle/programs/20220126_practiceRMD.R",out_dir = "emkuechle/output",fig_dir = "figures",keep_md = FALSE)
