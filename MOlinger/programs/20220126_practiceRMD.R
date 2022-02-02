@@ -1,8 +1,8 @@
-#' # Althea's First Reproducible Script
+#' # Mason's First Reproducible Script
 #' 
-#' Programmer: Althea (first name is acceptable to maintain privacy)
+#' Programmer: Mason
 #' 
-#' Date: January 17, 2022
+#' Date: January 26, 2022
 #' 
 #' 
 #' ## Header
@@ -75,6 +75,7 @@ print( # prints out anything inside this to the console
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
+#' This is the equation: $y = 2x + b^2$
 #' 
 #' > block quote
 #' 
@@ -84,7 +85,7 @@ print( # prints out anything inside this to the console
 #'   2   |  1    |  2     | 1
 #'   3   |  2    |  1     | 4
 #'
-mean(2,4,6,8,10,12,14)
+mean(2,4,6,8,10,12)
 
   
 #' To test (and finalize) your work, spin the document to html using this code:

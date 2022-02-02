@@ -57,6 +57,9 @@ var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/<
 hljs.initHighlightingOnLoad();
 </script>
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 
 <style type="text/css">
@@ -234,18 +237,19 @@ remove(list = ls())
 
 <h4>This is a 4th-level header</h4>
 
-<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
+<p>Chunk 1: Here, we will <em>not</em> evaluate x/y when x = 200, y = 50</p>
 
-<p>x &lt;- 200
+<pre><code class="r">x &lt;- 200
 y &lt;- 50
 print( # prints out anything inside this to the console
- paste0( #pastes items together, separated by a comma, with 0 chars in between
-   &ldquo;x divided by y is &rdquo;, 
-   x/y
- )
-)</p>
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;, 
+    x/y
+  )
+)
+</code></pre>
 
-<p>Chunk 2:</p>
+<p>Chunk 2: Here, we will evaluate x/y when x = 200, y = 50</p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
@@ -260,7 +264,7 @@ print( # prints out anything inside this to the console
 <pre><code>## [1] &quot;x divided by y is 4&quot;
 </code></pre>
 
-<p>Chunk 3</p>
+<p>Chunk 3: Here, we will evaluate x/y when x = 500, y = 50</p>
 
 <pre><code class="r">x &lt;- 500
 y &lt;- 50
@@ -283,6 +287,16 @@ print( # prints out anything inside this to the console
 <li>Include a 3 (row) by 4 (column) table with fake data</li>
 <li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
 </ul>
+
+<p>\(\pi (\omicron) = \sum^2_{i=1} \zeta_i + \frac{\theta}{\sigma}\)</p>
+
+<p>\[
+\pi (\omicron) = \sum^2_{i=1} \zeta_i + \frac{\theta}{\sigma}
+\]</p>
+
+<blockquote>
+<p>good morning kanye</p>
+</blockquote>
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 

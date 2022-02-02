@@ -45,16 +45,18 @@ print( # prints out anything inside this to the console
 
 #' Chunk 2: To create an unevaluated code
 #' 
-#' + chunk2
-#x <- 200
-#y <- 50
-# print( # prints out anything inside this to the console
-#  paste0( #pastes items together, separated by a comma, with 0 chars in between
-#    "x divided by y is ", 
-#    x/y
-#  )
-#)
-#' chunk 3
+#+ chunk2, eval = FALSE
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+ paste0( #pastes items together, separated by a comma, with 0 chars in between
+   "x divided by y is ",
+   x/y
+ )
+)
+
+#' 
+#' chunk 3: Here, we will evaluate x/y when x = 200, y = 50
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
@@ -63,7 +65,8 @@ print( # prints out anything inside this to the console
     x/y
   )
 )
-#' chunk 4
+
+#' Chunk 4: Here, we will evaluate x/y when x = 500, y = 50
 x <- 500
 y <- 50
 print( # prints out anything inside this to the console

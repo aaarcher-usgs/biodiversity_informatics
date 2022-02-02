@@ -1,4 +1,4 @@
-#' # Althea's First Reproducible Script
+#' # Amy's First Reproducible Script
 #' 
 #' Programmer: Amy (first name is acceptable to maintain privacy)
 #' 
@@ -32,7 +32,7 @@ remove(list = ls())
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
-#+ chunk1
+#+ chunk1, eval = FALSE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
@@ -42,6 +42,35 @@ print( # prints out anything inside this to the console
   )
 )
 
+#' 
+#+
+#'
+#+
+#'
+#' Chunk 2: Here, we will valuate x/y when x = 200, y= 50
+#' 
+#+ chunk2
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ",
+    x/y
+  )
+)
+#'
+#' Chunk 3: Here, we will evaluate x/y when x = 500, y = 50
+#' 
+#+ chunk 3
+x <- 500
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes itmes together, separatee by a comma, with 0 chars in between
+    "x divided by y is ",
+    x/y
+  )
+)
+#'
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
 #' - Write an equation in LaTeX format
