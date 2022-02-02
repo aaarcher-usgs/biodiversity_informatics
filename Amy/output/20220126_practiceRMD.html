@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Althea&#39;s First Reproducible Script</title>
+<title>Amy&#39;s First Reproducible Script</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,7 +201,7 @@ hr {
 </head>
 
 <body>
-<h1>Althea&#39;s First Reproducible Script</h1>
+<h1>Amy&#39;s First Reproducible Script</h1>
 
 <p>Programmer: Amy (first name is acceptable to maintain privacy)</p>
 
@@ -246,7 +246,34 @@ print( # prints out anything inside this to the console
 )
 </code></pre>
 
+<p>Chunk 2: Here, we will valuate x/y when x = 200, y= 50</p>
+
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;,
+    x/y
+  )
+)
+</code></pre>
+
 <pre><code>## [1] &quot;x divided by y is 4&quot;
+</code></pre>
+
+<p>Chunk 3: Here, we will evaluate x/y when x = 500, y = 50</p>
+
+<pre><code class="r">x &lt;- 500
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes itmes together, separatee by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;,
+    x/y
+  )
+)
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 10&quot;
 </code></pre>
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>

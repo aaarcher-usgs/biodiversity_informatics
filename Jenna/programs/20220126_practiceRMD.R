@@ -44,15 +44,15 @@ remove(list = ls())
 #' 
 #' **this chunk will print without being evaluated**
 #' 
-#+ chunk1
-#  x <- 200
-#  y <- 50
-#  print( # prints out anything inside this to the console
-#   paste0( #pastes items together, separated by a comma, with 0 chars in between
-#     "x divided by y is ", 
-#     x/y
-#   )
-# )
+#+ chunk1, eval = FALSE
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ",
+    x/y
+  )
+)
 
 #' 
 #' Chunk 2: Here, we will evaluate x/y when x = 200, y = 50

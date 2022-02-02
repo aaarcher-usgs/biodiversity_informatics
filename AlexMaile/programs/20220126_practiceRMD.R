@@ -73,7 +73,7 @@ print( # prints out anything inside this to the console
   )
 )
 
-#' Chunk 4: Here, we will evaluate x/y when x = 200, y = 50
+#' Chunk 4: Here, we will evaluate x/y when x = 500, y = 50
 #' 
 #+ chunk4
 x <- 500
