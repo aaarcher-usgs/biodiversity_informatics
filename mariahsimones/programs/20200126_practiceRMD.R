@@ -76,7 +76,8 @@ print( # prints out anything inside this console
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
-#' Equation in LaTeX format: $\alpha + \beta = 6$
+#' Equation in LaTeX format: 
+#' $\alpha + \beta = 6$
 #'
 #'> block quote of choice
 #'
