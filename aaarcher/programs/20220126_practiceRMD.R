@@ -21,14 +21,22 @@ remove(list = ls())
 #' 
 #' ## Tasks to complete for this assignment for all students
 #' 
-#' - Turn this into a numerical list
-#' - Write some text in 3rd-level header format
+#' - Turn this into a numerical list 
+#' - Write some text in 3rd-level header format 
+#' 
+#' ### Here's my third level header
+#' 
 #' - Write "This is a 4th-level header" in 4th-level header format
 #' - Write some plain text with one word bolded and one italicized
 #' - Make the code below print without being evaluated
 #' - Create a new chunk of code that is a copy of the code below but that is evaluated
 #' - Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
+#' 
+#' ### Third level header is the neatest level of header
+#' 
+#' 
+
 
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
@@ -49,6 +57,13 @@ print( # prints out anything inside this to the console
 #' - Include a block quote of your choice
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
+#' 
+#' 
+#' 
+#' 
+#' 
+#' 
+#' 
 #' 
 
 #' To test (and finalize) your work, spin the document to html using this code:
