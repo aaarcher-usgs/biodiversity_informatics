@@ -234,7 +234,7 @@ remove(list = ls())
 
 <p>Here is some plain text, with some <em>italics</em> and some <strong>bold</strong> (step 4)</p>
 
-<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50 (step 5)</p>
+<p>Chunk 1: Here, we will <em>not</em> evaluate x/y when x = 200, y = 50 (step 5)</p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
@@ -246,7 +246,7 @@ print( # prints out anything inside this to the console
 )
 </code></pre>
 
-<p>Chunk 2: Evaluated code (step 6)</p>
+<p>Chunk 2: Here, we will evaluate x/y when x = 200, y = 50 (step 6)</p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
@@ -261,7 +261,7 @@ print( # prints out anything inside this to the console
 <pre><code>## [1] &quot;x divided by y is 4&quot;
 </code></pre>
 
-<p>Chunk 3: Evaluated code (step 7)</p>
+<p>Chunk 2: Here, we will evaluate x/y when x = 500, y = 50 (step 7)</p>
 
 <pre><code class="r">x &lt;- 500
 y &lt;- 50

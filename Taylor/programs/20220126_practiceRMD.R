@@ -35,7 +35,7 @@ remove(list = ls())
 #' 
 
 #' 
-#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50 (step 5)
+#' Chunk 1: Here, we will *not* evaluate x/y when x = 200, y = 50 (step 5)
 #' 
 #+ chunk1, eval=FALSE
 x <- 200
@@ -47,7 +47,7 @@ print( # prints out anything inside this to the console
   )
 )
 
-#' Chunk 2: Evaluated code (step 6)
+#' Chunk 2: Here, we will evaluate x/y when x = 200, y = 50 (step 6)
 #' 
 #+ chunk2
 x <- 200
@@ -59,7 +59,7 @@ print( # prints out anything inside this to the console
   )
 )
 
-#' Chunk 3: Evaluated code (step 7)
+#' Chunk 2: Here, we will evaluate x/y when x = 500, y = 50 (step 7)
 #' 
 #+ chunk3
 x <- 500
