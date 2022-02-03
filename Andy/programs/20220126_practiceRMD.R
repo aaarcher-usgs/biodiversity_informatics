@@ -12,7 +12,7 @@
 #+ header
 library(knitr)
 library(ezknitr)
-remove(list = ls())
+
 
 #' 
 #' ## Tasks to complete for this assignment for all students
@@ -34,17 +34,30 @@ remove(list = ls())
 #' 
 
 #' 
-#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
+#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50  
 #' 
-#+ chunk1
+#+ chunk1 
+x <- 200
+y <- 50
+
+  
+
+
+    
+    
+#' Chunk : Here, we will evaluate x/y when x = 200, y = 50  
+#' 
+#+ chunk2 
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     "x divided by y is ", 
-    x/y
+    x/y 
+    
   )
-)
+)  
+
 #' Chunk 3: Here, we will evaluate x/y when x = 500, y = 50
 #+ chunk3
 x <- 500
@@ -61,8 +74,28 @@ print(
 #' - Include a block quote of your choice
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
+#'
+#' $$\beta_5 * \zeta_5 + beta_3 x^8 $$
 #' 
-
+#' > "I wonder if frogs ever stop to think about the absurdity of life.
+#' >  Though I expect species forced to hop, must think about it a lot."
+#' 
+#' 
+ tab <- matrix(c(8, 9, 15, 44, 60, 2, 7, 20, 76, 32, 64, 1), ncol=4, nrow=3)
+ colnames(tab) <- c('Painted Turtle','Box Turtle','American Toad','Gray Treefrog')
+ rownames(tab) <- c('Average Number of Top hats', 'Existential Crisis', 'Turtle and the Hare Jokes')
+ tab <- as.table(tab)
+ print(tab)
+#' 
+#'
+#' Chunk 4: Here we will evaluate the mean of 8, 9, 10, 12, 15
+#+ chunk 4
+x <- c(8,9,10,12,15)
+print( 
+   mean(x)
+   )
+ 
+#' 
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
 #' ezspin(file = "Andy/programs/20220126_practiceRMD.R",out_dir = "Andy/output",fig_dir = "figures",keep_md = FALSE)
