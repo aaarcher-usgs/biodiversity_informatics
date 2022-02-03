@@ -1,8 +1,8 @@
-#' # Emmas's First Reproducible Script
+#' # Evan's First Reproducible Script
 #' 
-#' Programmer: Emma Kuechle
+#' Programmer: Evan (first name is acceptable to maintain privacy)
 #' 
-#' Date: January 26, 2022
+#' Date: January 17, 2022
 #' 
 #' 
 #' ## Header
@@ -26,46 +26,43 @@ remove(list = ls())
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
 
-#' *Work* **Here**:
-#' 
-#' ### This is my 3rd level header
-#' 
+#' ### Header
 #' #### This is a 4th-level header
-#' 
-#' Chunk 1: Here, we will *not* evaluate x/y when x = 200, y = 50
-#' 
+#' *Hiiii*
+#' __Heyyyyy__
+#'
+#' Chunk 1: Here, we will **NOT** evaluate x/y when x = 200, y = 50
 #+ chunk1, eval = FALSE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     "x divided by y is ", 
-    x/y
+    x/y 
   )
 )
 
-#' 
-#' Chunk 2: Here, we will evaluate x/y when x = 200, y = 50
-#' 
+#' Chunk 2 **IS** evaluated
+#+ chunk2, eval = TRUE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 char in between
-    "x divided by y is ",
-    x/y
-    )
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ", 
+    x/y 
   )
+)
 
-#' Chunk 3: Here, we will evaluate x/y when x = 500, y = 50
-#' 
+#' Chunk 3 will evaluate when x = 500 and y = 50
+#+ chunk3, eval = TRUE
 x <- 500
 y <- 50
 print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with a 0 char in between
-    "x divided by y is ",
-    x/y
-    )
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ", 
+    x/y 
   )
+)
 
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
@@ -74,18 +71,25 @@ print( # prints out anything inside this to the console
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
+#' > To infinity and beyond - Buzz Lightyear
+#' 
+#' $\pi$
+#' 
+#' Left / Right / Right
+#' 
 
-#'$\pi (\omicron) = \sum^2_{i=1} \zeta_i + \frac{\theta}{\sigma}$
+# Here we will calculate the mean of numbers from 2 through 15
+numbers.example <- 2:15
+# Calculate the mean
+mean(numbers.example)
+#' 
+#' There is more than one way to skin a deer
+#' 
 #'
-#'$$
-#'\pi (\omicron) = \sum^2_{i=1} \zeta_i + \frac{\theta}{\sigma}
-#'$$
-#'
-#' > good morning kanye
-#'
+
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "emkuechle/programs/20220126_practiceRMD.R",out_dir = "emkuechle/output",fig_dir = "figures",keep_md = FALSE)
+#' ezspin(file = "Evan/programs/20220126_practiceRMD.R",out_dir = "Evan/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
