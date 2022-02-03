@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Amy&#39;s First Reproducible Script</title>
+<title>Althea&#39;s First Reproducible Script</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,11 +201,11 @@ hr {
 </head>
 
 <body>
-<h1>Amy&#39;s First Reproducible Script</h1>
+<h1>Althea&#39;s First Reproducible Script</h1>
 
-<p>Programmer: Amy (first name is acceptable to maintain privacy)</p>
+<p>Programmer: Chris Krueth</p>
 
-<p>Date: January 26, 2022</p>
+<p>Date: February 2, 2022</p>
 
 <h2>Header</h2>
 
@@ -213,14 +213,17 @@ hr {
 
 <pre><code class="r">library(knitr)
 library(ezknitr)
-remove(list = ls())
+# This line clears the environment
+remove(list = ls()) 
 </code></pre>
+
+<p>superscript<sup>2</sup></p>
 
 <h2>Tasks to complete for this assignment for all students</h2>
 
 <ol>
-<li>Turn this into a numerical list</li>
-<li>Write some text in 3rd-level header format</li>
+<li>Turn this into a numerical list </li>
+<li>Write some text in 3rd-level header format </li>
 <li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format</li>
 <li>Write some plain text with one word bolded and one italicized</li>
 <li>Make the code below print without being evaluated</li>
@@ -228,11 +231,11 @@ remove(list = ls())
 <li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
 </ol>
 
-<h3>This is a 3rd-level header</h3>
-
-<p><strong>I</strong> <em>love</em> <strong>science</strong>!</p>
+<h3>Some text in 3rd-Level header</h3>
 
 <h4>This is a 4th-level header</h4>
+
+<p>Some text in <em>italics</em> some text in <strong>Bold</strong></p>
 
 <p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
 
@@ -246,13 +249,13 @@ print( # prints out anything inside this to the console
 )
 </code></pre>
 
-<p>Chunk 2: Here, we will valuate x/y when x = 200, y= 50</p>
+<p>Chunk 2: Here, we will evaluate x/y when x = 200, y = 50</p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;,
+    &quot;x divided by y is &quot;, 
     x/y
   )
 )
@@ -266,8 +269,8 @@ print( # prints out anything inside this to the console
 <pre><code class="r">x &lt;- 500
 y &lt;- 50
 print( # prints out anything inside this to the console
-  paste0( #pastes itmes together, separatee by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;,
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;, 
     x/y
   )
 )
@@ -282,12 +285,45 @@ print( # prints out anything inside this to the console
 <li>Write an equation in LaTeX format</li>
 <li>Include a block quote of your choice</li>
 <li>Include a 3 (row) by 4 (column) table with fake data</li>
-<li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
+<li><p>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</p>
+
+<p>\pi(\omicron)=\sum</p>
+
+<table><thead>
+<tr>
+<th>left</th>
+<th>Right</th>
+<th>Right</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>3</td>
+<td>\sigma</td>
+<td><sup>37^</sup></td>
+</tr>
+</tbody></table></li>
 </ul>
+
+<p>chunk4
+here we will calculate the mean of number from 2 through 15</p>
+
+<pre><code class="r"> numbers.example &lt;- 2:15
+
+ mean(numbers.example)
+</code></pre>
+
+<pre><code>## [1] 8.5
+</code></pre>
+
+<pre><code class="r"> mean(2:15)
+</code></pre>
+
+<pre><code>## [1] 8.5
+</code></pre>
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
-<p>ezspin(file = &ldquo;Amy/programs/20220126_practiceRMD.R&rdquo;,out_dir = &ldquo;Amy/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>ezspin(file = &ldquo;Chris/programs/20220202_practiceRMD.R&rdquo;,out_dir = &ldquo;Chris/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
 
 <p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
 

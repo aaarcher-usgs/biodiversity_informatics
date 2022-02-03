@@ -1,6 +1,6 @@
-#' # Sydney's First Reproducible Script
+#' # Nicole's First Reproducible Script
 #' 
-#' Programmer: Sydney (first name is acceptable to maintain privacy)
+#' Programmer: Nicole
 #' 
 #' Date: January 26, 2022
 #' 
@@ -25,42 +25,35 @@ remove(list = ls())
 #' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
+#' #### this is my 4th level header
+#' ### this is my 3rd level header
+#' *Work* is **here**
+#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
-#' ### I'm writing some text
-#' 
-#' #### This is a fourth level header
-#' 
-#' This is in *italics* and this is in **bold**
-
-#' 
-#' Chunk 1: Here, we will make the code below print without being evaluated 
-#' 
-#+ chunk1, eval = FALSE 
+#+ chunk1
+#' x <- 200
+#' y <- 50
+#' print( # prints out anything inside this to the console
+#' paste0( #pastes items together, separated by a comma, with 0 chars in between
+#'    "x divided by y is ", 
+#'    x/y
+#'  )
+#' )
 x <- 200
-y <- 50
-  print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    "x divided by y is ", 
-    x/y
-  )
-)
-#' Chunk 2: Here, we will evaluate x/y when x = 200, y = 50
-#+ chunk2
-x <- 200
-y <- 50
+y <-50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
-    "x divided by y is ", 
+    "x divided by y is",
     x/y
+    )
   )
-)
-#' Chunk 3: Here, we will evaluate x/y when x = 500, y = 50
-#+ chunk3
-x <- 500
-y <- 50
+#' Chunk 4: Here, we will evaluate x/y when x = 500, y = 50   
+#' Chunk4
+x<- 500
+y <-50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
-    "x divided by y is ", 
+    "x divided by y is",
     x/y
   )
 )
@@ -74,8 +67,8 @@ print( # prints out anything inside this to the console
 #' 
 
 #' To test (and finalize) your work, spin the document to html using this code:
+#' ezspin(file = "NGRuwell/programs/20220126_practiceRMD.R",out_dir = "NGruwell/output",fig_dir = "figures",keep_md = FALSE)
 #' 
-#' ezspin(file = "Sydney/programs/20220126_practiceRMD.R",out_dir = "Sydney/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Amy&#39;s First Reproducible Script</title>
+<title>Hannah&#39;s First Reproducible Script</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,11 +201,11 @@ hr {
 </head>
 
 <body>
-<h1>Amy&#39;s First Reproducible Script</h1>
+<h1>Hannah&#39;s First Reproducible Script</h1>
 
-<p>Programmer: Amy (first name is acceptable to maintain privacy)</p>
+<p>Programmer: Hannah Helmbrecht (first name is acceptable to maintain privacy)</p>
 
-<p>Date: January 26, 2022</p>
+<p>Date: January 31, 2022</p>
 
 <h2>Header</h2>
 
@@ -223,58 +223,43 @@ remove(list = ls())
 <li>Write some text in 3rd-level header format</li>
 <li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format</li>
 <li>Write some plain text with one word bolded and one italicized</li>
-<li>Make the code below print without being evaluated</li>
-<li>Create a new chunk of code that is a copy of the code below but that is evaluated</li>
+<li>Make the code below print without being evaluated
+6 Create a new chunk of code that is a copy of the code below but that is evaluated</li>
 <li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
 </ol>
 
-<h3>This is a 3rd-level header</h3>
+<p><strong>this is my work here</strong>: </p>
 
-<p><strong>I</strong> <em>love</em> <strong>science</strong>!</p>
+<h3>This is third level header format.</h3>
 
 <h4>This is a 4th-level header</h4>
 
+<h1>some plain text with one word <strong>bolded</strong> and one <em>italicized</em></h1>
+
 <p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
 
-<pre><code class="r">x &lt;- 200
+<p>x &lt;- 200
+y &lt;-50 </p>
+
+<p>Chunk 2:
+x &lt;-200
+y &lt;- 50
+print( # prints out anything inside this console
+   paste0( #pastes items together, separated by a comma, with 0 char in between
+   &ldquo;x divided by y is &rdquo;,
+   x/y
+     )
+   )</p>
+
+<p>Chunk 3:
+x &lt;- 500
 y &lt;- 50
 print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;, 
-    x/y
-  )
-)
-</code></pre>
-
-<p>Chunk 2: Here, we will valuate x/y when x = 200, y= 50</p>
-
-<pre><code class="r">x &lt;- 200
-y &lt;- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;,
-    x/y
-  )
-)
-</code></pre>
-
-<pre><code>## [1] &quot;x divided by y is 4&quot;
-</code></pre>
-
-<p>Chunk 3: Here, we will evaluate x/y when x = 500, y = 50</p>
-
-<pre><code class="r">x &lt;- 500
-y &lt;- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes itmes together, separatee by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;,
-    x/y
-  )
-)
-</code></pre>
-
-<pre><code>## [1] &quot;x divided by y is 10&quot;
-</code></pre>
+   paste0( #pastes items together, separated by a comma, with 0 char in between 
+      &ldquo;x divided by y is &rdquo;, 
+      x/y
+      )
+  )     </p>
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
 
@@ -287,7 +272,7 @@ print( # prints out anything inside this to the console
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
-<p>ezspin(file = &ldquo;Amy/programs/20220126_practiceRMD.R&rdquo;,out_dir = &ldquo;Amy/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>ezspin(file = &ldquo;HannahHelmbrecht/programs/20220131_practiceRMD.R&rdquo;,out_dir = &ldquo;HannahHelmbrecht/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
 
 <p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
 

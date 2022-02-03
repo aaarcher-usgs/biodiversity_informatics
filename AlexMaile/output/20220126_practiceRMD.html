@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Althea&#39;s First Reproducible Script</title>
+<title>Alex&#39;s First Reproducible Script</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -57,6 +57,9 @@ var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/<
 hljs.initHighlightingOnLoad();
 </script>
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 
 <style type="text/css">
@@ -201,11 +204,11 @@ hr {
 </head>
 
 <body>
-<h1>Althea&#39;s First Reproducible Script</h1>
+<h1>Alex&#39;s First Reproducible Script</h1>
 
-<p>Programmer: Althea (first name is acceptable to maintain privacy)</p>
+<p>Programmer: Alex Maile</p>
 
-<p>Date: January 17, 2022</p>
+<p>Date: January 26, 2022</p>
 
 <h2>Header</h2>
 
@@ -213,12 +216,15 @@ hr {
 
 <pre><code class="r">library(knitr)
 library(ezknitr)
-remove(list = ls())
+# This line clears the environment
+remove(list = ls()) 
 </code></pre>
+
+<p>superscript<sup>2</sup>  <em>&ldquo;if the teacher doesn&#39;t know it why should I&rdquo;</em></p>
 
 <h2>Tasks to complete for this assignment for all students</h2>
 
-<ul>
+<ol>
 <li>Turn this into a numerical list</li>
 <li>Write some text in 3rd-level header format</li>
 <li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format</li>
@@ -226,7 +232,13 @@ remove(list = ls())
 <li>Make the code below print without being evaluated</li>
 <li>Create a new chunk of code that is a copy of the code below but that is evaluated</li>
 <li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
-</ul>
+</ol>
+
+<h3>Fishes are superior to everything</h3>
+
+<h4>This is a 4th-level header</h4>
+
+<p>but <strong>why</strong> are fishes the <em>best?</em></p>
 
 <p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
 
@@ -243,7 +255,53 @@ print( # prints out anything inside this to the console
 <pre><code>## [1] &quot;x divided by y is 4&quot;
 </code></pre>
 
-<h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
+<p>Chunk 2: To create an unevaluated code</p>
+
+<ul>
+<li>chunk2</li>
+</ul>
+
+<pre><code class="r">#x &lt;- 200
+#y &lt;- 50
+#print( # prints out anything inside this to the console
+#  paste0( #pastes items together, separated by a comma, with 0 chars in between
+#    &quot;x divided by y is &quot;, 
+#    x/y
+#  )
+#)
+</code></pre>
+
+<p>Chunk 3: Here, we will re-evaluate x/y when x = 200, y = 50</p>
+
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;, 
+    x/y
+  )
+)
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 4&quot;
+</code></pre>
+
+<p>Chunk 4: Here, we will evaluate x/y when x = 500, y = 50</p>
+
+<pre><code class="r">x &lt;- 500
+y &lt;- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;x divided by y is &quot;, 
+    x/y
+  )
+)
+</code></pre>
+
+<pre><code>## [1] &quot;x divided by y is 10&quot;
+</code></pre>
+
+<p>## Additional challenge tasks (recommended for 475; required for 575 students)</p>
 
 <ul>
 <li>Write an equation in LaTeX format</li>
@@ -252,9 +310,47 @@ print( # prints out anything inside this to the console
 <li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
 </ul>
 
+<p>\[
+FISHES>everything
+\]
+\[
+Everything=Sucks
+\]
+That means&hellip;
+\[
+FISHES=Don&rsquo;t*Suck
+\]</p>
+
+<h2>These are words to live by</h2>
+
+<blockquote>
+<p>My logic is undeniable</p>
+</blockquote>
+
+<p>|Why|Fishes|Are|Better|</p>
+
+<p>|Because|They|Just|Are|</p>
+
+<p>|Because|They|Just|Are|</p>
+
+<p>Chunk ???? (so many chunks): Here we will discover the world of MEANS</p>
+
+<pre><code class="r">x &lt;- mean(c(1, 22, 15, 30, 40))
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    &quot;The mean of 1, 22, 15, 30, 40 is &quot;, 
+
+    x
+  )
+)
+</code></pre>
+
+<pre><code>## [1] &quot;The mean of 1, 22, 15, 30, 40 is 21.6&quot;
+</code></pre>
+
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
-<p>ezspin(file = &ldquo;aaarcher/programs/20220119_practiceRMD.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>ezspin(file = &ldquo;AlexMaile/programs/20220126_practiceRMD.R&rdquo;,out_dir = &ldquo;AlexMaile/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
 
 <p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
 

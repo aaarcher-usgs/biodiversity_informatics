@@ -19,26 +19,21 @@ remove(list = ls())
 #' ## Tasks to complete for this assignment for all students
 #' 
 #' 1. Turn this into a numerical list
-#' 
 #' 2. Write some text in 3rd-level header format
-#' ### third level header Github
-#' 
 #' 3. Write "This is a 4th-level header" in 4th-level header format
-#' #### "This is a 4th-level header"
-#' 
 #' 4. Write some plain text with one word bolded and one italicized
-#' 
 #' 5. Make the code below print without being evaluated
-#' 
 #' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
-#' 
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
+#' ### third level header Github
+#' #### "This is a 4th-level header"
+#' this is **bold** and this is *italics*
 
 #' 
-#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
+#' Chunk 1: unevaluated 
 #' 
-#+ chunk1
+#+ chunk1, eval = FALSE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
@@ -48,6 +43,29 @@ print( # prints out anything inside this to the console
   )
 )
 
+#'Chunk 2: Here, we will evaluate x/y when x = 200, y = 50
+#' 
+#+ chunk2
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ", 
+    x/y
+  )
+)
+
+#'Chunk 3: Here, we will evaluate x/y when x = 500, y = 50
+#' 
+#+ chunk3
+x <- 500
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ", 
+    x/y
+  )
+)
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
 #' - Write an equation in LaTeX format
