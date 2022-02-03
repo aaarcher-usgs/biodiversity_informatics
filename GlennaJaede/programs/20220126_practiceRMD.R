@@ -1,8 +1,8 @@
-#' # Althea's First Reproducible Script
+#' # Glenna's First Reproducible Script
 #' 
-#' Programmer: Althea (first name is acceptable to maintain privacy)
+#' Programmer: Glenna J (first name is acceptable to maintain privacy)
 #' 
-#' Date: January 17, 2022
+#' Date: January 26, 2022
 #' 
 #' 
 #' ## Header
@@ -17,14 +17,26 @@ remove(list = ls())
 #' 
 #' ## Tasks to complete for this assignment for all students
 #' 
-#' - Turn this into a numerical list
-#' - Write some text in 3rd-level header format
-#' - Write "This is a 4th-level header" in 4th-level header format
-#' - Write some plain text with one word bolded and one italicized
-#' - Make the code below print without being evaluated
-#' - Create a new chunk of code that is a copy of the code below but that is evaluated
-#' - Create a third chunk of code that evaluates x/y when x = 500, y = 50
+#' 1. Turn this into a numerical list
 #' 
+#' 2. Write some text in 3rd-level header format
+#' 
+#' 3. Write "This is a 4th-level header" in 4th-level header format
+#' 
+#' 4. Write some plain text with one word bolded and one italicized
+#' 
+#' 5. Make the code below print without being evaluated
+#' 
+#' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
+#' 
+#' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
+#' 
+#' 
+#' 
+#' ### OOoOOooOoOo Here is the 3rd level header and here comes the 4th!
+#' #### This is a 4th-level header
+#' 
+#' __Zoo-Wee Mama!__ This is stuff is _complicated_.
 
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
@@ -39,6 +51,20 @@ print( # prints out anything inside this to the console
   )
 )
 
+#' Chunk 2: To create an unevaluated code
+#' 
+#' + chunk2
+#x <- 200
+#y <- 50
+#print( # prints out anything inside this to the console
+#  paste0( #pastes items together, separated by a comma, with 0 chars in between
+#    "x divided by y is ", 
+#    x/y
+#  )
+#)
+
+
+
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
 #' - Write an equation in LaTeX format
@@ -49,9 +75,12 @@ print( # prints out anything inside this to the console
 
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "aaarcher/programs/20220119_practiceRMD.R",out_dir = "aaarcher/output",fig_dir = "figures",keep_md = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220126_practiceRMD.R",out_dir = "GlennaJaede/output",fig_dir = "figures",keep_md = FALSE)
 #' 
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
 #' Remember to commit > pull > push to submit your work to GitHub. Do this 
 #' frequently!
+#' 
+#' 
+#' 
