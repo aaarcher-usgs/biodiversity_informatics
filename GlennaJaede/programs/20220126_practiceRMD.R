@@ -41,7 +41,7 @@ remove(list = ls())
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
-#+ chunk1
+#+ chunk1, eval = FALSE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
@@ -51,17 +51,27 @@ print( # prints out anything inside this to the console
   )
 )
 
-#' Chunk 2: To create an unevaluated code
-#' 
-#' + chunk2
-#x <- 200
-#y <- 50
-#print( # prints out anything inside this to the console
-#  paste0( #pastes items together, separated by a comma, with 0 chars in between
-#    "x divided by y is ", 
-#    x/y
-#  )
-#)
+#' Chunk 2 **IS** evaluated
+#'+ chunk2, eval = TRUE
+x <- 200
+y <- 50
+print( # prints out anything inside this to the console
+  paste0( #pastes items together, separated by a comma, with 0 chars in between
+    "x divided by y is ", 
+    x/y
+  )
+)
+
+#' Chunk 3 will evaluate when x = 500 and y = 50
+#' #+ chunk3, eval = TRUE
+x <- 500
+y <- 50
+print( #prints out anything inside this to theconsol
+  paste0( #pastes item together, separated by a comma, with 0 chunk
+    "x divided by y is ",
+    x/y
+  )
+)
 
 
 
@@ -72,11 +82,24 @@ print( # prints out anything inside this to the console
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
+#' 
+#' > To infinity and beyond - Buzz Lightyear
+#'
+#' $\pi$
+#' 
+#' Left / Right / Right
+#' 
 
+#' # Here we will calculate the mean of numbers fron 2 through 15
+Numbers.example <- 2:15
+# Calculate the mean
+mean(numbers.example)
+#'
+#'There is more than one way to skin a deer
 #' To test (and finalize) your work, spin the document to html using this code:
 #' 
 #' ezspin(file = "GlennaJaede/programs/20220126_practiceRMD.R",out_dir = "GlennaJaede/output",fig_dir = "figures",keep_md = FALSE)
-#' 
+#'
 #' **Be careful not to overwrite anyone else's output!!**
 #' 
 #' Remember to commit > pull > push to submit your work to GitHub. Do this 
