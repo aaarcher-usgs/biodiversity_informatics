@@ -38,8 +38,9 @@ remove(list = ls())
 #' 
 #' __Zoo-Wee Mama!__ This is stuff is _complicated_.
 
-#' #' 
-#' Chunk 1: Here, we will **NOT** evaluate x/y when x = 200, y = 50
+#'
+#'
+#' #### Chunk 1: Here, we will not evaluate x/y when x = 200, y = 50
 #' 
 #+ chunk1, eval = FALSE
 x <- 200
@@ -51,7 +52,7 @@ print( # prints out anything inside this to the console
   )
 )
 
-#' Chunk 2: x/y when x = 200, y = 50
+#' #### Chunk 2: x/y when x = 200, y = 50
 #' 
 #+ chunk2
 x <- 200
@@ -64,7 +65,7 @@ print( # prints out anything inside this to the console
 )
 
 
-#' Chunk 3 evaluate when x = 500 and y = 50
+#' #### Chunk 3 evaluate when x = 500 and y = 50
 #+ chunk3, eval = TRUE
 x <- 500
 y <- 50
@@ -98,7 +99,7 @@ print( #prints out anything inside this to theconsol
 #' 
 #' 
 #+ chunk4
-# Here, we will calculate the mean of numbers from 2 through 15
+# Calculate the mean of numbers from 2 through 15
 
 # Enter data here:
 numbers.example <- 2:15
