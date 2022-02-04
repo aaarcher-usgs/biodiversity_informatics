@@ -38,8 +38,8 @@ remove(list = ls())
 #' 
 #' __Zoo-Wee Mama!__ This is stuff is _complicated_.
 
-#' 
-#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
+#' #' 
+#' Chunk 1: Here, we will **NOT** evaluate x/y when x = 200, y = 50
 #' 
 #+ chunk1, eval = FALSE
 x <- 200
@@ -51,8 +51,9 @@ print( # prints out anything inside this to the console
   )
 )
 
-#' Chunk 2 **IS** evaluated
-#'+ chunk2, eval = TRUE
+#' Chunk 2: x/y when x = 200, y = 50
+#' 
+#+ chunk2
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
@@ -62,8 +63,9 @@ print( # prints out anything inside this to the console
   )
 )
 
-#' Chunk 3 will evaluate when x = 500 and y = 50
-#' #+ chunk3, eval = TRUE
+
+#' Chunk 3 evaluate when x = 500 and y = 50
+#+ chunk3, eval = TRUE
 x <- 500
 y <- 50
 print( #prints out anything inside this to theconsol
@@ -82,18 +84,32 @@ print( #prints out anything inside this to theconsol
 #' - Include a 3 (row) by 4 (column) table with fake data
 #' - Include another chunk of code that uses the "mean()" function, and make sure its documented
 #' 
-#' 
-#' > To infinity and beyond - Buzz Lightyear
 #'
-#' $\pi$
 #' 
-#' Left / Right / Right
+#' Left | Right | Right
+#' -----| ----- | -----
+#' 3 | 4.5 | two
+#' 3.14159 | $\alpha$ | 3
 #' 
+#' 
+#' 
+#' > To infinity and beyond! - Buzz
+#' 
+#' 
+#' 
+#+ chunk4
+# Here, we will calculate the mean of numbers from 2 through 15
 
-#' # Here we will calculate the mean of numbers fron 2 through 15
-Numbers.example <- 2:15
-# Calculate the mean
+# Enter data here:
+numbers.example <- 2:15
+
+# Calculate mean here:
 mean(numbers.example)
+
+# Another way to do the same thing
+mean(2:15)
+
+
 #'
 #'There is more than one way to skin a deer
 #' To test (and finalize) your work, spin the document to html using this code:

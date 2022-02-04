@@ -235,9 +235,9 @@ remove(list = ls())
 
 <h4>This is a 4th-level header</h4>
 
-<p><strong>Zoo-Wee Mama!</strong> This is stuff is <em>complicated</em>.</p>
-
-<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
+<p><strong>Zoo-Wee Mama!</strong> This is stuff is <em>complicated</em>.
+#&#39; 
+Chunk 1: Here, we will <strong>NOT</strong> evaluate x/y when x = 200, y = 50</p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
@@ -249,11 +249,7 @@ print( # prints out anything inside this to the console
 )
 </code></pre>
 
-<p>Chunk 2 <strong>IS</strong> evaluated</p>
-
-<ul>
-<li>chunk2, eval = TRUE</li>
-</ul>
+<p>Chunk 2: x/y when x = 200, y = 50</p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
@@ -268,8 +264,7 @@ print( # prints out anything inside this to the console
 <pre><code>## [1] &quot;x divided by y is 4&quot;
 </code></pre>
 
-<p>Chunk 3 will evaluate when x = 500 and y = 50
-#+ chunk3, eval = TRUE</p>
+<p>Chunk 3 evaluate when x = 500 and y = 50</p>
 
 <pre><code class="r">x &lt;- 500
 y &lt;- 50
@@ -293,22 +288,46 @@ print( #prints out anything inside this to theconsol
 <li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
 </ul>
 
+<table><thead>
+<tr>
+<th>Left</th>
+<th>Right</th>
+<th>Right</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>3</td>
+<td>4.5</td>
+<td>two</td>
+</tr>
+<tr>
+<td>3.14159</td>
+<td>\(\alpha\)</td>
+<td>3</td>
+</tr>
+</tbody></table>
+
 <blockquote>
-<p>To infinity and beyond - Buzz Lightyear</p>
+<p>To infinity and beyond! - Buzz</p>
 </blockquote>
 
-<p>\(\pi\)</p>
+<pre><code class="r"># Here, we will calculate the mean of numbers from 2 through 15
 
-<p>Left / Right / Right</p>
+# Enter data here:
+numbers.example &lt;- 2:15
 
-<h1>Here we will calculate the mean of numbers fron 2 through 15</h1>
-
-<pre><code class="r">Numbers.example &lt;- 2:15
-# Calculate the mean
+# Calculate mean here:
 mean(numbers.example)
 </code></pre>
 
-<pre><code>## Error in mean(numbers.example): object &#39;numbers.example&#39; not found
+<pre><code>## [1] 8.5
+</code></pre>
+
+<pre><code class="r"># Another way to do the same thing
+mean(2:15)
+</code></pre>
+
+<pre><code>## [1] 8.5
 </code></pre>
 
 <p>There is more than one way to skin a deer
