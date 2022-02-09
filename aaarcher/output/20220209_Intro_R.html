@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Althea&#39;s First Reproducible Script</title>
+<title>Introduction to R</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -57,6 +57,9 @@ var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/<
 hljs.initHighlightingOnLoad();
 </script>
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 
 <style type="text/css">
@@ -201,63 +204,82 @@ hr {
 </head>
 
 <body>
-<h1>Althea&#39;s First Reproducible Script</h1>
+<h1>Introduction to R</h1>
 
-<p>Programmer: Althea Archer</p>
+<p>Biodiversity Informatics (BIOL 475/575)</p>
 
-<p>Date: January 17, 2022</p>
+<p>February 9, 2022</p>
 
-<h2>Header</h2>
+<p>Programmer: Althea</p>
 
-<pre><code class="r">library(knitr)
+<p>In this program, we will learn basic programming and data skills with 
+Program R</p>
+
+<h3>Header</h3>
+
+<pre><code class="r"># Load Libraries
 library(ezknitr)
-remove(list = ls())
+
+
+# Clear Environment &amp; Set Seed
+remove(list=ls())
+set.seed(71587)
 </code></pre>
 
-<h2>Tasks to complete for this assignment for all students</h2>
+<hr/>
 
-<ul>
-<li>Turn this into a numerical list</li>
-<li>Write some text in 3rd-level header format</li>
-<li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format</li>
-<li>Write some plain text with one word bolded and one italicized</li>
-<li>Make the code below print without being evaluated</li>
-<li>Create a new chunk of code that is a copy of the code below but that is evaluated</li>
-<li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
-</ul>
+<h2>1. Arithmetic in R</h2>
 
-<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
+<p>Calculate 4 plus 3</p>
 
-<pre><code class="r">x &lt;- 200
-y &lt;- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    &quot;x divided by y is &quot;, 
-    x/y
-  )
-)
-</code></pre>
+<p>Calculate 4 times 3</p>
 
-<pre><code>## [1] &quot;x divided by y is 4&quot;
-</code></pre>
+<p>Calculate 4 minus 3</p>
 
-<h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
+<p>Calculate 4 - 3</p>
 
-<ul>
-<li>Write an equation in LaTeX format</li>
-<li>Include a block quote of your choice</li>
-<li>Include a 3 (row) by 4 (column) table with fake data</li>
-<li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
-</ul>
+<p>Calculate 4 minus 3/5</p>
 
-<p>To test (and finalize) your work, spin the document to html using this code:</p>
+<p>Calculate 4 - 3 divided by 5</p>
 
-<p>ezspin(file = &ldquo;aaarcher/programs/20220119_practiceRMD.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>Look up the help documentation of the function &ldquo;log&rdquo; using a question mark:</p>
 
-<p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
+<p>Consider this: Why did I make the chunk option above &ldquo;eval = F&rdquo;?</p>
 
-<p>Remember to commit &gt; pull &gt; push to submit your work to GitHub. Do this 
-frequently!</p>
+<p>Calculate the square root of 25 using a function</p>
+
+<p>Calculate the natural log of 100 using a function</p>
+
+<p>Calculate the base-10 log of 100 using a function</p>
+
+<p>Calculate the square root of 3.5, but round to 2 digits, using 2 functions</p>
+
+<h3>Practice Exercises:</h3>
+
+<p><em>Make sure each of these tasks is properly, individually documented 
+with html text like those above.</em></p>
+
+<ol>
+<li>Calculate factorial of 5 using a function</li>
+<li>Calculate \(5^2 + 5^{-1} - \pi\) (Look at the html to see the formula)</li>
+<li>Print \(\pi\) with 10 digits</li>
+<li>Calculate the absolute value of -23</li>
+</ol>
+
+<hr/>
+
+<h2>2. Variables, Vectors, and Assignments</h2>
+
+<p>Assign a new variable &ldquo;x&rdquo; as 3.1</p>
+
+<p>Print the value of x</p>
+
+<p>Assign a new variable &ldquo;y&rdquo; as exp(2*x)-1 AND print the value on one line</p>
+
+<h3>Footer</h3>
+
+<p>spin this with:
+ezspin(file = &ldquo;aaarcher/programs/20220209_intro_R.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

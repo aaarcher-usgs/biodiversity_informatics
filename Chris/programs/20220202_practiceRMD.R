@@ -40,7 +40,7 @@ remove(list = ls())
 #' 
 #' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
 #' 
-#+ chunk1, eval= FALSE
+#+ chunk1, eval=FALSE
 x <- 200
 y <- 50
 print( # prints out anything inside this to the console
