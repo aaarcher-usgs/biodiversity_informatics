@@ -22,44 +22,39 @@ remove(list = ls())
 #' 3. Write "This is a 4th-level header" in 4th-level header format
 #' 4. Write some plain text with one word bolded and one italicized
 #' 5. Make the code below print without being evaluated
-#' 6 Create a new chunk of code that is a copy of the code below but that is evaluated
+#' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
 #' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
 #' 
 #' 
-#' **this is my work here**: 
-#' ### This is third level header format.
+#' **updated work for better score**
+#' Plain text with one word **bolded** and one *italicized*
+#' ### Third level header is the neatest level of header 
 #' #### This is a 4th-level header
 #' 
-#' # some plain text with one word __bolded__ and one *italicized*
-#' 
-#' Chunk 1: Here, we will evaluate x/y when x = 200, y = 50
-#+ chunk 1
-#' x <- 200
-#' y <-50 
-#' 
-#' Chunk 2:
-#' x <-200
-#' y <- 50
-#' print( # prints out anything inside this console
-#'    paste0( #pastes items together, separated by a comma, with 0 char in between
-#'    "x divided by y is ",
-#'    x/y
-#'      )
+#' #+ chunk1, eval = FALSE
+ x <- 200
+ y <- 50
+#' print( #prints out anything inside this to the console 
+#'    paste0( #pastes items together, separated by a comma, with 0 chars in between
+#'      "x divided by y is ",
+#'      x/y 
 #'    )
-#'    
-#'    
-#' Chunk 3:
-#' x <- 500
-#' y <- 50
-#' print( # prints out anything inside this to the console
-#'    paste0( #pastes items together, separated by a comma, with 0 char in between 
-#'       "x divided by y is ", 
-#'       x/y
-#'       )
-#'   )     
-#'    
-#'    
-#'    
+#'  )
+#'  
+#'  #+ chunk2
+ x <- 200 
+y <- 50
+"x divided by y is ", 
+  x/y
+
+#'  
+#'  #+ chunk3
+  x <- 500
+ y <- 50 
+#'  print( #prints out anything inside this to the console
+#'     paste0( #pastes items together, separated by a comma, with 0 chars in between
+#'      "x divided by y is ",
+#'      
 
 #' ## Additional challenge tasks (recommended for 475; required for 575 students)
 #' 
