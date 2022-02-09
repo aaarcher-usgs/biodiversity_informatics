@@ -91,7 +91,7 @@ factorial(5)
 round(pi,digits=10)
 #' 4. Calculate the absolute value of -23
 #' 
-
+abs(-23)
 
 
 
