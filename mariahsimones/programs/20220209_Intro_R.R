@@ -4,7 +4,7 @@
 #' 
 #' February 9, 2022
 #' 
-#' Programmer: Emma
+#' Programmer: Mariah Simones
 #' 
 #' In this program, we will learn basic programming and data skills with 
 #' Program R
@@ -26,33 +26,31 @@ set.seed(71587)
 #' ## 1. Arithmetic in R
 #' 
 #' Calculate 4 plus 3
-4 + 3
+#' 
 
 #' 
 #' Calculate 4 times 3
-4 * 3
 
 #' 
 #' Calculate 4 minus 3
-4 - 3
 
 #' 
 #' Calculate 4 - 3
-4 - 3
 
 #' 
 #' Calculate 4 minus 3/5
-4 - (3 / 5)
+#' 
+
 
 #' 
 #' Calculate 4 - 3 divided by 5
-(4 - 3) / 5
+#' 
 
 #'
 #' Look up the help documentation of the function "log" using a question mark:
 #' 
 #+ helpdoc, eval = F
-?log()
+
 
 #' Consider this: Why did I make the chunk option above "eval = F"?
 #' 
@@ -60,19 +58,19 @@ set.seed(71587)
 
 #' 
 #' Calculate the square root of 25 using a function
-sqrt(25)
+#' 
+
 
 #' 
 #' Calculate the natural log of 100 using a function
-log(100)
+
 
 #' 
 #' Calculate the base-10 log of 100 using a function
-log10(100)
 
 #' 
 #' Calculate the square root of 3.5, but round to 2 digits, using 2 functions
-round(x = sqrt(3.5), digits = 2)
+#' 
 
 #' 
 #' ### Practice Exercises:
@@ -155,4 +153,4 @@ c(1,2) + c(0,0,0)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "emkuechle/programs/20220209_intro_R.R",out_dir = "emkuechle/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220209_intro_R.R",out_dir = "mariahsimones/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
