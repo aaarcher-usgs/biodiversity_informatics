@@ -49,7 +49,7 @@ set.seed(71587)
 #' Look up the help documentation of the function "log" using a question mark:
 #' 
 #+ helpdoc, eval = F
-
+?log()
 #' Consider this: Why did I make the chunk option above "eval = F"?
 #' 
 
@@ -69,7 +69,7 @@ log10(100)
 #' 
 #' Calculate the square root of 3.5, but round to 2 digits, using 2 functions
 #' 
-
+round(sqrt(3.5), 2)
 #' 
 #' ### Practice Exercises:
 #' 
