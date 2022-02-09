@@ -210,7 +210,7 @@ hr {
 
 <p>February 9, 2022</p>
 
-<p>Programmer: Althea</p>
+<p>Programmer: Erin</p>
 
 <p>In this program, we will learn basic programming and data skills with 
 Program R</p>
@@ -232,27 +232,90 @@ set.seed(71587)
 
 <p>Calculate 4 plus 3</p>
 
+<pre><code class="r"> 4 + 3 
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
 <p>Calculate 4 times 3</p>
+
+<pre><code class="r">4 * 3
+</code></pre>
+
+<pre><code>## [1] 12
+</code></pre>
 
 <p>Calculate 4 minus 3</p>
 
+<pre><code class="r">4 - 3
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
 <p>Calculate 4 - 3</p>
+
+<pre><code class="r">4 - 3
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
 
 <p>Calculate 4 minus 3/5</p>
 
+<pre><code class="r">4 - (3/5)
+</code></pre>
+
+<pre><code>## [1] 3.4
+</code></pre>
+
 <p>Calculate 4 - 3 divided by 5</p>
 
+<pre><code class="r">(4-3)/5
+</code></pre>
+
+<pre><code>## [1] 0.2
+</code></pre>
+
 <p>Look up the help documentation of the function &ldquo;log&rdquo; using a question mark:</p>
+
+<pre><code class="r">?log()
+</code></pre>
 
 <p>Consider this: Why did I make the chunk option above &ldquo;eval = F&rdquo;?</p>
 
 <p>Calculate the square root of 25 using a function</p>
 
+<pre><code class="r">sqrt(25)
+</code></pre>
+
+<pre><code>## [1] 5
+</code></pre>
+
 <p>Calculate the natural log of 100 using a function</p>
+
+<pre><code class="r">log(100)
+</code></pre>
+
+<pre><code>## [1] 4.60517
+</code></pre>
 
 <p>Calculate the base-10 log of 100 using a function</p>
 
+<pre><code class="r">log10(100)
+</code></pre>
+
+<pre><code>## [1] 2
+</code></pre>
+
 <p>Calculate the square root of 3.5, but round to 2 digits, using 2 functions</p>
+
+<pre><code class="r">round(sqrt(3.5),2)
+</code></pre>
+
+<pre><code>## [1] 1.87
+</code></pre>
 
 <h3>Practice Exercises:</h3>
 
@@ -277,7 +340,31 @@ with html text like those above.</em></p>
 
 <p>Print the value of x</p>
 
+<pre><code class="r">x
+</code></pre>
+
+<pre><code>## [1] 3.1
+</code></pre>
+
+<pre><code class="r">print(x)
+</code></pre>
+
+<pre><code>## [1] 3.1
+</code></pre>
+
+<pre><code class="r">(x)
+</code></pre>
+
+<pre><code>## [1] 3.1
+</code></pre>
+
 <p>Assign a new variable &ldquo;y&rdquo; as exp(2*x)-1 AND print the value on one line</p>
+
+<pre><code class="r">(y &lt;- exp(2 * x) - 1)
+</code></pre>
+
+<pre><code>## [1] 491.749
+</code></pre>
 
 <p>A vector is a container of contiguous data, of any length 1 or more. In R, we 
 store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of length 1:</p>
@@ -290,17 +377,56 @@ store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of lengt
 
 <p>To create longer vectors we concatenate or combine them with function &ldquo;c()&rdquo;</p>
 
+<pre><code class="r">x &lt;- c(2, 3, 4, 5, 6)
+length(x)
+</code></pre>
+
+<pre><code>## [1] 5
+</code></pre>
+
 <p>Create a vector called &ldquo;x&rdquo; with values of 56, 95.3, and 0.4
 and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
+
+<pre><code class="r">x &lt;- c(56, 95.3, 0.4)
+y &lt;- c(3.2, 1.1, 0.2)
+length(x)
+</code></pre>
+
+<pre><code>## [1] 3
+</code></pre>
+
+<pre><code class="r">length(y)
+</code></pre>
+
+<pre><code>## [1] 3
+</code></pre>
 
 <p>Vectors retain their inherent order, through vectorization, which makes it
 easy to loop over each vector element-wise.</p>
 
 <p>Demonstrate this with x + y:</p>
 
+<pre><code class="r">x + y
+</code></pre>
+
+<pre><code>## [1] 59.2 96.4  0.6
+</code></pre>
+
 <p>x-y:</p>
 
+<pre><code class="r">x - y
+</code></pre>
+
+<pre><code>## [1] 52.8 94.2  0.2
+</code></pre>
+
 <p>x/y:</p>
+
+<pre><code class="r">x/y
+</code></pre>
+
+<pre><code>## [1] 17.50000 86.63636  2.00000
+</code></pre>
 
 <p>Vectors also loop over in interesting ways. Notice here what happens when you
 add together vectors of varying lengths:</p>
@@ -328,7 +454,7 @@ happening!</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;aaarcher/programs/20220209_intro_R.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;ebengtson/programs/20220209_intro_R.R&rdquo;,out_dir = &ldquo;ebengtson/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
