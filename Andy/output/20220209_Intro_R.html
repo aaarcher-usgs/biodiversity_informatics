@@ -210,7 +210,7 @@ hr {
 
 <p>February 9, 2022</p>
 
-<p>Programmer: Emma</p>
+<p>Programmer: Andy</p>
 
 <p>In this program, we will learn basic programming and data skills with 
 Program R</p>
@@ -219,6 +219,7 @@ Program R</p>
 
 <pre><code class="r"># Load Libraries
 library(ezknitr)
+
 
 
 # Clear Environment &amp; Set Seed
@@ -232,7 +233,7 @@ set.seed(71587)
 
 <p>Calculate 4 plus 3</p>
 
-<pre><code class="r">4 + 3
+<pre><code class="r">4+3
 </code></pre>
 
 <pre><code>## [1] 7
@@ -240,7 +241,7 @@ set.seed(71587)
 
 <p>Calculate 4 times 3</p>
 
-<pre><code class="r">4 * 3
+<pre><code class="r">4*3
 </code></pre>
 
 <pre><code>## [1] 12
@@ -248,23 +249,23 @@ set.seed(71587)
 
 <p>Calculate 4 minus 3</p>
 
-<pre><code class="r">4 - 3
+<pre><code class="r">4-3
 </code></pre>
 
 <pre><code>## [1] 1
 </code></pre>
 
-<p>Calculate 4 - 3</p>
+<p>Calculate 4 / 3</p>
 
-<pre><code class="r">4 - 3
+<pre><code class="r">4/3
 </code></pre>
 
-<pre><code>## [1] 1
+<pre><code>## [1] 1.333333
 </code></pre>
 
 <p>Calculate 4 minus 3/5</p>
 
-<pre><code class="r">4 - (3 / 5)
+<pre><code class="r">4-(3/5)
 </code></pre>
 
 <pre><code>## [1] 3.4
@@ -272,7 +273,7 @@ set.seed(71587)
 
 <p>Calculate 4 - 3 divided by 5</p>
 
-<pre><code class="r">(4 - 3) / 5
+<pre><code class="r">(4-3)/5
 </code></pre>
 
 <pre><code>## [1] 0.2
@@ -280,14 +281,15 @@ set.seed(71587)
 
 <p>Look up the help documentation of the function &ldquo;log&rdquo; using a question mark:</p>
 
-<pre><code class="r">?log()
+<pre><code class="r"> ?log
 </code></pre>
 
 <p>Consider this: Why did I make the chunk option above &ldquo;eval = F&rdquo;?</p>
 
-<p>Calculate the square root of 25 using a function</p>
+<p>Calculate the square root of 25 using a function:</p>
 
-<pre><code class="r">sqrt(25)
+<pre><code class="r">?sqrt
+sqrt(25)
 </code></pre>
 
 <pre><code>## [1] 5
@@ -311,7 +313,38 @@ set.seed(71587)
 
 <p>Calculate the square root of 3.5, but round to 2 digits, using 2 functions</p>
 
-<pre><code class="r">round(x = sqrt(3.5), digits = 2)
+<pre><code class="r">sqrt(3.5)
+</code></pre>
+
+<pre><code>## [1] 1.870829
+</code></pre>
+
+<pre><code class="r">round(1.870829, digits = 2)
+</code></pre>
+
+<pre><code>## [1] 1.87
+</code></pre>
+
+<pre><code class="r">or 
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;or&#39; not found
+</code></pre>
+
+<pre><code class="r">x &lt;- sqrt(3.5)
+round(x, digits =2)
+</code></pre>
+
+<pre><code>## [1] 1.87
+</code></pre>
+
+<pre><code class="r">or 
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;or&#39; not found
+</code></pre>
+
+<pre><code class="r">round(sqrt(3.5), 2)
 </code></pre>
 
 <pre><code>## [1] 1.87
@@ -324,7 +357,12 @@ with html text like those above.</em></p>
 
 <ol>
 <li>Calculate factorial of 5 using a function</li>
+<li>Calculate \(5^2 + 5^{-1} - \pi\) (Look at the html to see the formula)</li>
+<li>Print \(\pi\) with 10 digits</li>
+<li>Calculate the absolute value of -23</li>
 </ol>
+
+<p>Calculate factorial of 5 using factorial</p>
 
 <pre><code class="r">factorial(5)
 </code></pre>
@@ -332,40 +370,33 @@ with html text like those above.</em></p>
 <pre><code>## [1] 120
 </code></pre>
 
-<ol>
-<li>Calculate \(5^2 + 5^{-1} - \pi\) (Look at the html to see the formula)</li>
-</ol>
+<p>Calculate \(5^2 + 5^{-1} - \pi\)</p>
 
-<pre><code class="r">5(exp(2)) + 5(exp(-1)) - pi
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): attempt to apply non-function
-</code></pre>
-
-<pre><code class="r">5^2 + 5^{-1} - pi
+<pre><code class="r">5^2 + 5^-1 - pi
 </code></pre>
 
 <pre><code>## [1] 22.05841
 </code></pre>
 
-<ol>
-<li>Print \(\pi\) with 10 digits</li>
-</ol>
+<p>Print \(\pi\) with 10 digits</p>
 
-<pre><code class="r">round(print(pi), digits = 10)
+<pre><code class="r">print(pi, digits = 10)
 </code></pre>
 
-<pre><code>## [1] 3.141593
+<pre><code>## [1] 3.141592654
 </code></pre>
 
-<pre><code>## [1] 3.141593
+<p>Calculate the absolute value of -23</p>
+
+<pre><code class="r">abs(-23)
 </code></pre>
 
-<ol>
-<li>Calculate the absolute value of -23
-_____________________________________________________________________________
-## 2. Variables, Vectors, and Assignments</li>
-</ol>
+<pre><code>## [1] 23
+</code></pre>
+
+<hr/>
+
+<h2>2. Variables, Vectors, and Assignments</h2>
 
 <p>Assign a new variable &ldquo;x&rdquo; as 3.1</p>
 
@@ -374,19 +405,13 @@ _____________________________________________________________________________
 
 <p>Print the value of x</p>
 
-<pre><code class="r">x # most basic way
+<pre><code class="r">x #most basic way
 </code></pre>
 
 <pre><code>## [1] 3.1
 </code></pre>
 
-<pre><code class="r">print(x, digits = 2) # another way, which allows us to change digits directly
-</code></pre>
-
-<pre><code>## [1] 3.1
-</code></pre>
-
-<pre><code class="r">(x) # simple way to print
+<pre><code class="r">print(x) #Use print method
 </code></pre>
 
 <pre><code>## [1] 3.1
@@ -394,7 +419,7 @@ _____________________________________________________________________________
 
 <p>Assign a new variable &ldquo;y&rdquo; as exp(2*x)-1 AND print the value on one line</p>
 
-<pre><code class="r">(y &lt;- exp(2 * x) - 1) # need parentheses around whole equation
+<pre><code class="r">print (y &lt;- exp(2*x)-1) 
 </code></pre>
 
 <pre><code>## [1] 491.749
@@ -409,14 +434,13 @@ store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of lengt
 <pre><code>## [1] 1
 </code></pre>
 
+<pre><code class="r">length(y)
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
 <p>To create longer vectors we concatenate or combine them with function &ldquo;c()&rdquo;</p>
-
-<pre><code class="r">x &lt;- c(2, 3, 4, 5, 6)
-length(x)
-</code></pre>
-
-<pre><code>## [1] 5
-</code></pre>
 
 <p>Create a vector called &ldquo;x&rdquo; with values of 56, 95.3, and 0.4
 and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
@@ -430,7 +454,7 @@ easy to loop over each vector element-wise.</p>
 
 <p>Demonstrate this with x + y:</p>
 
-<pre><code class="r">x + y
+<pre><code class="r">x+y
 </code></pre>
 
 <pre><code>## [1] 59.2 96.4  0.6
@@ -438,7 +462,7 @@ easy to loop over each vector element-wise.</p>
 
 <p>x-y:</p>
 
-<pre><code class="r">x - y
+<pre><code class="r">x-y
 </code></pre>
 
 <pre><code>## [1] 52.8 94.2  0.2
@@ -446,7 +470,7 @@ easy to loop over each vector element-wise.</p>
 
 <p>x/y:</p>
 
-<pre><code class="r">x / y
+<pre><code class="r">x/y
 </code></pre>
 
 <pre><code>## [1] 17.50000 86.63636  2.00000
@@ -464,8 +488,7 @@ add together vectors of varying lengths:</p>
 <pre><code class="r">c(1,2) + c(0,0,0)
 </code></pre>
 
-<pre><code>## Warning in c(1, 2) + c(0, 0, 0): longer object length is not a multiple of shorter
-## object length
+<pre><code>## Warning in c(1, 2) + c(0, 0, 0): longer object length is not a multiple of shorter object length
 </code></pre>
 
 <pre><code>## [1] 1 2 1
@@ -478,7 +501,7 @@ happening!</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;emkuechle/programs/20220209_intro_R.R&rdquo;,out_dir = &ldquo;emkuechle/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Andy/programs/20220209_intro_R.R&rdquo;,out_dir = &ldquo;Andy/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

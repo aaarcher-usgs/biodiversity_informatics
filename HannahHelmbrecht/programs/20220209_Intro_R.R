@@ -84,8 +84,6 @@ round( x = sqrt(3.5), digits =2)
 #' 
 #' 3. Print $\pi$ with 10 digits
 #' 4. Calculate the absolute value of -23
-   
-#' 
 
 #' _____________________________________________________________________________
 #' ## 2. Variables, Vectors, and Assignments
@@ -136,15 +134,14 @@ x/y
 #' add together vectors of varying lengths:
 #' 
 c(1,2) + c(0,0,0,0)
+# repeats 1 2 1 2
 c(1,2) + c(0,0,0)
-
+# repeats 1 2 1 
 #' Note that the function works but it does give you a warning. These looping   
 #' actions in R can be great, or can mess you up if you're not aware that it's 
 #' happening!
 #' 
 
-#' 
-#' 
 #' 
 #' ### Footer
 #' 
