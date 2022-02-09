@@ -27,31 +27,31 @@ set.seed(71587)
 #' 
 #' Calculate 4 plus 3
 #' 
-
+4 + 3
 #' 
 #' Calculate 4 times 3
-
+4 * 3
 #' 
 #' Calculate 4 minus 3
-
+4 - 3
 #' 
 #' Calculate 4 - 3
-
+4 - 3
 #' 
 #' Calculate 4 minus 3/5
 #' 
-
+4 - (3/5)
 
 #' 
 #' Calculate 4 - 3 divided by 5
 #' 
-
+(4 - 3) / 5
 #'
 #' Look up the help documentation of the function "log" using a question mark:
 #' 
 #+ helpdoc, eval = F
 
-
+?
 #' Consider this: Why did I make the chunk option above "eval = F"?
 #' 
 
