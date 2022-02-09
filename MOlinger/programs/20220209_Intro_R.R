@@ -4,7 +4,7 @@
 #' 
 #' February 9, 2022
 #' 
-#' Programmer: Emma
+#' Programmer: Mason
 #' 
 #' In this program, we will learn basic programming and data skills with 
 #' Program R
@@ -153,4 +153,4 @@ c(1,2) + c(0,0,0)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "emkuechle/programs/20220209_intro_R.R",out_dir = "emkuechle/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "MOlinger/programs/20220209_intro_R.R",out_dir = "MOlinger/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
