@@ -210,7 +210,7 @@ hr {
 
 <p>February 9, 2022</p>
 
-<p>Programmer: Nicole G</p>
+<p>Programmer: Amy</p>
 
 <p>In this program, we will learn basic programming and data skills with 
 Program R</p>
@@ -256,9 +256,15 @@ set.seed(71587)
 
 <p>Calculate 4 - 3</p>
 
+<pre><code class="r">4 - 3
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
 <p>Calculate 4 minus 3/5</p>
 
-<pre><code class="r">4 - (3 / 5)
+<pre><code class="r">4 - ( 3 / 5 )
 </code></pre>
 
 <pre><code>## [1] 3.4
@@ -266,7 +272,7 @@ set.seed(71587)
 
 <p>Calculate 4 - 3 divided by 5</p>
 
-<pre><code class="r">(4 - 3) / 5
+<pre><code class="r">( 4 - 3 ) / 5
 </code></pre>
 
 <pre><code>## [1] 0.2
@@ -277,11 +283,12 @@ set.seed(71587)
 <pre><code class="r">?log()
 </code></pre>
 
-<p>Consider this: Why did I make the chunk option above &ldquo;eval = F&rdquo;?</p>
+<p>Consider this: Why did I make the chunk option above &ldquo;eval = F&rdquo;?
+You don&#39;t want to print it out, you are just searching for help.</p>
 
 <p>Calculate the square root of 25 using a function</p>
 
-<pre><code class="r">sqrt(25)
+<pre><code class="r">sqrt( 25 )
 </code></pre>
 
 <pre><code>## [1] 5
@@ -289,7 +296,7 @@ set.seed(71587)
 
 <p>Calculate the natural log of 100 using a function</p>
 
-<pre><code class="r">log(100)
+<pre><code class="r">log( 100 )
 </code></pre>
 
 <pre><code>## [1] 4.60517
@@ -297,7 +304,7 @@ set.seed(71587)
 
 <p>Calculate the base-10 log of 100 using a function</p>
 
-<pre><code class="r">log10(100)
+<pre><code class="r">log10( 100 )
 </code></pre>
 
 <pre><code>## [1] 2
@@ -305,7 +312,7 @@ set.seed(71587)
 
 <p>Calculate the square root of 3.5, but round to 2 digits, using 2 functions</p>
 
-<pre><code class="r">round(x = sqrt(3.5), digits = 2)
+<pre><code class="r">round(sqrt(3.5), 2)
 </code></pre>
 
 <pre><code>## [1] 1.87
@@ -334,19 +341,7 @@ with html text like those above.</em></p>
 
 <p>Print the value of x</p>
 
-<pre><code class="r">x # most basic way 
-</code></pre>
-
-<pre><code>## [1] 3.1
-</code></pre>
-
-<pre><code class="r">print(x, digits =2 ) #another way, which allows us to change digits directyly 
-</code></pre>
-
-<pre><code>## [1] 3.1
-</code></pre>
-
-<pre><code class="r">(x) # sometimes useful to print results
+<pre><code class="r">(x)
 </code></pre>
 
 <pre><code>## [1] 3.1
@@ -371,18 +366,29 @@ store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of lengt
 
 <p>To create longer vectors we concatenate or combine them with function &ldquo;c()&rdquo;</p>
 
-<pre><code class="r">x &lt;- c(2 , 3 , 4 , 5 , 6)
-length(x)
+<pre><code class="r">x &lt;- c(2, 3, 4, 5, 6)
+length (x)
 </code></pre>
 
 <pre><code>## [1] 5
 </code></pre>
 
-<p>Create a vector called &ldquo;x&rdquo; with values of 56, 95.3, and 0.4
-and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
+<p>Create a vector called &ldquo;x&rdquo; with values of 56, 95.3, and 0.4</p>
 
-<pre><code class="r">x &lt;- c(56 , 95.3 , 0.4)
-y &lt;- c(3.2, 1.1, 0.2)
+<pre><code class="r">x &lt;- c(56, 95.3, 0.4)
+length (x)
+</code></pre>
+
+<pre><code>## [1] 3
+</code></pre>
+
+<p>and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
+
+<pre><code class="r">y &lt;- c(3.2, 1.1, 0.2)
+length(y)
+</code></pre>
+
+<pre><code>## [1] 3
 </code></pre>
 
 <p>Vectors retain their inherent order, through vectorization, which makes it
@@ -398,7 +404,7 @@ easy to loop over each vector element-wise.</p>
 
 <p>x-y:</p>
 
-<pre><code class="r">x-y
+<pre><code class="r">x - y
 </code></pre>
 
 <pre><code>## [1] 52.8 94.2  0.2
@@ -406,7 +412,7 @@ easy to loop over each vector element-wise.</p>
 
 <p>x/y:</p>
 
-<pre><code class="r">x/y
+<pre><code class="r">x / y
 </code></pre>
 
 <pre><code>## [1] 17.50000 86.63636  2.00000
@@ -424,8 +430,8 @@ add together vectors of varying lengths:</p>
 <pre><code class="r">c(1,2) + c(0,0,0)
 </code></pre>
 
-<pre><code>## Warning in c(1, 2) + c(0, 0, 0): longer object length is not a
-## multiple of shorter object length
+<pre><code>## Warning in c(1, 2) + c(0, 0, 0): longer object length is not a multiple of shorter
+## object length
 </code></pre>
 
 <pre><code>## [1] 1 2 1
@@ -438,7 +444,7 @@ happening!</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;NGruwell/programs/20220209_intro_R.R&rdquo;,out_dir = &ldquo;NGruwell/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Amy/programs/20220209_intro_R.R&rdquo;,out_dir = &ldquo;Amy/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

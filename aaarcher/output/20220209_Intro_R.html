@@ -381,6 +381,7 @@ with html text like those above.</em></p>
 
 <p>Assign a new variable &ldquo;y&rdquo; as exp(2*x)-1 AND print the value on one line</p>
 
+<<<<<<< HEAD
 <pre><code class="r">(y &lt;- exp(2 * x) - 1)
 </code></pre>
 
@@ -393,6 +394,8 @@ with html text like those above.</em></p>
 <pre><code>## [1] 491.749
 </code></pre>
 
+=======
+>>>>>>> d23295543fd6e9032fbbc5be296887d10462a698
 <p>A vector is a container of contiguous data, of any length 1 or more. In R, we 
 store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of length 1:</p>
 
@@ -404,6 +407,7 @@ store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of lengt
 
 <p>To create longer vectors we concatenate or combine them with function &ldquo;c()&rdquo;</p>
 
+<<<<<<< HEAD
 <pre><code class="r">x &lt;- c(2, 3, 4, 5, 6)
 length(x)
 </code></pre>
@@ -418,11 +422,17 @@ and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
 y &lt;- c(3.2, 1.1, 0.2)
 </code></pre>
 
+=======
+<p>Create a vector called &ldquo;x&rdquo; with values of 56, 95.3, and 0.4
+and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
+
+>>>>>>> d23295543fd6e9032fbbc5be296887d10462a698
 <p>Vectors retain their inherent order, through vectorization, which makes it
 easy to loop over each vector element-wise.</p>
 
 <p>Demonstrate this with x + y:</p>
 
+<<<<<<< HEAD
 <pre><code class="r">x + y 
 </code></pre>
 
@@ -445,6 +455,12 @@ easy to loop over each vector element-wise.</p>
 <pre><code>## [1] 17.50000 86.63636  2.00000
 </code></pre>
 
+=======
+<p>x-y:</p>
+
+<p>x/y:</p>
+
+>>>>>>> d23295543fd6e9032fbbc5be296887d10462a698
 <p>Vectors also loop over in interesting ways. Notice here what happens when you
 add together vectors of varying lengths:</p>
 
@@ -457,7 +473,12 @@ add together vectors of varying lengths:</p>
 <pre><code class="r">c(1,2) + c(0,0,0)
 </code></pre>
 
+<<<<<<< HEAD
 <pre><code>## Warning in c(1, 2) + c(0, 0, 0): longer object length is not a multiple of shorter object length
+=======
+<pre><code>## Warning in c(1, 2) + c(0, 0, 0): longer object length is not a multiple of shorter object
+## length
+>>>>>>> d23295543fd6e9032fbbc5be296887d10462a698
 </code></pre>
 
 <pre><code>## [1] 1 2 1

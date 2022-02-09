@@ -27,29 +27,32 @@ set.seed(71587)
 #' 
 #' Calculate 4 plus 3
 #' 
+4 + 3
 
 #' 
 #' Calculate 4 times 3
-
+4 * 3
 #' 
 #' Calculate 4 minus 3
-
+4 - 3
 #' 
 #' Calculate 4 - 3
 
 #' 
 #' Calculate 4 minus 3/5
 #' 
-
+4 - (3 / 5)
 
 #' 
 #' Calculate 4 - 3 divided by 5
 #' 
-
+(4 - 3) / 5
 #'
 #' Look up the help documentation of the function "log" using a question mark:
 #' 
 #+ helpdoc, eval = F
+
+?log()
 
 
 #' Consider this: Why did I make the chunk option above "eval = F"?
@@ -59,18 +62,22 @@ set.seed(71587)
 #' 
 #' Calculate the square root of 25 using a function
 #' 
-
+sqrt(25)
 
 #' 
 #' Calculate the natural log of 100 using a function
-
+log(100)
 
 #' 
 #' Calculate the base-10 log of 100 using a function
+log10(100)
 
 #' 
 #' Calculate the square root of 3.5, but round to 2 digits, using 2 functions
 #' 
+
+round(x = sqrt(3.5), digits = 2)
+
 
 #' 
 #' ### Practice Exercises:
@@ -97,10 +104,15 @@ x <- 3.1
 #' 
 #' Print the value of x
 #' 
-
+x # most basic way 
+print(x, digits =2 ) #another way, which allows us to change digits directyly 
+(x) # sometimes useful to print results
 #' 
 #' Assign a new variable "y" as exp(2*x)-1 AND print the value on one line
 #' 
+(y <- exp(2 * x) - 1)
+
+
 
 #' 
 #' A vector is a container of contiguous data, of any length 1 or more. In R, we 
@@ -108,17 +120,18 @@ x <- 3.1
 #' 
 length(x)
 
+
 #' 
 #' To create longer vectors we concatenate or combine them with function "c()"
 #' 
-
-
+x <- c(2 , 3 , 4 , 5 , 6)
+length(x)
 #' 
 #' Create a vector called "x" with values of 56, 95.3, and 0.4
 #' and another one called "y" with values of 3.2, 1.1, and 0.2
 #' 
-
-
+x <- c(56 , 95.3 , 0.4)
+y <- c(3.2, 1.1, 0.2)
 
 #' 
 #' Vectors retain their inherent order, through vectorization, which makes it
@@ -126,13 +139,15 @@ length(x)
 #' 
 #' Demonstrate this with x + y:
 #' 
+x + y
+
 
 #' 
 #' x-y:
 
-#' 
+x-y
 #' x/y:
-
+x/y
 #' 
 #' Vectors also loop over in interesting ways. Notice here what happens when you
 #' add together vectors of varying lengths:

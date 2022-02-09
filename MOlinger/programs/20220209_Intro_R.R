@@ -4,7 +4,7 @@
 #' 
 #' February 9, 2022
 #' 
-#' Programmer: Jenna 
+#' Programmer: Mason
 #' 
 #' In this program, we will learn basic programming and data skills with 
 #' Program R
@@ -32,25 +32,21 @@ set.seed(71587)
 #' 
 #' Calculate 4 times 3
 4 * 3
-
 #' 
 #' Calculate 4 minus 3
 4 - 3
-
 #' 
 #' Calculate 4 - 3
 4 - 3
-
 #' 
 #' Calculate 4 minus 3/5
 #' 
-4 - (3/5)
+4 - (3 / 5)
 
 #' 
 #' Calculate 4 - 3 divided by 5
 #' 
 (4 - 3) / 5
-
 #'
 #' Look up the help documentation of the function "log" using a question mark:
 #' 
@@ -58,7 +54,7 @@ set.seed(71587)
 ?log()
 
 #' Consider this: Why did I make the chunk option above "eval = F"?
-#' So that the help section would not print on the html.
+#' 
 
 
 #' 
@@ -73,13 +69,10 @@ log(100)
 #' 
 #' Calculate the base-10 log of 100 using a function
 log10(100)
-
 #' 
 #' Calculate the square root of 3.5, but round to 2 digits, using 2 functions
 #' 
-round(sqrt(3.5), 2) #or
-round(x=sqrt(3.5), digits = 2)
-
+round(sqrt(3.5), 2)
 
 #' 
 #' ### Practice Exercises:
@@ -92,14 +85,9 @@ round(x=sqrt(3.5), digits = 2)
 #' 3. Print $\pi$ with 10 digits
 #' 4. Calculate the absolute value of -23
 #' 
-#' ## My Work:
-#' 1.
-#' 
-factorial(5)
 
-#' 2.
-#' 
-5^2 + 5^
+
+
 
 #' _____________________________________________________________________________
 #' ## 2. Variables, Vectors, and Assignments
@@ -111,16 +99,11 @@ x <- 3.1
 #' 
 #' Print the value of x
 #' 
-x #or
-print(x, digits = 2) #or
-(x)
-
+x
 #' 
 #' Assign a new variable "y" as exp(2*x)-1 AND print the value on one line
-#'
+#' 
 (y <- exp(2 * x) - 1)
-
-
 #' 
 #' A vector is a container of contiguous data, of any length 1 or more. In R, we 
 #' store objects like "x" and "y" above as vectors of length 1:
@@ -131,33 +114,27 @@ length(x)
 #' To create longer vectors we concatenate or combine them with function "c()"
 #' 
 x <- c(2, 3, 4, 5, 6)
-
 length(x)
-
 #' 
 #' Create a vector called "x" with values of 56, 95.3, and 0.4
 #' and another one called "y" with values of 3.2, 1.1, and 0.2
 #' 
 x <- c(56, 95.3, 0.4)
-
 y <- c(3.2, 1.1, 0.2)
-
-#' 
+length(x)
+length(y)
 #' Vectors retain their inherent order, through vectorization, which makes it
 #' easy to loop over each vector element-wise.
 #' 
 #' Demonstrate this with x + y:
 #' 
 x + y
-
 #' 
 #' x-y:
 x - y
-
 #' 
 #' x/y:
-x/y
-
+x / y
 #' 
 #' Vectors also loop over in interesting ways. Notice here what happens when you
 #' add together vectors of varying lengths:
@@ -178,4 +155,4 @@ c(1,2) + c(0,0,0)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Jenna/programs/20220209_intro_R.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "MOlinger/programs/20220209_intro_R.R",out_dir = "MOlinger/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
