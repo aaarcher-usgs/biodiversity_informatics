@@ -4,7 +4,7 @@
 #' 
 #' February 9, 2022
 #' 
-#' Programmer: Althea
+#' Programmer: Andy
 #' 
 #' In this program, we will learn basic programming and data skills with 
 #' Program R
@@ -18,6 +18,7 @@
 library(ezknitr)
 
 
+
 # Clear Environment & Set Seed
 remove(list=ls())
 set.seed(71587)
@@ -27,28 +28,30 @@ set.seed(71587)
 #' 
 #' Calculate 4 plus 3
 #' 
-
+4+3
 #' 
 #' Calculate 4 times 3
-
+4*3
 #' 
 #' Calculate 4 minus 3
-
+4-3
 #' 
-#' Calculate 4 - 3
-
+#' Calculate 4 / 3
+4/3
 #' 
 #' Calculate 4 minus 3/5
+4-(3/5)
 #' 
 
 
 #' 
 #' Calculate 4 - 3 divided by 5
+(4-3)/5
 #' 
 
 #'
 #' Look up the help documentation of the function "log" using a question mark:
-#' 
+ ?log
 #+ helpdoc, eval = F
 
 
@@ -57,19 +60,32 @@ set.seed(71587)
 
 
 #' 
-#' Calculate the square root of 25 using a function
+#' Calculate the square root of 25 using a function:
+?sqrt
+sqrt(25)
 #' 
 
 
 #' 
 #' Calculate the natural log of 100 using a function
-
+log(100)
 
 #' 
 #' Calculate the base-10 log of 100 using a function
-
+log10(100)
 #' 
 #' Calculate the square root of 3.5, but round to 2 digits, using 2 functions
+sqrt(3.5)
+round(1.870829, digits = 2)
+
+or 
+
+x <- sqrt(3.5)
+round(x, digits =2)
+
+or 
+
+round(sqrt(3.5), 2)
 #' 
 
 #' 
@@ -84,6 +100,18 @@ set.seed(71587)
 #' 4. Calculate the absolute value of -23
 #' 
 
+#' Calculate factorial of 5 using factorial
+factorial(5)
+
+#' Calculate $5^2 + 5^{-1} - \pi$
+
+5^2 + 5^-1 - pi
+
+#' Print $\pi$ with 10 digits
+print(pi, digits = 10)
+
+#' Calculate the absolute value of -23
+abs(-23)
 
 
 
@@ -97,17 +125,18 @@ x <- 3.1
 #' 
 #' Print the value of x
 #' 
-
+x #most basic way
+print(x) #Use print method
 #' 
 #' Assign a new variable "y" as exp(2*x)-1 AND print the value on one line
 #' 
-
+print (y <- exp(2*x)-1) 
 #' 
 #' A vector is a container of contiguous data, of any length 1 or more. In R, we 
 #' store objects like "x" and "y" above as vectors of length 1:
 #' 
 length(x)
-
+length(y)
 #' 
 #' To create longer vectors we concatenate or combine them with function "c()"
 #' 
@@ -117,8 +146,8 @@ length(x)
 #' Create a vector called "x" with values of 56, 95.3, and 0.4
 #' and another one called "y" with values of 3.2, 1.1, and 0.2
 #' 
-
-
+x <- c(56, 95.3, 0.4)
+y <- c(3.2, 1.1, 0.2)
 
 #' 
 #' Vectors retain their inherent order, through vectorization, which makes it
@@ -126,13 +155,13 @@ length(x)
 #' 
 #' Demonstrate this with x + y:
 #' 
-
+x+y
 #' 
 #' x-y:
-
+x-y
 #' 
 #' x/y:
-
+x/y
 #' 
 #' Vectors also loop over in interesting ways. Notice here what happens when you
 #' add together vectors of varying lengths:
@@ -153,4 +182,4 @@ c(1,2) + c(0,0,0)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220209_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Andy/programs/20220209_intro_R.R",out_dir = "Andy/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
