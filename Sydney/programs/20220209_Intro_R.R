@@ -41,7 +41,6 @@ set.seed(71587)
 #' Calculate 4 minus 3/5
 #' 
 4 - (3/5)
-
 #' 
 #' Calculate 4 - 3 divided by 5
 #' 
@@ -58,13 +57,10 @@ set.seed(71587)
 #' 
 #' Calculate the square root of 25 using a function
 #' 
-
 sqrt(25)
-
 #' 
 #' Calculate the natural log of 100 using a function
-
-log
+log(100)
 #' 
 #' Calculate the base-10 log of 100 using a function
 
@@ -155,4 +151,4 @@ c(1,2) + c(0,0,0)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220209_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Sydney/programs/20220209_intro_R.R",out_dir = "Sydney/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
