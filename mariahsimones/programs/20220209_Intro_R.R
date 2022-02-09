@@ -4,7 +4,7 @@
 #' 
 #' February 9, 2022
 #' 
-#' Programmer: Althea
+#' Programmer: Mariah Simones
 #' 
 #' In this program, we will learn basic programming and data skills with 
 #' Program R
@@ -140,7 +140,7 @@ length(x)
 c(1,2) + c(0,0,0,0)
 c(1,2) + c(0,0,0)
 
-#' Note that the function works but it does give you a warning. These looping
+#' Note that the function works but it does give you a warning. These looping   
 #' actions in R can be great, or can mess you up if you're not aware that it's 
 #' happening!
 #' 
@@ -153,4 +153,4 @@ c(1,2) + c(0,0,0)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220209_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220209_intro_R.R",out_dir = "mariahsimones/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

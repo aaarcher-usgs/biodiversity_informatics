@@ -4,7 +4,7 @@
 #' 
 #' February 9, 2022
 #' 
-#' Programmer: Althea
+#' Programmer: Sydney
 #' 
 #' In this program, we will learn basic programming and data skills with 
 #' Program R
@@ -27,31 +27,29 @@ set.seed(71587)
 #' 
 #' Calculate 4 plus 3
 #' 
-
+4 + 3
 #' 
 #' Calculate 4 times 3
-
+4 * 3
 #' 
 #' Calculate 4 minus 3
-
+4 - 3
 #' 
 #' Calculate 4 - 3
-
+4 - 3
 #' 
 #' Calculate 4 minus 3/5
 #' 
-
-
+4 - (3/5)
 #' 
 #' Calculate 4 - 3 divided by 5
 #' 
-
+(4 - 3) / 5
 #'
 #' Look up the help documentation of the function "log" using a question mark:
 #' 
 #+ helpdoc, eval = F
-
-
+?log()
 #' Consider this: Why did I make the chunk option above "eval = F"?
 #' 
 
@@ -59,19 +57,19 @@ set.seed(71587)
 #' 
 #' Calculate the square root of 25 using a function
 #' 
-
-
+sqrt(25)
 #' 
 #' Calculate the natural log of 100 using a function
-
-
+log(100)
 #' 
 #' Calculate the base-10 log of 100 using a function
+
+log10(100)
 
 #' 
 #' Calculate the square root of 3.5, but round to 2 digits, using 2 functions
 #' 
-
+round(sqrt(3.5), 2)
 #' 
 #' ### Practice Exercises:
 #' 
@@ -140,7 +138,7 @@ length(x)
 c(1,2) + c(0,0,0,0)
 c(1,2) + c(0,0,0)
 
-#' Note that the function works but it does give you a warning. These looping
+#' Note that the function works but it does give you a warning. These looping   
 #' actions in R can be great, or can mess you up if you're not aware that it's 
 #' happening!
 #' 
@@ -153,4 +151,4 @@ c(1,2) + c(0,0,0)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220209_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Sydney/programs/20220209_intro_R.R",out_dir = "Sydney/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
