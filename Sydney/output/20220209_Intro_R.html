@@ -360,7 +360,10 @@ with html text like those above.</em></p>
 
 <p>Assign a new variable &ldquo;y&rdquo; as exp(2*x)-1 AND print the value on one line</p>
 
-<pre><code class="r">y &lt;- exp(2*x)-1
+<pre><code class="r">(y &lt;- exp(2*x)-1)
+</code></pre>
+
+<pre><code>## [1] 491.749
 </code></pre>
 
 <p>A vector is a container of contiguous data, of any length 1 or more. In R, we 
@@ -374,17 +377,42 @@ store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of lengt
 
 <p>To create longer vectors we concatenate or combine them with function &ldquo;c()&rdquo;</p>
 
+<pre><code class="r">x &lt;- c(1,2,3,4,5,6)
+</code></pre>
+
 <p>Create a vector called &ldquo;x&rdquo; with values of 56, 95.3, and 0.4
 and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
+
+<pre><code class="r">x &lt;- c(56, 96.3, 0.4)
+y &lt;- c(3.2, 1.1, 0.2)
+</code></pre>
 
 <p>Vectors retain their inherent order, through vectorization, which makes it
 easy to loop over each vector element-wise.</p>
 
 <p>Demonstrate this with x + y:</p>
 
+<pre><code class="r">x + y
+</code></pre>
+
+<pre><code>## [1] 59.2 97.4  0.6
+</code></pre>
+
 <p>x-y:</p>
 
+<pre><code class="r">x - y
+</code></pre>
+
+<pre><code>## [1] 52.8 95.2  0.2
+</code></pre>
+
 <p>x/y:</p>
+
+<pre><code class="r">x/y
+</code></pre>
+
+<pre><code>## [1] 17.50000 87.54545  2.00000
+</code></pre>
 
 <p>Vectors also loop over in interesting ways. Notice here what happens when you
 add together vectors of varying lengths:</p>

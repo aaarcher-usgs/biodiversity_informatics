@@ -111,14 +111,14 @@ length(x)
 #' 
 #' To create longer vectors we concatenate or combine them with function "c()"
 #' 
-
+x <- c(1,2,3,4,5,6)
 
 #' 
 #' Create a vector called "x" with values of 56, 95.3, and 0.4
 #' and another one called "y" with values of 3.2, 1.1, and 0.2
 #' 
-
-
+x <- c(56, 96.3, 0.4)
+y <- c(3.2, 1.1, 0.2)
 
 #' 
 #' Vectors retain their inherent order, through vectorization, which makes it
@@ -126,13 +126,13 @@ length(x)
 #' 
 #' Demonstrate this with x + y:
 #' 
-
+x + y
 #' 
 #' x-y:
-
+x - y
 #' 
 #' x/y:
-
+x/y
 #' 
 #' Vectors also loop over in interesting ways. Notice here what happens when you
 #' add together vectors of varying lengths:
