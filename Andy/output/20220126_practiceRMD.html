@@ -57,6 +57,9 @@ var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/<
 hljs.initHighlightingOnLoad();
 </script>
 
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
 
 <style type="text/css">
@@ -213,7 +216,6 @@ hr {
 
 <pre><code class="r">library(knitr)
 library(ezknitr)
-remove(list = ls())
 </code></pre>
 
 <h2>Tasks to complete for this assignment for all students</h2>
@@ -234,16 +236,23 @@ remove(list = ls())
 
 <p>Turtles <strong>SHOULD</strong> always wear <em>tophats</em></p>
 
-<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
+<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50  </p>
+
+<pre><code class="r">x &lt;- 200
+y &lt;- 50
+</code></pre>
+
+<p>Chunk : Here, we will evaluate x/y when x = 200, y = 50  </p>
 
 <pre><code class="r">x &lt;- 200
 y &lt;- 50
 print( # prints out anything inside this to the console
   paste0( #pastes items together, separated by a comma, with 0 chars in between
     &quot;x divided by y is &quot;, 
-    x/y
+    x/y 
+
   )
-)
+)  
 </code></pre>
 
 <pre><code>## [1] &quot;x divided by y is 4&quot;
@@ -272,6 +281,41 @@ print(
 <li>Include a 3 (row) by 4 (column) table with fake data</li>
 <li>Include another chunk of code that uses the &ldquo;mean()&rdquo; function, and make sure its documented</li>
 </ul>
+
+<p>\[\beta_5 * \zeta_5 + beta_3 x^8 \]</p>
+
+<blockquote>
+<p>&ldquo;I wonder if frogs ever stop to think about the absurdity of life.
+ Though I expect species forced to hop, must think about it a lot.&rdquo;</p>
+</blockquote>
+
+<pre><code class="r"> tab &lt;- matrix(c(8, 9, 15, 44, 60, 2, 7, 20, 76, 32, 64, 1), ncol=4, nrow=3)
+ colnames(tab) &lt;- c(&#39;Painted Turtle&#39;,&#39;Box Turtle&#39;,&#39;American Toad&#39;,&#39;Gray Treefrog&#39;)
+ rownames(tab) &lt;- c(&#39;Average Number of Top hats&#39;, &#39;Existential Crisis&#39;, &#39;Turtle and the Hare Jokes&#39;)
+ tab &lt;- as.table(tab)
+ print(tab)
+</code></pre>
+
+<pre><code>##                            Painted Turtle Box Turtle
+## Average Number of Top hats              8         44
+## Existential Crisis                      9         60
+## Turtle and the Hare Jokes              15          2
+##                            American Toad Gray Treefrog
+## Average Number of Top hats             7            32
+## Existential Crisis                    20            64
+## Turtle and the Hare Jokes             76             1
+</code></pre>
+
+<p>Chunk 4: Here we will evaluate the mean of 8, 9, 10, 12, 15</p>
+
+<pre><code class="r">x &lt;- c(8,9,10,12,15)
+print( 
+   mean(x)
+   )
+</code></pre>
+
+<pre><code>## [1] 10.8
+</code></pre>
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
