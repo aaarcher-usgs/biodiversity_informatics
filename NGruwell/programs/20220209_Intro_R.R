@@ -90,7 +90,7 @@ factorial(5)
 #' 2. Calculate $5^2 + 5^{-1} - \pi$ (Look at the html to see the formula)
 5^2 + 5^{-1} - pi
 #' 3. Print $\pi$ with 10 digits
-round(print(pi),digits=10)
+round(pi,digits=10)
 #' 
 #' 4. Calculate the absolute value of -23
 abs(-23)
