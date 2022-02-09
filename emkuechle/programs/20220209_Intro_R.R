@@ -83,12 +83,11 @@ round(x = sqrt(3.5), digits = 2)
 #' 1. Calculate factorial of 5 using a function
 factorial(5)
 #' 2. Calculate $5^2 + 5^{-1} - \pi$ (Look at the html to see the formula)
-5(exp(2)) + 5(exp(-1)) - pi
 5^2 + 5^{-1} - pi
-
 #' 3. Print $\pi$ with 10 digits
 round(print(pi), digits = 10)
 #' 4. Calculate the absolute value of -23
+abs(-23)
 
 
 #' _____________________________________________________________________________

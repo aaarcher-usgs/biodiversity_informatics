@@ -336,12 +336,6 @@ with html text like those above.</em></p>
 <li>Calculate \(5^2 + 5^{-1} - \pi\) (Look at the html to see the formula)</li>
 </ol>
 
-<pre><code class="r">5(exp(2)) + 5(exp(-1)) - pi
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): attempt to apply non-function
-</code></pre>
-
 <pre><code class="r">5^2 + 5^{-1} - pi
 </code></pre>
 
@@ -362,10 +356,18 @@ with html text like those above.</em></p>
 </code></pre>
 
 <ol>
-<li>Calculate the absolute value of -23
-_____________________________________________________________________________
-## 2. Variables, Vectors, and Assignments</li>
+<li>Calculate the absolute value of -23</li>
 </ol>
+
+<pre><code class="r">abs(-23)
+</code></pre>
+
+<pre><code>## [1] 23
+</code></pre>
+
+<hr/>
+
+<h2>2. Variables, Vectors, and Assignments</h2>
 
 <p>Assign a new variable &ldquo;x&rdquo; as 3.1</p>
 
