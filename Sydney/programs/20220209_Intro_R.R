@@ -95,11 +95,13 @@ x <- 3.1
 #' 
 #' Print the value of x
 #' 
-
+x # basic way
+print(x) # allows you to change digits directly
+(x) # useful way to print results of a function
 #' 
 #' Assign a new variable "y" as exp(2*x)-1 AND print the value on one line
 #' 
-
+(y <- exp(2*x)-1)
 #' 
 #' A vector is a container of contiguous data, of any length 1 or more. In R, we 
 #' store objects like "x" and "y" above as vectors of length 1:
