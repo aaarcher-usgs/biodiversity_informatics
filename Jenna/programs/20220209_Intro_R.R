@@ -4,7 +4,7 @@
 #' 
 #' February 9, 2022
 #' 
-#' Programmer: Althea
+#' Programmer: Jenna 
 #' 
 #' In this program, we will learn basic programming and data skills with 
 #' Program R
