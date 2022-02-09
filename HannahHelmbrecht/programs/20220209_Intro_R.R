@@ -84,8 +84,6 @@ round( x = sqrt(3.5), digits =2)
 #' 
 #' 3. Print $\pi$ with 10 digits
 #' 4. Calculate the absolute value of -23
-   
-#' 
 
 #' _____________________________________________________________________________
 #' ## 2. Variables, Vectors, and Assignments
