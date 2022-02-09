@@ -104,10 +104,15 @@ x <- 3.1
 #' 
 #' Print the value of x
 #' 
-
+x # most basic way 
+print(x, digits =2 ) #another way, which allows us to change digits directyly 
+(x) # sometimes useful to print results
 #' 
 #' Assign a new variable "y" as exp(2*x)-1 AND print the value on one line
 #' 
+(y <- exp(2 * x) - 1)
+
+
 
 #' 
 #' A vector is a container of contiguous data, of any length 1 or more. In R, we 
@@ -115,17 +120,18 @@ x <- 3.1
 #' 
 length(x)
 
+
 #' 
 #' To create longer vectors we concatenate or combine them with function "c()"
 #' 
-
-
+x <- c(2 , 3 , 4 , 5 , 6)
+length(x)
 #' 
 #' Create a vector called "x" with values of 56, 95.3, and 0.4
 #' and another one called "y" with values of 3.2, 1.1, and 0.2
 #' 
-
-
+x <- c(56 , 95.3 , 0.4)
+y <- c(3.2, 1.1, 0.2)
 
 #' 
 #' Vectors retain their inherent order, through vectorization, which makes it
@@ -133,13 +139,15 @@ length(x)
 #' 
 #' Demonstrate this with x + y:
 #' 
+x + y
+
 
 #' 
 #' x-y:
 
-#' 
+x-y
 #' x/y:
-
+x/y
 #' 
 #' Vectors also loop over in interesting ways. Notice here what happens when you
 #' add together vectors of varying lengths:
