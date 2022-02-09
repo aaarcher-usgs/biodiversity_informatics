@@ -1,97 +1,156 @@
-#' # Evan's First Reproducible Script
+#' # Introduction to R
 #' 
-#' Programmer: Evan (first name is acceptable to maintain privacy)
+#' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' Date: January 17, 2022
+#' February 9, 2022
+#' 
+#' Programmer: Althea
+#' 
+#' In this program, we will learn basic programming and data skills with 
+#' Program R
 #' 
 #' 
-#' ## Header
-#' 
-#' This chunk of code will load in all required packages and clear environment
-#' 
-#+ header
-library(knitr)
-library(ezknitr)
-remove(list = ls())
-
-#' 
-#' ## Tasks to complete for this assignment for all students
-#' 
-#' 1. Turn this into a numerical list
-#' 2. Write some text in 3rd-level header format
-#' 3. Write "This is a 4th-level header" in 4th-level header format
-#' 4. Write some plain text with one word bolded and one italicized
-#' 5. Make the code below print without being evaluated
-#' 6. Create a new chunk of code that is a copy of the code below but that is evaluated
-#' 7. Create a third chunk of code that evaluates x/y when x = 500, y = 50
-#' 
-
 #' ### Header
-#' #### This is a 4th-level header
-#' *Hiiii*
-#' __Heyyyyy__
+#' 
+#' 
+
+# Load Libraries
+library(ezknitr)
+
+
+# Clear Environment & Set Seed
+remove(list=ls())
+set.seed(71587)
+
+#' _____________________________________________________________________________
+#' ## 1. Arithmetic in R
+#' 
+#' Calculate 4 plus 3
+#' 
+
+#' 
+#' Calculate 4 times 3
+
+#' 
+#' Calculate 4 minus 3
+
+#' 
+#' Calculate 4 - 3
+
+#' 
+#' Calculate 4 minus 3/5
+#' 
+
+
+#' 
+#' Calculate 4 - 3 divided by 5
+#' 
+
 #'
-#' Chunk 1: Here, we will **NOT** evaluate x/y when x = 200, y = 50
-#+ chunk1, eval = FALSE
-x <- 200
-y <- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    "x divided by y is ", 
-    x/y 
-  )
-)
+#' Look up the help documentation of the function "log" using a question mark:
+#' 
+#+ helpdoc, eval = F
 
-#' Chunk 2 **IS** evaluated
-#+ chunk2, eval = TRUE
-x <- 200
-y <- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    "x divided by y is ", 
-    x/y 
-  )
-)
 
-#' Chunk 3 will evaluate when x = 500 and y = 50
-#+ chunk3, eval = TRUE
-x <- 500
-y <- 50
-print( # prints out anything inside this to the console
-  paste0( #pastes items together, separated by a comma, with 0 chars in between
-    "x divided by y is ", 
-    x/y 
-  )
-)
-
-#' ## Additional challenge tasks (recommended for 475; required for 575 students)
-#' 
-#' - Write an equation in LaTeX format
-#' - Include a block quote of your choice
-#' - Include a 3 (row) by 4 (column) table with fake data
-#' - Include another chunk of code that uses the "mean()" function, and make sure its documented
-#' 
-#' > To infinity and beyond - Buzz Lightyear
-#' 
-#' $\pi$
-#' 
-#' Left / Right / Right
+#' Consider this: Why did I make the chunk option above "eval = F"?
 #' 
 
-# Here we will calculate the mean of numbers from 2 through 15
-numbers.example <- 2:15
-# Calculate the mean
-mean(numbers.example)
-#' 
-#' There is more than one way to skin a deer
-#' 
-#'
 
-#' To test (and finalize) your work, spin the document to html using this code:
 #' 
-#' ezspin(file = "Evan/programs/20220126_practiceRMD.R",out_dir = "Evan/output",fig_dir = "figures",keep_md = FALSE)
+#' Calculate the square root of 25 using a function
 #' 
-#' **Be careful not to overwrite anyone else's output!!**
+
+
 #' 
-#' Remember to commit > pull > push to submit your work to GitHub. Do this 
-#' frequently!
+#' Calculate the natural log of 100 using a function
+
+
+#' 
+#' Calculate the base-10 log of 100 using a function
+
+#' 
+#' Calculate the square root of 3.5, but round to 2 digits, using 2 functions
+#' 
+
+#' 
+#' ### Practice Exercises:
+#' 
+#' *Make sure each of these tasks is properly, individually documented 
+#' with html text like those above.*
+#' 
+#' 1. Calculate factorial of 5 using a function
+#' 2. Calculate $5^2 + 5^{-1} - \pi$ (Look at the html to see the formula)
+#' 3. Print $\pi$ with 10 digits
+#' 4. Calculate the absolute value of -23
+#' 
+
+
+
+
+#' _____________________________________________________________________________
+#' ## 2. Variables, Vectors, and Assignments
+#' 
+#' Assign a new variable "x" as 3.1
+#' 
+x <- 3.1
+
+#' 
+#' Print the value of x
+#' 
+
+#' 
+#' Assign a new variable "y" as exp(2*x)-1 AND print the value on one line
+#' 
+
+#' 
+#' A vector is a container of contiguous data, of any length 1 or more. In R, we 
+#' store objects like "x" and "y" above as vectors of length 1:
+#' 
+length(x)
+
+#' 
+#' To create longer vectors we concatenate or combine them with function "c()"
+#' 
+
+
+#' 
+#' Create a vector called "x" with values of 56, 95.3, and 0.4
+#' and another one called "y" with values of 3.2, 1.1, and 0.2
+#' 
+
+
+
+#' 
+#' Vectors retain their inherent order, through vectorization, which makes it
+#' easy to loop over each vector element-wise.
+#' 
+#' Demonstrate this with x + y:
+#' 
+
+#' 
+#' x-y:
+
+#' 
+#' x/y:
+
+#' 
+#' Vectors also loop over in interesting ways. Notice here what happens when you
+#' add together vectors of varying lengths:
+#' 
+c(1,2) + c(0,0,0,0)
+c(1,2) + c(0,0,0)
+
+#' Note that the function works but it does give you a warning. These looping
+#' actions in R can be great, or can mess you up if you're not aware that it's 
+#' happening!
+#' 
+
+
+
+#' 
+#' 
+#' 
+#' ### Footer
+#' 
+#' spin this with:
+#' ezspin(file = "aaarcher/programs/20220209_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

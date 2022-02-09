@@ -272,9 +272,58 @@ with html text like those above.</em></p>
 
 <p>Assign a new variable &ldquo;x&rdquo; as 3.1</p>
 
+<pre><code class="r">x &lt;- 3.1
+</code></pre>
+
 <p>Print the value of x</p>
 
 <p>Assign a new variable &ldquo;y&rdquo; as exp(2*x)-1 AND print the value on one line</p>
+
+<p>A vector is a container of contiguous data, of any length 1 or more. In R, we 
+store objects like &ldquo;x&rdquo; and &ldquo;y&rdquo; above as vectors of length 1:</p>
+
+<pre><code class="r">length(x)
+</code></pre>
+
+<pre><code>## [1] 1
+</code></pre>
+
+<p>To create longer vectors we concatenate or combine them with function &ldquo;c()&rdquo;</p>
+
+<p>Create a vector called &ldquo;x&rdquo; with values of 56, 95.3, and 0.4
+and another one called &ldquo;y&rdquo; with values of 3.2, 1.1, and 0.2</p>
+
+<p>Vectors retain their inherent order, through vectorization, which makes it
+easy to loop over each vector element-wise.</p>
+
+<p>Demonstrate this with x + y:</p>
+
+<p>x-y:</p>
+
+<p>x/y:</p>
+
+<p>Vectors also loop over in interesting ways. Notice here what happens when you
+add together vectors of varying lengths:</p>
+
+<pre><code class="r">c(1,2) + c(0,0,0,0)
+</code></pre>
+
+<pre><code>## [1] 1 2 1 2
+</code></pre>
+
+<pre><code class="r">c(1,2) + c(0,0,0)
+</code></pre>
+
+<pre><code>## Warning in c(1, 2) + c(0, 0, 0): longer object length is not a multiple of shorter object
+## length
+</code></pre>
+
+<pre><code>## [1] 1 2 1
+</code></pre>
+
+<p>Note that the function works but it does give you a warning. These looping<br/>
+actions in R can be great, or can mess you up if you&#39;re not aware that it&#39;s 
+happening!</p>
 
 <h3>Footer</h3>
 
