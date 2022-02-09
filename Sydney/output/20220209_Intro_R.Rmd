@@ -76,6 +76,7 @@ Look up the help documentation of the function "log" using a question mark:
 
 
 ```{r helpdoc, eval = F}
+?log()
 ```
 
 Consider this: Why did I make the chunk option above "eval = F"?
@@ -92,7 +93,7 @@ sqrt(25)
 Calculate the natural log of 100 using a function
 
 ```{r }
-log
+log(100)
 ```
 
 
@@ -104,6 +105,11 @@ log10(100)
 
 
 Calculate the square root of 3.5, but round to 2 digits, using 2 functions
+
+
+```{r }
+round(sqrt(3.5), 2)
+```
 
 
 ### Practice Exercises:
@@ -130,7 +136,19 @@ x <- 3.1
 Print the value of x
 
 
+```{r }
+x # basic way
+print(x) # allows you to change digits directly
+(x) # useful way to print results of a function
+```
+
+
 Assign a new variable "y" as exp(2*x)-1 AND print the value on one line
+
+
+```{r }
+y <- exp(2*x)-1
+```
 
 
 A vector is a container of contiguous data, of any length 1 or more. In R, we 
