@@ -223,43 +223,51 @@ remove(list = ls())
 <li>Write some text in 3rd-level header format</li>
 <li>Write &ldquo;This is a 4th-level header&rdquo; in 4th-level header format</li>
 <li>Write some plain text with one word bolded and one italicized</li>
-<li>Make the code below print without being evaluated
-6 Create a new chunk of code that is a copy of the code below but that is evaluated</li>
+<li>Make the code below print without being evaluated</li>
+<li>Create a new chunk of code that is a copy of the code below but that is evaluated</li>
 <li>Create a third chunk of code that evaluates x/y when x = 500, y = 50</li>
 </ol>
 
-<p><strong>this is my work here</strong>: </p>
+<p><strong>updated work for better score</strong>
+Plain text with one word <strong>bolded</strong> and one <em>italicized</em></p>
 
-<h3>This is third level header format.</h3>
+<h3>Third level header is the neatest level of header</h3>
 
 <h4>This is a 4th-level header</h4>
 
-<h1>some plain text with one word <strong>bolded</strong> and one <em>italicized</em></h1>
+<p>#+ chunk1, eval = FALSE</p>
 
-<p>Chunk 1: Here, we will evaluate x/y when x = 200, y = 50</p>
+<pre><code class="r"> x &lt;- 200
+ y &lt;- 50
+</code></pre>
 
-<p>x &lt;- 200
-y &lt;-50 </p>
+<p>print( #prints out anything inside this to the console 
+   paste0( #pastes items together, separated by a comma, with 0 chars in between
+     &ldquo;x divided by y is &rdquo;,
+     x/y 
+   )
+ )</p>
 
-<p>Chunk 2:
-x &lt;-200
+<p>#+ chunk2</p>
+
+<pre><code class="r"> x &lt;- 200 
 y &lt;- 50
-print( # prints out anything inside this console
-   paste0( #pastes items together, separated by a comma, with 0 char in between
-   &ldquo;x divided by y is &rdquo;,
-   x/y
-     )
-   )</p>
+#&quot;x divided by y is &quot;, 
+  x/y
+</code></pre>
 
-<p>Chunk 3:
-x &lt;- 500
-y &lt;- 50
-print( # prints out anything inside this to the console
-   paste0( #pastes items together, separated by a comma, with 0 char in between 
-      &ldquo;x divided by y is &rdquo;, 
-      x/y
-      )
-  )     </p>
+<pre><code>## [1] 4
+</code></pre>
+
+<p>#+ chunk3</p>
+
+<pre><code class="r">  x &lt;- 500
+ y &lt;- 50 
+</code></pre>
+
+<p>print( #prints out anything inside this to the console
+    paste0( #pastes items together, separated by a comma, with 0 chars in between
+     &ldquo;x divided by y is &rdquo;,</p>
 
 <h2>Additional challenge tasks (recommended for 475; required for 575 students)</h2>
 

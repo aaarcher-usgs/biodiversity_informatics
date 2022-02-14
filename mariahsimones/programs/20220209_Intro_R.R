@@ -90,11 +90,17 @@ round (sqrt(3.5),digits = 2)
 #' with html text like those above.*
 #' 
 #' 1. Calculate factorial of 5 using a function
-#' 2. Calculate $5^2 + 5^{-1} - \pi$ (Look at the html to see the formula)
-#' 3. Print $\pi$ with 10 digits
-#' 4. Calculate the absolute value of -23
-#' 
+factorial(5)
 
+#' 2. Calculate $5^2 + 5^{-1} - \pi$ (Look at the html to see the formula)
+(5^2) + (5^-1) - pi 
+
+#' 3. Print $\pi$ with 10 digits
+round((pi), digits = 10)
+
+
+#' 4. Calculate the absolute value of -23
+abs(-23)
 
 
 

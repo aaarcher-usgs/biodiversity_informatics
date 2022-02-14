@@ -44,7 +44,7 @@ remove(list = ls())
 #'  #+ chunk2
  x <- 200 
 y <- 50
-"x divided by y is ", 
+#"x divided by y is ", 
   x/y
 
 #'  
