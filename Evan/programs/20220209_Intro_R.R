@@ -88,10 +88,12 @@ round(x = sqrt(3.5), digits = 2)
 #' 3. Print $\pi$ with 10 digits
 #' 4. Calculate the absolute value of -23
 #' 
-
-
-
-
+factorial(5)
+5^2 + 5^{-1} - pi
+print(pi)
+x <- pi
+round(x, digits = 10)
+abs(-23)
 #' _____________________________________________________________________________
 #' ## 2. Variables, Vectors, and Assignments
 #' 
