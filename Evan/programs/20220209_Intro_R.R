@@ -90,9 +90,7 @@ round(x = sqrt(3.5), digits = 2)
 #' 
 factorial(5)
 5^2 + 5^{-1} - pi
-print(pi)
-x <- pi
-round(x, digits = 10)
+print(pi, digits = 10)
 abs(-23)
 #' _____________________________________________________________________________
 #' ## 2. Variables, Vectors, and Assignments
