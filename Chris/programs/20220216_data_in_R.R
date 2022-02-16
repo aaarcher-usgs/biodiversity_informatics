@@ -90,11 +90,11 @@ mean(x[x == 4], na.rm = T)
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
-evens <- c(1:11) 
-evens[!(is.na(evens) | evens %% 2 == 1)]
+evens <- c(2, 4, 6, 8, 10)
 
 
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
+odds <- c(evens+1) 
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
@@ -150,31 +150,39 @@ colnames(df.ex)
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
 #' 
+mean(df.ex$depth)
 
 #' Now use subsetting square brackets to do the same thing:
 #' 
-
+mean(df.ex[ ,"depth"])
 
 #' Now, calculate the average of the depth column values, but only when depth 
 #' is greater than 5. (Hint, we have to use subsetting again here, but to subset
 #' only rows where depth > 5.)
 #' 
+mean(df.ex[df.ex$depth > 5 , "depth"])
 
 #' While not very reproducible, let's just calculate the mean of the first 10
 #' rows of the depth column. This time do it both with the $ operator AND with 
 #' square brackets only.
 #' 
+mean(df.ex[1:10 , "depth"])
+mean(df.ex$depth[1:10, "depth"])
 
 #' Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 #' is in the centromere location (25,800,000 to 29,700,000).
 #' 
+cent.start <- 25800000
+cent.end <- 29700000
+df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
 
 #' Tally up the results using table()
 #' 
+table(df.ex$centromere)
 
 #' Tally up the results using sum()
 #' 
-
+sum(df.ex$centromere)
 
 
 
