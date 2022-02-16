@@ -158,15 +158,23 @@ mean(df.ex$depth[1:10])
 #' 
 #' 
 
+df.ex$centromere <- NA
 
+#this is how you name a new column
 
+cent.start <- 25800000
+cent.end <- 29700000
+df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
 
 #' Tally up the results using table()
 #' 
+table(df.ex$centromere)
+
+# shows results for how many of our values fall within centromere values
 
 #' Tally up the results using sum()
 #' 
-
+sum(df.ex$centromere)
 
 
 
