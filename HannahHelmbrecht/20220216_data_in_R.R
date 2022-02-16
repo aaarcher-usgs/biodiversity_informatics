@@ -29,18 +29,28 @@ x <- c(56, 95.3, 0.4, 2.3, 4)
 
 #' Add the second value of x to 4.7
 #' 
+x[2] +4.7 
+
 
 #' What is the fourth value of x?
 #' 
-
+x[4]
 #' Add names for x
 #' 
 names(x) <- c("banana", "coconut", "blueberry", "strawberry", "kiwi")
 
+
+
 #' Use the names to add the coconut's weight to 4.7
 #' 
 
+x["coconut"] + 4.7
+
 #' Use the names to remove the non-tropical fruit
+#' 
+nontropical <- x[c("banana", "coconut", "kiwi")]
+
+
 #' 
 # One way:
 
@@ -175,8 +185,6 @@ table(df.ex$centromere)
 #' Tally up the results using sum()
 #' 
 sum(df.ex$centromere)
-
-
 
 #' 
 #' 
