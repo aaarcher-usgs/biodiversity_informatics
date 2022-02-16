@@ -207,9 +207,11 @@ hr {
 
 <p>February 16, 2022</p>
 
-<p>Programmer: Sydney</p>
+<p>Programmer: Andy</p>
 
 <p>In this program, xxx</p>
+
+<p>Fill in description of what was included</p>
 
 <h3>Header</h3>
 
@@ -234,33 +236,21 @@ set.seed(71587)
 
 <p>Add the second value of x to 4.7</p>
 
-<pre><code class="r">x[2] + 4.7 #square bracket is an index
+<pre><code class="r">x[2] + 4.7
 </code></pre>
 
 <pre><code>## [1] 100
 </code></pre>
 
-<pre><code class="r">#use c() to create a string to add multiple values
+<p>Add the second and third value of x to 4.7 </p>
 
-x[c(2,3)] + 4.7
-</code></pre>
-
-<pre><code>## [1] 100.0   5.1
-</code></pre>
-
-<pre><code class="r">x[2:3] + 4.7 #this is a more simple way to create a string
+<pre><code class="r">x[c(2,3)] + 4.7
 </code></pre>
 
 <pre><code>## [1] 100.0   5.1
 </code></pre>
 
 <p>What is the fourth value of x?</p>
-
-<pre><code class="r">x[4]
-</code></pre>
-
-<pre><code>## [1] 2.3
-</code></pre>
 
 <p>Add names for x</p>
 
@@ -269,7 +259,7 @@ x[c(2,3)] + 4.7
 
 <p>Use the names to add the coconut&#39;s weight to 4.7</p>
 
-<pre><code class="r">x[&quot;coconut&quot;] +4.7
+<pre><code class="r">x[&quot;coconut&quot;] + 4.7
 </code></pre>
 
 <pre><code>## coconut 
@@ -279,19 +269,95 @@ x[c(2,3)] + 4.7
 <p>Use the names to remove the non-tropical fruit</p>
 
 <pre><code class="r"># One way:
+x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)]
+</code></pre>
 
-# Another way:
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
+</code></pre>
+
+<pre><code class="r"># Another way:
+x[c(-3,-4)]
+</code></pre>
+
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
 </code></pre>
 
 <p>Sort the values of x by size (ascending) and print those, but don&#39;t overwrite x</p>
 
+<pre><code class="r">sort(x, decreasing = FALSE)
+</code></pre>
+
+<pre><code>##  blueberry strawberry       kiwi     banana    coconut 
+##        0.4        2.3        4.0       56.0       95.3
+</code></pre>
+
+<pre><code class="r">sort(x)
+</code></pre>
+
+<pre><code>##  blueberry strawberry       kiwi     banana    coconut 
+##        0.4        2.3        4.0       56.0       95.3
+</code></pre>
+
 <p>Sort the value of x by size (descending) and overwrite x with this new order</p>
+
+<pre><code class="r">x&lt;- x[order(x, decreasing = T)]
+(x &lt;- x[order(x, decreasing = T)])
+</code></pre>
+
+<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
+##       95.3       56.0        4.0        2.3        0.4
+</code></pre>
+
+<pre><code class="r">order(x)
+</code></pre>
+
+<pre><code>## [1] 5 4 3 2 1
+</code></pre>
+
+<pre><code class="r">order(x, decreasing = T)
+</code></pre>
+
+<pre><code>## [1] 1 2 3 4 5
+</code></pre>
 
 <p>Print the <em>logical</em> values of x where x is larger than 1</p>
 
+<pre><code class="r">x &gt; 1
+</code></pre>
+
+<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
+##       TRUE       TRUE       TRUE       TRUE      FALSE
+</code></pre>
+
 <p>Use the same approach but now change any values less than 1 to <em>NA</em></p>
 
+<pre><code class="r">x &lt;- ifelse(test = x &lt;1, yes =  NA, no = x)
+</code></pre>
+
 <p>Calculate the mean of the fruit that are less than 50 but more than 2</p>
+
+<pre><code class="r">x &lt; 50 &amp; x &gt;2
+</code></pre>
+
+<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
+##      FALSE      FALSE       TRUE       TRUE         NA
+</code></pre>
+
+<pre><code class="r">mean(x[x &lt; 50 &amp; x &gt;2], na.rm = T)
+</code></pre>
+
+<pre><code>## [1] 3.15
+</code></pre>
+
+<p>Calculate the mean of the fruit that are greater than or equal to 4</p>
+
+<pre><code class="r">mean(x[x==4], na.rm= T)
+</code></pre>
+
+<pre><code>## [1] 4
+</code></pre>
 
 <h3>Practice exercises</h3>
 
@@ -353,7 +419,7 @@ is in the centromere location (25,800,000 to 29,700,000).</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;Sydney/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;Sydney/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Andy/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;Andy/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
