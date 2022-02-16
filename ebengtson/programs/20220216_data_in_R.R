@@ -101,8 +101,8 @@ odds <- evens[c(1:5)] + 1
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
 typeof(evens) 
 #' 4. Change "evens" to a different vector type, making sure to show the results
-character(evens)
-assign(evens)
+
+c <- as.character(evens)
 
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
