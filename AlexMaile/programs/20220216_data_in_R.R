@@ -4,7 +4,7 @@
 #' 
 #' February 16, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Alex Maile 
 #' 
 #' In this program, xxx
 #' 
@@ -29,17 +29,9 @@ x <- c(56, 95.3, 0.4, 2.3, 4)
 
 #' Add the second value of x to 4.7
 #' 
-x[2] + 4.7
 
-#' Add the second and third value of x to 4.7
+#' What is the fourth value of x?
 #' 
-x[c(2,3)] + 4.7
-x[2:3] + 4.7
-
-#' What is the 6th value of x?
-#' 
-x[6]
-
 
 #' Add names for x
 #' 
@@ -47,54 +39,29 @@ names(x) <- c("banana", "coconut", "blueberry", "strawberry", "kiwi")
 
 #' Use the names to add the coconut's weight to 4.7
 #' 
-x["coconut"] + 4.7
-
-
 
 #' Use the names to remove the non-tropical fruit
 #' 
 # One way:
-(nontropical <- x[c("banana", "coconut", "kiwi")])
 
 # Another way:
-x[c(-3,-4)]
-
 
 #' Sort the values of x by size (ascending) and print those, but don't overwrite x
 #' 
 #' 
-sort(x)
-
 
 #' Sort the value of x by size (descending) and overwrite x with this new order
 #' 
-order(x, decreasing = T)
-(x <- x[order(x, decreasing = T)])
-
-
 
 #' Print the *logical* values of x where x is larger than 1
 #' 
-x > 1
-
 
 #' Use the same approach but now change any values less than 1 to *NA*
 #' 
-x <- ifelse(test = x < 1,
-            yes = NA,
-            no = x)
-
 
 #' Calculate the mean of the fruit that are less than 50 but more than 2
 #' 
-x < 50 & x > 2
-mean(x[x < 50 & x > 2], na.rm = T)
 
-#' Calculate the mean of the fruit that are greater than or equal to 4
-mean(x[x >= 4], na.rm = T)
-
-#' Calculate the mean of the fruit that are equal to 4
-mean(x[x == 4], na.rm = T)
 
 #' ### Practice exercises
 #' 
@@ -175,4 +142,4 @@ df.ex <- read.csv()
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220208_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "AlexMaile/programs/20220216_intro_R.R",out_dir = "AlexMaile/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

@@ -4,9 +4,9 @@
 #' 
 #' February 16, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Glenna
 #' 
-#' In this program, xxx
+#' In this program, We will continue with what we were working on last week with basic arithmetic: how to subset.
 #' 
 #' 
 #' ### Header
@@ -24,7 +24,7 @@ set.seed(71587)
 #' 
 #' ### Subsetting and indexing in R
 #' 
-#' Create a vector, x
+#' Create a vector, x # X is a vector and it has 5 different values)
 x <- c(56, 95.3, 0.4, 2.3, 4)
 
 #' Add the second value of x to 4.7
@@ -32,14 +32,15 @@ x <- c(56, 95.3, 0.4, 2.3, 4)
 x[2] + 4.7
 
 #' Add the second and third value of x to 4.7
-#' 
+# we do this to show a string of numbers in x. Just adding a comma to square brackets, RStudio reads that as coordinates.
 x[c(2,3)] + 4.7
+#' OR
 x[2:3] + 4.7
 
-#' What is the 6th value of x?
-#' 
-x[6]
 
+#' What is the fourth value of x?
+#' 
+x[4]
 
 #' Add names for x
 #' 
@@ -47,54 +48,69 @@ names(x) <- c("banana", "coconut", "blueberry", "strawberry", "kiwi")
 
 #' Use the names to add the coconut's weight to 4.7
 #' 
-x["coconut"] + 4.7
+x["coconut"] +4.7
 
-
+# this is a more reproducible way to do things since the values of x[2] can change, but assigning a name will ensure just names(x) one value.
 
 #' Use the names to remove the non-tropical fruit
 #' 
 # One way:
+x[c("banana", "coconut", "kiwi")]
 (nontropical <- x[c("banana", "coconut", "kiwi")])
+# 
 
 # Another way:
-x[c(-3,-4)]
+x[c(-3, -4)]
 
-
-#' Sort the values of x by size (ascending) and print those, but don't overwrite x
-#' 
-#' 
+#' Sort the values of x by size (ascending)x[] and print those, but don't overwrite x
 sort(x)
+# X is still the same, this is a way to quickly sort the data without changing the original order.
 
 
 #' Sort the value of x by size (descending) and overwrite x with this new order
-#' 
-order(x, decreasing = T)
+
+
+Order(x, decreasing = T)
+# this shows what the order of x would be if it were in decreasing order
+
 (x <- x[order(x, decreasing = T)])
+# This is what you would do to actually reorder the data in decreasing order.
+
+#Another way to use subset is in a logical way. There is a logical test where x for the value of coconut is looking for a true match and skipping over the false  matches
+
+
 
 
 
 #' Print the *logical* values of x where x is larger than 1
 #' 
 x > 1
+# by doing this we get the names and whether true or false if they are over the value of 1.
 
 
 #' Use the same approach but now change any values less than 1 to *NA*
 #' 
-x <- ifelse(test = x < 1,
-            yes = NA,
-            no = x)
+x <- ifelse(test = x < 1, yes = NA, no = x)
+#ifelse is used to overwrite values
 
+#For this one we are trying to look at x and 
 
 #' Calculate the mean of the fruit that are less than 50 but more than 2
 #' 
 x < 50 & x > 2
-mean(x[x < 50 & x > 2], na.rm = T)
+mean(x[x < 50 & x > 2 ], na.rm = T)
+#The function doesnt know how to work with NAs so we need to remove them and equal them to true for this example.
 
-#' Calculate the mean of the fruit that are greater than or equal to 4
-mean(x[x >= 4], na.rm = T)
+#' Calculate the mean of the fruits that are more than 50
 
-#' Calculate the mean of the fruit that are equal to 4
+mean(x[x>50], na.rm = T)
+
+#greater than or equal to >=
+
+#' Calculate the mean of the fruit that are greater or equal to 4
 mean(x[x == 4], na.rm = T)
+# Test of is x equal to 4, use two equals signs
+
 
 #' ### Practice exercises
 #' 
@@ -175,4 +191,4 @@ df.ex <- read.csv()
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220208_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220216_data_in_R.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
