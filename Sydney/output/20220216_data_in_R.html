@@ -289,10 +289,11 @@ nontropical2 &lt;- x[c(-3, -4)]
 
 <p>Sort the values of x by size (ascending) and print those, but don&#39;t overwrite x</p>
 
-<pre><code class="r">sort(x, acending = T)
+<pre><code class="r">sort(x)
 </code></pre>
 
-<pre><code>## Error in sort.int(x, na.last = na.last, decreasing = decreasing, ...): unused argument (acending = TRUE)
+<pre><code>##  blueberry strawberry       kiwi     banana    coconut 
+##        0.4        2.3        4.0       56.0       95.3
 </code></pre>
 
 <p>Sort the value of x by size (descending) and overwrite x with this new order</p>

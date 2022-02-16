@@ -209,7 +209,8 @@ hr {
 
 <p>Programmer: Nicole</p>
 
-<p>In this program, we will code for names, ordering lists in ascending and descending, and math within a vector.</p>
+<p>In this program, we will code for names, ordering lists in ascending and descending, and math within a vector.
+We also added a vector for practice problems for the lab work creating and changing vectors.</p>
 
 <h3>Header</h3>
 
@@ -355,14 +356,33 @@ x[c(-3,-4)]
 
 <ol>
 <li>Create a new vector named &ldquo;evens&rdquo; that includes all even numbers between 1 and 11.</li>
-<li>Create a new vector called &ldquo;odds&rdquo; by adding one to the &ldquo;evens&rdquo; vector</li>
-<li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type</li>
-<li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results</li>
 </ol>
 
-<hr/>
+<pre><code class="r">evens &lt;- c(2, 4, 6, 8, 10)
+</code></pre>
 
-<h2>2. Working with data in R</h2>
+<ol>
+<li>Create a new vector called &ldquo;odds&rdquo; by adding one to the &ldquo;evens&rdquo; vector</li>
+</ol>
+
+<pre><code class="r">odds &lt;- c(3, 5, 7, 9, 11)
+</code></pre>
+
+<ol>
+<li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type</li>
+</ol>
+
+<pre><code class="r">typeof(evens)
+</code></pre>
+
+<pre><code>## [1] &quot;double&quot;
+</code></pre>
+
+<ol>
+<li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results
+_____________________________________________________________________________
+## 2. Working with data in R</li>
+</ol>
 
 <p><em>Note:</em> Normally, we would load in all necessary data at the top of the script,
 rather than down a ways. All libraries, necessary data, etc should be loaded 
@@ -370,43 +390,170 @@ in one place for reproducibility and for better troubleshooting.</p>
 
 <p>Load in the dataset:</p>
 
-<pre><code class="r">df.ex &lt;- read.csv()
-</code></pre>
-
-<pre><code>## Error in read.table(file = file, header = header, sep = sep, quote = quote, : argument &quot;file&quot; is missing, with no default
+<pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;)
 </code></pre>
 
 <p>Look at the structure of the data</p>
 
+<pre><code class="r">str(df.ex)
+</code></pre>
+
+<pre><code>## &#39;data.frame&#39;:    59140 obs. of  16 variables:
+##  $ start          : int  55001 56001 57001 58001 59001 60001 61001 62001 63001 64001 ...
+##  $ end            : int  56000 57000 58000 59000 60000 61000 62000 63000 64000 65000 ...
+##  $ total.SNPs     : int  0 5 1 7 4 6 7 1 1 3 ...
+##  $ total.Bases    : int  1894 6683 9063 10256 8057 7051 6950 8834 9629 7999 ...
+##  $ depth          : num  3.41 6.68 9.06 10.26 8.06 ...
+##  $ unique.SNPs    : int  0 2 1 3 4 2 2 1 1 1 ...
+##  $ dhSNPs         : int  0 2 0 2 0 1 1 0 0 1 ...
+##  $ reference.Bases: int  556 1000 1000 1000 1000 1000 1000 1000 1000 1000 ...
+##  $ Theta          : num  0 8.01 3.51 9.93 12.91 ...
+##  $ Pi             : num  0 10.35 1.99 9.56 8.51 ...
+##  $ Heterozygosity : num  0 7.48 1.1 6.58 4.96 ...
+##  $ X.GC           : num  54.8 42.4 37.2 38 41.3 ...
+##  $ Recombination  : num  0.0096 0.0096 0.0096 0.0096 0.0096 ...
+##  $ Divergence     : num  0.00301 0.01802 0.00701 0.01201 0.02402 ...
+##  $ Constraint     : int  0 0 0 0 0 0 0 0 58 0 ...
+##  $ SNPs           : int  0 0 0 0 0 0 0 0 1 1 ...
+</code></pre>
+
 <p>Note that the strings get loaded as factors by default. Change this:</p>
+
+<pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;, stringsAsFactors = F )
+</code></pre>
 
 <p>View head (n = 3)</p>
 
+<pre><code class="r">head(df.ex, n = 3)
+</code></pre>
+
+<pre><code>##   start   end total.SNPs total.Bases depth unique.SNPs dhSNPs reference.Bases Theta     Pi
+## 1 55001 56000          0        1894  3.41           0      0             556 0.000  0.000
+## 2 56001 57000          5        6683  6.68           2      2            1000 8.007 10.354
+## 3 57001 58000          1        9063  9.06           1      0            1000 3.510  1.986
+##   Heterozygosity    X.GC Recombination  Divergence Constraint SNPs
+## 1          0.000 54.8096   0.009601574 0.003006012          0    0
+## 2          7.481 42.4424   0.009601574 0.018018020          0    0
+## 3          1.103 37.2372   0.009601574 0.007007007          0    0
+</code></pre>
+
 <p>Dimensions of a data frame come in &ldquo;rows, columns&rdquo;</p>
+
+<pre><code class="r">dim(df.ex)
+</code></pre>
+
+<pre><code>## [1] 59140    16
+</code></pre>
+
+<pre><code class="r">nrow(df.ex)
+</code></pre>
+
+<pre><code>## [1] 59140
+</code></pre>
+
+<pre><code class="r">ncol(df.ex)
+</code></pre>
+
+<pre><code>## [1] 16
+</code></pre>
 
 <p>Query the column names for this dataset</p>
 
+<pre><code class="r">colnames(df.ex)
+</code></pre>
+
+<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;    
+##  [5] &quot;depth&quot;           &quot;unique.SNPs&quot;     &quot;dhSNPs&quot;          &quot;reference.Bases&quot;
+##  [9] &quot;Theta&quot;           &quot;Pi&quot;              &quot;Heterozygosity&quot;  &quot;X.GC&quot;           
+## [13] &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;      &quot;SNPs&quot;
+</code></pre>
+
 <p>Note that some column names don&#39;t make sense, change &ldquo;X.GC&rdquo; to &ldquo;percent.GC&rdquo;</p>
+
+<pre><code class="r">colnames(df.ex)[colnames(df.ex) == &quot;X.GC&quot;] &lt;- &quot;percent.GC&quot;
+
+colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;percent&gt;GC&quot;, yes = &quot;percent.GC&quot;, no = colnames(df.ex))
+
+colnames(df.ex)
+</code></pre>
+
+<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;    
+##  [5] &quot;depth&quot;           &quot;unique.SNPs&quot;     &quot;dhSNPs&quot;          &quot;reference.Bases&quot;
+##  [9] &quot;Theta&quot;           &quot;Pi&quot;              &quot;Heterozygosity&quot;  &quot;percent.GC&quot;     
+## [13] &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;      &quot;SNPs&quot;
+</code></pre>
 
 <p>Use $ to access a single column. Specifically, calculate the average of the depth
 column</p>
 
+<pre><code class="r">mean(df.ex$depth)
+</code></pre>
+
+<pre><code>## [1] 8.183938
+</code></pre>
+
 <p>Now use subsetting square brackets to do the same thing:</p>
+
+<pre><code class="r">mean(df.ex[ ,&quot;depth&quot;])
+</code></pre>
+
+<pre><code>## [1] 8.183938
+</code></pre>
 
 <p>Now, calculate the average of the depth column values, but only when depth 
 is greater than 5. (Hint, we have to use subsetting again here, but to subset
 only rows where depth &gt; 5.)</p>
 
+<pre><code class="r">mean(df.ex[df.ex$depth &gt; 5,&quot;depth&quot;])
+</code></pre>
+
+<pre><code>## [1] 8.414036
+</code></pre>
+
 <p>While not very reproducible, let&#39;s just calculate the mean of the first 10
 rows of the depth column. This time do it both with the $ operator AND with 
 square brackets only.</p>
 
+<pre><code class="r">mean(df.ex$depth[1:10])
+</code></pre>
+
+<pre><code>## [1] 7.793
+</code></pre>
+
+<pre><code class="r">mean(df.ex[ 1:10 ,&quot;depth&quot;])
+</code></pre>
+
+<pre><code>## [1] 7.793
+</code></pre>
+
 <p>Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 is in the centromere location (25,800,000 to 29,700,000).</p>
 
+<pre><code class="r">cent.start &lt;- 25800000
+cent.end &lt;- 29700000
+
+
+df.ex$centromere &lt;- NA # new column, just with missing values
+df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
+</code></pre>
+
 <p>Tally up the results using table()</p>
 
+<pre><code class="r">table(df.ex$centromere)
+</code></pre>
+
+<pre><code>## 
+## FALSE  TRUE 
+## 58455   685
+</code></pre>
+
 <p>Tally up the results using sum()</p>
+
+<pre><code class="r">sum(df.ex$centromere)
+</code></pre>
+
+<pre><code>## [1] 685
+</code></pre>
 
 <h3>Footer</h3>
 
