@@ -30,8 +30,18 @@ x <- c(56, 95.3, 0.4, 2.3, 4)
 #' Add the second value of x to 4.7
 #' 
 
+x[2] + 4.7 #square bracket is an index
+
+#use c() to create a string to add multiple values
+
+x[c(2,3)] + 4.7
+
+x[2:3] + 4.7 #this is a more simple way to create a string
+
 #' What is the fourth value of x?
 #' 
+
+x[4]
 
 #' Add names for x
 #' 
@@ -40,28 +50,45 @@ names(x) <- c("banana", "coconut", "blueberry", "strawberry", "kiwi")
 #' Use the names to add the coconut's weight to 4.7
 #' 
 
+x["coconut"] + 4.7
+
 #' Use the names to remove the non-tropical fruit
 #' 
 # One way:
 
+nontropical <- x[c("blueberry", "strawberry")]
+
 # Another way:
+
+nontropical2 <- x[c(-1, -2, -5)]
 
 #' Sort the values of x by size (ascending) and print those, but don't overwrite x
 #' 
 #' 
 
+sort(x, acending = T)
+
 #' Sort the value of x by size (descending) and overwrite x with this new order
 #' 
+
+(x <- x[order(x, decreasing = TRUE)])
 
 #' Print the *logical* values of x where x is larger than 1
 #' 
 
+x > 1
+
 #' Use the same approach but now change any values less than 1 to *NA*
 #' 
+
+ifelse(test = x < 1, 
+    yes = NA, 
+    no = x)
 
 #' Calculate the mean of the fruit that are less than 50 but more than 2
 #' 
 
+mean(x[x < 50 & x > 2], na.rm = T)
 
 #' ### Practice exercises
 #' 
