@@ -119,7 +119,7 @@ colnames(df.ex)
 colnames(df.ex) <- ifelse(test = colnames(df.ex) == "X.GC",
                           yes = "percent.GC",
                           no = colnames(df.ex))
-colnames(df.ex)
+
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
 #' 

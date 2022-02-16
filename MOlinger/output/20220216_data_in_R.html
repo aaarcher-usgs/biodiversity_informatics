@@ -439,13 +439,6 @@ in one place for reproducibility and for better troubleshooting.</p>
 <pre><code class="r">colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;X.GC&quot;,
                           yes = &quot;percent.GC&quot;,
                           no = colnames(df.ex))
-colnames(df.ex)
-</code></pre>
-
-<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;    
-##  [5] &quot;depth&quot;           &quot;unique.SNPs&quot;     &quot;dhSNPs&quot;          &quot;reference.Bases&quot;
-##  [9] &quot;Theta&quot;           &quot;Pi&quot;              &quot;Heterozygosity&quot;  &quot;percent.GC&quot;     
-## [13] &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;      &quot;SNPs&quot;
 </code></pre>
 
 <p>Use $ to access a single column. Specifically, calculate the average of the depth
