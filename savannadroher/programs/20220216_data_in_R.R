@@ -107,7 +107,7 @@ odds <- evens[c(1:5)] + 1
 typeof(evens)
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
-c <- as.character(evens)
+evens <- as.character(evens)
 #' 
 #' Hint: typeof() page 190 in textbook
 
