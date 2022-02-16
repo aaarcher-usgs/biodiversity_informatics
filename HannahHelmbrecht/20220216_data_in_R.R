@@ -117,30 +117,49 @@ colnames(df.ex) <- ifelse(test = colnames(df.ex) == "X.GC",
                           no =colnames(df.ex))
 
 colnames(df.ex)
-# this is a way to change column name 
+# this is a way to change column name and then check it 
 
 
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
 #' 
 
+mean(df.ex$depth)
+# this finds the mean of the depth column
+
 #' Now use subsetting square brackets to do the same thing:
 #' 
+mean(df.ex[ , "depth"])
 
+# this format finds the mean of the depth column using square brackets
 
 #' Now, calculate the average of the depth column values, but only when depth 
 #' is greater than 5. (Hint, we have to use subsetting again here, but to subset
 #' only rows where depth > 5.)
 #' 
 
+mean(df.ex[df.ex$depth > 5 , "depth"])
+# this calculates the mean of the depth column only for values greater than 5
+
 #' While not very reproducible, let's just calculate the mean of the first 10
 #' rows of the depth column. This time do it both with the $ operator AND with 
 #' square brackets only.
 #' 
 
+mean(df.ex[1 :10 , "depth"])
+#this does this task using square brackets
+
+mean(df.ex$depth[1:10])
+
+#this does the task above just using a dollar sign rather than square brackets
+
 #' Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 #' is in the centromere location (25,800,000 to 29,700,000).
 #' 
+#' 
+
+
+
 
 #' Tally up the results using table()
 #' 

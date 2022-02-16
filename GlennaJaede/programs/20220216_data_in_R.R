@@ -173,41 +173,62 @@ ncol(df.ex)
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
+colnames(df.ex) <- ifelse(test = colnames(def.ex) == "X.GC"
+                          yes = "percent.GC"
+                          no = colnames(df.ex)
+                          
+colnames(df.ex)[colnames(df.ex) == "X.GC"] <-"percent.GC"
+colnames(df.ex)
 
 # R studio changed the percent to x, so how we need to rename them
 
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
 #' 
-colnames(df.ex) <- ifelse(test = colnames(def.ex) == "X.GC"
-                          yes = "percent.GC"
-                          no = colnames(df.ex)
+mean(df.ex$depth)
+
 
 
 #' Now use subsetting square brackets to do the same thing:
 #' 
-
+mean(df.ex[ ,"depth"])
 
 #' Now, calculate the average of the depth column values, but only when depth 
 #' is greater than 5. (Hint, we have to use subsetting again here, but to subset
 #' only rows where depth > 5.)
-#' 
+# Only the rows where the sebset is greater than 5 and only from the column "depth"
+mean(df.ex[df.ex$depth > 5 , "depth"])
+
 
 #' While not very reproducible, let's just calculate the mean of the first 10
 #' rows of the depth column. This time do it both with the $ operator AND with 
 #' square brackets only.
 #' 
+mean(df.ex[ 1:10 , "depth"])
+
+mean(df.ex $depth[1:10])
+# by using the dollar sign, we are stating to only use the one dimension of the column x where it is just a string.
+# The comma needs to be removed if you are going to use the dollar sign
+# The comma is needed for the square brackets for the 2 dimensions.
+
 
 #' Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 #' is in the centromere location (25,800,000 to 29,700,000).
 #' 
+cent.start <- 25800000
+cent.end <-29700000
 
+df.ex$centromere <- NA # the dollar sign centromere makes a new collumn with that name. New column with missing values
+
+df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
+  
 #' Tally up the results using table()
 #' 
+table(df.ex$centromere) #685 is the number of tries
 
 #' Tally up the results using sum()
 #' 
-
+sum(df.ex$centromere)
 
 
 
