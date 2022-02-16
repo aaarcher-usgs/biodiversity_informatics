@@ -4,7 +4,7 @@
 #' 
 #' February 16, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Nicole
 #' 
 #' In this program, xxx
 #' 
@@ -142,4 +142,4 @@ df.ex <- read.csv()
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220208_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "NGruwell/programs/20220216_data_in_R.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
