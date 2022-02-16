@@ -142,4 +142,4 @@ df.ex <- read.csv()
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "GlennaJaede/programs/20220216_data_in_R.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220208_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
