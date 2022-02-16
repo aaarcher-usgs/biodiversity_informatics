@@ -89,6 +89,7 @@ odds <- evens+1
 
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
 class(evens)
+str(evens)
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
