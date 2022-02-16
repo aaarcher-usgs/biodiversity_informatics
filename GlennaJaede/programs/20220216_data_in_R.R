@@ -115,8 +115,19 @@ mean(x[x == 4], na.rm = T)
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
+x <- c(2, 4, 6, 8, 10)
+names(x) <- "evens"
+
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
+y <- x+1
+names(y) <- "odds"
+
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+#' 
+typeof(x)
+
+
+
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
 
