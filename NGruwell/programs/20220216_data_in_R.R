@@ -6,7 +6,8 @@
 #' 
 #' Programmer: Nicole
 #' 
-#' In this program, (Fill in Description)
+#' In this program, we will code for names, ordering lists in ascending and descending, and math within a vector.
+#' 
 #' 
 #' 
 #' ### Header

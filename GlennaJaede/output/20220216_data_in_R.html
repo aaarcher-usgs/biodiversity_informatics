@@ -207,9 +207,9 @@ hr {
 
 <p>February 16, 2022</p>
 
-<p>Programmer: Al</p>
+<p>Programmer: Glenna</p>
 
-<p>In this program, xxx</p>
+<p>In this program, We will continue with what we were working on last week with basic arithmetic: how to subset.</p>
 
 <h3>Header</h3>
 
@@ -227,14 +227,43 @@ set.seed(71587)
 
 <h3>Subsetting and indexing in R</h3>
 
-<p>Create a vector, x</p>
+<p>Create a vector, x # X is a vector and it has 5 different values)</p>
 
 <pre><code class="r">x &lt;- c(56, 95.3, 0.4, 2.3, 4)
 </code></pre>
 
 <p>Add the second value of x to 4.7</p>
 
+<pre><code class="r">x[2] + 4.7
+</code></pre>
+
+<pre><code>## [1] 100
+</code></pre>
+
+<p>Add the second and third value of x to 4.7</p>
+
+<pre><code class="r"># we do this to show a string of numbers in x. Just adding a comma to square brackets, RStudio reads that as coordinates.
+x[c(2,3)] + 4.7
+</code></pre>
+
+<pre><code>## [1] 100.0   5.1
+</code></pre>
+
+<p>OR</p>
+
+<pre><code class="r">x[2:3] + 4.7
+</code></pre>
+
+<pre><code>## [1] 100.0   5.1
+</code></pre>
+
 <p>What is the fourth value of x?</p>
+
+<pre><code class="r">x[4]
+</code></pre>
+
+<pre><code>## [1] 2.3
+</code></pre>
 
 <p>Add names for x</p>
 
@@ -243,28 +272,156 @@ set.seed(71587)
 
 <p>Use the names to add the coconut&#39;s weight to 4.7</p>
 
+<pre><code class="r">x[&quot;coconut&quot;] +4.7
+</code></pre>
+
+<pre><code>## coconut 
+##     100
+</code></pre>
+
+<pre><code class="r"># this is a more reproducible way to do things since the values of x[2] can change, but assigning a name will ensure just names(x) one value.
+</code></pre>
+
 <p>Use the names to remove the non-tropical fruit</p>
 
 <pre><code class="r"># One way:
-
-# Another way:
+x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)]
 </code></pre>
 
-<p>Sort the values of x by size (ascending) and print those, but don&#39;t overwrite x</p>
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
+</code></pre>
+
+<pre><code class="r">(nontropical &lt;- x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)])
+</code></pre>
+
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
+</code></pre>
+
+<pre><code class="r"># 
+
+# Another way:
+x[c(-3, -4)]
+</code></pre>
+
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
+</code></pre>
+
+<p>Sort the values of x by size (ascending)x[] and print those, but don&#39;t overwrite x</p>
+
+<pre><code class="r">sort(x)
+</code></pre>
+
+<pre><code>##  blueberry strawberry       kiwi     banana    coconut 
+##        0.4        2.3        4.0       56.0       95.3
+</code></pre>
+
+<pre><code class="r"># X is still the same, this is a way to quickly sort the data without changing the original order.
+</code></pre>
 
 <p>Sort the value of x by size (descending) and overwrite x with this new order</p>
 
+<pre><code class="r">Order(x, decreasing = T)
+</code></pre>
+
+<pre><code>## Error in Order(x, decreasing = T): could not find function &quot;Order&quot;
+</code></pre>
+
+<pre><code class="r"># this shows what the order of x would be if it were in decreasing order
+
+(x &lt;- x[order(x, decreasing = T)])
+</code></pre>
+
+<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
+##       95.3       56.0        4.0        2.3        0.4
+</code></pre>
+
+<pre><code class="r"># This is what you would do to actually reorder the data in decreasing order.
+
+#Another way to use subset is in a logical way. There is a logical test where x for the value of coconut is looking for a true match and skipping over the false  matches
+</code></pre>
+
 <p>Print the <em>logical</em> values of x where x is larger than 1</p>
+
+<pre><code class="r">x &gt; 1
+</code></pre>
+
+<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
+##       TRUE       TRUE       TRUE       TRUE      FALSE
+</code></pre>
+
+<pre><code class="r"># by doing this we get the names and whether true or false if they are over the value of 1.
+</code></pre>
 
 <p>Use the same approach but now change any values less than 1 to <em>NA</em></p>
 
+<pre><code class="r">x &lt;- ifelse(test = x &lt; 1, yes = NA, no = x)
+#ifelse is used to overwrite values
+
+#For this one we are trying to look at x and 
+</code></pre>
+
 <p>Calculate the mean of the fruit that are less than 50 but more than 2</p>
+
+<pre><code class="r">x &lt; 50 &amp; x &gt; 2
+</code></pre>
+
+<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
+##      FALSE      FALSE       TRUE       TRUE         NA
+</code></pre>
+
+<pre><code class="r">mean(x[x &lt; 50 &amp; x &gt; 2 ], na.rm = T)
+</code></pre>
+
+<pre><code>## [1] 3.15
+</code></pre>
+
+<pre><code class="r">#The function doesnt know how to work with NAs so we need to remove them and equal them to true for this example.
+</code></pre>
+
+<p>Calculate the mean of the fruits that are more than 50</p>
+
+<pre><code class="r">mean(x[x&gt;50], na.rm = T)
+</code></pre>
+
+<pre><code>## [1] 75.65
+</code></pre>
+
+<pre><code class="r">#greater than or equal to &gt;=
+</code></pre>
+
+<p>Calculate the mean of the fruit that are greater or equal to 4</p>
+
+<pre><code class="r">mean(x[x == 4], na.rm = T)
+</code></pre>
+
+<pre><code>## [1] 4
+</code></pre>
+
+<pre><code class="r"># Test of is x equal to 4, use two equals signs
+</code></pre>
 
 <h3>Practice exercises</h3>
 
 <ol>
 <li>Create a new vector named &ldquo;evens&rdquo; that includes all even numbers between 1 and 11.</li>
+</ol>
+
+<pre><code class="r">x &lt;- c(2, 4, 6, 8, 10)
+names(x) &lt;- &quot;evens&quot;
+</code></pre>
+
+<ol>
 <li>Create a new vector called &ldquo;odds&rdquo; by adding one to the &ldquo;evens&rdquo; vector</li>
+</ol>
+
+<pre><code class="r">y &lt;- x+1
+names(y) &lt;- &quot;odds&quot;
+</code></pre>
+
+<ol>
 <li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type</li>
 <li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results</li>
 </ol>
