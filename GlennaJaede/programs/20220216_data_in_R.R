@@ -129,8 +129,10 @@ typeof("evens")
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
-class("evens") = "numeric"
+class("evens") 
 
+as.numeric(as.character("evens"))
+evens <-as.numeric(evens)
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
 #' 
@@ -217,7 +219,7 @@ mean(df.ex $depth[1:10])
 cent.start <- 25800000
 cent.end <-29700000
 
-df.ex$centromere <- NA # the dollar sign centromere makes a new collumn with that name. New column with missing values
+df.ex$centromere <- NA # the dollar sign centromere makes a new column with that name. New column with missing values
 
 df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
   
