@@ -207,9 +207,9 @@ hr {
 
 <p>February 16, 2022</p>
 
-<p>Programmer: Nicole</p>
+<p>Programmer: Mariah Simones</p>
 
-<p>In this program, (Fill in Description)</p>
+<p>In this program, xxx</p>
 
 <h3>Header</h3>
 
@@ -234,13 +234,19 @@ set.seed(71587)
 
 <p>Add the second value of x to 4.7</p>
 
-<pre><code class="r">x[2] + 4.7
+<pre><code class="r">x[2] + 4.7 
 </code></pre>
 
 <pre><code>## [1] 100
 </code></pre>
 
-<p>Add second and third value to 4.7</p>
+<p>Add the second and third value of x to 4.7</p>
+
+<pre><code class="r">x[c(2,3)] + 4.7
+</code></pre>
+
+<pre><code>## [1] 100.0   5.1
+</code></pre>
 
 <pre><code class="r">x[2:3] + 4.7
 </code></pre>
@@ -273,11 +279,11 @@ set.seed(71587)
 <p>Use the names to remove the non-tropical fruit</p>
 
 <pre><code class="r"># One way:
-x[c(&quot;coconut&quot;, &quot;banana&quot;, &quot;kiwi&quot;)]
+x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)]
 </code></pre>
 
-<pre><code>## coconut  banana    kiwi 
-##    95.3    56.0     4.0
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
 </code></pre>
 
 <pre><code class="r"># Another way:
@@ -299,17 +305,17 @@ x[c(-3,-4)]
 
 <p>Sort the value of x by size (descending) and overwrite x with this new order</p>
 
-<pre><code class="r">(x &lt;- x[order(x,decreasing=T)])
+<pre><code class="r">order(x, decreasing = T)
+</code></pre>
+
+<pre><code>## [1] 2 1 5 4 3
+</code></pre>
+
+<pre><code class="r">(x &lt;- x[order(x, decreasing = T)])
 </code></pre>
 
 <pre><code>##    coconut     banana       kiwi strawberry  blueberry 
 ##       95.3       56.0        4.0        2.3        0.4
-</code></pre>
-
-<pre><code class="r">order(x, decreasing = T)
-</code></pre>
-
-<pre><code>## [1] 1 2 3 4 5
 </code></pre>
 
 <p>Print the <em>logical</em> values of x where x is larger than 1</p>
@@ -323,32 +329,15 @@ x[c(-3,-4)]
 
 <p>Use the same approach but now change any values less than 1 to <em>NA</em></p>
 
-<pre><code class="r">(x &lt;-ifelse(test = x &lt; 1, yes = NA, no = x ))
-</code></pre>
-
-<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
-##       95.3       56.0        4.0        2.3         NA
+<pre><code class="r">x &lt;- ifelse(test = x &lt; 1, yes = NA, no = x)
 </code></pre>
 
 <p>Calculate the mean of the fruit that are less than 50 but more than 2</p>
 
-<pre><code class="r">mean(x[x &lt; 50 &amp; x&gt; 2], na.rm = T)
+<pre><code class="r">mean(x[x &lt; 50 &amp; x &gt; 2], na.rm = T)
 </code></pre>
 
 <pre><code>## [1] 3.15
-</code></pre>
-
-<p>Calculate the mean of the fruit that are greater that or equal to 4</p>
-
-<pre><code class="r">mean(x[x &gt;= 4], na.rm = T)
-</code></pre>
-
-<pre><code>## [1] 51.76667
-</code></pre>
-
-<p>To get the mean of the fruit that are equal to 4</p>
-
-<pre><code class="r">x=4
 </code></pre>
 
 <h3>Practice exercises</h3>
@@ -411,7 +400,7 @@ is in the centromere location (25,800,000 to 29,700,000).</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;NGruwell/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;NGruwell/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;mariahsimones/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;mariahsimones/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
