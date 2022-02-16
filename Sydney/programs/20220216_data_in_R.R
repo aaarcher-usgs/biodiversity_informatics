@@ -6,7 +6,7 @@
 #' 
 #' Programmer: Sydney
 #' 
-#' In this program, xxx
+#' In this program, we are subsetting and indexing in R and organize raw data
 #' 
 #' 
 #' ### Header
@@ -93,7 +93,13 @@ mean(x[x < 50 & x > 2], na.rm = T)
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
+
+x <- c(2, 4, 6, 8, 10)
+even <- x
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
+
+y <- (x + 1)
+odd <- y
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
@@ -108,26 +114,31 @@ mean(x[x < 50 & x > 2], na.rm = T)
 #' 
 #' Load in the dataset:
 #' 
-df.ex <- read.csv()
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt")
 
 #' Look at the structure of the data
 #' 
 
+str(df.ex)
+
 #' Note that the strings get loaded as factors by default. Change this:
 #' 
 
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt", stringsAsFactors = F)
 
 #' View head (n = 3)
 #' 
 #' 
-
+head(df.ex, n = 3)
 #' Dimensions of a data frame come in "rows, columns"
 #' 
 #' 
-
+dim(df.ex)
+nrow(df.ex)
+ncol(df.ex)
 #' Query the column names for this dataset
 #' 
-
+colnames(df.ex)
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
