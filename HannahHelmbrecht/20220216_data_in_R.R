@@ -4,7 +4,7 @@
 #' 
 #' February 16, 2022
 #' 
-#' Programmer: Mariah Simones
+#' Programmer: Hannah Helmbrecht
 #' 
 #' In this program, xxx
 #' 
@@ -29,16 +29,9 @@ x <- c(56, 95.3, 0.4, 2.3, 4)
 
 #' Add the second value of x to 4.7
 #' 
-x[2] + 4.7 
 
-#' Add the second and third value of x to 4.7
+#' What is the fourth value of x?
 #' 
-x[c(2,3)] + 4.7
-x[2:3] + 4.7
-
-#' What is the sixth value of x?
-#' 
-x[6]
 
 #' Add names for x
 #' 
@@ -46,35 +39,29 @@ names(x) <- c("banana", "coconut", "blueberry", "strawberry", "kiwi")
 
 #' Use the names to add the coconut's weight to 4.7
 #' 
-x["coconut"] + 4.7
 
 #' Use the names to remove the non-tropical fruit
 #' 
 # One way:
-x[c("banana", "coconut", "kiwi")]
+
 # Another way:
-x[c(-3,-4)]
+
 #' Sort the values of x by size (ascending) and print those, but don't overwrite x
 #' 
 #' 
-sort(x)
 
 #' Sort the value of x by size (descending) and overwrite x with this new order
-order(x, decreasing = T)
-(x <- x[order(x, decreasing = T)])
-
+#' 
 
 #' Print the *logical* values of x where x is larger than 1
 #' 
-x > 1
 
 #' Use the same approach but now change any values less than 1 to *NA*
 #' 
-x <- ifelse(test = x < 1, yes = NA, no = x)
 
 #' Calculate the mean of the fruit that are less than 50 but more than 2
 #' 
-mean(x[x < 50 & x > 2], na.rm = T)
+
 
 #' ### Practice exercises
 #' 
@@ -94,51 +81,85 @@ mean(x[x < 50 & x > 2], na.rm = T)
 #' 
 #' Load in the dataset:
 #' 
-df.ex <- read.csv()
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt")
 
 #' Look at the structure of the data
 #' 
+str(df.ex)
 
 #' Note that the strings get loaded as factors by default. Change this:
 #' 
-
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt", stringsA = F)
 
 #' View head (n = 3)
 #' 
 #' 
+head(df.ex, n = 3)
+# This displays first three rows
 
 #' Dimensions of a data frame come in "rows, columns"
 #' 
 #' 
+dim(df.ex)
+# always displays rows and then columns 
 
 #' Query the column names for this dataset
 #' 
+colnames(df.ex)
+# never include spaces in column names or it reads as a period
 
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
 
+colnames(df.ex) <- ifelse(test = colnames(df.ex) == "X.GC", 
+                          yes = "percent.GC", 
+                          no =colnames(df.ex))
+
+colnames(df.ex)
+# this is a way to change column name and then check it 
+
+
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
 #' 
 
+mean(df.ex$depth)
+# this finds the mean of the depth column
+
 #' Now use subsetting square brackets to do the same thing:
 #' 
+mean(df.ex[ , "depth"])
 
+# this format finds the mean of the depth column using square brackets
 
 #' Now, calculate the average of the depth column values, but only when depth 
 #' is greater than 5. (Hint, we have to use subsetting again here, but to subset
 #' only rows where depth > 5.)
 #' 
 
+mean(df.ex[df.ex$depth > 5 , "depth"])
+# this calculates the mean of the depth column only for values greater than 5
+
 #' While not very reproducible, let's just calculate the mean of the first 10
 #' rows of the depth column. This time do it both with the $ operator AND with 
 #' square brackets only.
 #' 
 
+mean(df.ex[1 :10 , "depth"])
+#this does this task using square brackets
+
+mean(df.ex$depth[1:10])
+
+#this does the task above just using a dollar sign rather than square brackets
+
 #' Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 #' is in the centromere location (25,800,000 to 29,700,000).
 #' 
+#' 
+
+
+
 
 #' Tally up the results using table()
 #' 
@@ -155,4 +176,4 @@ df.ex <- read.csv()
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "mariahsimones/programs/20220216_data_in_R.R",out_dir = "mariahsimones/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "HannahHelmbrecht/programs/20220216_data_in_R.R",out_dir = "HannahHelmbrecht/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

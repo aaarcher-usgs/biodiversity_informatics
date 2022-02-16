@@ -207,9 +207,9 @@ hr {
 
 <p>February 16, 2022</p>
 
-<p>Programmer: Sydney</p>
+<p>Programmer: Alex Maile </p>
 
-<p>In this program, we are subsetting and indexing in R and organize raw data</p>
+<p>In this program, xxx</p>
 
 <h3>Header</h3>
 
@@ -234,42 +234,47 @@ set.seed(71587)
 
 <p>Add the second value of x to 4.7</p>
 
-<pre><code class="r">x[2] + 4.7 #square bracket is an index
+<pre><code class="r">x[2]+4.7
 </code></pre>
 
 <pre><code>## [1] 100
 </code></pre>
 
-<pre><code class="r">#use c() to create a string to add multiple values
+<p>Add the second and thrid value of x to 4.7</p>
 
-x[c(2,3)] + 4.7
+<pre><code class="r">x[c(2,3)]+4.7
 </code></pre>
 
 <pre><code>## [1] 100.0   5.1
 </code></pre>
 
-<pre><code class="r">x[2:3] + 4.7 #this is a more simple way to create a string
+<pre><code class="r">x[2:3]+4.7
 </code></pre>
 
 <pre><code>## [1] 100.0   5.1
 </code></pre>
 
-<p>What is the fourth value of x?</p>
+<p>What is the sixth value of x?</p>
 
-<pre><code class="r">x[4]
+<pre><code class="r">x[6]
 </code></pre>
 
-<pre><code>## [1] 2.3
+<pre><code>## [1] NA
 </code></pre>
 
 <p>Add names for x</p>
 
 <pre><code class="r">names(x) &lt;- c(&quot;banana&quot;, &quot;coconut&quot;, &quot;blueberry&quot;, &quot;strawberry&quot;, &quot;kiwi&quot;)
+x
+</code></pre>
+
+<pre><code>##     banana    coconut  blueberry strawberry       kiwi 
+##       56.0       95.3        0.4        2.3        4.0
 </code></pre>
 
 <p>Use the names to add the coconut&#39;s weight to 4.7</p>
 
-<pre><code class="r">x[&quot;coconut&quot;] + 4.7
+<pre><code class="r">x[&quot;coconut&quot;]+4.7
 </code></pre>
 
 <pre><code>## coconut 
@@ -279,25 +284,34 @@ x[c(2,3)] + 4.7
 <p>Use the names to remove the non-tropical fruit</p>
 
 <pre><code class="r"># One way:
+x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)]
+</code></pre>
 
-nontropical &lt;- x[c(&quot;banana&quot;,&quot;coconut&quot;, &quot;kiwi&quot;)]
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
+</code></pre>
 
-# Another way:
+<pre><code class="r"># Another way:
+x[c(-3, -4)]
+</code></pre>
 
-nontropical2 &lt;- x[c(-3, -4)]
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
 </code></pre>
 
 <p>Sort the values of x by size (ascending) and print those, but don&#39;t overwrite x</p>
 
-<pre><code class="r">sort(x, acending = T)
+<pre><code class="r">sort(x, decreasing = FALSE)
 </code></pre>
 
-<pre><code>## Error in sort.int(x, na.last = na.last, decreasing = decreasing, ...): unused argument (acending = TRUE)
+<pre><code>##  blueberry strawberry       kiwi     banana    coconut 
+##        0.4        2.3        4.0       56.0       95.3
 </code></pre>
 
 <p>Sort the value of x by size (descending) and overwrite x with this new order</p>
 
-<pre><code class="r">(x &lt;- x[order(x, decreasing = TRUE)])
+<pre><code class="r">x&lt;-sort(x, decreasing = TRUE)
+x
 </code></pre>
 
 <pre><code>##    coconut     banana       kiwi strawberry  blueberry 
@@ -315,18 +329,12 @@ nontropical2 &lt;- x[c(-3, -4)]
 
 <p>Use the same approach but now change any values less than 1 to <em>NA</em></p>
 
-<pre><code class="r">ifelse(test = x &lt; 1, 
-    yes = NA, 
-    no = x)
-</code></pre>
-
-<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
-##       95.3       56.0        4.0        2.3         NA
+<pre><code class="r">x &lt;- ifelse(test = x &lt; 1, yes = NA, no = x)
 </code></pre>
 
 <p>Calculate the mean of the fruit that are less than 50 but more than 2</p>
 
-<pre><code class="r">mean(x[x &lt; 50 &amp; x &gt; 2], na.rm = T)
+<pre><code class="r">mean(x[x &lt; 50 &amp; x &gt; 2], na.rm = TRUE)
 </code></pre>
 
 <pre><code>## [1] 3.15
@@ -338,22 +346,40 @@ nontropical2 &lt;- x[c(-3, -4)]
 <li>Create a new vector named &ldquo;evens&rdquo; that includes all even numbers between 1 and 11.</li>
 </ol>
 
-<pre><code class="r">x &lt;- c(2, 4, 6, 8, 10)
-even &lt;- x
+<pre><code class="r">&quot;evens&quot; &lt;- seq(2, 10, 2)
 </code></pre>
 
 <ol>
 <li>Create a new vector called &ldquo;odds&rdquo; by adding one to the &ldquo;evens&rdquo; vector</li>
 </ol>
 
-<pre><code class="r">y &lt;- (x + 1)
-odd &lt;- y
+<pre><code class="r">&quot;odds&quot; &lt;- seq(1, 11, 2)
 </code></pre>
 
 <ol>
 <li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type</li>
+</ol>
+
+<pre><code class="r">typeof(&quot;evens&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+
+<ol>
 <li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results</li>
 </ol>
+
+<pre><code class="r">{numbers &lt;- as.numeric(evens)
+print(numbers)
+typeof(&quot;evens&quot;)}
+</code></pre>
+
+<pre><code>## [1]  2  4  6  8 10
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
 
 <hr/>
 
@@ -394,7 +420,10 @@ in one place for reproducibility and for better troubleshooting.</p>
 
 <p>Note that the strings get loaded as factors by default. Change this:</p>
 
-<pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;, stringsAsFactors = F)
+<pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;, stringAsFactors = F)
+</code></pre>
+
+<pre><code>## Error in read.table(file = file, header = header, sep = sep, quote = quote, : unused argument (stringAsFactors = F)
 </code></pre>
 
 <p>View head (n = 3)</p>
@@ -402,14 +431,14 @@ in one place for reproducibility and for better troubleshooting.</p>
 <pre><code class="r">head(df.ex, n = 3)
 </code></pre>
 
-<pre><code>##   start   end total.SNPs total.Bases depth unique.SNPs dhSNPs reference.Bases Theta     Pi
-## 1 55001 56000          0        1894  3.41           0      0             556 0.000  0.000
-## 2 56001 57000          5        6683  6.68           2      2            1000 8.007 10.354
-## 3 57001 58000          1        9063  9.06           1      0            1000 3.510  1.986
-##   Heterozygosity    X.GC Recombination  Divergence Constraint SNPs
-## 1          0.000 54.8096   0.009601574 0.003006012          0    0
-## 2          7.481 42.4424   0.009601574 0.018018020          0    0
-## 3          1.103 37.2372   0.009601574 0.007007007          0    0
+<pre><code>##   start   end total.SNPs total.Bases depth unique.SNPs dhSNPs reference.Bases Theta     Pi Heterozygosity
+## 1 55001 56000          0        1894  3.41           0      0             556 0.000  0.000          0.000
+## 2 56001 57000          5        6683  6.68           2      2            1000 8.007 10.354          7.481
+## 3 57001 58000          1        9063  9.06           1      0            1000 3.510  1.986          1.103
+##      X.GC Recombination  Divergence Constraint SNPs
+## 1 54.8096   0.009601574 0.003006012          0    0
+## 2 42.4424   0.009601574 0.018018020          0    0
+## 3 37.2372   0.009601574 0.007007007          0    0
 </code></pre>
 
 <p>Dimensions of a data frame come in &ldquo;rows, columns&rdquo;</p>
@@ -420,13 +449,8 @@ in one place for reproducibility and for better troubleshooting.</p>
 <pre><code>## [1] 59140    16
 </code></pre>
 
-<pre><code class="r">nrow(df.ex)
-</code></pre>
-
-<pre><code>## [1] 59140
-</code></pre>
-
-<pre><code class="r">ncol(df.ex)
+<pre><code class="r">{nrow(df.ex)
+ncol(df.ex)}
 </code></pre>
 
 <pre><code>## [1] 16
@@ -445,15 +469,13 @@ in one place for reproducibility and for better troubleshooting.</p>
 
 <p>Note that some column names don&#39;t make sense, change &ldquo;X.GC&rdquo; to &ldquo;percent.GC&rdquo;</p>
 
-<pre><code class="r">colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;X.GC&quot;,
-                          yes = &quot;percent.GC&quot;,
-                          no = colnames(df.ex))
+<pre><code class="r">colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;X.GC&quot;, yes = &quot;percent.GC&quot;, no = colnames(df.ex))
 </code></pre>
 
 <p>Use $ to access a single column. Specifically, calculate the average of the depth
 column</p>
 
-<pre><code class="r">mean(df.ex$depth)
+<pre><code class="r">mean(df.ex $ depth)
 </code></pre>
 
 <pre><code>## [1] 8.183938
@@ -461,7 +483,7 @@ column</p>
 
 <p>Now use subsetting square brackets to do the same thing:</p>
 
-<pre><code class="r">mean(df.ex[ , &quot;depth&quot;])
+<pre><code class="r">mean(df.ex[ ,&quot;depth&quot;])
 </code></pre>
 
 <pre><code>## [1] 8.183938
@@ -471,7 +493,7 @@ column</p>
 is greater than 5. (Hint, we have to use subsetting again here, but to subset
 only rows where depth &gt; 5.)</p>
 
-<pre><code class="r">mean(df.ex[df.ex$depth &gt; 5, &quot;depth&quot;])
+<pre><code class="r">mean(df.ex[df.ex $ depth &gt; 5, &quot;depth&quot;])
 </code></pre>
 
 <pre><code>## [1] 8.414036
@@ -481,13 +503,7 @@ only rows where depth &gt; 5.)</p>
 rows of the depth column. This time do it both with the $ operator AND with 
 square brackets only.</p>
 
-<pre><code class="r">mean(df.ex[1:10 , &quot;depth&quot;])
-</code></pre>
-
-<pre><code>## [1] 7.793
-</code></pre>
-
-<pre><code class="r">mean(df.ex$depth[1:10])
+<pre><code class="r">mean(df.ex[1:10, &quot;depth&quot;])
 </code></pre>
 
 <pre><code>## [1] 7.793
@@ -496,13 +512,10 @@ square brackets only.</p>
 <p>Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 is in the centromere location (25,800,000 to 29,700,000).</p>
 
-<pre><code class="r">df.ex$centromere &lt;- NA
-cent.start &lt;- 25800000
+<pre><code class="r">cent.start &lt;- 25800000
 cent.end &lt;- 29700000
 
-
-df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
-
+df.ex$centromere &lt;- NA
 df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
 </code></pre>
 
@@ -526,8 +539,14 @@ df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.e
 
 <h3>Footer</h3>
 
-<p>spin this with:
-ezspin(file = &ldquo;Sydney/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;Sydney/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+<p>spin this with:</p>
+
+<pre><code class="r">ezspin(file = &quot;AlexMaile/programs/20220216_data_in_R.R&quot;,out_dir = &quot;AlexMaile/output&quot;, fig_dir = &quot;figures&quot;,keep_md = FALSE, keep_rmd = FALSE)
+</code></pre>
+
+<pre><code>## ezspin output in
+## /Users/alexmaile/Desktop/Bioinformatics/Repository/biodiversity_informatics/AlexMaile/output
+</code></pre>
 
 </body>
 
