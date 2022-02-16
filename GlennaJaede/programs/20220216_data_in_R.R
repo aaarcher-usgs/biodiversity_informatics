@@ -141,33 +141,48 @@ typeof(x)
 #' 
 #' Load in the dataset:
 #' 
-df.ex <- read.csv()
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt")
+# df stands for data file. This is the mapping for where the data is. Make sure to use the file function
+
 
 #' Look at the structure of the data
-#' 
+str(df.ex)
+# Int means integer, and num means number
 
 #' Note that the strings get loaded as factors by default. Change this:
 #' 
-
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt", stringsAsFactors = F)
 
 #' View head (n = 3)
 #' 
-#' 
+head(df.ex, n = 3) 
+#there are around 60,000 rows in this data set from textbook. You can view the data in a spread sheet like screen by selecting the df.ex in the environment.
+#Really nice way to troubleshoot data. Can not edit here.
 
 #' Dimensions of a data frame come in "rows, columns"
 #' 
 #' 
+dim(df.ex)
+nrow(df.ex)
+#Always goes from rows to columns
 
 #' Query the column names for this dataset
 #' 
-
+ncol(df.ex)
+# you can never have spaces in column names
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
 
+# R studio changed the percent to x, so how we need to rename them
+
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
 #' 
+colnames(df.ex) <- ifelse(test = colnames(def.ex) == "X.GC"
+                          yes = "percent.GC"
+                          no = colnames(df.ex)
+
 
 #' Now use subsetting square brackets to do the same thing:
 #' 
