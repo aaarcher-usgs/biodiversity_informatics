@@ -85,7 +85,7 @@ Sort the values of x by size (ascending) and print those, but don't overwrite x
 
 
 ```{r }
-sort(x, acending = T)
+sort(x)
 ```
 
 Sort the value of x by size (descending) and overwrite x with this new order
