@@ -11,6 +11,7 @@ library(terra)
 library(sdmpredictors)
 library(fuzzySim)
 library(raster)
+library(ezknitr)
 
 
 # GET SPECIES OCCURRENCE DATA DATA ####
@@ -23,3 +24,4 @@ myspecies <- "Hesperia dacotae"
 
 gbif_data <- occ_data(scientificName = myspecies, hasCoordinate = TRUE, limit = 20000)
 gbif_data  # see if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
+
