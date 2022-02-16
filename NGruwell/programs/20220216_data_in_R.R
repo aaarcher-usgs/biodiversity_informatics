@@ -93,8 +93,8 @@ x > 1
 mean(x[x < 50 & x> 2], na.rm = T)
 #' Calculate the mean of the fruit that are greater that or equal to 4
 mean(x[x >= 4], na.rm = T)
-
-
+#' To get the mean of the fruit that are equal to 4
+x=4
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.

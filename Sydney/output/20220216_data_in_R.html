@@ -234,7 +234,33 @@ set.seed(71587)
 
 <p>Add the second value of x to 4.7</p>
 
+<pre><code class="r">x[2] + 4.7 #square bracket is an index
+</code></pre>
+
+<pre><code>## [1] 100
+</code></pre>
+
+<pre><code class="r">#use c() to create a string to add multiple values
+
+x[c(2,3)] + 4.7
+</code></pre>
+
+<pre><code>## [1] 100.0   5.1
+</code></pre>
+
+<pre><code class="r">x[2:3] + 4.7 #this is a more simple way to create a string
+</code></pre>
+
+<pre><code>## [1] 100.0   5.1
+</code></pre>
+
 <p>What is the fourth value of x?</p>
+
+<pre><code class="r">x[4]
+</code></pre>
+
+<pre><code>## [1] 2.3
+</code></pre>
 
 <p>Add names for x</p>
 
@@ -242,6 +268,13 @@ set.seed(71587)
 </code></pre>
 
 <p>Use the names to add the coconut&#39;s weight to 4.7</p>
+
+<pre><code class="r">x[&quot;coconut&quot;] +4.7
+</code></pre>
+
+<pre><code>## coconut 
+##     100
+</code></pre>
 
 <p>Use the names to remove the non-tropical fruit</p>
 
