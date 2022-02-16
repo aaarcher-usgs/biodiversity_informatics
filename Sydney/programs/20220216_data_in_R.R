@@ -56,11 +56,11 @@ x["coconut"] + 4.7
 #' 
 # One way:
 
-nontropical <- x[c("blueberry", "strawberry")]
+nontropical <- x[c("banana","coconut", "kiwi")]
 
 # Another way:
 
-nontropical2 <- x[c(-1, -2, -5)]
+nontropical2 <- x[c(-3, -4)]
 
 #' Sort the values of x by size (ascending) and print those, but don't overwrite x
 #' 

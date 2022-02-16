@@ -280,11 +280,11 @@ x[c(2,3)] + 4.7
 
 <pre><code class="r"># One way:
 
-nontropical &lt;- x[c(&quot;blueberry&quot;, &quot;strawberry&quot;)]
+nontropical &lt;- x[c(&quot;banana&quot;,&quot;coconut&quot;, &quot;kiwi&quot;)]
 
 # Another way:
 
-nontropical2 &lt;- x[c(-1, -2, -5)]
+nontropical2 &lt;- x[c(-3, -4)]
 </code></pre>
 
 <p>Sort the values of x by size (ascending) and print those, but don&#39;t overwrite x</p>
@@ -496,15 +496,33 @@ square brackets only.</p>
 <p>Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 is in the centromere location (25,800,000 to 29,700,000).</p>
 
-<pre><code class="r">cent.start &lt;- 258000000
+<pre><code class="r">df.ex$centromere &lt;- NA
+cent.start &lt;- 25800000
 cent.end &lt;- 29700000
-df.ex$centromere &lt;- NA
+
+
+df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
+
 df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
 </code></pre>
 
 <p>Tally up the results using table()</p>
 
+<pre><code class="r">table(df.ex$centromere)
+</code></pre>
+
+<pre><code>## 
+## FALSE  TRUE 
+## 58455   685
+</code></pre>
+
 <p>Tally up the results using sum()</p>
+
+<pre><code class="r">sum(df.ex$centromere)
+</code></pre>
+
+<pre><code>## [1] 685
+</code></pre>
 
 <h3>Footer</h3>
 
