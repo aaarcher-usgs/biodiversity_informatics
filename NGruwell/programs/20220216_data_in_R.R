@@ -101,6 +101,7 @@ x=4
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
 evens <- c(2, 4, 6, 8, 10)
 
+
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
 odds <- c(3, 5, 7, 9, 11)
 
@@ -110,7 +111,7 @@ typeof(evens)
 
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
- 
+evens <- as.character(evens)
 
 
 #' _____________________________________________________________________________
