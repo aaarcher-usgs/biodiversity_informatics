@@ -123,7 +123,7 @@ y <- x+1
 names(y) <- "odds"
 
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
-#' 
+#' typeof("evens")
 typeof("evens")
 
 
@@ -132,7 +132,7 @@ typeof("evens")
 class("evens") 
 
 as.numeric(as.character("evens"))
-evens <-as.numeric(evens)
+evens <- as.numeric(evens)
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
 #' 
@@ -174,11 +174,13 @@ ncol(df.ex)
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
-colnames(df.ex) <- ifelse(test = colnames(def.ex) == "X.GC"
-                          yes = "percent.GC"
-                          no = colnames(df.ex)
-                          
-colnames(df.ex)[colnames(df.ex) == "X.GC"] <-"percent.GC"
+colnames(df.ex)[colnames(df.ex) == "X.GC"] <- "percent.GC"
+colnames(df.ex)
+
+colnames(df.ex) <- ifelse(test = colnames(df.ex) == "X.GC",
+                          yes = "percent.GC",
+                          no = colnames(df.ex))
+
 colnames(df.ex)
 
 # R studio changed the percent to x, so how we need to rename them
