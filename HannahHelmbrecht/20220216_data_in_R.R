@@ -4,7 +4,7 @@
 #' 
 #' February 16, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Hannah Helmbrecht
 #' 
 #' In this program, xxx
 #' 
@@ -81,29 +81,44 @@ names(x) <- c("banana", "coconut", "blueberry", "strawberry", "kiwi")
 #' 
 #' Load in the dataset:
 #' 
-df.ex <- read.csv()
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt")
 
 #' Look at the structure of the data
 #' 
+str(df.ex)
 
 #' Note that the strings get loaded as factors by default. Change this:
 #' 
-
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt", stringsA = F)
 
 #' View head (n = 3)
 #' 
 #' 
+head(df.ex, n = 3)
+# This displays first three rows
 
 #' Dimensions of a data frame come in "rows, columns"
 #' 
 #' 
+dim(df.ex)
+# always displays rows and then columns 
 
 #' Query the column names for this dataset
 #' 
+colnames(df.ex)
+# never include spaces in column names or it reads as a period
 
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
+
+colnames(df.ex) <- ifelse(test = colnames(df.ex) == "X.GC", 
+                          yes = "percent.GC", 
+                          no =colnames(df.ex))
+
+colnames(df.ex)
+# this is a way to change column name 
+
 
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
@@ -142,4 +157,4 @@ df.ex <- read.csv()
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220208_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "HannahHelmbrecht/programs/20220216_data_in_R.R",out_dir = "HannahHelmbrecht/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
