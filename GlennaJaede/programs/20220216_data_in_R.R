@@ -124,13 +124,12 @@ names(y) <- "odds"
 
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
 #' 
-typeof(x)
-
+typeof("evens")
 
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
-
+class("evens") = "numeric"
 
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
