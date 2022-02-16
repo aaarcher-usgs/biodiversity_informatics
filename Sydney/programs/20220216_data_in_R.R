@@ -66,8 +66,7 @@ nontropical2 <- x[c(-3, -4)]
 #' 
 #' 
 
-sort(x, acending = T)
-
+sort(x)
 #' Sort the value of x by size (descending) and overwrite x with this new order
 #' 
 
