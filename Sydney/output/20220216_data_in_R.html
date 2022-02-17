@@ -209,7 +209,8 @@ hr {
 
 <p>Programmer: Sydney</p>
 
-<p>In this program, we are subsetting and indexing in R and organize raw data</p>
+<p>In this program, we will learn to subset and index as well as manipulate vector types
+and raw data.</p>
 
 <h3>Header</h3>
 
@@ -339,22 +340,37 @@ nontropical2 &lt;- x[c(-3, -4)]
 <li>Create a new vector named &ldquo;evens&rdquo; that includes all even numbers between 1 and 11.</li>
 </ol>
 
-<pre><code class="r">x &lt;- c(2, 4, 6, 8, 10)
-even &lt;- x
+<pre><code class="r">&quot;evens&quot; &lt;- c(2, 4, 6, 8, 10)
 </code></pre>
 
 <ol>
 <li>Create a new vector called &ldquo;odds&rdquo; by adding one to the &ldquo;evens&rdquo; vector</li>
 </ol>
 
-<pre><code class="r">y &lt;- (x + 1)
-odd &lt;- y
+<pre><code class="r">&quot;odds&quot; &lt;- (evens + 1)
 </code></pre>
 
 <ol>
 <li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type</li>
+</ol>
+
+<pre><code class="r">typeof(evens) #double is also considered numeric?
+</code></pre>
+
+<pre><code>## [1] &quot;double&quot;
+</code></pre>
+
+<ol>
 <li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results</li>
 </ol>
+
+<pre><code class="r">&quot;evens&quot; &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;)
+
+typeof(evens)
+</code></pre>
+
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
 
 <hr/>
 
