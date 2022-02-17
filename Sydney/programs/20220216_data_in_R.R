@@ -6,8 +6,8 @@
 #' 
 #' Programmer: Sydney
 #' 
-#' In this program, we are subsetting and indexing in R and organize raw data
-#' 
+#' In this program, we will learn to subset and index as well as manipulate vector types
+#' and raw data.
 #' 
 #' ### Header
 #' 
@@ -66,8 +66,7 @@ nontropical2 <- x[c(-3, -4)]
 #' 
 #' 
 
-sort(x, acending = T)
-
+sort(x)
 #' Sort the value of x by size (descending) and overwrite x with this new order
 #' 
 
@@ -94,16 +93,22 @@ mean(x[x < 50 & x > 2], na.rm = T)
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
 
-x <- c(2, 4, 6, 8, 10)
-even <- x
+"evens" <- c(2, 4, 6, 8, 10)
+
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
 
-y <- (x + 1)
-odd <- y
+"odds" <- (evens + 1)
+
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+
+typeof(evens) #double is also considered numeric?
+
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
 
+"evens" <- c("A", "B", "C", "D", "E")
+
+typeof(evens)
 
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
@@ -190,7 +195,6 @@ df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
 table(df.ex$centromere)
 #' Tally up the results using sum()
 #' 
-
 sum(df.ex$centromere)
 
 

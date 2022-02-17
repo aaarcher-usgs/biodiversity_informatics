@@ -103,7 +103,7 @@ typeof(evens)
 typeof(odds)
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
-
+evens <- as.character(evens)
 
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
