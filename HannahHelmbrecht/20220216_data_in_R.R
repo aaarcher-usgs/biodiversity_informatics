@@ -54,30 +54,61 @@ nontropical <- x[c("banana", "coconut", "kiwi")]
 #' 
 # One way:
 
+(nontropical <- x[c("banana", "coconut", "kiwi")])
+
 # Another way:
+
+x[c(-3,-4)]
 
 #' Sort the values of x by size (ascending) and print those, but don't overwrite x
 #' 
-#' 
+sort(x)
 
 #' Sort the value of x by size (descending) and overwrite x with this new order
 #' 
+(x <- x[order(x, decreasing = T)])
 
 #' Print the *logical* values of x where x is larger than 1
 #' 
+#' 
+
+x > 1
+
 
 #' Use the same approach but now change any values less than 1 to *NA*
 #' 
 
+x <- ifelse(test = x < 1,
+            yes = NA, 
+            no = x)
+
 #' Calculate the mean of the fruit that are less than 50 but more than 2
 #' 
+x < 50 & x > 2
+mean(x[x < 50 & x > 2], na.rm = T)
 
 
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
+#' 
+
+evens <- c(2, 4, 6, 8, 10)
+
+
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
+#' 
+#' 
+
+odds <- c(1, 3, 5, 7, 9, 11)
+
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+#' 
+#' 
+#' 
+typeof(evens #>[1] "character")
+
+
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
 
