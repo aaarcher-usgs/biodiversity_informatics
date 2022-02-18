@@ -111,9 +111,8 @@ typeof("evens")
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
-# character to numeric 
-as.numeric(c)
-#> 1 [(2, 4, 6, 8, 10)]
+numbers <- as.numeric("evens")
+
 
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
