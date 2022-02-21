@@ -367,14 +367,10 @@ x[c(-3,-4)]
 <li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results</li>
 </ol>
 
-<pre><code class="r"># character to numeric 
-as.numeric(c)
+<pre><code class="r">numbers &lt;- as.numeric(&quot;evens&quot;)
 </code></pre>
 
-<pre><code>## Error in as.numeric(c): cannot coerce type &#39;builtin&#39; to vector of type &#39;double&#39;
-</code></pre>
-
-<pre><code class="r">#&gt; 1 [(2, 4, 6, 8, 10)]
+<pre><code>## Warning: NAs introduced by coercion
 </code></pre>
 
 <hr/>
