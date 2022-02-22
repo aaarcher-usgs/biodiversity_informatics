@@ -29,47 +29,89 @@ x <- c(56, 95.3, 0.4, 2.3, 4)
 
 #' Add the second value of x to 4.7
 #' 
+x[2] +4.7 
+
 
 #' What is the fourth value of x?
 #' 
-
+x[4]
 #' Add names for x
 #' 
 names(x) <- c("banana", "coconut", "blueberry", "strawberry", "kiwi")
 
+
+
 #' Use the names to add the coconut's weight to 4.7
 #' 
 
+x["coconut"] + 4.7
+
 #' Use the names to remove the non-tropical fruit
+#' 
+nontropical <- x[c("banana", "coconut", "kiwi")]
+
+
 #' 
 # One way:
 
+(nontropical <- x[c("banana", "coconut", "kiwi")])
+
 # Another way:
+
+x[c(-3,-4)]
 
 #' Sort the values of x by size (ascending) and print those, but don't overwrite x
 #' 
-#' 
+sort(x)
 
 #' Sort the value of x by size (descending) and overwrite x with this new order
 #' 
+(x <- x[order(x, decreasing = T)])
 
 #' Print the *logical* values of x where x is larger than 1
 #' 
+#' 
+
+x > 1
+
 
 #' Use the same approach but now change any values less than 1 to *NA*
 #' 
 
+x <- ifelse(test = x < 1,
+            yes = NA, 
+            no = x)
+
 #' Calculate the mean of the fruit that are less than 50 but more than 2
 #' 
+x < 50 & x > 2
+mean(x[x < 50 & x > 2], na.rm = T)
 
 
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
+#' 
+
+evens <- c(2, 4, 6, 8, 10)
+
+
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
+#' 
+#' 
+
+odds <- c(1, 3, 5, 7, 9, 11)
+
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+#' 
+#' 
+#' 
+typeof("evens")
+# evens is currently a character vector, needs to be changed
+
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
+numbers <- as.numeric("evens")
 
 
 #' _____________________________________________________________________________
@@ -158,17 +200,23 @@ mean(df.ex$depth[1:10])
 #' 
 #' 
 
+df.ex$centromere <- NA
 
+#this is how you name a new column
 
+cent.start <- 25800000
+cent.end <- 29700000
+df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
 
 #' Tally up the results using table()
 #' 
+table(df.ex$centromere)
+
+# shows results for how many of our values fall within centromere values
 
 #' Tally up the results using sum()
 #' 
-
-
-
+sum(df.ex$centromere)
 
 #' 
 #' 
