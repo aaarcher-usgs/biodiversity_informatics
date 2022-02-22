@@ -123,14 +123,16 @@ y <- x+1
 names(y) <- "odds"
 
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
-#' 
+#' typeof("evens")
 typeof("evens")
 
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
-class("evens") = "numeric"
+class("evens") 
 
+as.numeric(as.character("evens"))
+evens <- as.numeric(evens)
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
 #' 
@@ -172,11 +174,13 @@ ncol(df.ex)
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
-colnames(df.ex) <- ifelse(test = colnames(def.ex) == "X.GC"
-                          yes = "percent.GC"
-                          no = colnames(df.ex)
-                          
-colnames(df.ex)[colnames(df.ex) == "X.GC"] <-"percent.GC"
+colnames(df.ex)[colnames(df.ex) == "X.GC"] <- "percent.GC"
+colnames(df.ex)
+
+colnames(df.ex) <- ifelse(test = colnames(df.ex) == "X.GC",
+                          yes = "percent.GC",
+                          no = colnames(df.ex))
+
 colnames(df.ex)
 
 # R studio changed the percent to x, so how we need to rename them
@@ -217,7 +221,7 @@ mean(df.ex $depth[1:10])
 cent.start <- 25800000
 cent.end <-29700000
 
-df.ex$centromere <- NA # the dollar sign centromere makes a new collumn with that name. New column with missing values
+df.ex$centromere <- NA # the dollar sign centromere makes a new column with that name. New column with missing values
 
 df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
   

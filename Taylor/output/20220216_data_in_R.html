@@ -207,9 +207,11 @@ hr {
 
 <p>February 16, 2022</p>
 
-<p>Programmer: Glenna</p>
+<p>Programmer: Taylor</p>
 
-<p>In this program, We will continue with what we were working on last week with basic arithmetic: how to subset.</p>
+<p>In this program, we learned about vectors, how to create them, and indexing vectors.
+We also load in data and learn how to use code to analyze the raw data, learned
+subsetting, and how to make calculations with the raw data.</p>
 
 <h3>Header</h3>
 
@@ -227,7 +229,7 @@ set.seed(71587)
 
 <h3>Subsetting and indexing in R</h3>
 
-<p>Create a vector, x # X is a vector and it has 5 different values)</p>
+<p>Create a vector, x</p>
 
 <pre><code class="r">x &lt;- c(56, 95.3, 0.4, 2.3, 4)
 </code></pre>
@@ -242,14 +244,11 @@ set.seed(71587)
 
 <p>Add the second and third value of x to 4.7</p>
 
-<pre><code class="r"># we do this to show a string of numbers in x. Just adding a comma to square brackets, RStudio reads that as coordinates.
-x[c(2,3)] + 4.7
+<pre><code class="r">x[c(2,3)] + 4.7
 </code></pre>
 
 <pre><code>## [1] 100.0   5.1
 </code></pre>
-
-<p>OR</p>
 
 <pre><code class="r">x[2:3] + 4.7
 </code></pre>
@@ -257,12 +256,12 @@ x[c(2,3)] + 4.7
 <pre><code>## [1] 100.0   5.1
 </code></pre>
 
-<p>What is the fourth value of x?</p>
+<p>What is the 6th value of x?</p>
 
-<pre><code class="r">x[4]
+<pre><code class="r">x[6]
 </code></pre>
 
-<pre><code>## [1] 2.3
+<pre><code>## [1] NA
 </code></pre>
 
 <p>Add names for x</p>
@@ -272,44 +271,34 @@ x[c(2,3)] + 4.7
 
 <p>Use the names to add the coconut&#39;s weight to 4.7</p>
 
-<pre><code class="r">x[&quot;coconut&quot;] +4.7
+<pre><code class="r">x[&quot;coconut&quot;] + 4.7
 </code></pre>
 
 <pre><code>## coconut 
 ##     100
 </code></pre>
 
-<pre><code class="r"># this is a more reproducible way to do things since the values of x[2] can change, but assigning a name will ensure just names(x) one value.
-</code></pre>
-
 <p>Use the names to remove the non-tropical fruit</p>
 
 <pre><code class="r"># One way:
-x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)]
+
+(tropical &lt;- x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)])
 </code></pre>
 
 <pre><code>##  banana coconut    kiwi 
 ##    56.0    95.3     4.0
 </code></pre>
 
-<pre><code class="r">(nontropical &lt;- x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)])
+<pre><code class="r"># Another way:
+
+x[c(-3,-4)]
 </code></pre>
 
 <pre><code>##  banana coconut    kiwi 
 ##    56.0    95.3     4.0
 </code></pre>
 
-<pre><code class="r"># 
-
-# Another way:
-x[c(-3, -4)]
-</code></pre>
-
-<pre><code>##  banana coconut    kiwi 
-##    56.0    95.3     4.0
-</code></pre>
-
-<p>Sort the values of x by size (ascending)x[] and print those, but don&#39;t overwrite x</p>
+<p>Sort the values of x by size (ascending) and print those, but don&#39;t overwrite x</p>
 
 <pre><code class="r">sort(x)
 </code></pre>
@@ -318,29 +307,19 @@ x[c(-3, -4)]
 ##        0.4        2.3        4.0       56.0       95.3
 </code></pre>
 
-<pre><code class="r"># X is still the same, this is a way to quickly sort the data without changing the original order.
-</code></pre>
-
 <p>Sort the value of x by size (descending) and overwrite x with this new order</p>
 
-<pre><code class="r">Order(x, decreasing = T)
+<pre><code class="r">order(x, decreasing = T)
 </code></pre>
 
-<pre><code>## Error in Order(x, decreasing = T): could not find function &quot;Order&quot;
+<pre><code>## [1] 2 1 5 4 3
 </code></pre>
 
-<pre><code class="r"># this shows what the order of x would be if it were in decreasing order
-
-(x &lt;- x[order(x, decreasing = T)])
+<pre><code class="r">(x &lt;- x[order(x, decreasing = T)])
 </code></pre>
 
 <pre><code>##    coconut     banana       kiwi strawberry  blueberry 
 ##       95.3       56.0        4.0        2.3        0.4
-</code></pre>
-
-<pre><code class="r"># This is what you would do to actually reorder the data in decreasing order.
-
-#Another way to use subset is in a logical way. There is a logical test where x for the value of coconut is looking for a true match and skipping over the false  matches
 </code></pre>
 
 <p>Print the <em>logical</em> values of x where x is larger than 1</p>
@@ -352,55 +331,36 @@ x[c(-3, -4)]
 ##       TRUE       TRUE       TRUE       TRUE      FALSE
 </code></pre>
 
-<pre><code class="r"># by doing this we get the names and whether true or false if they are over the value of 1.
-</code></pre>
-
 <p>Use the same approach but now change any values less than 1 to <em>NA</em></p>
 
-<pre><code class="r">x &lt;- ifelse(test = x &lt; 1, yes = NA, no = x)
-#ifelse is used to overwrite values
-
-#For this one we are trying to look at x and 
+<pre><code class="r">x &lt;- ifelse(test = x &lt; 1,
+            yes = NA,
+            no = x)
 </code></pre>
 
 <p>Calculate the mean of the fruit that are less than 50 but more than 2</p>
 
-<pre><code class="r">x &lt; 50 &amp; x &gt; 2
-</code></pre>
-
-<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
-##      FALSE      FALSE       TRUE       TRUE         NA
-</code></pre>
-
-<pre><code class="r">mean(x[x &lt; 50 &amp; x &gt; 2 ], na.rm = T)
+<pre><code class="r">mean(x[x &lt; 50 &amp; x &gt; 2],
+     na.rm = T)
 </code></pre>
 
 <pre><code>## [1] 3.15
 </code></pre>
 
-<pre><code class="r">#The function doesnt know how to work with NAs so we need to remove them and equal them to true for this example.
+<p>Calculate the mean of the fruit that are greater than or equal to 4</p>
+
+<pre><code class="r">mean(x[x &gt;= 4], na.rm = T)
 </code></pre>
 
-<p>Calculate the mean of the fruits that are more than 50</p>
-
-<pre><code class="r">mean(x[x&gt;50], na.rm = T)
+<pre><code>## [1] 51.76667
 </code></pre>
 
-<pre><code>## [1] 75.65
-</code></pre>
-
-<pre><code class="r">#greater than or equal to &gt;=
-</code></pre>
-
-<p>Calculate the mean of the fruit that are greater or equal to 4</p>
+<p>Calculate the mean of the fruit that are equal to 4</p>
 
 <pre><code class="r">mean(x[x == 4], na.rm = T)
 </code></pre>
 
 <pre><code>## [1] 4
-</code></pre>
-
-<pre><code class="r"># Test of is x equal to 4, use two equals signs
 </code></pre>
 
 <h3>Practice exercises</h3>
@@ -409,50 +369,43 @@ x[c(-3, -4)]
 <li>Create a new vector named &ldquo;evens&rdquo; that includes all even numbers between 1 and 11.</li>
 </ol>
 
-<pre><code class="r">x &lt;- c(2, 4, 6, 8, 10)
-names(x) &lt;- &quot;evens&quot;
+<pre><code class="r">evens &lt;- c(2,4,6,8,10)
 </code></pre>
 
 <ol>
 <li>Create a new vector called &ldquo;odds&rdquo; by adding one to the &ldquo;evens&rdquo; vector</li>
 </ol>
 
-<pre><code class="r">y &lt;- x+1
-names(y) &lt;- &quot;odds&quot;
+<pre><code class="r">odds &lt;- c(evens+1)
 </code></pre>
 
 <ol>
-<li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type
-typeof(&ldquo;evens&rdquo;)</li>
+<li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type</li>
 </ol>
 
-<pre><code class="r">typeof(&quot;evens&quot;)
+<pre><code class="r">typeof(evens) #&#39; numeric vector type
 </code></pre>
 
-<pre><code>## [1] &quot;character&quot;
+<pre><code>## [1] &quot;double&quot;
 </code></pre>
 
 <ol>
 <li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results</li>
 </ol>
 
-<pre><code class="r">class(&quot;evens&quot;) 
+<pre><code class="r">(evens &lt;- as.integer(evens))
 </code></pre>
 
-<pre><code>## [1] &quot;character&quot;
+<pre><code>## [1]  2  4  6  8 10
 </code></pre>
 
-<pre><code class="r">as.numeric(as.character(&quot;evens&quot;))
+<pre><code class="r">typeof(evens)
 </code></pre>
 
-<pre><code>## Warning: NAs introduced by coercion
+<pre><code>## [1] &quot;integer&quot;
 </code></pre>
 
-<pre><code>## [1] NA
-</code></pre>
-
-<pre><code class="r">evens &lt;- as.numeric(evens)
-</code></pre>
+<p>Hint: typeof(), page 190 in textbook</p>
 
 <hr/>
 
@@ -465,7 +418,6 @@ in one place for reproducibility and for better troubleshooting.</p>
 <p>Load in the dataset:</p>
 
 <pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;)
-# df stands for data file. This is the mapping for where the data is. Make sure to use the file function
 </code></pre>
 
 <p>Look at the structure of the data</p>
@@ -492,9 +444,6 @@ in one place for reproducibility and for better troubleshooting.</p>
 ##  $ SNPs           : int  0 0 0 0 0 0 0 0 1 1 ...
 </code></pre>
 
-<pre><code class="r"># Int means integer, and num means number
-</code></pre>
-
 <p>Note that the strings get loaded as factors by default. Change this:</p>
 
 <pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;, stringsAsFactors = F)
@@ -502,21 +451,17 @@ in one place for reproducibility and for better troubleshooting.</p>
 
 <p>View head (n = 3)</p>
 
-<pre><code class="r">head(df.ex, n = 3) 
+<pre><code class="r">head(df.ex, n = 3)
 </code></pre>
 
-<pre><code>##   start   end total.SNPs total.Bases depth unique.SNPs dhSNPs reference.Bases Theta     Pi
-## 1 55001 56000          0        1894  3.41           0      0             556 0.000  0.000
-## 2 56001 57000          5        6683  6.68           2      2            1000 8.007 10.354
-## 3 57001 58000          1        9063  9.06           1      0            1000 3.510  1.986
-##   Heterozygosity    X.GC Recombination  Divergence Constraint SNPs
-## 1          0.000 54.8096   0.009601574 0.003006012          0    0
-## 2          7.481 42.4424   0.009601574 0.018018020          0    0
-## 3          1.103 37.2372   0.009601574 0.007007007          0    0
-</code></pre>
-
-<pre><code class="r">#there are around 60,000 rows in this data set from textbook. You can view the data in a spread sheet like screen by selecting the df.ex in the environment.
-#Really nice way to troubleshoot data. Can not edit here.
+<pre><code>##   start   end total.SNPs total.Bases depth unique.SNPs dhSNPs reference.Bases Theta     Pi Heterozygosity    X.GC
+## 1 55001 56000          0        1894  3.41           0      0             556 0.000  0.000          0.000 54.8096
+## 2 56001 57000          5        6683  6.68           2      2            1000 8.007 10.354          7.481 42.4424
+## 3 57001 58000          1        9063  9.06           1      0            1000 3.510  1.986          1.103 37.2372
+##   Recombination  Divergence Constraint SNPs
+## 1   0.009601574 0.003006012          0    0
+## 2   0.009601574 0.018018020          0    0
+## 3   0.009601574 0.007007007          0    0
 </code></pre>
 
 <p>Dimensions of a data frame come in &ldquo;rows, columns&rdquo;</p>
@@ -533,46 +478,36 @@ in one place for reproducibility and for better troubleshooting.</p>
 <pre><code>## [1] 59140
 </code></pre>
 
-<pre><code class="r">#Always goes from rows to columns
-</code></pre>
-
-<p>Query the column names for this dataset</p>
-
 <pre><code class="r">ncol(df.ex)
 </code></pre>
 
 <pre><code>## [1] 16
 </code></pre>
 
-<pre><code class="r"># you can never have spaces in column names
+<p>Query the column names for this dataset</p>
+
+<pre><code class="r">colnames(df.ex)
+</code></pre>
+
+<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;     &quot;depth&quot;           &quot;unique.SNPs&quot;    
+##  [7] &quot;dhSNPs&quot;          &quot;reference.Bases&quot; &quot;Theta&quot;           &quot;Pi&quot;              &quot;Heterozygosity&quot;  &quot;X.GC&quot;           
+## [13] &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;      &quot;SNPs&quot;
 </code></pre>
 
 <p>Note that some column names don&#39;t make sense, change &ldquo;X.GC&rdquo; to &ldquo;percent.GC&rdquo;</p>
 
 <pre><code class="r">colnames(df.ex)[colnames(df.ex) == &quot;X.GC&quot;] &lt;- &quot;percent.GC&quot;
-colnames(df.ex)
-</code></pre>
 
-<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;     &quot;depth&quot;          
-##  [6] &quot;unique.SNPs&quot;     &quot;dhSNPs&quot;          &quot;reference.Bases&quot; &quot;Theta&quot;           &quot;Pi&quot;             
-## [11] &quot;Heterozygosity&quot;  &quot;percent.GC&quot;      &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;     
-## [16] &quot;SNPs&quot;
-</code></pre>
-
-<pre><code class="r">colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;X.GC&quot;,
-                          yes = &quot;percent.GC&quot;,
+colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;X.GC&quot;,
+                          yes =&quot;percent.GC&quot;,
                           no = colnames(df.ex))
 
 colnames(df.ex)
 </code></pre>
 
-<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;     &quot;depth&quot;          
-##  [6] &quot;unique.SNPs&quot;     &quot;dhSNPs&quot;          &quot;reference.Bases&quot; &quot;Theta&quot;           &quot;Pi&quot;             
-## [11] &quot;Heterozygosity&quot;  &quot;percent.GC&quot;      &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;     
-## [16] &quot;SNPs&quot;
-</code></pre>
-
-<pre><code class="r"># R studio changed the percent to x, so how we need to rename them
+<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;     &quot;depth&quot;           &quot;unique.SNPs&quot;    
+##  [7] &quot;dhSNPs&quot;          &quot;reference.Bases&quot; &quot;Theta&quot;           &quot;Pi&quot;              &quot;Heterozygosity&quot;  &quot;percent.GC&quot;     
+## [13] &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;      &quot;SNPs&quot;
 </code></pre>
 
 <p>Use $ to access a single column. Specifically, calculate the average of the depth
@@ -596,8 +531,7 @@ column</p>
 is greater than 5. (Hint, we have to use subsetting again here, but to subset
 only rows where depth &gt; 5.)</p>
 
-<pre><code class="r"># Only the rows where the sebset is greater than 5 and only from the column &quot;depth&quot;
-mean(df.ex[df.ex$depth &gt; 5 , &quot;depth&quot;])
+<pre><code class="r">mean(df.ex[df.ex$depth &gt; 5 ,&quot;depth&quot;])
 </code></pre>
 
 <pre><code>## [1] 8.414036
@@ -607,37 +541,32 @@ mean(df.ex[df.ex$depth &gt; 5 , &quot;depth&quot;])
 rows of the depth column. This time do it both with the $ operator AND with 
 square brackets only.</p>
 
-<pre><code class="r">mean(df.ex[ 1:10 , &quot;depth&quot;])
+<pre><code class="r">mean(df.ex[1:10, &quot;depth&quot;])
 </code></pre>
 
 <pre><code>## [1] 7.793
 </code></pre>
 
-<pre><code class="r">mean(df.ex $depth[1:10])
+<pre><code class="r">mean(df.ex$depth[1:10])
 </code></pre>
 
 <pre><code>## [1] 7.793
-</code></pre>
-
-<pre><code class="r"># by using the dollar sign, we are stating to only use the one dimension of the column x where it is just a string.
-# The comma needs to be removed if you are going to use the dollar sign
-# The comma is needed for the square brackets for the 2 dimensions.
 </code></pre>
 
 <p>Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 is in the centromere location (25,800,000 to 29,700,000).</p>
 
 <pre><code class="r">cent.start &lt;- 25800000
-cent.end &lt;-29700000
+cent.end &lt;- 29700000
 
-df.ex$centromere &lt;- NA # the dollar sign centromere makes a new column with that name. New column with missing values
+df.ex$centromere &lt;- NA # new column, just with missing values
 
 df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
 </code></pre>
 
 <p>Tally up the results using table()</p>
 
-<pre><code class="r">table(df.ex$centromere) #685 is the number of tries
+<pre><code class="r">table(df.ex$centromere)
 </code></pre>
 
 <pre><code>## 
@@ -656,7 +585,7 @@ df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.e
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;GlennaJaede/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;GlennaJaede/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Taylor/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;Taylor/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

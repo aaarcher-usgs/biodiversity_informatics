@@ -7,7 +7,7 @@
 #' Programmer: Nicole
 #' 
 #' In this program, we will code for names, ordering lists in ascending and descending, and math within a vector.
-#' 
+#' We also added a vector for practice problems for the lab work creating and changing vectors.
 #' 
 #' 
 #' ### Header
@@ -99,10 +99,19 @@ x=4
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
+evens <- c(2, 4, 6, 8, 10)
+
+
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
+odds <- c(3, 5, 7, 9, 11)
+
+
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+typeof(evens)
+
+
 #' 4. Change "evens" to a different vector type, making sure to show the results
-#' 
+evens <- as.character(evens)
 
 
 #' _____________________________________________________________________________
@@ -114,59 +123,83 @@ x=4
 #' 
 #' Load in the dataset:
 #' 
-df.ex <- read.csv()
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt")
 
 #' Look at the structure of the data
 #' 
-
+str(df.ex)
 #' Note that the strings get loaded as factors by default. Change this:
 #' 
-
+df.ex <- read.csv(file = "data/raw/Dataset_S1.txt", stringsAsFactors = F )
 
 #' View head (n = 3)
 #' 
 #' 
-
+head(df.ex, n = 3)
 #' Dimensions of a data frame come in "rows, columns"
 #' 
 #' 
+dim(df.ex)
+nrow(df.ex)
+ncol(df.ex)
 
 #' Query the column names for this dataset
 #' 
-
+colnames(df.ex)
 
 #' Note that some column names don't make sense, change "X.GC" to "percent.GC"
 #' 
+
+colnames(df.ex)[colnames(df.ex) == "X.GC"] <- "percent.GC"
+
+colnames(df.ex) <- ifelse(test = colnames(df.ex) == "percent>GC", yes = "percent.GC", no = colnames(df.ex))
+
+colnames(df.ex)
+
 
 #' Use $ to access a single column. Specifically, calculate the average of the depth
 #' column
 #' 
 
+mean(df.ex$depth)
+
 #' Now use subsetting square brackets to do the same thing:
 #' 
-
+mean(df.ex[ ,"depth"])
 
 #' Now, calculate the average of the depth column values, but only when depth 
 #' is greater than 5. (Hint, we have to use subsetting again here, but to subset
 #' only rows where depth > 5.)
 #' 
 
+
+mean(df.ex[df.ex$depth > 5,"depth"])
+
 #' While not very reproducible, let's just calculate the mean of the first 10
 #' rows of the depth column. This time do it both with the $ operator AND with 
 #' square brackets only.
 #' 
 
+
+mean(df.ex$depth[1:10])
+mean(df.ex[ 1:10 ,"depth"])
 #' Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 #' is in the centromere location (25,800,000 to 29,700,000).
 #' 
+cent.start <- 25800000
+cent.end <- 29700000
+
+
+df.ex$centromere <- NA # new column, just with missing values
+df.ex$centromere <- df.ex$start >= cent.start & df.ex$end <= cent.end
 
 #' Tally up the results using table()
 #' 
-
+table(df.ex$centromere)
 #' Tally up the results using sum()
 #' 
 
-
+sum(df.ex$centromere)
 
 
 #' 
