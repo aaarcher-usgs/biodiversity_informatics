@@ -6,12 +6,13 @@
 #' 
 #' Programmer: Andy
 #' 
-#' In this program, xxx
+#' In this program, we learned more about vectors specifically, how to subset, create, and organiza vectors.
 #' 
 #' Fill in description of what was included
 #' ### Header
 #' 
 #' 
+#'
 # Load Libraries
 library(ezknitr)
 
@@ -82,8 +83,19 @@ mean(x[x==4], na.rm= T)
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
 #' 4. Change "evens" to a different vector type, making sure to show the results
-#
-evens (x) <- typeof()
+
+?typeof
+x <- 1:11
+#' Create a new vector named "evens" that includes all even numbers between 1 and 11
+evens <- c(2, 4, 6, 8, 10)
+#' Create a new vector called "odds" by adding one to the "evens" vector
+odds <- evens + 1
+#' Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+typeof(evens)
+#' Change "evens" to a different vector type
+c <- as.character(evens)
+
+
 #' _____________________________________________________________________________
 #' ## 2. Working with data in R
 #' 
