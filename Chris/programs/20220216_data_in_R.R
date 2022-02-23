@@ -96,6 +96,9 @@ evens <- c(2, 4, 6, 8, 10)
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
 odds <- c(evens+1) 
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+typeof(evens)
+str(evens)
+
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
 
