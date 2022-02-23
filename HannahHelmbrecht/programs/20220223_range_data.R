@@ -155,4 +155,4 @@ set.seed(0) # reset random generator, make sure we all have the same result
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "HannahHelmbrecht/programs/20220223_range_data.R",out_dir = "HannahHelmbrecht/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "HannahHelmbrecht/programs/20220223_range_data.R",out_dir = "HannahHelmbrecht/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
