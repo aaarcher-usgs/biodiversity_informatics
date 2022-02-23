@@ -53,7 +53,7 @@ source("plot-ranges.R")
 (rng <- IRanges(start = 4, end = 13))
 
 # Ranges can be made by designating start or end AND width
-(rng <- IRanges(start = 4, width = 3))
+(rng <- IRanges(start = 4, width = 11))
 
 #' IRanges objects can also be created to contain many ranges 
 #' 
@@ -72,18 +72,27 @@ plotIRanges(x)
 #' What values start each range?
 #' 
 
+start(x)
+
 #' What values end each range?
 #' 
+
+end(x)
 
 #' What is the width of each range?
 #' 
 
+width(x)
+
 #' What is the total range of the IRanges object?
 #' 
 
+range(x)
 
 #' What is the difference between range(x) and width(x)??
 #' 
+#' > Range summarizes the start and end and width across all the reads/ranges
+#' but width gives just each individual range's width
 
 
 
@@ -98,17 +107,22 @@ plotIRanges(x)
 #' Use subsetting to look at just second and third row of x
 #' 
 
+x[2:3]
+
 #' Use subsetting to look at just ranges named "a" and "c"
 #' 
 
+x[c("a", "c")]
 
 #' Display logical answer for when start of x is less than 5
 #' 
 
+x[start(x) < 5]
 
 #' Display ranges that are greater than 8 in width
 #' 
 
+x[width(x) > 8]
 
 #' We can also merge ranges together with c() 
 #' 
