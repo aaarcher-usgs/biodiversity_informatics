@@ -6,7 +6,7 @@
 #' 
 #' Programmer: Sydney
 #' 
-#' In this program, xxx
+#' In this program, we will work with genomic data and plot our findings.
 #' 
 #' 
 #' ### Header
@@ -30,8 +30,8 @@ set.seed(71587)
 # BiocManager::install(version = "3.14")
 
 #' Now install the package
-BiocManager::install("GenomicRanges")
-library(IRanges)
+# BiocManager::install("GenomicRanges")
+# library(IRanges)
 
 #' Source the script from the textbook to make figures
 #' 
@@ -137,16 +137,18 @@ c(a, b)
 #' 
 x <- IRanges(start = c(40, 80),
              end = c(67, 114))
-names(x) <- c("a", "b")
+names(x) <- letters[1:length(x)] 
+x
+plotIRanges(x)
 
 #' By adding 4L, this grows the sequence symmetrically by 4 on each side
 y <- x + 4L
-names(y) <- c("a + 4L", "b + 4L")
+names(y) <- paste0(names(y), " + 4L")
 
 
 #' By subtracting, we symmetrically cut off each end of the sequence
 z <- x - 10L
-names(z) <- c("a - 10L", "b - 10L")
+names(z) <- paste0(names(z), " - 10L")
 
 plotIRanges(c(x,y,z))
 
@@ -166,13 +168,16 @@ x <- IRanges(start = c(40, 80),
              width = c(28, 35))
 names(x) <- letters[1:length(x)]
 
+# upstream flanks
+
 y <- flank(x, width = 7, start = TRUE)
 names(y) <- paste0(names(y), "-upstrm")
 
+# downstream flanks
 z <- flank(x, width = 7, start = FALSE)
 names(z) <- paste0(names(z), "-dwnstrm")
 
-c(x,y,z)
+plotIRanges(c(x,y,z))
 
 #' We can also reduce the ranges that are potentially overlapping
 #' by merging them to a single range in the result. This is useful if 
@@ -184,7 +189,9 @@ set.seed(0) # reset random generator, make sure we all have the same result
 alns <- IRanges(start = sample(seq_len(50), 20),
                 width = 5)
 length(alns)
+
 plotIRanges(alns)
+
 names(alns) <- letters[1:length(alns)]
 
 alns.reduce <- reduce(alns)
