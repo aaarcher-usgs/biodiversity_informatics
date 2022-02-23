@@ -4,7 +4,7 @@
 #' 
 #' February 23, 2022
 #' 
-#' Programmer: Christopher Krueth
+#' Programmer: Hannah Helmbrecht
 #' 
 #' In this program, xxx
 #' 
@@ -25,12 +25,8 @@ set.seed(71587)
 #' 
 #' ### Use biocManager to get package GenomicRanges
 #' 
-# if (!require("BiocManager", quietly = TRUE))
-#  install.packages("BiocManager")
-#BiocManager::install(version = "3.14")
-
-#' Now install the package
-#BiocManager::install("GenomicRanges")
+# if (!require("BiocManager", quietly = TRUE))#   install.packages("BiocManager")# BiocManager::install(version = "3.14")# Now install the package
+# BiocManager::install("GenomicRanges")# library(IRanges)
 
 #' Source the script from the textbook to make figures
 #' 
@@ -49,25 +45,28 @@ source("plot-ranges.R")
 #' 
 
 # Ranges can be made by designating start and end
-
+ (rng <- IRanges(start = 4, end = 13))
 
 # Ranges can be made by designating start or end AND width
-
+ (rng <- IRanges(start = 4, width = 11))
 
 #' IRanges objects can also be created to contain many ranges 
 #' 
-
+(x <- IRanges(start = c(4, 7, 2, 20), end =c(13, 7, 5, 23)))
 
 #' And each range within the IRanges object can be named:
 #' 
+names(x) <- letters [1:length(x)]
+x
 
 
 #' Let's plot the ranges
 #' 
-
+plotIRanges(x)
 
 #' What values start each range?
 #' 
+
 
 #' What values end each range?
 #' 
@@ -154,4 +153,4 @@ set.seed(0) # reset random generator, make sure we all have the same result
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Chris/programs/20220223_range_data.R",out_dir = "Chris/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "HannahHelmbrecht/programs/20220223_range_data.R",out_dir = "HannahHelmbrecht/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

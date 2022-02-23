@@ -4,7 +4,7 @@
 #' 
 #' February 23, 2022
 #' 
-#' Programmer: Christopher Krueth
+#' Programmer: Savanna
 #' 
 #' In this program, xxx
 #' 
@@ -26,11 +26,12 @@ set.seed(71587)
 #' ### Use biocManager to get package GenomicRanges
 #' 
 # if (!require("BiocManager", quietly = TRUE))
-#  install.packages("BiocManager")
-#BiocManager::install(version = "3.14")
+#   install.packages("BiocManager")
+# BiocManager::install(version = "3.14")
 
 #' Now install the package
-#BiocManager::install("GenomicRanges")
+# BiocManager::install("GenomicRanges")
+library(IRanges)
 
 #' Source the script from the textbook to make figures
 #' 
@@ -154,4 +155,4 @@ set.seed(0) # reset random generator, make sure we all have the same result
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Chris/programs/20220223_range_data.R",out_dir = "Chris/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "savannadroher/programs/20220223_range_data.R",out_dir = "savannadroher/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)

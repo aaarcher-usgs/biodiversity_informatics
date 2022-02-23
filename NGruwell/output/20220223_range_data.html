@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Lecture Notes</title>
+<title>Working with genomic range data in R</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,69 +201,172 @@ hr {
 </head>
 
 <body>
-<h1>Lecture Notes</h1>
+<h1>Working with genomic range data in R</h1>
 
-<p>Programmer: Glenna</p>
+<p>Biodiversity Informatics (BIOL 475/575)</p>
 
-<p>Date: February 23, 2022</p>
+<p>February 22, 2022</p>
 
-<h2>Header</h2>
+<p>Programmer: Nicole G and Emma K &lt;3</p>
 
-<p>This is an attempt to practice using R while taking notes for my bioinfo class.</p>
+<p>In this program, xxx</p>
 
-<p>This chunk of code will load in all required packages and clear environment</p>
+<h3>Header</h3>
 
-<pre><code class="r">library(knitr)
+<pre><code class="r"># Load Libraries
 library(ezknitr)
-# This line clears the environment
-remove(list = ls()) 
+library(ggplot2)
+
+# Clear Environment &amp; Set Seed
+remove(list=ls())
+set.seed(71587)
 </code></pre>
 
-<h2>Notes</h2>
+<hr/>
 
-<p>Geonomics
-Remember, we aren&#39;t just in a data science class, what should we be thinking about with data processing</p>
+<h2>1. Load libraries from new sources</h2>
 
-<p>Sequencing
-Genomic DNA is fragmented into random pieces and cloned as a bacterial library.
-DNA from individual bacterial clones is sequenced assembled through overlapping. </p>
+<h3>Use biocManager to get package GenomicRanges</h3>
 
-<p>Contigs - contiguous sequences
-Scaffolds - larger sequences made up of contigs
-Chromosomes - Made of scaffolds and contigs once fully assembled</p>
+<pre><code class="r"># if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+#   install.packages(&quot;BiocManager&quot;)
+# BiocManager::install(version = &quot;3.14&quot;)
+</code></pre>
 
-<p>Ranges - As, Ts, Cs, and Gs are important but also act as a coordinate system.</p>
+<p>Now install the package</p>
 
-<p>&#39;X&#39; is a forward reading range
-&#39;Y&#39; is a reverse reading range </p>
+<pre><code class="r">#BiocManager::install(&quot;GenomicRanges&quot;)
+library(IRanges)
+</code></pre>
 
-<p>Range systems are either 0-based(Python) or 1-based&reg;
-0-based&quot; half closed, half open</p>
+<p>Source the script from the textbook to make figures</p>
 
-<ul>
-<li>Included -&gt;[27, 30) &lt;- Excluded</li>
-<li>Better in 2 ways: </li>
-<li>0-based systen can calculate range width. ie. 30-27=3. 3 is width of range. </li>
-<li>And Looking for where you want to cut a range. Can specify locations between two base pairs.</li>
-</ul>
+<pre><code class="r">source(&quot;plot-ranges.R&quot;)
+</code></pre>
 
-<p>1-based both sides closed [27,30]</p>
+<hr/>
 
-<ul>
-<li>To find the width of the range, we need to add one to the subtraction</li>
-<li>30-27+1=4</li>
-</ul>
+<h2>2. Introduction to range data</h2>
 
-<p>Remind the professor to record</p>
+<p>IRanges are an object that R recognizes as being a genomic range.</p>
 
-<p>To test (and finalize) your work, spin the document to html using this code:</p>
+<p>Remember that ranges would normally have metadata such as </p>
 
-<p>ezspin(file = &ldquo;GlennaJaede/programs/20220223_Lecture_NotesRMD.R&rdquo;,out_dir = &ldquo;GlennaJaede/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<ol>
+<li>Chromosome name, such as &ldquo;chr17&rdquo; or &ldquo;chrY&rdquo; or &ldquo;contig184&rdquo;</li>
+<li>Range that demonstrates the specific sequence on the chromosome</li>
+<li>Strand, which is either forward (positive) or backward (negative)</li>
+</ol>
 
-<p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
+<pre><code class="r"># Ranges can be made by designating start and end
+(rng &lt;- IRanges(start = 4, end = 13 ))
+</code></pre>
 
-<p>Remember to commit &gt; pull &gt; push to submit your work to GitHub. Do this 
-frequently!</p>
+<pre><code>## IRanges object with 1 range and 0 metadata columns:
+##           start       end     width
+##       &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   [1]         4        13        10
+</code></pre>
+
+<pre><code class="r"># Ranges can be made by designating start or end AND width
+(rng &lt;- IRanges(start = 4, width = 11 ))
+</code></pre>
+
+<pre><code>## IRanges object with 1 range and 0 metadata columns:
+##           start       end     width
+##       &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   [1]         4        14        11
+</code></pre>
+
+<p>IRanges objects can also be created to contain many ranges </p>
+
+<pre><code class="r">(x &lt;- IRanges(start = c( 4, 7, 2, 20), end = c( 13, 7, 5, 23)))
+</code></pre>
+
+<pre><code>## IRanges object with 4 ranges and 0 metadata columns:
+##           start       end     width
+##       &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   [1]         4        13        10
+##   [2]         7         7         1
+##   [3]         2         5         4
+##   [4]        20        23         4
+</code></pre>
+
+<p>And each range within the IRanges object can be named:</p>
+
+<pre><code class="r">names(x) &lt;- letters[1:length(x)]
+
+x
+</code></pre>
+
+<pre><code>## IRanges object with 4 ranges and 0 metadata columns:
+##         start       end     width
+##     &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   a         4        13        10
+##   b         7         7         1
+##   c         2         5         4
+##   d        20        23         4
+</code></pre>
+
+<p>Let&#39;s plot the ranges</p>
+
+<pre><code class="r">plotIRanges(x)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-8"/></p>
+
+<p>What values start each range?</p>
+
+<p>What values end each range?</p>
+
+<p>What is the width of each range?</p>
+
+<p>What is the total range of the IRanges object?</p>
+
+<p>What is the difference between range(x) and width(x)??</p>
+
+<p>We can manipulate the ranges with standard arithmetic:</p>
+
+<p>We can also use many of the other R functions to manipulate IRanges:</p>
+
+<p>Use subsetting to look at just second and third row of x</p>
+
+<p>Use subsetting to look at just ranges named &ldquo;a&rdquo; and &ldquo;c&rdquo;</p>
+
+<p>Display logical answer for when start of x is less than 5</p>
+
+<p>Display ranges that are greater than 8 in width</p>
+
+<p>We can also merge ranges together with c() </p>
+
+<hr/>
+
+<h2>3. More advanced range operations</h2>
+
+<p>By adding 4L, this grows the sequence symmetrically by 4 on each side</p>
+
+<p>By subtracting, we symmetrically cut off each end of the sequence</p>
+
+<p>By restricting the ranges, we cut them off to fit in a specific range</p>
+
+<p>We can also flank the ranges to create downstream or upstream
+sequences that contain promoter sequences</p>
+
+<p>We can also reduce the ranges that are potentially overlapping
+by merging them to a single range in the result. This is useful if 
+we care about what regions a sequence covers, but not the specific
+ranges</p>
+
+<pre><code class="r">set.seed(0) # reset random generator, make sure we all have the same result
+# Create a longer set of ranges, 20 total
+</code></pre>
+
+<p>Similarly, we can identify the gaps!</p>
+
+<h3>Footer</h3>
+
+<p>spin this with:
+ezspin(file = &ldquo;NGruwell/programs/20220223_range_data.R&rdquo;,out_dir = &ldquo;NGruwell/output&rdquo;, fig_dir = &ldquo;figures20220223&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

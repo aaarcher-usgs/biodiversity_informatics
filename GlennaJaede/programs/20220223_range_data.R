@@ -4,9 +4,9 @@
 #' 
 #' February 23, 2022
 #' 
-#' Programmer: Christopher Krueth
+#' Programmer: Glenna Jaede
 #' 
-#' In this program, xxx
+#' In this program, we are going to use the different applications of 
 #' 
 #' 
 #' ### Header
@@ -27,44 +27,47 @@ set.seed(71587)
 #' 
 # if (!require("BiocManager", quietly = TRUE))
 #  install.packages("BiocManager")
-#BiocManager::install(version = "3.14")
+# BiocManager::install(version = "3.14")
 
 #' Now install the package
-#BiocManager::install("GenomicRanges")
+# BiocManager::install("GenomicRanges")
+library(IRanges)
 
 #' Source the script from the textbook to make figures
 #' 
 source("plot-ranges.R")
 
-#' _____________________________________________________________________________
+source("#' _____________________________________________________________________________
 #' ## 2. Introduction to range data
 #' 
 #' IRanges are an object that R recognizes as being a genomic range.
 #' 
 #' Remember that ranges would normally have metadata such as 
 #' 
-#' 1. Chromosome name, such as "chr17" or "chrY" or "contig184"
+#' 1. Chromosome name, such as " chr17 " or " chrY " or " contig184 "
 #' 2. Range that demonstrates the specific sequence on the chromosome
 #' 3. Strand, which is either forward (positive) or backward (negative)
 #' 
 
 # Ranges can be made by designating start and end
-
+(rng <- IRanges(start = 4, end = 13))
 
 # Ranges can be made by designating start or end AND width
-
+(rng <- IRanges(start = 4, width = 11))
 
 #' IRanges objects can also be created to contain many ranges 
 #' 
-
+(x <- IRanges(start = c(4, 7, 2, 20),
+              end = c( 13, 7, 5, 23)))
 
 #' And each range within the IRanges object can be named:
 #' 
-
+names(x) <- letters[1:length(x)]
+x
 
 #' Let's plot the ranges
 #' 
-
+plotIRanges(x)
 
 #' What values start each range?
 #' 
@@ -93,7 +96,7 @@ source("plot-ranges.R")
 #' Use subsetting to look at just second and third row of x
 #' 
 
-#' Use subsetting to look at just ranges named "a" and "c"
+#' Use subsetting to look at just ranges named "a" and "c". 
 #' 
 
 
@@ -154,4 +157,4 @@ set.seed(0) # reset random generator, make sure we all have the same result
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Chris/programs/20220223_range_data.R",out_dir = "Chris/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220223_range_data.R",out_dir = "GlennaJaede/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
