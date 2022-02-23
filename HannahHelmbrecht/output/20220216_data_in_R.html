@@ -207,10 +207,9 @@ hr {
 
 <p>February 16, 2022</p>
 
-<p>Programmer: Sydney</p>
+<p>Programmer: Hannah Helmbrecht</p>
 
-<p>In this program, we will learn to subset and index as well as manipulate vector types
-and raw data.</p>
+<p>In this program, xxx</p>
 
 <h3>Header</h3>
 
@@ -235,24 +234,10 @@ set.seed(71587)
 
 <p>Add the second value of x to 4.7</p>
 
-<pre><code class="r">x[2] + 4.7 #square bracket is an index
+<pre><code class="r">x[2] +4.7 
 </code></pre>
 
 <pre><code>## [1] 100
-</code></pre>
-
-<pre><code class="r">#use c() to create a string to add multiple values
-
-x[c(2,3)] + 4.7
-</code></pre>
-
-<pre><code>## [1] 100.0   5.1
-</code></pre>
-
-<pre><code class="r">x[2:3] + 4.7 #this is a more simple way to create a string
-</code></pre>
-
-<pre><code>## [1] 100.0   5.1
 </code></pre>
 
 <p>What is the fourth value of x?</p>
@@ -279,13 +264,25 @@ x[c(2,3)] + 4.7
 
 <p>Use the names to remove the non-tropical fruit</p>
 
+<pre><code class="r">nontropical &lt;- x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)]
+</code></pre>
+
 <pre><code class="r"># One way:
 
-nontropical &lt;- x[c(&quot;banana&quot;,&quot;coconut&quot;, &quot;kiwi&quot;)]
+(nontropical &lt;- x[c(&quot;banana&quot;, &quot;coconut&quot;, &quot;kiwi&quot;)])
+</code></pre>
 
-# Another way:
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
+</code></pre>
 
-nontropical2 &lt;- x[c(-3, -4)]
+<pre><code class="r"># Another way:
+
+x[c(-3,-4)]
+</code></pre>
+
+<pre><code>##  banana coconut    kiwi 
+##    56.0    95.3     4.0
 </code></pre>
 
 <p>Sort the values of x by size (ascending) and print those, but don&#39;t overwrite x</p>
@@ -299,7 +296,7 @@ nontropical2 &lt;- x[c(-3, -4)]
 
 <p>Sort the value of x by size (descending) and overwrite x with this new order</p>
 
-<pre><code class="r">(x &lt;- x[order(x, decreasing = TRUE)])
+<pre><code class="r">(x &lt;- x[order(x, decreasing = T)])
 </code></pre>
 
 <pre><code>##    coconut     banana       kiwi strawberry  blueberry 
@@ -317,16 +314,19 @@ nontropical2 &lt;- x[c(-3, -4)]
 
 <p>Use the same approach but now change any values less than 1 to <em>NA</em></p>
 
-<pre><code class="r">ifelse(test = x &lt; 1, 
-    yes = NA, 
-    no = x)
-</code></pre>
-
-<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
-##       95.3       56.0        4.0        2.3         NA
+<pre><code class="r">x &lt;- ifelse(test = x &lt; 1,
+            yes = NA, 
+            no = x)
 </code></pre>
 
 <p>Calculate the mean of the fruit that are less than 50 but more than 2</p>
+
+<pre><code class="r">x &lt; 50 &amp; x &gt; 2
+</code></pre>
+
+<pre><code>##    coconut     banana       kiwi strawberry  blueberry 
+##      FALSE      FALSE       TRUE       TRUE         NA
+</code></pre>
 
 <pre><code class="r">mean(x[x &lt; 50 &amp; x &gt; 2], na.rm = T)
 </code></pre>
@@ -340,36 +340,37 @@ nontropical2 &lt;- x[c(-3, -4)]
 <li>Create a new vector named &ldquo;evens&rdquo; that includes all even numbers between 1 and 11.</li>
 </ol>
 
-<pre><code class="r">&quot;evens&quot; &lt;- c(2, 4, 6, 8, 10)
+<pre><code class="r">evens &lt;- c(2, 4, 6, 8, 10)
 </code></pre>
 
 <ol>
 <li>Create a new vector called &ldquo;odds&rdquo; by adding one to the &ldquo;evens&rdquo; vector</li>
 </ol>
 
-<pre><code class="r">&quot;odds&quot; &lt;- (evens + 1)
+<pre><code class="r">odds &lt;- c(1, 3, 5, 7, 9, 11)
 </code></pre>
 
 <ol>
 <li>Determine if &ldquo;evens&rdquo; is a Numeric, Integer, Character, or Logical vector type</li>
 </ol>
 
-<pre><code class="r">typeof(evens) #double is also considered numeric?
+<pre><code class="r">typeof(&quot;evens&quot;)
 </code></pre>
 
-<pre><code>## [1] &quot;double&quot;
+<pre><code>## [1] &quot;character&quot;
+</code></pre>
+
+<pre><code class="r"># evens is currently a character vector, needs to be changed
 </code></pre>
 
 <ol>
 <li>Change &ldquo;evens&rdquo; to a different vector type, making sure to show the results</li>
 </ol>
 
-<pre><code class="r">&quot;evens&quot; &lt;- c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;E&quot;)
-
-typeof(evens)
+<pre><code class="r">numbers &lt;- as.numeric(&quot;evens&quot;)
 </code></pre>
 
-<pre><code>## [1] &quot;character&quot;
+<pre><code>## Warning: NAs introduced by coercion
 </code></pre>
 
 <hr/>
@@ -411,7 +412,7 @@ in one place for reproducibility and for better troubleshooting.</p>
 
 <p>Note that the strings get loaded as factors by default. Change this:</p>
 
-<pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;, stringsAsFactors = F)
+<pre><code class="r">df.ex &lt;- read.csv(file = &quot;data/raw/Dataset_S1.txt&quot;, stringsA = F)
 </code></pre>
 
 <p>View head (n = 3)</p>
@@ -419,14 +420,17 @@ in one place for reproducibility and for better troubleshooting.</p>
 <pre><code class="r">head(df.ex, n = 3)
 </code></pre>
 
-<pre><code>##   start   end total.SNPs total.Bases depth unique.SNPs dhSNPs reference.Bases Theta     Pi
-## 1 55001 56000          0        1894  3.41           0      0             556 0.000  0.000
-## 2 56001 57000          5        6683  6.68           2      2            1000 8.007 10.354
-## 3 57001 58000          1        9063  9.06           1      0            1000 3.510  1.986
-##   Heterozygosity    X.GC Recombination  Divergence Constraint SNPs
-## 1          0.000 54.8096   0.009601574 0.003006012          0    0
-## 2          7.481 42.4424   0.009601574 0.018018020          0    0
-## 3          1.103 37.2372   0.009601574 0.007007007          0    0
+<pre><code>##   start   end total.SNPs total.Bases depth unique.SNPs dhSNPs reference.Bases Theta     Pi Heterozygosity
+## 1 55001 56000          0        1894  3.41           0      0             556 0.000  0.000          0.000
+## 2 56001 57000          5        6683  6.68           2      2            1000 8.007 10.354          7.481
+## 3 57001 58000          1        9063  9.06           1      0            1000 3.510  1.986          1.103
+##      X.GC Recombination  Divergence Constraint SNPs
+## 1 54.8096   0.009601574 0.003006012          0    0
+## 2 42.4424   0.009601574 0.018018020          0    0
+## 3 37.2372   0.009601574 0.007007007          0    0
+</code></pre>
+
+<pre><code class="r"># This displays first three rows
 </code></pre>
 
 <p>Dimensions of a data frame come in &ldquo;rows, columns&rdquo;</p>
@@ -437,16 +441,7 @@ in one place for reproducibility and for better troubleshooting.</p>
 <pre><code>## [1] 59140    16
 </code></pre>
 
-<pre><code class="r">nrow(df.ex)
-</code></pre>
-
-<pre><code>## [1] 59140
-</code></pre>
-
-<pre><code class="r">ncol(df.ex)
-</code></pre>
-
-<pre><code>## [1] 16
+<pre><code class="r"># always displays rows and then columns 
 </code></pre>
 
 <p>Query the column names for this dataset</p>
@@ -460,11 +455,25 @@ in one place for reproducibility and for better troubleshooting.</p>
 ## [16] &quot;SNPs&quot;
 </code></pre>
 
+<pre><code class="r"># never include spaces in column names or it reads as a period
+</code></pre>
+
 <p>Note that some column names don&#39;t make sense, change &ldquo;X.GC&rdquo; to &ldquo;percent.GC&rdquo;</p>
 
-<pre><code class="r">colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;X.GC&quot;,
-                          yes = &quot;percent.GC&quot;,
-                          no = colnames(df.ex))
+<pre><code class="r">colnames(df.ex) &lt;- ifelse(test = colnames(df.ex) == &quot;X.GC&quot;, 
+                          yes = &quot;percent.GC&quot;, 
+                          no =colnames(df.ex))
+
+colnames(df.ex)
+</code></pre>
+
+<pre><code>##  [1] &quot;start&quot;           &quot;end&quot;             &quot;total.SNPs&quot;      &quot;total.Bases&quot;     &quot;depth&quot;          
+##  [6] &quot;unique.SNPs&quot;     &quot;dhSNPs&quot;          &quot;reference.Bases&quot; &quot;Theta&quot;           &quot;Pi&quot;             
+## [11] &quot;Heterozygosity&quot;  &quot;percent.GC&quot;      &quot;Recombination&quot;   &quot;Divergence&quot;      &quot;Constraint&quot;     
+## [16] &quot;SNPs&quot;
+</code></pre>
+
+<pre><code class="r"># this is a way to change column name and then check it 
 </code></pre>
 
 <p>Use $ to access a single column. Specifically, calculate the average of the depth
@@ -476,6 +485,9 @@ column</p>
 <pre><code>## [1] 8.183938
 </code></pre>
 
+<pre><code class="r"># this finds the mean of the depth column
+</code></pre>
+
 <p>Now use subsetting square brackets to do the same thing:</p>
 
 <pre><code class="r">mean(df.ex[ , &quot;depth&quot;])
@@ -484,42 +496,52 @@ column</p>
 <pre><code>## [1] 8.183938
 </code></pre>
 
+<pre><code class="r"># this format finds the mean of the depth column using square brackets
+</code></pre>
+
 <p>Now, calculate the average of the depth column values, but only when depth 
 is greater than 5. (Hint, we have to use subsetting again here, but to subset
 only rows where depth &gt; 5.)</p>
 
-<pre><code class="r">mean(df.ex[df.ex$depth &gt; 5, &quot;depth&quot;])
+<pre><code class="r">mean(df.ex[df.ex$depth &gt; 5 , &quot;depth&quot;])
 </code></pre>
 
 <pre><code>## [1] 8.414036
+</code></pre>
+
+<pre><code class="r"># this calculates the mean of the depth column only for values greater than 5
 </code></pre>
 
 <p>While not very reproducible, let&#39;s just calculate the mean of the first 10
 rows of the depth column. This time do it both with the $ operator AND with 
 square brackets only.</p>
 
-<pre><code class="r">mean(df.ex[1:10 , &quot;depth&quot;])
+<pre><code class="r">mean(df.ex[1 :10 , &quot;depth&quot;])
 </code></pre>
 
 <pre><code>## [1] 7.793
 </code></pre>
 
-<pre><code class="r">mean(df.ex$depth[1:10])
+<pre><code class="r">#this does this task using square brackets
+
+mean(df.ex$depth[1:10])
 </code></pre>
 
 <pre><code>## [1] 7.793
+</code></pre>
+
+<pre><code class="r">#this does the task above just using a dollar sign rather than square brackets
 </code></pre>
 
 <p>Add on a new column that is a test (TRUE/FALSE) of whether the genetic window 
 is in the centromere location (25,800,000 to 29,700,000).</p>
 
 <pre><code class="r">df.ex$centromere &lt;- NA
+
+#this is how you name a new column
+
 cent.start &lt;- 25800000
 cent.end &lt;- 29700000
-
-
-df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
-
 df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.end
 </code></pre>
 
@@ -533,6 +555,9 @@ df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.e
 ## 58455   685
 </code></pre>
 
+<pre><code class="r"># shows results for how many of our values fall within centromere values
+</code></pre>
+
 <p>Tally up the results using sum()</p>
 
 <pre><code class="r">sum(df.ex$centromere)
@@ -544,7 +569,7 @@ df.ex$centromere &lt;- df.ex$start &gt;= cent.start &amp; df.ex$end &lt;= cent.e
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;Sydney/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;Sydney/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;HannahHelmbrecht/programs/20220216_data_in_R.R&rdquo;,out_dir = &ldquo;HannahHelmbrecht/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

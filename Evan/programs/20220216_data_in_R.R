@@ -4,7 +4,7 @@
 #' 
 #' February 16, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Evan
 #' 
 #' In this program, xxx
 #' 
@@ -76,7 +76,11 @@ mean(x[x >= 4], na.rm = T)
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
 #' 4. Change "evens" to a different vector type, making sure to show the results
-#' 
+evens <- c(2, 4, 6, 8, 10)
+odds <- c(1, 3, 5, 7, 9, 11)
+typeof(evens)
+f <- factor(evens)
+typeof(f)
 #' Hint: typeof()
 #' page 190 in textbook
 
@@ -161,4 +165,4 @@ df.ex$centromere <- df.ex$start >= cent.start & def.ex$end <= cent.end
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220208_intro_R.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Evan/programs/20220216_data_in_R_R",out_dir = "Evan/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
