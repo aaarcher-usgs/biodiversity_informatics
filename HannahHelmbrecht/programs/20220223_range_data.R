@@ -24,12 +24,12 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources
 #' 
 #' #' ### Use biocManager to get package GenomicRanges
-#' #' 
+#' #'
 #' # if (!require("BiocManager", quietly = TRUE))#   install.packages("BiocManager")# BiocManager::install(version = "3.14")# Now install the package
 #' # BiocManager::install("GenomicRanges")# library(IRanges)
 #' 
 #' #' Source the script from the textbook to make figures
-#' #' 
+#' #'
 #' source("plot-ranges.R")
 
 #' _____________________________________________________________________________
@@ -189,6 +189,6 @@ plotIRanges(c(alns, alns.gap))
 #' 
 #' 
 #' ### Footer
-#' 
+
 #' spin this with:
 #' ezspin(file = "HannahHelmbrecht/programs/20220223_range_data.R",out_dir = "HannahHelmbrecht/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
