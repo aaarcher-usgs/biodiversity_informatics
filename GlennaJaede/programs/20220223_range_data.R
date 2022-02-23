@@ -6,7 +6,7 @@
 #' 
 #' Programmer: Glenna Jaede
 #' 
-#' In this program, xxx
+#' In this program, we are going to use the different applications of 
 #' 
 #' 
 #' ### Header
@@ -25,12 +25,12 @@ set.seed(71587)
 #' 
 #' ### Use biocManager to get package GenomicRanges
 #' 
-if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-BiocManager::install(version = "3.14")
+# if (!require("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
+# BiocManager::install(version = "3.14")
 
 #' Now install the package
-BiocManager::install("GenomicRanges")
+# BiocManager::install("GenomicRanges")
 library(IRanges)
 
 #' Source the script from the textbook to make figures
