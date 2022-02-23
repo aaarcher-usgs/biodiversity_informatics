@@ -193,7 +193,7 @@ alns.gap <- gaps(alns)
 names(alns.gap) <- paste0(letters[1:length(alns.gap)], "-gap")
 alns.gap
 
-plotIRanges(c(alns, alan.reduce, alns.gap))
+plotIRanges(c(alns, alans.reduce, alns.gap))
 
 #' 
 #' 
