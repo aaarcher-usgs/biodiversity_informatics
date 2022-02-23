@@ -4,9 +4,9 @@
 #' 
 #' February 23, 2022
 #' 
-#' Programmer: Christopher Krueth
+#' Programmer: Glenna Jaede
 #' 
-#' In this program, xxx
+#' In this program, we are going to use the different applications of 
 #' 
 #' 
 #' ### Header
@@ -27,10 +27,11 @@ set.seed(71587)
 #' 
 # if (!require("BiocManager", quietly = TRUE))
 #  install.packages("BiocManager")
-#BiocManager::install(version = "3.14")
+# BiocManager::install(version = "3.14")
 
 #' Now install the package
-#BiocManager::install("GenomicRanges")
+# BiocManager::install("GenomicRanges")
+library(IRanges)
 
 #' Source the script from the textbook to make figures
 #' 
@@ -154,4 +155,4 @@ set.seed(0) # reset random generator, make sure we all have the same result
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Chris/programs/20220223_range_data.R",out_dir = "Chris/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220223_range_data.R",out_dir = "GlennaJaede/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
