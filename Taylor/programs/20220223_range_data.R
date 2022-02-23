@@ -2,9 +2,9 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' February 22, 2022
+#' February 23, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Glenna Jaede
 #' 
 #' In this program, xxx
 #' 
@@ -155,4 +155,4 @@ set.seed(0) # reset random generator, make sure we all have the same result
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "ebengtson/programs/20220223_range_data.R",out_dir = "ebengtson/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220223_range_data.R",out_dir = "GlennaJaede/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
