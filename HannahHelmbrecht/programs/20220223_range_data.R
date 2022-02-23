@@ -120,25 +120,47 @@ c(a,b)
 #' ## 3. More advanced range operations
 #' 
 #' 
-
+x <- IRanges(start = c(40, 80),
+             end = c(67, 114))
+names(x) <- letters[1:length(x)]
+plotIRanges(x)
 
 #' By adding 4L, this grows the sequence symmetrically by 4 on each side
 #' 
-
+(y <- x + 4L)
+names(y) <- paste0(names(y), " + 4L")
+y
 
 #' By subtracting, we symmetrically cut off each end of the sequence
 #' 
-
+z <- x - 10L 
+names(z) <- paste0(names(z), " - 10L")
+z 
+plotIRanges(c(x,y,z))
 
 #' By restricting the ranges, we cut them off to fit in a specific range
 #'
 #'   
+y <- IRanges(start = c(4, 6, 8, 12), width =13)
+names(y) <- letters[1:length(y)]
 
+z <- restrict(x = y, start = 5, end = 10)
+names(z) <- paste0(names(z), "-restricted")
+plotIRanges(c(y, z))
 
 #' We can also flank the ranges to create downstream or upstream
 #' sequences that contain promoter sequences
 #' 
-
+x <- IRanges(start =c(40,80),
+             width =c(28, 35))
+names(x) <- letters[1:length(x)]
+# upstream flanks
+y <- flank(x, width = 7, start = TRUE)
+names(y) <- paste0(names(y), "-upstrm")
+# downstream flanks 
+z <- flank(x, width = 7, start = FALSE)
+names(z) <- paste0(names(z), "-downstrm")
+plotIRanges(c(x,y,z))
 
 #' We can also reduce the ranges that are potentially overlapping
 #' by merging them to a single range in the result. This is useful if 
@@ -148,12 +170,21 @@ c(a,b)
 set.seed(0) # reset random generator, make sure we all have the same result
 # Create a longer set of ranges, 20 total
 
+alns <- IRanges(start =sample(seq_len(50), 20), 
+                width = 5)
+names(alns) <- letters[1:length(alns)]
+plotIRanges(alns)
+alns.reduce <- reduce(alns)
+names(alns.reduce) <- paste0(letters[1:length(alns.reduce)], "-reduce")
+alns.reduce
+plotIRanges(c(alns, alns.reduce))
 
 #' Similarly, we can identify the gaps!
 #' 
-
-
-
+alns.gap <- gaps(alns)
+names(alns.gap) <- paste0(letters[1:length(alns.gap)], "-gap")
+alns.gap
+plotIRanges(c(alns, alns.gap))
 #' 
 #' 
 #' 
