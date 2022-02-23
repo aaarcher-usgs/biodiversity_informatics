@@ -192,11 +192,15 @@ length(alns)
 
 plotIRanges(alns)
 
+
 names(alns) <- letters[1:length(alns)]
 
 alns.reduce <- reduce(alns)
+
 names(alns.reduce) <- paste0(letters[1:length(alns.reduce)],"-reduce")
+
 alns.reduce
+
 plotIRanges(c(alns,alns.reduce))
 
 #' Similarly, we can identify the gaps!
