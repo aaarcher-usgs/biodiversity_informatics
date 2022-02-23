@@ -209,6 +209,8 @@ hr {
 
 <h2>Header</h2>
 
+<p>This is an attempt to practice using R while taking notes for my bioinfo class.</p>
+
 <p>This chunk of code will load in all required packages and clear environment</p>
 
 <pre><code class="r">library(knitr)
@@ -219,11 +221,40 @@ remove(list = ls())
 
 <h2>Notes</h2>
 
-<pre><code class="r">Geonomics
-</code></pre>
+<p>Geonomics
+Remember, we aren&#39;t just in a data science class, what should we be thinking about with data processing</p>
 
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;Geonomics&#39; not found
-</code></pre>
+<p>Sequencing
+Genomic DNA is fragmented into random pieces and cloned as a bacterial library.
+DNA from individual bacterial clones is sequenced assembled through overlapping. </p>
+
+<p>Contigs - contiguous sequences
+Scaffolds - larger sequences made up of contigs
+Chromosomes - Made of scaffolds and contigs once fully assembled</p>
+
+<p>Ranges - As, Ts, Cs, and Gs are important but also act as a coordinate system.</p>
+
+<p>&#39;X&#39; is a forward reading range
+&#39;Y&#39; is a reverse reading range </p>
+
+<p>Range systems are either 0-based(Python) or 1-based&reg;
+0-based&quot; half closed, half open</p>
+
+<ul>
+<li>Included -&gt;[27, 30) &lt;- Excluded</li>
+<li>Better in 2 ways: </li>
+<li>0-based systen can calculate range width. ie. 30-27=3. 3 is width of range. </li>
+<li>And Looking for where you want to cut a range. Can specify locations between two base pairs.</li>
+</ul>
+
+<p>1-based both sides closed [27,30]</p>
+
+<ul>
+<li>To find the width of the range, we need to add one to the subtraction</li>
+<li>30-27+1=4</li>
+</ul>
+
+<p>Remind the professor to record</p>
 
 <p>To test (and finalize) your work, spin the document to html using this code:</p>
 
