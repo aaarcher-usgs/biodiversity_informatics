@@ -42,7 +42,8 @@ plotIRanges <- function(..., sep=0.5, height=1, set_breaks=TRUE, labcol="grey",
     p <- p + geom_rect(aes(ymin=ymin, ymax=ymax, xmin=start-0.5, xmax=end+0.5),
                        fill="white", color="grey30", size=0.3)
   else if(is.null(color))
-    p <- p + geom_rect(aes(ymin=ymin, ymax=ymax, xmin=start-0.5, xmax=end+0.5))
+    p <- p + geom_rect(aes(ymin=ymin, ymax=ymax, xmin=start-0.5, xmax=end+0.5),
+                       fill = "grey30", color = "lightgrey")
   else {
     p <- p + geom_rect(aes(ymin=ymin, ymax=ymax, xmin=start-0.5,
                            xmax=end+0.5, fill=color), color="grey30", size=0.3)
