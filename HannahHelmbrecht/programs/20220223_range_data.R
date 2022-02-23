@@ -25,13 +25,8 @@ set.seed(71587)
 #' 
 #' ### Use biocManager to get package GenomicRanges
 #' 
-# if (!require("BiocManager", quietly = TRUE))
-#   install.packages("BiocManager")
-# BiocManager::install(version = "3.14")
-# 
-#' Now install the package
-# BiocManager::install("GenomicRanges")
-# library(IRanges)
+# if (!require("BiocManager", quietly = TRUE))#   install.packages("BiocManager")# BiocManager::install(version = "3.14")# Now install the package
+ BiocManager::install("GenomicRanges")# library(IRanges)
 
 #' Source the script from the textbook to make figures
 #' 
@@ -50,25 +45,28 @@ source("plot-ranges.R")
 #' 
 
 # Ranges can be made by designating start and end
-
+ (rng <- IRanges(start = 4, end = 13))
 
 # Ranges can be made by designating start or end AND width
-
+ (rng <- IRanges(start = 4, width = 11))
 
 #' IRanges objects can also be created to contain many ranges 
 #' 
-
+(x <- IRanges(start = c(4, 7, 2, 20), end =c(13, 7, 5, 23)))
 
 #' And each range within the IRanges object can be named:
 #' 
+names(x) <- letters [1:length(x)]
+x
 
 
 #' Let's plot the ranges
 #' 
-
+plotIRanges(x)
 
 #' What values start each range?
 #' 
+
 
 #' What values end each range?
 #' 
