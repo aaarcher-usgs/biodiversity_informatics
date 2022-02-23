@@ -88,28 +88,32 @@ range(x)
 
 #' We can manipulate the ranges with standard arithmetic:
 #' 
+end(x) <- end (x) + 4
+x
 
 
 #' We can also use many of the other R functions to manipulate IRanges:
 #' 
 #' Use subsetting to look at just second and third row of x
 #' 
-
+x[2:3]
 #' Use subsetting to look at just ranges named "a" and "c"
 #' 
-
+x[c("a", "c")]
 
 #' Display logical answer for when start of x is less than 5
 #' 
-
+x[start(x) <5]
 
 #' Display ranges that are greater than 8 in width
 #' 
-
+x[width(x) >8]
 
 #' We can also merge ranges together with c() 
 #' 
-
+(a <- IRanges(start = 7, width = 4))
+(b <- IRanges(start = 2, width = 5))
+c(a,b)
 
 
 #' _____________________________________________________________________________
