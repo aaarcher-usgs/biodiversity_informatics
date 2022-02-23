@@ -6,7 +6,7 @@
 #' 
 #' Programmer: Glenna Jaede
 #' 
-#' In this program, we are going to use the different applications of 
+#' In this program, we are going to use the different applications of sequencing
 #' 
 #' 
 #' ### Header
@@ -25,19 +25,19 @@ set.seed(71587)
 #' 
 #' ### Use biocManager to get package GenomicRanges
 #' 
- if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
- BiocManager::install(version = "3.14")
+# if (!require("BiocManager", quietly = TRUE))
+# install.packages("BiocManager")
+# BiocManager::install(version = "3.14")
 
 #' Now install the package
-BiocManager::install("GenomicRanges")
-library(IRanges)
+#BiocManager::install("GenomicRanges")
+#library(IRanges)
 
 #' Source the script from the textbook to make figures
 #' 
 source("plot-ranges.R")
 
-source( _____________________________________________________________________________
+#' _____________________________________________________________________________
 #' ## 2. Introduction to range data
 #' 
 #' IRanges are an object that R recognizes as being a genomic range.
@@ -153,12 +153,30 @@ y <- IRanges(start = c(4, 6, 10, 12), width = 13)
 names(y) <- letters[1:length(y)]
 
 z <- restrict(x = y, start = 5, end = 10)
-names(z) <- paste0()
-
+names(z) <- paste0(names(z), "-restricted")
+c(y,z)
+plotIRanges(c(y,z))
 
 #' We can also flank the ranges to create downstream or upstream
 #' sequences that contain promoter sequences
 #' 
+#' 
+x <- IRanges(start = c(40, 80),
+             width = c(28, 35))
+names(x) <- letters[1:length(x)]
+
+
+# upstram flanks
+y <- flank(x, width = 7, start = TRUE)
+names(y) <- paste0(names(y), "-upstrm")
+
+# downstream flanks
+z <- flank(x, width = 7, start = FALSE)
+names(z) <- paste0(names(z), "-downstrm")
+
+plotIRanges(c(x, y, z))
+
+
 
 
 #' We can also reduce the ranges that are potentially overlapping
@@ -168,12 +186,23 @@ names(z) <- paste0()
 #' 
 set.seed(0) # reset random generator, make sure we all have the same result
 # Create a longer set of ranges, 20 total
+alns <- IRanges(start = sample(seq_len(50), 20),
+                width = 5)
 
+names(alns) <- letters[1: length(alns)]
+plotIRanges(alns)
+
+alns.reduce <- reduce(alns)
+names(alns.reduce) <- paste0(letters[1:length(alns.reduce)], "-reduce")
+alns.reduce
 
 #' Similarly, we can identify the gaps!
 #' 
+alns.gap <- gaps(alns)
+names(alns.gap) <- paste0(letters[1: length(alns.gap)], "-gap")
+alns.gap
 
-
+plotIRanges(c(alns, alns.reduce, alns.gap))
 
 #' 
 #' 
