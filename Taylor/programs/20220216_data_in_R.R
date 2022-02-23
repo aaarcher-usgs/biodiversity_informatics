@@ -6,7 +6,9 @@
 #' 
 #' Programmer: Taylor
 #' 
-#' In this program, xxx
+#' In this program, we learned about vectors, how to create them, and indexing vectors.
+#' We also load in data and learn how to use code to analyze the raw data, learned
+#' subsetting, and how to make calculations with the raw data.
 #' 
 #' 
 #' ### Header
@@ -103,10 +105,22 @@ mean(x[x == 4], na.rm = T)
 #' ### Practice exercises
 #' 
 #' 1. Create a new vector named "evens" that includes all even numbers between 1 and 11.
+
+evens <- c(2,4,6,8,10)
+
 #' 2. Create a new vector called "odds" by adding one to the "evens" vector
+
+odds <- c(evens+1)
+
 #' 3. Determine if "evens" is a Numeric, Integer, Character, or Logical vector type
+
+typeof(evens) #' numeric vector type
+
 #' 4. Change "evens" to a different vector type, making sure to show the results
-#' 
+
+(evens <- as.integer(evens))
+
+typeof(evens)
 
 #' Hint: typeof(), page 190 in textbook
 
@@ -211,4 +225,4 @@ sum(df.ex$centromere)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Taylor/programs/20220216_intro_R.R",out_dir = "Taylor/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Taylor/programs/20220216_data_in_R.R",out_dir = "Taylor/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
