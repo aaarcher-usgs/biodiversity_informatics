@@ -228,18 +228,9 @@ set.seed(71587)
 
 <h3>Use biocManager to get package GenomicRanges</h3>
 
-<pre><code class="r">if (!require(&quot;BiocManager&quot;, quietly = TRUE))
-  install.packages(&quot;BiocManager&quot;)
-BiocManager::install(version = &quot;3.14&quot;)
-</code></pre>
-
-<pre><code>## &#39;getOption(&quot;repos&quot;)&#39; replaces Bioconductor standard repositories, see &#39;?repositories&#39; for details
-## 
-## replacement repositories:
-##     CRAN: https://cran.rstudio.com/
-</code></pre>
-
-<pre><code>## Bioconductor version 3.14 (BiocManager 1.30.16), R 4.1.2 (2021-11-01)
+<pre><code class="r"># if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+#   install.packages(&quot;BiocManager&quot;)
+# BiocManager::install(version = &quot;3.14&quot;)
 </code></pre>
 
 <p>Now install the package</p>
@@ -293,13 +284,13 @@ BiocManager::install(version = &quot;3.14&quot;)
 </code></pre>
 
 <pre><code class="r"># Ranges can be made by designating start or end AND width
-(rng &lt;- IRanges(start = 4, width = 3))
+(rng &lt;- IRanges(start = 4, width = 11))
 </code></pre>
 
 <pre><code>## IRanges object with 1 range and 0 metadata columns:
 ##           start       end     width
 ##       &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
-##   [1]         4         6         3
+##   [1]         4        14        11
 </code></pre>
 
 <p>IRanges objects can also be created to contain many ranges </p>
