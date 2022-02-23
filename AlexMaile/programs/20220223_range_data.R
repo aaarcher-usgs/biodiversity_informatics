@@ -6,7 +6,7 @@
 #' 
 #' Programmer: Alex Maile
 #' 
-#' In this program, we will be managing genomic data using scripts
+#' In this program, we will be creating ranges and plotting various restrictions and gabs
 #' 
 #' 
 #' ### Header
