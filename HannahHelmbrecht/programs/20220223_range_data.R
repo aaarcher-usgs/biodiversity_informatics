@@ -4,7 +4,7 @@
 #' 
 #' February 22, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Hannah
 #' 
 #' In this program, xxx
 #' 
@@ -155,4 +155,4 @@ set.seed(0) # reset random generator, make sure we all have the same result
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220223_range_data.R",out_dir = "aaarcher/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "HannahHelmbrecht/programs/20220223_range_data.R",out_dir = "HannahHelmbrecht/output", fig_dir = "figures20220223",keep_md = FALSE, keep_rmd = FALSE)
