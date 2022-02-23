@@ -15,7 +15,8 @@ library(ezknitr)
 # This line clears the environment
 remove(list = ls()) 
 
-## Notes
+#' ## Notes
+Geonomics
 
 
 
