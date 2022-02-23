@@ -4,7 +4,7 @@
 #' 
 #' February 22, 2022
 #' 
-#' Programmer: Al
+#' Programmer: Evan
 #' 
 #' In this program, xxx
 #' 
