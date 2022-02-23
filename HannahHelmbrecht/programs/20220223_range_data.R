@@ -2,9 +2,9 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' February 22, 2022
+#' February 23, 2022
 #' 
-#' Programmer: Hannah
+#' Programmer: Hannah Helmbrecht
 #' 
 #' In this program, xxx
 #' 
