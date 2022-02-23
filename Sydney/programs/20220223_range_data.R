@@ -206,7 +206,11 @@ plotIRanges(c(alns,alns.reduce))
 #' Similarly, we can identify the gaps!
 #' 
 alns.gaps <- gaps(alns)
+
 names(alns.gaps) <- paste0(letters[1:length(alns.gaps)],"-gap")
+
+alns.gaps
+
 plotIRanges(c(alns,alns.reduce,alns.gaps))
 
 
