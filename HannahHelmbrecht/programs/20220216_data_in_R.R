@@ -111,7 +111,7 @@ typeof("evens")
 
 #' 4. Change "evens" to a different vector type, making sure to show the results
 #' 
-numbers <- as.numeric("evens")
+evens <- as.numeric(evens)
 
 
 #' _____________________________________________________________________________

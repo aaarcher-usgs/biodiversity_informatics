@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Lecture Notes</title>
+<title>Working with genomic range data in R</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,69 +201,151 @@ hr {
 </head>
 
 <body>
-<h1>Lecture Notes</h1>
+<h1>Working with genomic range data in R</h1>
 
-<p>Programmer: Glenna</p>
+<p>Biodiversity Informatics (BIOL 475/575)</p>
 
-<p>Date: February 23, 2022</p>
+<p>February 23, 2022</p>
 
-<h2>Header</h2>
+<p>Programmer: Glenna Jaede</p>
 
-<p>This is an attempt to practice using R while taking notes for my bioinfo class.</p>
+<p>In this program, xxx</p>
 
-<p>This chunk of code will load in all required packages and clear environment</p>
+<h3>Header</h3>
 
-<pre><code class="r">library(knitr)
+<pre><code class="r"># Load Libraries
 library(ezknitr)
-# This line clears the environment
-remove(list = ls()) 
+library(ggplot2)
+
+# Clear Environment &amp; Set Seed
+remove(list=ls())
+set.seed(71587)
 </code></pre>
 
-<h2>Notes</h2>
+<hr/>
 
-<p>Geonomics
-Remember, we aren&#39;t just in a data science class, what should we be thinking about with data processing</p>
+<h2>1. Load libraries from new sources</h2>
 
-<p>Sequencing
-Genomic DNA is fragmented into random pieces and cloned as a bacterial library.
-DNA from individual bacterial clones is sequenced assembled through overlapping. </p>
+<h3>Use biocManager to get package GenomicRanges</h3>
 
-<p>Contigs - contiguous sequences
-Scaffolds - larger sequences made up of contigs
-Chromosomes - Made of scaffolds and contigs once fully assembled</p>
+<pre><code class="r">if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+  install.packages(&quot;BiocManager&quot;)
+BiocManager::install(version = &quot;3.14&quot;)
+</code></pre>
 
-<p>Ranges - As, Ts, Cs, and Gs are important but also act as a coordinate system.</p>
+<pre><code>## &#39;getOption(&quot;repos&quot;)&#39; replaces Bioconductor standard repositories, see &#39;?repositories&#39; for details
+## 
+## replacement repositories:
+##     CRAN: https://cran.rstudio.com/
+</code></pre>
 
-<p>&#39;X&#39; is a forward reading range
-&#39;Y&#39; is a reverse reading range </p>
+<pre><code>## Bioconductor version 3.14 (BiocManager 1.30.16), R 4.1.2 (2021-11-01)
+</code></pre>
 
-<p>Range systems are either 0-based(Python) or 1-based&reg;
-0-based&quot; half closed, half open</p>
+<p>Now install the package</p>
 
-<ul>
-<li>Included -&gt;[27, 30) &lt;- Excluded</li>
-<li>Better in 2 ways: </li>
-<li>0-based systen can calculate range width. ie. 30-27=3. 3 is width of range. </li>
-<li>And Looking for where you want to cut a range. Can specify locations between two base pairs.</li>
-</ul>
+<pre><code class="r">BiocManager::install(&quot;GenomicRanges&quot;)
+</code></pre>
 
-<p>1-based both sides closed [27,30]</p>
+<pre><code>## &#39;getOption(&quot;repos&quot;)&#39; replaces Bioconductor standard repositories, see &#39;?repositories&#39; for details
+## 
+## replacement repositories:
+##     CRAN: https://cran.rstudio.com/
+</code></pre>
 
-<ul>
-<li>To find the width of the range, we need to add one to the subtraction</li>
-<li>30-27+1=4</li>
-</ul>
+<pre><code>## Bioconductor version 3.14 (BiocManager 1.30.16), R 4.1.2 (2021-11-01)
+</code></pre>
 
-<p>Remind the professor to record</p>
+<pre><code>## Warning: package(s) not installed when version(s) same as current; use `force = TRUE` to re-install:
+##   &#39;GenomicRanges&#39;
+</code></pre>
 
-<p>To test (and finalize) your work, spin the document to html using this code:</p>
+<pre><code class="r">library(IRanges)
+</code></pre>
 
-<p>ezspin(file = &ldquo;GlennaJaede/programs/20220223_Lecture_NotesRMD.R&rdquo;,out_dir = &ldquo;GlennaJaede/output&rdquo;,fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE)</p>
+<p>Source the script from the textbook to make figures</p>
 
-<p><strong>Be careful not to overwrite anyone else&#39;s output!!</strong></p>
+<pre><code class="r">source(&quot;plot-ranges.R&quot;)
+</code></pre>
 
-<p>Remember to commit &gt; pull &gt; push to submit your work to GitHub. Do this 
-frequently!</p>
+<hr/>
+
+<h2>2. Introduction to range data</h2>
+
+<p>IRanges are an object that R recognizes as being a genomic range.</p>
+
+<p>Remember that ranges would normally have metadata such as </p>
+
+<ol>
+<li>Chromosome name, such as &ldquo;chr17&rdquo; or &ldquo;chrY&rdquo; or &ldquo;contig184&rdquo;</li>
+<li>Range that demonstrates the specific sequence on the chromosome</li>
+<li>Strand, which is either forward (positive) or backward (negative)</li>
+</ol>
+
+<pre><code class="r"># Ranges can be made by designating start and end
+
+
+# Ranges can be made by designating start or end AND width
+</code></pre>
+
+<p>IRanges objects can also be created to contain many ranges </p>
+
+<p>And each range within the IRanges object can be named:</p>
+
+<p>Let&#39;s plot the ranges</p>
+
+<p>What values start each range?</p>
+
+<p>What values end each range?</p>
+
+<p>What is the width of each range?</p>
+
+<p>What is the total range of the IRanges object?</p>
+
+<p>What is the difference between range(x) and width(x)??</p>
+
+<p>We can manipulate the ranges with standard arithmetic:</p>
+
+<p>We can also use many of the other R functions to manipulate IRanges:</p>
+
+<p>Use subsetting to look at just second and third row of x</p>
+
+<p>Use subsetting to look at just ranges named &ldquo;a&rdquo; and &ldquo;c&rdquo;</p>
+
+<p>Display logical answer for when start of x is less than 5</p>
+
+<p>Display ranges that are greater than 8 in width</p>
+
+<p>We can also merge ranges together with c() </p>
+
+<hr/>
+
+<h2>3. More advanced range operations</h2>
+
+<p>By adding 4L, this grows the sequence symmetrically by 4 on each side</p>
+
+<p>By subtracting, we symmetrically cut off each end of the sequence</p>
+
+<p>By restricting the ranges, we cut them off to fit in a specific range</p>
+
+<p>We can also flank the ranges to create downstream or upstream
+sequences that contain promoter sequences</p>
+
+<p>We can also reduce the ranges that are potentially overlapping
+by merging them to a single range in the result. This is useful if 
+we care about what regions a sequence covers, but not the specific
+ranges</p>
+
+<pre><code class="r">set.seed(0) # reset random generator, make sure we all have the same result
+# Create a longer set of ranges, 20 total
+</code></pre>
+
+<p>Similarly, we can identify the gaps!</p>
+
+<h3>Footer</h3>
+
+<p>spin this with:
+ezspin(file = &ldquo;GlennaJaede/programs/20220223_range_data.R&rdquo;,out_dir = &ldquo;GlennaJaede/output&rdquo;, fig_dir = &ldquo;figures20220223&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
