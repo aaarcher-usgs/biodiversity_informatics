@@ -32,17 +32,17 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
 #' Install "remotes" package
-install.packages("remotes")
-library(remotes)
-update_packages()
-
-install.packages(c("motus", "motusData"),
-                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
-
-install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 repos = c(ropensci = 'https://ropensci.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
+# install.packages("remotes")
+# library(remotes)
+# update_packages()
+# 
+# install.packages(c("motus", "motusData"),
+#                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                            CRAN = 'https://cloud.r-project.org'))
+# 
+# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',
+#                            CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -59,16 +59,17 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: UTC stands for Coordinated Universal Time. It is the standard clock 
+#' > Answer: UTC stands for Coordinated Universal Time or Greenwhich Mean Time. It is the standard clock 
 #' time that all time zones are based off of. This time is based on the mean solar
 #' time at the prime meridian and every 15 degrees longitude (east or west) time 
 #' changes one hour.
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: This is important to recognize because depending on where you are 
-#' conducting your research using motus, you may want to change the time zone
-#' to get an accurate read on time of burst intervals.
+#' > Answer: This is important to recognize because this is the standard used 
+#' for the Motus system (aka this is how times are stored in the Motus Database).
+#' Times can be altered if we don't change the system environment to UTC and 
+#' it can also be a problem if birds are flying across multiple time zones.
 #' 
 
 #' _____________________________________________________________________________
@@ -84,10 +85,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = "../motus")
+# sql.motus <- tagme(projRecv = proj.num, 
+#                    new = TRUE, 
+#                    update = TRUE,
+#                    dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -112,7 +113,10 @@ dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: 
+dbListFields(file.name, "projs") 
+
+#' > Answer: The proj table includes information like id, name, label, tags 
+#' permissions, and sensors permissions.
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -121,7 +125,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 
+#' > Answer: Six
 #' 
 
 
@@ -156,7 +160,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: Looking at the field names directly (below) was faster to process
 #' 
 dbListFields(file.name, "alltags")
 
@@ -174,7 +178,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: 188354 observations
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -189,7 +193,8 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: With tag ID 16011 there are 127 records and with ID 23316 there
+#' are 5734 records.
 #' 
  
 
@@ -247,7 +252,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: The American Woodcock and the Semiplated plover
 #' 
 #' 
 
@@ -306,7 +311,10 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: In order to zoom out on this map, we would just have to change the 
+#' code directly above. This code set limits to map based on locations of detection; 
+#' therefore only looking at a specific area. WE could add points for all 
+#' receivers that were active but did not detect birds.
 #' 
 
 #' 
@@ -329,6 +337,24 @@ ggplot(data = world) +
 
 #' **Q10** Duplicate the map below (two maps in final html), but change these items:
 #' 
+#+ motusMap2
+ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "longitude", y = "latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
+
+
+
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
 #' 

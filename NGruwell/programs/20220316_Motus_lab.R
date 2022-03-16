@@ -34,15 +34,15 @@ set.seed(71587)
 #'Install "remotes" package
 #install.packages("remotes")
 #library(remotes)
-# update_packages()
- #install.packages(c("motus", "motusData"), 
- #                repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#update_packages()
+#install.packages(c("motus", "motusData"), 
+#              repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
 #                           CRAN = 'https://cloud.r-project.org'))
 
 # 
-# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-#                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-#                            CRAN = 'https://cloud.r-project.org'))
+ install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+                            CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -156,7 +156,8 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: the second was the faster way to process as it seems more precise 
+#' and easy to read. 
 #' 
 dbListFields(file.name, "alltags")
 
