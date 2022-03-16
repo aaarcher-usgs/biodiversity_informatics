@@ -60,11 +60,12 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: 
+#' > Answer: Coordinate Universal time zone
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: 
+#' > Answer: It is the primary standard time that the world regulates clocks and time.
+#'             
 #' 
 
 #' _____________________________________________________________________________
@@ -80,10 +81,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = "../motus")
+#' sql.motus <- tagme(projRecv = proj.num, 
+#'                   new = TRUE, 
+#'                  update = TRUE,
+#'                   dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
