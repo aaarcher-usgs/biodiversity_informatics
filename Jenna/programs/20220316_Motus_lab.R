@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: Nicole Gruwell and Emma Kuechle
+#' Programmer: Jenna
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -32,18 +32,17 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
 #' Install "remotes" package
- install.packages("remotes")
+install.packages("remotes")
 library(remotes)
- update_packages()
+update_packages()
 
- install.packages(c("motus", "motusData"), 
+install.packages(c("motus", "motusData"),
                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
                            CRAN = 'https://cloud.r-project.org'))
 
-# 
- install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
+install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+                 repos = c(ropensci = 'https://ropensci.r-universe.dev',
+                           CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -60,13 +59,16 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: Greenwich Mean Time
+#' > Answer: UTC stands for Coordinated Universal Time. It is the standard clock 
+#' time that all time zones are based off of. This time is based on the mean solar
+#' time at the prime meridian and every 15 degrees longitude (east or west) time 
+#' changes one hour.
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: Times are stored in the database in UTC time so it is important
-#' that your work is also in that time. Also, tags can be accidentally changed 
-#' across  multiple time zones if not in UTC time.
+#' > Answer: This is important to recognize because depending on where you are 
+#' conducting your research using motus, you may want to change the time zone
+#' to get an accurate read on time of burst intervals.
 #' 
 
 #' _____________________________________________________________________________
@@ -82,10 +84,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#'sql.motus <- tagme(projRecv = proj.num, 
-#'                  new = TRUE, 
-#'                  update = TRUE,
-#'                  dir = "../motus")
+sql.motus <- tagme(projRecv = proj.num, 
+                   new = TRUE, 
+                   update = TRUE,
+                   dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -94,7 +96,6 @@ sql.motus <- tagme(projRecv = proj.num,
                    new = FALSE, 
                    update = TRUE,
                    dir = "../motus")
-
 # Log in name and password are: motus.sample
 
 
@@ -111,18 +112,16 @@ dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: The headers of the project such as ID, Name, Label, TagsPermissions,
-#' sensorPermissions.
+#' > Answer: 
 #' 
 
 #' Get a list of fields (column names) in the table "species"
 #' 
 dbListFields(file.name, "species") 
 
-
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer:  6 fields. ID, english, french, scientific, group, and sort.
+#' > Answer: 
 #' 
 
 
@@ -339,4 +338,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "NGruwell/programs/20220316_Motus_lab.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220316_Motus_lab.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

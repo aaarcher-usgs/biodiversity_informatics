@@ -23,7 +23,7 @@
 library(ezknitr)
 library(ggplot2)
 
-# Clear Environment & Set Seed
+
 remove(list=ls())
 set.seed(71587)
 
@@ -32,18 +32,18 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
 #' Install "remotes" package
-install.packages("remotes")
-library(remotes)
-update_packages()
+# install.packages("remotes")
+# library(remotes)
+# update_packages()
 
-install.packages(c("motus", "motusData"), 
-                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
+# install.packages(c("motus", "motusData"), 
+                 # repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+                          # CRAN = 'https://cloud.r-project.org'))
 
 
-install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
+# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+                 # repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+                         #   CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -60,11 +60,11 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: 
+#' > Answer: Greenwich Mean Time
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: 
+#' > Answer: Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 #' 
 
 #' _____________________________________________________________________________

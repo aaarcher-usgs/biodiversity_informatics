@@ -207,7 +207,7 @@ hr {
 
 <p>March 16, 2022</p>
 
-<p>Programmer: AAA</p>
+<p>Programmer: Evan</p>
 
 <p><strong>Important</strong> - The answers to the 10 questions below can be figured out by
 working through the online guide to Motus in R, which is at motuswts.github.io
@@ -223,7 +223,7 @@ a friend.)</p>
 library(ezknitr)
 library(ggplot2)
 
-
+# Clear Environment &amp; Set Seed
 remove(list=ls())
 set.seed(71587)
 </code></pre>
@@ -232,48 +232,85 @@ set.seed(71587)
 
 <h2>1. Load libraries from new sources (ch 2)</h2>
 
-<p>Install &ldquo;remotes&rdquo; package</p>
-
-<pre><code class="r"># install.packages(&quot;remotes&quot;)
+<pre><code class="r"># Install &quot;remotes&quot; package
+# install.packages(&quot;remotes&quot;)
 # library(remotes)
 # update_packages()
 
 # install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
-                 # repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
-                          # CRAN = &#39;https://cloud.r-project.org&#39;))
+#                repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
+#                          CRAN = &#39;https://cloud.r-project.org&#39;))
 
 
 # install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
-                 # repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
-                         #   CRAN = &#39;https://cloud.r-project.org&#39;))
+#                 repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
+#                          CRAN = &#39;https://cloud.r-project.org&#39;))
 </code></pre>
 
 <p>Load the packages for use</p>
 
 <pre><code class="r">library(motus)
 library(motusData)
-library(tidyverse)
-library(DBI)
+</code></pre>
+
+<pre><code>## Error in library(motusData): there is no package called &#39;motusData&#39;
+</code></pre>
+
+<pre><code class="r">library(tidyverse)
+</code></pre>
+
+<pre><code>## ── Attaching packages ────────────────────────────────── tidyverse 1.3.1 ──
+</code></pre>
+
+<pre><code>## ✓ tibble  3.1.6     ✓ dplyr   1.0.8
+## ✓ tidyr   1.2.0     ✓ stringr 1.4.0
+## ✓ readr   2.1.2     ✓ forcats 0.5.1
+## ✓ purrr   0.3.4
+</code></pre>
+
+<pre><code>## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## x lubridate::as.difftime() masks base::as.difftime()
+## x lubridate::date()        masks base::date()
+## x dplyr::filter()          masks stats::filter()
+## x lubridate::intersect()   masks base::intersect()
+## x dplyr::lag()             masks stats::lag()
+## x lubridate::setdiff()     masks base::setdiff()
+## x lubridate::union()       masks base::union()
+</code></pre>
+
+<pre><code class="r">library(DBI)
 library(RSQLite)
 library(lubridate)
 library(rnaturalearth)
 </code></pre>
 
+<pre><code>## Error in library(rnaturalearth): there is no package called &#39;rnaturalearth&#39;
+</code></pre>
+
 <p>Set the system environment time to &ldquo;UTC&rdquo;</p>
 
-<pre><code class="r">Sys.setenv(TZ = &quot;UTC&quot;)
+<pre><code class="r">Sys
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Sys&#39; not found
+</code></pre>
+
+<pre><code class="r">.setenv(TZ = &quot;UTC&quot;)
+</code></pre>
+
+<pre><code>## Error in .setenv(TZ = &quot;UTC&quot;): could not find function &quot;.setenv&quot;
 </code></pre>
 
 <p><strong>Q1</strong> What time zone is UTC?</p>
 
 <blockquote>
-<p>Answer: Greenwich Mean Time</p>
+<p>Answer: </p>
 </blockquote>
 
 <p><strong>Q2</strong> Why is this important?</p>
 
 <blockquote>
-<p>Answer: Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.</p>
+<p>Answer: </p>
 </blockquote>
 
 <hr/>
@@ -296,8 +333,16 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
                    dir = &quot;../motus&quot;)
 </code></pre>
 
-<pre><code>## Error: Could not connect to database:
-## unable to open database file
+<pre><code>## Please enter a value for login name at motus.org
+## ==&gt;
+</code></pre>
+
+<pre><code>## Please enter a value for password at motus.org
+## ==&gt;
+</code></pre>
+
+<pre><code>## Error: Login failed with error message
+## &#39;Server returned error &#39;Authentication failed : Authentication token was absent, invalid or expired.&#39;&#39;
 </code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
@@ -311,9 +356,8 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
                    dir = &quot;../motus&quot;)
 </code></pre>
 
-<pre><code>## Error: Database ../motus/project-176.motus does not exist.
-## If you *really* want to create a new database, specify &#39;new=TRUE&#39;
-## But maybe you just need to specify &#39;dir=&#39; to tell me where to find it?
+<pre><code>## Error: Login failed with error message
+## &#39;Server returned error &#39;Authentication failed : Authentication token was absent, invalid or expired.&#39;&#39;
 </code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
@@ -328,16 +372,12 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">file.name &lt;- dbConnect(SQLite(), &quot;../motus/project-176.motus&quot;)
 </code></pre>
 
-<pre><code>## Error: Could not connect to database:
-## unable to open database file
-</code></pre>
-
 <p>Get a list of tables that were downloaded</p>
 
 <pre><code class="r">dbListTables(file.name)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListTables&#39;: object &#39;file.name&#39; not found
+<pre><code>## character(0)
 </code></pre>
 
 <p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
@@ -351,7 +391,7 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">dbListFields(file.name, &quot;species&quot;) 
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+<pre><code>## Error: no such table: species
 </code></pre>
 
 <p><strong>Q4</strong> How many fields are in the &ldquo;species&rdquo; table?</p>
@@ -406,7 +446,7 @@ names directly (below). Which way was faster to process (if you can tell)?</p>
 <pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+<pre><code>## Error: no such table: alltags
 </code></pre>
 
 <p>Now, let&#39;s convert that to a &ldquo;flat&rdquo; data.frame so that we can start exploring 
@@ -578,7 +618,12 @@ df.alltags.path &lt;- fun.getpath(df.alltags.sub.path)
 <p>Load some shapefiles to map</p>
 
 <pre><code class="r">world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) 
-# Run these two lines for the first time, then the subsequent lines every time after
+</code></pre>
+
+<pre><code>## Error in ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;): could not find function &quot;ne_countries&quot;
+</code></pre>
+
+<pre><code class="r"># Run these two lines for the first time, then the subsequent lines every time after
 # lakes &lt;- ne_download(scale = &quot;medium&quot;, type = &#39;lakes&#39;, category = &#39;physical&#39;,
 #                               returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
 lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &#39;physical&#39;,
@@ -586,7 +631,7 @@ lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, catego
                  destdir = &quot;map-data&quot;) # use this if already downloaded shapefiles
 </code></pre>
 
-<pre><code>## Error in loadNamespace(x): there is no package called &#39;rgdal&#39;
+<pre><code>## Error in ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &quot;physical&quot;, : could not find function &quot;ne_load&quot;
 </code></pre>
 
 <p>We will just use the tags that have been examined carefully and filtered </p>
@@ -651,7 +696,7 @@ deployment locations</p>
   scale_colour_discrete(&quot;motusTagID&quot;) 
 </code></pre>
 
-<pre><code>## Error in fortify(data): object &#39;lakes&#39; not found
+<pre><code>## Error in ggplot(data = world): object &#39;world&#39; not found
 </code></pre>
 
 <p><strong>Q10</strong> Duplicate the map below (two maps in final html), but change these items:</p>
@@ -666,7 +711,7 @@ deployment locations</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;ebengtson/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;ebengtson/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Evan/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;Evan/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
