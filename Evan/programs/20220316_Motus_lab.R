@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Evan
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -23,7 +23,7 @@
 library(ezknitr)
 library(ggplot2)
 
-
+# Clear Environment & Set Seed
 remove(list=ls())
 set.seed(71587)
 
@@ -31,19 +31,19 @@ set.seed(71587)
 #' 
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
-#' Install "remotes" package
+# Install "remotes" package
 # install.packages("remotes")
 # library(remotes)
 # update_packages()
 
 # install.packages(c("motus", "motusData"), 
-                 # repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                          # CRAN = 'https://cloud.r-project.org'))
+#                repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                          CRAN = 'https://cloud.r-project.org'))
 
 
 # install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 # repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                         #   CRAN = 'https://cloud.r-project.org'))
+#                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#                          CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -56,15 +56,16 @@ library(rnaturalearth)
 
 #' Set the system environment time to "UTC"
 #' 
-Sys.setenv(TZ = "UTC")
+Sys
+.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: Greenwich Mean Time
+#' > Answer: 
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
+#' > Answer: 
 #' 
 
 #' _____________________________________________________________________________
@@ -334,4 +335,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "ebengtson/programs/20220316_Motus_lab.R",out_dir = "ebengtson/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Evan/programs/20220316_Motus_lab.R",out_dir = "Evan/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

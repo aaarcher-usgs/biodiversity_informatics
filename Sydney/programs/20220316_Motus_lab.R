@@ -13,7 +13,7 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, we will explore modus and manipulate/format data.
 #' 
 #' 
 #' ### Header
