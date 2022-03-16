@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Mason Olinger
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -32,18 +32,18 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
 #' Install "remotes" package
-# install.packages("remotes")
-# library(remotes)
-# update_packages()
+#' install.packages("remotes")
+#'library(remotes)
+#' update_packages()
 
-# install.packages(c("motus", "motusData"), 
-#                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-#                            CRAN = 'https://cloud.r-project.org'))
+#' install.packages(c("motus", "motusData"), 
+#'                repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#'                           CRAN = 'https://cloud.r-project.org'))
 
-# 
-# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-#                            CRAN = 'https://cloud.r-project.org'))
+ 
+#'install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+#'                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#'                           CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -334,4 +334,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220316_Motus_lab.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "MOlinger/programs/20220316_Motus_lab.R",out_dir = "MOlinger/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
