@@ -13,7 +13,7 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, we will explore modus and manipulate/format data.
 #' 
 #' 
 #' ### Header
@@ -117,7 +117,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: There are 5 fields in the species table.
+#' > Answer: There are 6 fields in the species table.
 #' 
 
 
@@ -280,7 +280,7 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
 # lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                               returnclass = "sf", destdir = "map-data")
+#                              returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
                  destdir = "map-data") # use this if already downloaded shapefiles
@@ -327,7 +327,20 @@ ggplot(data = world) +
 #' 
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
-#' 
+ ggplot(data = world) + 
+geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "Longitude", y = "Latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
 
 #' _____________________________________________________________________________
 #' 

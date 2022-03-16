@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Mason Olinger
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -23,7 +23,7 @@
 library(ezknitr)
 library(ggplot2)
 
-
+# Clear Environment & Set Seed
 remove(list=ls())
 set.seed(71587)
 
@@ -32,18 +32,18 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
 #' Install "remotes" package
-# install.packages("remotes")
-# library(remotes)
-# update_packages()
+#' install.packages("remotes")
+#'library(remotes)
+#' update_packages()
 
-# install.packages(c("motus", "motusData"), 
-                 # repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                          # CRAN = 'https://cloud.r-project.org'))
+#' install.packages(c("motus", "motusData"), 
+#'                repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#'                           CRAN = 'https://cloud.r-project.org'))
 
-
-# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 # repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                         #   CRAN = 'https://cloud.r-project.org'))
+ 
+#'install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+#'                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#'                           CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -60,11 +60,12 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: Greenwich Mean Time
+#' > Answer: Coordinate Universal time zone
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
+#' > Answer: It is the primary standard time that the world regulates clocks and time.
+#'             
 #' 
 
 #' _____________________________________________________________________________
@@ -80,10 +81,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#sql.motus <- tagme(projRecv = proj.num, 
-               #    new = TRUE, 
-                  # update = TRUE,
-                  # dir = "../motus")
+#' sql.motus <- tagme(projRecv = proj.num, 
+#'                   new = TRUE, 
+#'                  update = TRUE,
+#'                   dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -104,11 +105,11 @@ file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
 
 #' Get a list of tables that were downloaded
 #' 
-dbListTabels(file.name)
-
+dbListTables(file.name)
+dbListFields(file.name, "projs")
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: id, name, label, tagsPermissions, sensorsPermissions
+#' > Answer: the Id, name, label, tags permissions, and sensors permissions
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -117,7 +118,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 6 fields
+#' > Answer: 5
 #' 
 
 
@@ -152,7 +153,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: alltags
+#' > Answer: The SQL format seemed to be a little faster.
 #' 
 dbListFields(file.name, "alltags")
 
@@ -168,13 +169,9 @@ df.alltags <- tbl.alltags %>%
 #' 
 names(df.alltags)
 
-dbList(file.name)
-dbListObjects(file.name, df.alltags)
-dbListResults(file.name, df.alltags)
-dbListFields(file.name, df.alltags)
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 188354
+#' > Answer: 63
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -189,7 +186,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 127  5734 
+#' > Answer: 127 and 5734
 #' 
  
 
@@ -247,7 +244,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: American Woodcock and Semipalmated Plover
 #' 
 #' 
 
@@ -283,11 +280,11 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 #' Load some shapefiles to map
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
-# lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                               returnclass = "sf", destdir = "map-data")
+#lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
+#                             returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
-                 destdir = "map-data") # use this if already downloaded shapefiles
+                destdir = "map-data") # use this if already downloaded shapefiles
 
 #' 
 #' We will just use the tags that have been examined carefully and filtered 
@@ -306,7 +303,7 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: We would have to make the minimum and maximum a larger number
 #' 
 
 #' 
@@ -327,6 +324,21 @@ ggplot(data = world) +
              aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
   scale_colour_discrete("motusTagID") 
 
+ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "Blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "Longitude", y = "Latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
+
 #' **Q10** Duplicate the map below (two maps in final html), but change these items:
 #' 
 #' - Make the lake filled with "blue" instead of white
@@ -338,4 +350,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "ebengtson/programs/20220316_Motus_lab.R",out_dir = "ebengtson/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "MOlinger/programs/20220316_Motus_lab.R",out_dir = "MOlinger/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

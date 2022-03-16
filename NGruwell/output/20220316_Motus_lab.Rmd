@@ -1,24 +1,26 @@
-#' # Guided tour of movement data with Motus package
-#' 
-#' Biodiversity Informatics (BIOL 475/575)
-#' 
-#' March 16, 2022
-#' 
-#' Programmer: Nicole Gruwell and Emma Kuechle
-#' 
-#' **Important** - The answers to the 10 questions below can be figured out by
-#' working through the online guide to Motus in R, which is at motuswts.github.io
-#' and linked through D2L. (Although a couple questions ask you to interpret code
-#' or change code using common sense or by googling how to do things or by asking
-#' a friend.)
-#' 
-#' 
-#' In this program, xxx
-#' 
-#' 
-#' ### Header
-#' 
-#' 
+# Guided tour of movement data with Motus package
+
+Biodiversity Informatics (BIOL 475/575)
+
+March 16, 2022
+
+Programmer: Nicole Gruwell and Emma Kuechle
+
+**Important** - The answers to the 10 questions below can be figured out by
+working through the online guide to Motus in R, which is at motuswts.github.io
+and linked through D2L. (Although a couple questions ask you to interpret code
+or change code using common sense or by googling how to do things or by asking
+a friend.)
+
+
+In this program, xxx
+
+
+### Header
+
+
+
+```{r }
 # Load Libraries
 library(ezknitr)
 library(ggplot2)
@@ -26,12 +28,15 @@ library(ggplot2)
 # Clear Environment & Set Seed
 remove(list=ls())
 set.seed(71587)
+```
 
-#' _____________________________________________________________________________
-#' 
-#' ## 1. Load libraries from new sources (ch 2)
-#' 
-#'Install "remotes" package
+_____________________________________________________________________________
+
+## 1. Load libraries from new sources (ch 2)
+
+Install "remotes" package
+
+```{r }
 #install.packages("remotes")
 #library(remotes)
 #update_packages()
@@ -43,8 +48,11 @@ set.seed(71587)
  install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
                             CRAN = 'https://cloud.r-project.org'))
+```
 
-#' Load the packages for use
+Load the packages for use
+
+```{r }
 library(motus)
 library(motusData)
 library(tidyverse)
@@ -52,156 +60,195 @@ library(DBI)
 library(RSQLite)
 library(lubridate)
 library(rnaturalearth)
+```
 
-#' Set the system environment time to "UTC"
-#' 
+Set the system environment time to "UTC"
+
+
+```{r }
 Sys.setenv(TZ = "UTC")
+```
 
-#' **Q1** What time zone is UTC?
-#' 
-#' > Answer: Greenwich Mean Time
-#' 
-#' **Q2** Why is this important?
-#' 
-#' > Answer: Times are stored in the database in UTC time so it is important
-#' that your work is also in that time. Also, tags can be accidentally changed 
-#' across  multiple time zones if not in UTC time.
-#' 
+**Q1** What time zone is UTC?
 
-#' _____________________________________________________________________________
-#' 
-#' ## 2. Download sample dataset (Ch 3)
-#' 
-#' **Important** - First, make a folder named "motus" in the same place as your
-#' folder named "biodiversity_informatics"
-#' 
-#' Set project number
-#' 
+> Answer: Greenwich Mean Time
+
+**Q2** Why is this important?
+
+> Answer: Times are stored in the database in UTC time so it is important
+that your work is also in that time. Also, tags can be accidentally changed 
+across  multiple time zones if not in UTC time.
+
+_____________________________________________________________________________
+
+## 2. Download sample dataset (Ch 3)
+
+**Important** - First, make a folder named "motus" in the same place as your
+folder named "biodiversity_informatics"
+
+Set project number
+
+
+```{r }
 proj.num <- 176
+```
 
-#' Download the data
-#' 
+Download the data
+
+
+```{r }
 # sql.motus <- tagme(projRecv = proj.num, 
-#'                  new = TRUE, 
-#'                  update = TRUE,
-#'                  dir = "../motus")
-# Log in name and password are: motus.sample
+```
 
-#' **Important** After first download, comment out the code above and use this:
-#' 
+                 new = TRUE, 
+                 update = TRUE,
+                 dir = "../motus")
+
+```{r }
+# Log in name and password are: motus.sample
+```
+
+**Important** After first download, comment out the code above and use this:
+
+
+```{r }
 sql.motus <- tagme(projRecv = proj.num, 
                    new = FALSE, 
                    update = TRUE,
                    dir = "../motus")
 
 # Log in name and password are: motus.sample
+```
 
+_____________________________________________________________________________
 
-#' _____________________________________________________________________________
-#' 
-#' ## 3. Explore data that were downloaded (ch 3)
-#' 
-#' Specify the filename of where your data were downloaded
+## 3. Explore data that were downloaded (ch 3)
+
+Specify the filename of where your data were downloaded
+
+```{r }
 file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
+```
 
-#' Get a list of tables that were downloaded
-#' 
+Get a list of tables that were downloaded
+
+
+```{r }
 dbListTables(file.name)
+```
 
-#' **Q3** What type of information is in the "projs" table?
-#' 
-#' > Answer: The headers of the project such as ID, Name, Label, TagsPermissions,
-#' sensorPermissions.
-#' 
+**Q3** What type of information is in the "projs" table?
 
-#' Get a list of fields (column names) in the table "species"
-#' 
+> Answer: The headers of the project such as ID, Name, Label, TagsPermissions,
+sensorPermissions.
+
+Get a list of fields (column names) in the table "species"
+
+
+```{r }
 dbListFields(file.name, "species") 
+```
+
+**Q4** How many fields are in the "species" table?
+
+> Answer:  6 fields. ID, english, french, scientific, group, and sort.
 
 
-#' **Q4** How many fields are in the "species" table?
-#' 
-#' > Answer:  6 fields. ID, english, french, scientific, group, and sort.
-#' 
+Retrieve the virtual "alltags" table from the SQLite file
 
 
-#' 
-#' Retrieve the virtual "alltags" table from the SQLite file
-#' 
+```{r }
 tbl.alltags <- tbl(sql.motus, "alltags")
+```
 
-#' This is in a different format (list) than we are used to (data.frames). We can 
-#' use str() to see what this different format contains:
-#' 
+This is in a different format (list) than we are used to (data.frames). We can 
+use str() to see what this different format contains:
+
+
+```{r }
 str(tbl.alltags)
+```
 
-#' 
-#' The first part of the list, src, is a list that provides details of the 
-#' SQLiteConnection, including the directory where the database is stored. 
-#' The second part is a list that includes the underlying table. 
-#' Thus, the R object alltags is a virtual table that stores the database 
-#' structure and information required to connect to the underlying data in 
-#' the .motus file. 
-#' 
 
-#' 
-#' We can use fairly straightforward commands to explore the table without changing
-#' its format. Later, we will convert a subset of this to a data.frame. For now, 
-#' let's keep looking at it in the SQL format, which allows for faster processing.
-#' 
+The first part of the list, src, is a list that provides details of the 
+SQLiteConnection, including the directory where the database is stored. 
+The second part is a list that includes the underlying table. 
+Thus, the R object alltags is a virtual table that stores the database 
+structure and information required to connect to the underlying data in 
+the .motus file. 
+
+
+We can use fairly straightforward commands to explore the table without changing
+its format. Later, we will convert a subset of this to a data.frame. For now, 
+let's keep looking at it in the SQL format, which allows for faster processing.
+
+
+```{r }
 tbl.alltags %>%
   collect() %>% 
   names()
+```
 
-#' **Q5** Compare this list to the one made when we just look at the field 
-#' names directly (below). Which way was faster to process (if you can tell)?
-#' 
-#' > Answer: the second was the faster way to process as it seems more precise 
-#' and easy to read. 
-#' 
+**Q5** Compare this list to the one made when we just look at the field 
+names directly (below). Which way was faster to process (if you can tell)?
+
+> Answer: the second was the faster way to process as it seems more precise 
+and easy to read. 
+
+
+```{r }
 dbListFields(file.name, "alltags")
+```
 
-#' Now, let's convert that to a "flat" data.frame so that we can start exploring 
-#' where these birds were detected!
-#' 
+Now, let's convert that to a "flat" data.frame so that we can start exploring 
+where these birds were detected!
+
+
+```{r }
 df.alltags <- tbl.alltags %>% 
   collect() %>% 
   as.data.frame() %>%     # for all fields in the df (data frame)
   mutate(time = as_datetime(ts))
+```
 
-#' Again, another way to see the column names:
-#' 
+Again, another way to see the column names:
+
+
+```{r }
 names(df.alltags)
+```
 
-#' **Q6** How many observations are there in this table?
-#' 
-#' > Answer: 
-#' 
+**Q6** How many observations are there in this table?
 
-#' Let's select only a couple specific tag IDs. (The
-#' tag IDs are the IDs that each individual bird has)
-#' 
+> Answer: 
+
+Let's select only a couple specific tag IDs. (The
+tag IDs are the IDs that each individual bird has)
+
+
+```{r }
 df.alltagsSub <- tbl.alltags %>%
   filter(motusTagID %in% c(16011, 23316)) %>% 
   collect() %>% 
   as.data.frame() %>%    
   mutate(time = as_datetime(ts))  
 table(df.alltagsSub$motusTagID)
+```
 
-#' **Q7** How many records are associated with each of the two tags?
-#' 
-#' > Answer: 
-#' 
- 
+**Q7** How many records are associated with each of the two tags?
 
-#' _____________________________________________________________________________
-#' 
-#' ## 4. Explore detections (Ch 5)
-#' 
-#' First, we'll just use the filtering function provided by Motus for this sample 
-#' data. The details don't matter, we are just taking out any signals that are 
-#' ambiguous or not biologically sensical.
-#' 
+> Answer: 
+
+_____________________________________________________________________________
+
+## 4. Explore detections (Ch 5)
+
+First, we'll just use the filtering function provided by Motus for this sample 
+data. The details don't matter, we are just taking out any signals that are 
+ambiguous or not biologically sensical.
+
+
+```{r }
 tbl.alltags <- tbl(sql.motus, "alltagsGPS")
 
 # obtain a table object of the filter
@@ -221,12 +268,15 @@ df.alltags.sub <- tbl.alltags %>%
          recvDeployName = if_else(is.na(recvDeployName), 
                                   paste(recvDeployLat, recvDeployLon, sep=":"), 
                                   recvDeployName))
+```
 
-#' Ok, now we can make some graphs and maps!
-#' 
-#' Let's see what time of day the different species of birds are usually detected during.
-#' 
-#' First, clean data up a little bit and round everything to the nearest hour of the day
+Ok, now we can make some graphs and maps!
+
+Let's see what time of day the different species of birds are usually detected during.
+
+First, clean data up a little bit and round everything to the nearest hour of the day
+
+```{r }
 df.alltags.sub.2 <- df.alltags.sub %>%
   mutate(hour = lubridate::hour(time),
          year = lubridate::year(time),
@@ -234,27 +284,30 @@ df.alltags.sub.2 <- df.alltags.sub %>%
   select(motusTagID, port, tagDeployStart, tagDepLat, tagDepLon, 
          recvDeployLat, recvDeployLon, recvDeployName, antBearing, speciesEN, year, doy, hour) %>% 
   distinct()
+```
 
-#' Then graph it!
-#' 
-#+ motusHOD
+Then graph it!
+
+
+```{r motusHOD}
 ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
        aes(x = hour, y = as.factor(motusTagID), colour = speciesEN)) +
   theme_bw() + 
   geom_point() +
   labs(x = "Hour", y = "MotusTagID") +
   scale_colour_discrete(name = "Species")
+```
 
-#' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
-#' not during the mid-day?
-#' 
-#' > Answer:
-#' 
-#' 
+**Q8** Which two species of bird seem to be active only in the mornings and nights and 
+not during the mid-day?
 
-#' Simplify the data by summarizing by the runID so that we can map the detections
-#' 
+> Answer:
 
+
+Simplify the data by summarizing by the runID so that we can map the detections
+
+
+```{r }
 # function to summarize data
 fun.getpath <- function(df) {
   df %>%
@@ -269,8 +322,11 @@ fun.getpath <- function(df) {
 
 # applying function
 df.alltags.path <- fun.getpath(df.alltags.sub)
+```
 
-#' Subset the cleaned data
+Subset the cleaned data
+
+```{r }
 df.alltags.sub.path <- df.alltags.sub %>%
   filter(tagProjID == 176) %>% # only tags registered to project
   arrange(motusTagID, time) %>%       # order by time stamp for each tag
@@ -280,8 +336,11 @@ df.alltags.sub.path <- df.alltags.sub %>%
 
 # Final data ready for plotting
 df.alltags.path <- fun.getpath(df.alltags.sub.path)
+```
 
-#' Load some shapefiles to map
+Load some shapefiles to map
+
+```{r }
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
 # lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
@@ -289,30 +348,37 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
                  destdir = "map-data") # use this if already downloaded shapefiles
+```
 
-#' 
-#' We will just use the tags that have been examined carefully and filtered 
+
+We will just use the tags that have been examined carefully and filtered 
+
+```{r }
 df.tmp <- df.alltags.path %>%
   filter(motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)) %>%
   arrange(time)  %>% # arrange by hour
   as.data.frame()
+```
 
-#' Set limits to map based on locations of detections, ensuring they include the
-#' deployment locations
-#' 
+Set limits to map based on locations of detections, ensuring they include the
+deployment locations
+
+
+```{r }
 xmin <- min(df.tmp$recvDeployLon, na.rm = TRUE) - 2
 xmax <- max(df.tmp$recvDeployLon, na.rm = TRUE) + 2
 ymin <- min(df.tmp$recvDeployLat, na.rm = TRUE) - 1
 ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
+```
 
-#' **Q9** What would you change above to zoom out on this map?
-#' 
-#' > Answer:
-#' 
+**Q9** What would you change above to zoom out on this map?
 
-#' 
-#' And now we can map the detections!
-#+ motusMap
+> Answer:
+
+
+And now we can map the detections!
+
+```{r motusMap}
 ggplot(data = world) + 
   geom_sf(colour = NA) +
   geom_sf(data = lakes, colour = NA, fill = "white") +
@@ -327,16 +393,16 @@ ggplot(data = world) +
   geom_point(data = df.tmp, 
              aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
   scale_colour_discrete("motusTagID") 
+```
 
-#' **Q10** Duplicate the map below (two maps in final html), but change these items:
-#' 
-#' - Make the lake filled with "blue" instead of white
-#' - Label x with "Longitude" and y with "Latitude"
-#' 
+**Q10** Duplicate the map below (two maps in final html), but change these items:
 
-#' _____________________________________________________________________________
-#' 
-#' ### Footer
-#' 
-#' spin this with:
-#' ezspin(file = "NGruwell/programs/20220316_Motus_lab.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+- Make the lake filled with "blue" instead of white
+- Label x with "Longitude" and y with "Latitude"
+
+_____________________________________________________________________________
+
+### Footer
+
+spin this with:
+ezspin(file = "NGruwell/programs/20220316_Motus_lab.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
