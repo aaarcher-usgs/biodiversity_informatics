@@ -63,7 +63,7 @@ Sys.setenv(TZ = "UTC")
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: 
+#' > Answer: For accuracy 
 #' 
 
 #' _____________________________________________________________________________
