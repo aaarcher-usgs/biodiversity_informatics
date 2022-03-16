@@ -325,32 +325,11 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
                    dir = &quot;../motus&quot;)
 </code></pre>
 
-<pre><code>## Checking for new data in project 176
+<pre><code>## Please enter a value for login name at motus.org
+## ==&gt;
 </code></pre>
 
-<pre><code>## Updating metadata
-</code></pre>
-
-<pre><code>## activity:     1 new batch records to check
-</code></pre>
-
-<pre><code>## batchID  1977125 (#     1 of      1): got    156 activity records
-</code></pre>
-
-<pre><code>## batchID  1977125 (#     1 of      1): got      0 activity records
-</code></pre>
-
-<pre><code>## Downloaded 156 activity records
-</code></pre>
-
-<pre><code>## nodeData:     0 new batch records to check
-</code></pre>
-
-<pre><code>## Fetching deprecated batches
-</code></pre>
-
-<pre><code>## Total deprecated batches: 6
-## New deprecated batches: 0
+<pre><code>## Error: session variable &#39;userLogin&#39; is undefined
 </code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
@@ -380,8 +359,15 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 
 <p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
 
+<pre><code class="r"> dbListFields(file.name, &quot;projs&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;id&quot;                 &quot;name&quot;               &quot;label&quot;              &quot;tagsPermissions&quot;   
+## [5] &quot;sensorsPermissions&quot;
+</code></pre>
+
 <blockquote>
-<p>Answer: </p>
+<p>Answer: ID, name, label, tags permissions, sensor permissions</p>
 </blockquote>
 
 <p>Get a list of fields (column names) in the table &ldquo;species&rdquo;</p>
@@ -395,12 +381,15 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <p><strong>Q4</strong> How many fields are in the &ldquo;species&rdquo; table?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: 6 Fields</p>
 </blockquote>
 
 <p>Retrieve the virtual &ldquo;alltags&rdquo; table from the SQLite file</p>
 
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltags&quot;)
+</code></pre>
+
+<pre><code>## Error: external pointer is not valid
 </code></pre>
 
 <p>This is in a different format (list) than we are used to (data.frames). We can 
@@ -417,14 +406,14 @@ use str() to see what this different format contains:</p>
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x00000268119a6f98&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x0000017ba8a43dd0&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
 ##   .. .. ..@ extended_types     : logi FALSE
-##   ..$ disco:&lt;environment: 0x000002680f6fbde8&gt; 
+##   ..$ disco:&lt;environment: 0x0000017ba8a43ba0&gt; 
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
 ##  $ ops:List of 2
-##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
-##   ..$ vars: chr [1:62] &quot;hitID&quot; &quot;runID&quot; &quot;batchID&quot; &quot;ts&quot; ...
+##   ..$ x   : &#39;ident&#39; chr &quot;alltagsGPS&quot;
+##   ..$ vars: chr [1:65] &quot;hitID&quot; &quot;runID&quot; &quot;batchID&quot; &quot;ts&quot; ...
 ##   ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;op_base_remote&quot; &quot;op_base&quot; &quot;op&quot;
 ##  - attr(*, &quot;class&quot;)= chr [1:5] &quot;tbl_SQLiteConnection&quot; &quot;tbl_dbi&quot; &quot;tbl_sql&quot; &quot;tbl_lazy&quot; ...
 </code></pre>
@@ -445,26 +434,14 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
   names()
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
-##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
-## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
-## [16] &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
-## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;           
-## [26] &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
-## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot;
-## [36] &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
-## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
-## [46] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;  
-## [51] &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;    
-## [56] &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
-## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
+<pre><code>## Error: external pointer is not valid
 </code></pre>
 
 <p><strong>Q5</strong> Compare this list to the one made when we just look at the field 
 names directly (below). Which way was faster to process (if you can tell)?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: SQL format is faster</p>
 </blockquote>
 
 <pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
@@ -494,6 +471,9 @@ where these birds were detected!</p>
   mutate(time = as_datetime(ts))
 </code></pre>
 
+<pre><code>## Error: external pointer is not valid
+</code></pre>
+
 <p>Again, another way to see the column names:</p>
 
 <pre><code class="r">names(df.alltags)
@@ -517,7 +497,7 @@ where these birds were detected!</p>
 <p><strong>Q6</strong> How many observations are there in this table?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: 63</p>
 </blockquote>
 
 <p>Let&#39;s select only a couple specific tag IDs. (The
@@ -528,7 +508,12 @@ tag IDs are the IDs that each individual bird has)</p>
   collect() %&gt;% 
   as.data.frame() %&gt;%    
   mutate(time = as_datetime(ts))  
-table(df.alltagsSub$motusTagID)
+</code></pre>
+
+<pre><code>## Error: external pointer is not valid
+</code></pre>
+
+<pre><code class="r">table(df.alltagsSub$motusTagID)
 </code></pre>
 
 <pre><code>## 
@@ -539,7 +524,7 @@ table(df.alltagsSub$motusTagID)
 <p><strong>Q7</strong> How many records are associated with each of the two tags?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: 127, and 5734</p>
 </blockquote>
 
 <hr/>
@@ -551,8 +536,12 @@ data. The details don&#39;t matter, we are just taking out any signals that are
 ambiguous or not biologically sensical.</p>
 
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltagsGPS&quot;)
+</code></pre>
 
-# obtain a table object of the filter
+<pre><code>## Error: external pointer is not valid
+</code></pre>
+
+<pre><code class="r"># obtain a table object of the filter
 
 
 # filter and convert the table into a dataframe, with a few modications
@@ -569,6 +558,9 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
          recvDeployName = if_else(is.na(recvDeployName), 
                                   paste(recvDeployLat, recvDeployLon, sep=&quot;:&quot;), 
                                   recvDeployName))
+</code></pre>
+
+<pre><code>## Error: external pointer is not valid
 </code></pre>
 
 <p>Ok, now we can make some graphs and maps!</p>
@@ -602,7 +594,7 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
 not during the mid-day?</p>
 
 <blockquote>
-<p>Answer:</p>
+<p>Answer: American Woodcock and Semipalmated Plover</p>
 </blockquote>
 
 <p>Simplify the data by summarizing by the runID so that we can map the detections</p>
@@ -623,15 +615,6 @@ fun.getpath &lt;- function(df) {
 df.alltags.path &lt;- fun.getpath(df.alltags.sub)
 </code></pre>
 
-<pre><code>## Error in `summarize()`:
-## ! Problem while computing `time = mean(time)`.
-## i The error occurred in group 2657: motusTagID = 23319, runID = 9164946,
-##   recvDeployName = &quot;Niapiskau&quot;, ambigID = -134, tagDepLon = -63.74528,
-##   tagDepLat = 50.19278, recvDeployLat = 50.19522, recvDeployLon = -63.74766.
-## Caused by error in `vec_proxy()`:
-## ! object &#39;x&#39; not found
-</code></pre>
-
 <p>Subset the cleaned data</p>
 
 <pre><code class="r">df.alltags.sub.path &lt;- df.alltags.sub %&gt;%
@@ -649,8 +632,8 @@ df.alltags.path &lt;- fun.getpath(df.alltags.sub.path)
 
 <pre><code class="r">world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) 
 # Run these two lines for the first time, then the subsequent lines every time after
-# lakes &lt;- ne_download(scale = &quot;medium&quot;, type = &#39;lakes&#39;, category = &#39;physical&#39;,
-#                               returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
+#lakes &lt;- ne_download(scale = &quot;medium&quot;, type = &#39;lakes&#39;, category = &#39;physical&#39;,
+#                              returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
 lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &#39;physical&#39;,
                  returnclass = &quot;sf&quot;,
                  destdir = &quot;map-data&quot;) # use this if already downloaded shapefiles
@@ -683,7 +666,7 @@ ymax &lt;- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 <p><strong>Q9</strong> What would you change above to zoom out on this map?</p>
 
 <blockquote>
-<p>Answer:</p>
+<p>Answer: Make the min and max a higher number, like -5 and 5, to make the map bigger/zoom out.</p>
 </blockquote>
 
 <p>And now we can map the detections!</p>
@@ -713,12 +696,30 @@ ymax &lt;- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 <li>Label x with &ldquo;Longitude&rdquo; and y with &ldquo;Latitude&rdquo;</li>
 </ul>
 
+<pre><code class="r">ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = &quot;blue&quot;) +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;) +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = &quot;black&quot;) +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = &quot;red&quot;, shape = 4) +
+  scale_colour_discrete(&quot;motusTagID&quot;) 
+</code></pre>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAABR1BMVEUAAAAAADoAAGYAAP8AOjoAOmYAOpAAZmYAZrYAujgAv8QzMzM6AAA6ADo6AGY6OgA6OmY6OpA6ZmY6ZrY6kLY6kNtNTU1NTW5NTY5Nbo5NbqtNjshhnP9mAABmADpmAGZmOgBmOjpmOpBmZgBmZrZmkNtmtttmtv9uTU1uTW5uTY5ubm5ubqtujshuq6tuq+SOTU2OTW6OTY6ObquOjk2Ojo6OjsiOq6uOq+SOyP+QOgCQOjqQOmaQkDqQ2/+rbk2rbm6rbo6ryP+r5P+2ZgC2Zjq2Zma2tv+2/7a2//+3nwDIjk3Ijm7Ijo7IyI7I/8jI/+TI///bkDrbkGbbtmbb25Db/7bb/9vb///kq27kq47kq6vk/8jk/+Tk///l5eXr6+v1ZOP4dm3/AAD/tmb/yI7/25D/5Kv//7b//8j//9v//+T////TQLUmAAAACXBIWXMAAAsSAAALEgHS3X78AAAgAElEQVR4nO2d/X/dtnWHb3IXL3OTrN4mNUumJm23KUuTKZu7rkpXp1ncbrbjbXKbzuo6UVxkSU74//88AnwDQAAEwXPwQp7vx766xOXFy3nuAUESxNlVpE1qF7sCpDgi8BsVgd+oCPxGReA3KgK/URH4jYrAb1QEfqOaB/47pCiKD75QNLH/pfVTNTOSQQR+oyLwG1V64Kf2J/AgSg785P4EHkSJgefo7PsTeBAlBr6RdX8r+PAGzFVJgreSJ/AgShO8jbwNfGjrZaxEwVvQE3gQhQL/7WeH3/vi5SeHb5+xrZsP6z9ffsE/MYA3ohfBK3sFtFv2CgX+5U/rl/PT6vzk5oO/PLv54N1p8AbyA3h1n2BGW4NCgb/54PCdi/rvi9P/Obv515uPn5xy8OxugaV2l2aN9whhrvUoFPgXJ9XNz2rHv3/BPf7jl/94NunxhdbpJY8X0gMZbC0KOLir2de4+dubj6sX77qA15A3DO4C2Ws1CgW+Pry/OOVjOqYafPXkey7gx+QJPIgCjurfrZ4cHh6esC0G/uU/OIEfkdeDD2KsgNpjF5DsefwgZf/Vgt8b3uMoA/AKeS14dDsFEIEfSdp/A+D3ewLfSNx//V19CO6ZgBfJr3NUv2/A7zu1aXjKBLxA3nSTBtNKAbQXmIv0sZQ3eOkDTDMFkMQanXsu4L/e7aqvm/3lmzQrAy9toRaXCfjd17uWuwpeQI9opgBSUGMP8HIBX5Nv9+/B9x+OErKU4uIEvpHG44cP1e0sJfbzBf45XSbgv67hysd46eNRQoZSLtwR+E5Vdfcu218HvnDnDmhQWDTKAZ7At+L73q0H91rwhRv4PeQZ8n5fQMJXjvB0Hs/VTrDb1QIAP89EAfJq8hvlDpa3RlmA7zmbwYcW/MW10aiewAuYd7uyTIC7gB2Oj4yajvGjgVsp/hKiSMIO2dl3meFfsc0A/Bgyc3okczipxQ5/J2UvCTBjjdIHr1MZE/xeBI+TN03EMKm8O0oKMXuhKWe4eYqWO4E3qSw1iSHQ43IPcQbfKFfwRaVxenztsbmHGNdx5Qu+KkOjF8ddaHTCYM8YPEcflrw48sLDQ+AnVRVBnT4MdwLvoEo7vMdTCO4E3kWMfED0PXfUQjAzH5Q3eK5g5INwJ/DuCuX0Yc60CPwMBSEf6AybwM9ReRcffahLK2G0EvAhuvtVcV8NeHynXxf3FYHHdnp2IxYz/8BaEXhkp98HG3cF0arAYzr9nsAnDB7R6Vd1gC/WB545PQb6lWFfIXg2Cxerv18T/RWCZ+RR0K+J+yrBswl51N1PaJXgkZw+I/DGBw8amxerBY/j9CmT15nWFsVlreAxnD7lMzqtabcJHtzpU+RuN+1GwcM6fYK3aCZNu1nwkE6fHHYCbxWM0yfo7g7ckwDP487xMBVMTnHnYIR0Th9fDiBSAM/jzr04qZ6cusedAxLWhbyocgKRAnged+73X9Ts58Sdg1FZrM3pLfH4XBU07tyXDPysuHMwKtfm9I4gFI+Xvhc07hz3ePbWPe4ckNbl9K4glBXepS8HjTvHj/Fsa0bcOSCl4/QA5weuIEYLfQvfDxp3bhjVz4g7ByXm9CmgX35m6AxC8PhRJms/jxdUJtLfRwFfqew3BD4Vp18K3t206umcmMumwKfh9Ev7enfTjs/jh1y2BT6+0+8XP5Izw7S6CzhdNlsDH9vpl69jN8O0ttiMmwMf1+n7JbO8yc8xrS024wbBM/LBnb6NHbnv/3rmM8u0ttiMWwTfdPeBl0rjL3uBvB/6WaY136TZKPgoTi8e2/feT+LNMq3l7txWwYd2+nYtzCGEaEHg44AP7PQ6yF6d/SzTEnitIhzpJUUFv/o5d1bFGN4L8gA/DwSBNym208+RBwgCbxZ3+tTR+4Ig8BbxSBfpkp9vfeFLBN6mMmGndzSh6csE3q5End7VgH6ZEPgiXad3sJ53LgSeK0WnnzbdkpwIfKPknH7acMsyI/CdUnL6aastzpDA90rH6SdtBpAlgReUitPbDQaTZ4bgEZ9VT8PpbdYCyzU38NhhIhJwerOpIPPNEjw++XjojXYCzjoz8AGCbJcxnd5spqXZqplnCX6REabVOn2MWCQmI8FnnBn4YpiajD3G2zP0aEXoZTARRt75gReieSOi59nfnVfA4irpDbQkR3PueYPHYc+yLTn6eYO8pTXSmsc7t4n8MwTfTlRuH0YCNMyQPUfPC5hBfumPUWccv5xcCsgRvCh48D0+5vRzzuwWdkNjy/jk4lwCgVfyax9y6Z1+P8Ppl4Af2cUjjzlFEHg5u30bKFzq7mc7vUfJilU8cphXRPbgYcnv2/FDx7Du7lmyK3l/8IpR5mcwt4zswQMZpc2tY170J2f8ao6z0wM5vEcGc4vIHTy0BvDdj2qm0+tVzZoTuagotyIIvEYy+GLPR/cLb9w0bbV/2mlJOU4FcLN7wrUpe/BqQtn298uzrrRYRXMsL8Oa/WB2b7xmZQ5ed4ied6S3qhrBFYwBkL+uQJ3ZvfGalTl4reCcfoR+MAVE5tridGb352vUGsGDOr2EXjAFRNa6srRm96Vr0TrB904PNEej5SxYAibfUTEGs/vStWil4DunB5udoxgCKFdrGYLZPcBOabXge/JgTi9oeV6jNHpaFkwlrNMLZliewyiTRB6Tvvno4tvPDt+54O/DhR+DFqjTD9bx/b7lgJHI8/HffvbOxYuT6jx8+DFgATr9YB3Pb6vZiHlViYA///v7Dfjw4cegBeb0fSwwqHxM0uwRLO7cR3+4f1GdH55UEcKPQQvI6TvbLK/QVBjxiNfqzw8PD0/Oa4+PE34MWiBO32MBkcboSXT11cv7FywGGQ9DFT78GLQgnL41DEh9hPwGJQP+5SeHb5+x9zHCj0FrudO3hgGqj5Bjp8sufw0OOo/31lKnb9sPVh8hzzZXAo+kRU7ftR+yQqNMm/das3vCtWkz4DvyPk7fHX9B66PpRYxm94Rr03bAD939bPQteOD66DI1mH0BYJPigJ81vRVucq6n0w8DL2QZzb6MsVbxwLvyhJyU7eX07YgbsBrmkgxmXwhZp0hdvZX73rixXL3TO6OvGvCw1TAWpTf7Qsg6pXiM32vfAqmc2d+zZl/G5b4d8EN/gPFQ/Syn582+DMKdwA8PteEspzDD6ZtmL70j5yiz2ZcQNihF8MXwaBTSShquTt82G7x8W2E6s/vzNSpV8O0brDVUOvJWp++bDV68vbix2X3pWpQieOkQjwNe6O7N6LtWw5duLU5jdm+8ZqUIXhAW98LB6btGo5RuLk5ndl+6FiUOflH49glNOX3bZqTSVaVxP95Yg0BWGLSHXkdDlNXp2yajFa6URuBloYK3OX3XZLzC5dIIvCrkZZC7Nyr5tsWYZUuFEXhVyIvUGpy+azFq2WJhBH6kIAtgMwnkuwYjFy0URuDHwhvYNxo7fdde1GLlsgh8DA1Oz9F3zQ1UeleS2ezeeM0i8Fw9edbft40NXgnV2n0CgcdTKTo9b2v4OijGLgi8JLQLecVuV/+p7X23ioFd8/h8b3YI0ooyBI9Ffler8bM4ga1kU4spBB41lB0D3420YpCXLC2lEHjcGIa7Xfm46+QjOL1oaDmBwCPepWWqivJxvxGcvGhoOYHAY3MXR/fhnX6ws7JJ4Au8sV3VdfLxnH6ws7JN4JHEmjZsieSDou/NrCYQeHi1DZPSBPKBnV6tTWd2KNqCtg5eq/JxKk7fmh2SeCsCr1NZRHJ6wdbCNoEHlP2qbCl19+HQC7YWtgk8oKauxovdfTj0gq377aIg8HCavg0jdffB+vvB1t12QeAB5XL7TSEfBv1gayGRwIdVTT640ysGbxIJPIycb7aXRXCnH5mcJWYHHu+ZxyWaMclCIR/A6cc2LybB3/7wubB1/Qa7v/zKAzHp3m/VJFTwQpD2hNjPmlxTqt19ePTFJPjre8/lhGcH6g6/fb1+fesRNnhpVYOEyHeGnKPgTu8C/vq77+/+4tPdQfVstzv45tPdna/uPf/m5w/qd7uDDnz9UU37avfqL44b8NXDY2zwvdIi78NdQx4Z/djqGvBvPmD/7n311qPb79d/n19z8FevV7fvPWrA1yn1+/rT26MOvNQRIA/uhuju0cFXftwb8oGP9Eyi2UfgOeqG58PjHnx9eGeAG8L1xivsN8F3WAw+Oj5/+XJvJt0Hdfpec8DXzs1pHzeEr15tO4MB/JKuPqmue5a8sRca8oEv5BnBD139W4/qvv8Z+x0ctOBfr65eeSB29YsGd/JBOyP8y2bKl+Pufgn6GVazg39ej+COq9ujO88f7l77wYPq4W5353kD/vZo98dHx2xw96Nj99M5Y9y5vaoFzQ+pxQ9IQDq9u9U6f5vlnYrqY78u2Rh37vxUF3cuU+4A0pD3Re9otoGHP/ja73cH2k+Mceee/qT2eE3cuRa40Ntv5AfAyYOgdzZXlLhzNe0XJ7q4cy3nUaefMH+YJ+H4xGuZvFd/P8dMDZCgceeentXg+c9AjTu3b6ufDXmoRyC15GejtxtJrWpQ8H3cudMWvDbuXN/fJ08e7NHXUtPdz3X6KRPpyAcFP4zqDXHnsgEP+cgzjNPbxJ/XVdLSui07vg+TJnnYR9115EEv53A7K2lZgE+NPPQSBw15PKfXcE8MPFP64zv4tS2apypNTr+0/TruKYBXwsUkPbLnNkRY06Qlb3D6Ze3Xck8CvLCUvOmULhHyPE4rBvhuiSy90zft97SBnntS4C3c0wGPtYRRaejue/ReNmhMrPvEGfyz44rNx3lev7zebLYvEOB5q4z9fDLsEbkXpu4eIEK99iNX8A93x4zzs+OrA3bznW02L1Dg9zZ/TwN8a0Q09qbu3jtOuS2M6Rj8/0lqE2//rab+6x/VHv+bB9XVAd/kL5DgJ+TZfDD1TyChlWAg7+f0lT2M6Zyuvvb0q4NfMfAIXf20z/u0HkZtTbsNvII68oudvqmwLZrlHPC/flQz/w0m+JQ9vq8wZiHdMkkLnb6CBV//u2qP8RsFj19KaezuZ6DvTGsLY5rMqN4NfUT8QbgX5u7eHX1v2kt5Uzb7LEhuQgMf0fFZTQMVZezuLdHspI1eiQcqIO6KLOQN6EdrWjUSwI8WuUwOfFP/LXMXyDs7vT4ehR58843UwPdNSQn8YK5A6tdAdXR6g2k78MMuw1dSA5+gy8cIMFCau/ux0xtNK17AqYT3TOmBt827jEE+BvfC0t2zmAeVnGASAy/uJn4rQfB28vAmTlSm7p7Z7G7/1sZdPY9P3eM1KyBEI29z92BBC3Xk71qJt7pUckwevP0GLZqlZwq9IgN5CX1jtrvTlrVmniz4VHzeqADVGAIciORbu92dQm/P2++SbffyivtDk0ZpL+Dwuuln2acCPoS05HvLWclPZe03EaN++dWD27827DuAvz3a/a3+idol4OOj3wdx+EKMajJ094PpLE4/mfMY/GNJHUF5IkZVffMvj67f4E/MW8B/8+kxX1TDE3y6Q/uAdRg7vWg8A3mHfD0nYtwevc7+XP+NFfzte48eHvM1k+aCN1zGaeabbgq8rrsXyevQu2TrOxFDeDGD5x5/pe8WJsDrx3dFN+AHNu5cBe11BPItem7kzsoj9G65+k3EYO8O+KYVPF884VW7w9vAa6Zi8UpHJx/2cDOQb5y+4d6TV/p7x0y9R/X9lAwbeBfZPL4YkQe1qLcC10QmX6ngRad3zhPxPJ65O9OEy9vBG38QURW6IqXY3TeAd7vHghE78u63FnAv4LDZeVf6bqHXJPgitWVMw4Ov0TfxyJk48OJxJYLvnd45Q1TwfEDvN6rvwbd/tg5e7NofV427S+Rrp+e/DVehgq9H9bXHLxjV90oLfIR6MPBlWbYGbn4FMvg2ZPmUuj4Bt6tnh/kJ7m7gBfRyIohVZyssd86qcfiSq3N/kXxROYGvUp16ZXNrHfg46JHDT6tJYwvv2p9A2fUCBXf5orCwr9q7980W7jH+yHdUb6i78lG0vh+xVAH8KAL0SNzlh59AYe3u2b7D9EF8j9df3RtkvC07KbCD/uws8MALT2b2jCzGazv79mvNQcCctWT2uVQdJIP3GNW72QhstDc/Cyzw3CDtm65bthpvOMq3ObhyDwBeXtJ8LO/Vq6HAe+SA5fDMHt2b9nXC1h35NoPSmHVQ8M0xfm5X72wmEO5+OeCB7960m1Ni4IVZlBbwvl29dgbOxP14Jy0C72dfMQe/PBA9vkXeb06oObFrv2/j7gleMwOnuV+nq0v3xu/KnbOZFlqfl+WZByb45vDuhr27ltN83d3fdeD/RFKHUDMDh29awLOIZUwzr9y5m2mJ9Rvq3l0G4thu8rAu25qDb74ucVebNjK7awnjGTh8U1uZ7s2Uszc18Abvq7aYBYWhOvws8NXg8LK/K60bm921gPEMHL6prUvz5/a9f/e5gINj0zbvfTe7o1gyNMc8mfMS/7oNvMbsrnl7zcBxkfYxaXD1U7YGV/cvCvcIP1/82+5nco3ZXTPXzsCZGNV7DO4Q7NnPz1QezVqQI1DNFLmiGIl9ec7AjpvduzSz9IO7m48u2hdb+DEckzbaKxP1vQkmCH4ud+QLOIKzs/Bj/MUefgzamEqOyngiJfBLDL5LDDwLO90N7lj4Mf4yCj+GB36cpVyWb4Eo4C+9NXEjXv8lXI///oOHx82cOx5+rHlRw48hgB+7daKzdp0v0FntbQVv+BJ2V//soOnvefgx/sI+kMKPQYNQu3MxZ5iuHk58WuxSe5f22Rd64c65Y3HnuwP9y7qrb16U8GNwJAzIBb9PC/xy5kylbW6t8Vu4x/irO//9aXd3TgXfhx8DIGElbv0pRBWItdnUK48SUptz52VAP+4LyC//zfBlSgBs3Uy5M5ZiMTtA4aqWzMDxsKEv9pjgm5Wll5u6nW9d6VdTj7ukKTZ4f+7xOvvKvs6sq7p59q1GpYCAH0/EeGaaXRMU/BLuscCzZgOAL5VttQgQ8JqJGHXqr7VMQ4JfxB0bvKGASShuUrnLixlOlTEGf1dSm6ibiGGcOb3kadmZhl2oRVid6qdNn4LionLMfSF4g8YTMUwOH2xUv5g7elePB16DvRrIt5tQ4NWlUK7/XL9rIPDLueMf4/VFsGYvAq9zd6Y2e2jwykQM4zMyYcAnD90o3uwl4A3YuQrh7B1lVH/nuSkkTR7g0bBOqmn2AvA27pJyCk3ibL5MqTsdf60ydfMaEfiEwHfN9gXvjn2d4CeYJs/dE/wMd58oY03gnXZKhLsf+FnYswLvakBnmglBZxqa7QN+JveMwDsbcAbNBHD3Epo9H/y8bn6qjJTAzzEhlA+H7QaEZs8GPxt7NuA9DAmyDko49GKzZ4Kf7+4TZaQDPozto0ps9jzwPtgzAR8bSgBJzZ4F3o871kQM0BUxYkMJIanZM8B7dfNTZSyYiFG/TKyI4aTvgIzQYNCgSm62O3hf7HPB/5WkNlE3EQMM/GKT5oDdF7y3u0+UsWQixjPDglYzwQPYdL0evwA72kSMZ7XHO0y2nBIE+Cx8Xm62G/hF3LEmYrAXbRCCCOA9ViUFKXaGlGa7gF/SzU+VsWAixu2RYR5lQPB9Hz9zsax9+KOD0mwH8AuxJ38e72PFJbfc9sL/gFKaPQl+qbtPlJEj+DH1afD74c+yFa98pTZ7Cvxy7GsCr0XuAl48IsQZCKrNngAPwX094L25Fx5DAWgpzbaCB+jmp8rICbw3dgV8Ei5vgwKDfTXgF3BPRGKzzVCA3N1aRqrgdVT9+/k+h9GbwBKbbYQChj1D8AaySx0+Nnip2SYogNyzA2/F69/PC7tGIK82Ww8Frps3l9EoQfCWPn2Bu0u0IwwL1GZroYBizw08Fve4N3JGzdZAgXV3fRm9FszAuT2CiR8vGQgNe2SNmj2GAo0dbQYO1Hr1koG2wn0MBZ77TPClpDZRNwMH47bsZrirUMC7eU0ZkhbMwKm7+j/SronhD36d2LXr2clQMLDjLYViWv0oBPhoEH2ka7YIBcXdKzjw4xk4D0GP8Xt38BEpekpttgAFCTvaDBz+Tic/8Cvt5gfJzR6goHHP4Tx+DvU8sReGS7ZY3bxYhk4pgJ9FPV/uWvCI2JMHvw3qhQ48prtXqwIfm90ytS3uV6/GxZ4K+JuPLl5+cvj2GX9vjDu3YuyDy7fr1WNzTwM8Czl3flqdn9jjzm2Be8ViFFwid/NMSYDnceeq6sWpPe7cerFLAeCKovSPMweiUOB5yDkejMged2611JkGc5QlTCQiu1Lw+CbkXI2bb5njzq2XOlNnjRIkIM2kUgDfOPuHDXdL3LkVU2dqms8jhiEYXlUy4J8IkSYNcedWjb0B30YMQzC8qjTAG2uwHewcfDuYJ/Am8LEZQWgcC649ieMfoitL8MEhYWgEXgzzjmB5RTmCD0gHUZXIvpK5E/jVYm/YDu9LgTtIpMkpZQc+BiMMVVIouLJL4yLwY/CxOIGrYoP39m09qmuTGhF4FXxMUsCqumN8F+VdaDaBB4gfn6wa8NoJFwR+xYsYd06uuwFL4L+zUupF37N33JcEKvBS4uBj40FT076+mx+SmAj8asE3zeu7eSGNicCvDrzYuFLiLnxQEPi1gNe1zTytLsQVWwKPJ3vTTNwdvgoiAo8la8Ps02ipq88YvLVdE7OnCXw24JWb6/ZWTc6aJ/B5gh+3Q0qbfliCwGcDXpCmGTO5E/gMwetaIT4R6fRwFIHPDby2EcKkC8dnIQl8ZuDV6nep3ceuz0IS+LzA8yq3r2Jy99f5EVgCnw14BrcaTZiW9pjxyDuBzwl8ZQbPmjLnkXcCnwv4yuLvTUtmrXRA4LMBb3X22QsZEfhMwE94++wFbQh8HuBN3LtWzF7QhsBnAb7Sgu/b4LGQEYHPATyrp3yXRmqCz/pVBD4D8JVyEi83wG/dMgKfCXimmfPqrCLwWYA3V993mUICnz54S+X9l6ck8OmDN5NfsCopgc8APNe45otWoyXw2YJftggxgc8FvEp+4eLTBD5P8IsXHSfwWYJfvtY8gc8FvFBliBgDBD4/8CChJQh8duBhQooQ+MzAQ4WSIfB5gQeLILQd8DcfXXz72eG7zXsx/Fhsom7idQWMHLUZ8Cz82IuT6snpKPxYbKRuYlWFDBi2GfAs/Njvv6henIzCj8VG6qbLy8vYEcNAFTT82JcM/Cj8WGykboKOA7sVj+fhx7jHsy0p/FhspKq00yoL6LiQWwHPo1DxYzx7L4UfC07WLu18Wvh4oJsCP4zqxfBjwdFaxCqkSS7hg0ZtB7yxBsHpmmV4aqK0zrrzE4FPCbxWLJQMvJEIfOrgeSgZeCMR+LTBl0jcCXw64LWjuvYjeBH4VMDrhvNl/xm4CHwy4EcpJSJ3Ah8dfKX87dXHhUQwEYGPDt604gGqu1cEPjZ4VgNdeintgSACHx18905MLqU9METgUwEvkC8DhHkn8BHBV0qc7/ZNkCjvBD4a+Epd0qjZktydwM9RLuArdVzHtoO4e0Xg44HnhUspu7riYdy9IvBxwUsJu1ql2vmjicDHAd+ULSUx8HIysF0kEfiI4JW0XV9xcSckEfhkPL4o+qm0l2oMYHgR+EjHeF62mkjgFykL8FryEnhgqygi8DG7epPLXwq7IInAxwOvSRbAg5tFFoGPBl6b3pC/xA/vTuCTBI9gFUUEPqXTue5cnsB7KVnwAui28DF3Tp7AeykX8Jo9CPwSZQy+Js8+I/BeygB8W7Zmn5LAeytV8OMoUpqdCLy/EgWvu9NO4CGVJngZcle6hnxF4D2VJPhKA167I4H3Vubgqav3VYrgxxNqKyP4gsD7KUnw6kZlfFqSwPsqffCV+QoOgfdXsuClx+QqAg+tJMFzDZuWB6QrAu+pFMFzBxeCwDdl978CmTyB91OS4Fvcw8onjcbc2e05Au+ldMGL/btQBZl7TZ7Aeylh8OIKGIMIPIwSB1+1pPsayDtQV++tVMEr47quAspOdK3eW6mClwd2Ql8vcWfpBN5LyYIXruDIIvAg0oHnwSnql3cu2Fa0uHMG8gp3Au8nHfgXJzXo+uU8lbhzYuWEVAK/QPqu/tvPzzj4ROLOiTHYhtSyMMVpW5uCgX/5ybssCNlJlUzcObl+TVLj8OTxfjIM7l6cnNceHzvu3PhpmkY8peVO4P2kA39+ysDXLzz+WMy4cwbyfHtYGAFdWwHPB/QvPzl8+4xtRY07N3qsgott91EFCbyX0j2PV8gLtSgI/HKlDl6+dsslcyfwfkoefKHcpWl/CAR+odIHXyjLmSncCbyfcgAvSeVO4P2UAXjdObyQQOC9lAN4W0dP4D2VB3hlJgaBX65MwPc1GHEn8H7KBLw0AY/AAyhx8Ool2zF3Au+nxMGrl2wL4e5MKwLvpdTBK5Mui5HDE3g/JQ++e1qWi8CDKU3wrCwDeJU7gfdTmuAb+MKvoBWBB1O64Af0Q/ka7gTeTymDHx6b7Gu7I/BASht8Id+OH8IMCiLwXsoJ/I7Awyl98AN5LXcC76cMwA8zcHTcCbyfkgffkLfUicB7KX3wU8HFCLyXMgA/QZ7AeykX8OafAIH3Ug7gBWnqROC9ROAdROAJfJQyCDyBB1Nm4DXkCbyXCLyDCDyBj1IGgS+qMXkC76W8wFcEHkp5gSePB1Nu4Mci8F7KC3yl6esJvJcIvIMIPIGPUgaBp2M8mDIDrzmhI/Beyg38+ISOwHuJwDuIwEcFr0Yia0XgvZQ4eCnoVNVGGZXrROC9lA34tgYEHkh5gJcqoWwSeC/NBE+Koujg5wqjxhHKWEkzJBH4NIpYGXhSsiLwGxWB36gI/EaFAJ6HreMRqdnGL7+obv6u/v/RBWAR54eHhyd1ETwOIk4RfRmIzegshdkMkxDA83DE9csTHoz6/LQ6/6cTlgirp2cvf1r/wSyiLrNLekkAAAHOSURBVAO3GSzTU/xmaIUF/vdf1H+bYNTV0/+8f9EGp4Us5OaD2l8Qi2Bl4Dbj6U/qFqA3Qy+MYzyLQ/0lsxj7Hb+8/4f7//v5f31+BlvG0zPO/meIRbAycJvxhAXxRW+GXgjgeRxq7ip88+l/1Nv//DFsGTdNfphF8DJwm9H8epGbYRAGeBaHmh8cm80f19s/Bj5wMVOxchCL4GXgNoO3ALsZBiGA53Gou+Fw7TgfnvXRqMFUW6tCLiJAGdL5D1YzDKLz+I2KwG9UBH6jIvAbFYHfqFYH/vrec0P67344fPLNp8ehKpSoNgNe/oTArxX8s93uoLr+s6Pd61V1tXv1F8fX331/d+ere8+/+fmD+sPX3j+uk9mHW9VKwV+/9ej2+w/Y63vsze3R8fW9mvo1B18nX79xzHZ8uF2/Xyn4q9qXHx63nDlhAfyzA/bhFYt0chC7utG0OfC1/7fgN9zPV6sF33b1HLzY1ded/Jv8CFAnvPlgy0O89YF/Y8cGbfXg7rhqwLPB3Y9q8L87uvP84e61H7DB3St/SoO7LYjhJ0naAPjboy0P4kzaAHiSTgR+oyLwGxWB36gI/EZF4DcqAr9REfiNisBvVAR+o/p/gwPLdDkz7TcAAAAASUVORK5CYII=" alt="plot of chunk unnamed-chunk-26"/></p>
+
 <hr/>
 
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;aaarcher/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;mariahsimones/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;mariahsimones/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

@@ -13,7 +13,8 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, we learned how to download data sample files, look at what is included inside the data files, plotted bird activity data with times of the day in UTC time zone, plotted flight data of bids, changed colors on the map, and created x and y labels on the map.
+#' 
 #' 
 #' 
 #' ### Header
@@ -351,3 +352,4 @@ ggplot(data = world) +
 #' 
 #' spin this with:
 #' ezspin(file = "mariahsimones/programs/20220316_Motus_lab.R",out_dir = "mariahsimones/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+
