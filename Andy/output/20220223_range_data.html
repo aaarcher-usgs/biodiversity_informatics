@@ -207,7 +207,7 @@ hr {
 
 <p>February 23, 2022</p>
 
-<p>Programmer: Hannah Helmbrecht</p>
+<p>Programmer: Andy</p>
 
 <p>In this program, xxx</p>
 
@@ -226,16 +226,31 @@ set.seed(71587)
 
 <h2>1. Load libraries from new sources</h2>
 
-<p>#&#39; ### Use biocManager to get package GenomicRanges
-#&#39; </p>
+<h3>Use biocManager to get package GenomicRanges</h3>
 
-<h1>if (!require(&ldquo;BiocManager&rdquo;, quietly = TRUE))#   install.packages(&ldquo;BiocManager&rdquo;)# BiocManager::install(version = &ldquo;3.14&rdquo;)# Now install the package</h1>
+<pre><code class="r"> if (!require(&quot;BiocManager&quot;, quietly = TRUE))
+   install.packages(&quot;BiocManager&quot;)
+ BiocManager::install(version = &quot;3.14&quot;)
+</code></pre>
 
-<h1>BiocManager::install(&ldquo;GenomicRanges&rdquo;)# library(IRanges)</h1>
+<pre><code>## &#39;getOption(&quot;repos&quot;)&#39; replaces Bioconductor standard repositories, see &#39;?repositories&#39; for details
+## 
+## replacement repositories:
+##     CRAN: https://cran.rstudio.com/
+</code></pre>
 
-<p>#&#39; Source the script from the textbook to make figures
-#&#39; 
-source(&ldquo;plot-ranges.R&rdquo;)</p>
+<pre><code>## Error in colnames(res0): cannot have attributes on a CHARSXP
+</code></pre>
+
+<p>Now install the package</p>
+
+<pre><code class="r"> library(IRanges)
+</code></pre>
+
+<p>Source the script from the textbook to make figures</p>
+
+<pre><code class="r">source(&quot;plot-ranges.R&quot;)
+</code></pre>
 
 <hr/>
 
@@ -252,39 +267,53 @@ source(&ldquo;plot-ranges.R&rdquo;)</p>
 </ol>
 
 <pre><code class="r"># Ranges can be made by designating start and end
- (rng &lt;- IRanges(start = 4, end = 13))
+(rng &lt;- IRanges(start = 4, end = 13))
 </code></pre>
 
-<pre><code>## Error in IRanges(start = 4, end = 13): could not find function &quot;IRanges&quot;
+<pre><code>## IRanges object with 1 range and 0 metadata columns:
+##           start       end     width
+##       &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   [1]         4        13        10
 </code></pre>
 
 <pre><code class="r"># Ranges can be made by designating start or end AND width
  (rng &lt;- IRanges(start = 4, width = 11))
 </code></pre>
 
-<pre><code>## Error in IRanges(start = 4, width = 11): could not find function &quot;IRanges&quot;
+<pre><code>## IRanges object with 1 range and 0 metadata columns:
+##           start       end     width
+##       &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   [1]         4        14        11
 </code></pre>
 
 <p>IRanges objects can also be created to contain many ranges </p>
 
-<pre><code class="r">(x &lt;- IRanges(start = c(4, 7, 2, 20), end =c(13, 7, 5, 23)))
+<pre><code class="r">(x &lt;- IRanges(start = c(4, 7, 2, 20),
+              end = c(13, 7, 5, 23)))
 </code></pre>
 
-<pre><code>## Error in IRanges(start = c(4, 7, 2, 20), end = c(13, 7, 5, 23)): could not find function &quot;IRanges&quot;
+<pre><code>## IRanges object with 4 ranges and 0 metadata columns:
+##           start       end     width
+##       &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   [1]         4        13        10
+##   [2]         7         7         1
+##   [3]         2         5         4
+##   [4]        20        23         4
 </code></pre>
 
 <p>And each range within the IRanges object can be named:</p>
 
-<pre><code class="r">names(x) &lt;- letters [1:length(x)]
+<pre><code class="r">names(x) &lt;- letters[1:length(x)]
+x
 </code></pre>
 
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
-<pre><code class="r">x
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
+<pre><code>## IRanges object with 4 ranges and 0 metadata columns:
+##         start       end     width
+##     &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
+##   a         4        13        10
+##   b         7         7         1
+##   c         2         5         4
+##   d        20        23         4
 </code></pre>
 
 <p>Let&#39;s plot the ranges</p>
@@ -292,266 +321,44 @@ source(&ldquo;plot-ranges.R&rdquo;)</p>
 <pre><code class="r">plotIRanges(x)
 </code></pre>
 
-<pre><code>## Error in plotIRanges(x): could not find function &quot;plotIRanges&quot;
-</code></pre>
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-8"/></p>
 
 <p>What values start each range?</p>
 
-<pre><code class="r">start(x)
-</code></pre>
-
-<pre><code>## Error in start(x): object &#39;x&#39; not found
-</code></pre>
-
 <p>What values end each range?</p>
-
-<pre><code class="r">end(x)
-</code></pre>
-
-<pre><code>## Error in end(x): object &#39;x&#39; not found
-</code></pre>
 
 <p>What is the width of each range?</p>
 
-<pre><code class="r">width(x)
-</code></pre>
-
-<pre><code>## Error in width(x): could not find function &quot;width&quot;
-</code></pre>
-
 <p>What is the total range of the IRanges object?</p>
-
-<pre><code class="r">range(x)
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
-<pre><code class="r"># not the same as width, range is the biggest minus smallest value
-</code></pre>
 
 <p>What is the difference between range(x) and width(x)??</p>
 
-<blockquote>
-<p>Range summarizes the start and end and width across all the reads/ranges, 
-but width gives just each individual range&#39;s width
-We can manipulate the ranges with standard arithmetic:</p>
-</blockquote>
-
-<pre><code class="r">end(x) &lt;- end (x) + 4
-</code></pre>
-
-<pre><code>## Error in end(x): object &#39;x&#39; not found
-</code></pre>
-
-<pre><code class="r">x
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
+<p>We can manipulate the ranges with standard arithmetic:</p>
 
 <p>We can also use many of the other R functions to manipulate IRanges:</p>
 
 <p>Use subsetting to look at just second and third row of x</p>
 
-<pre><code class="r">x[2:3]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
 <p>Use subsetting to look at just ranges named &ldquo;a&rdquo; and &ldquo;c&rdquo;</p>
-
-<pre><code class="r">x[c(&quot;a&quot;, &quot;c&quot;)]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
 
 <p>Display logical answer for when start of x is less than 5</p>
 
-<pre><code class="r">x[start(x) &lt;5]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
 <p>Display ranges that are greater than 8 in width</p>
 
-<pre><code class="r">x[width(x) &gt;8]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
 <p>We can also merge ranges together with c() </p>
-
-<pre><code class="r">(a &lt;- IRanges(start = 7, width = 4))
-</code></pre>
-
-<pre><code>## Error in IRanges(start = 7, width = 4): could not find function &quot;IRanges&quot;
-</code></pre>
-
-<pre><code class="r">(b &lt;- IRanges(start = 2, width = 5))
-</code></pre>
-
-<pre><code>## Error in IRanges(start = 2, width = 5): could not find function &quot;IRanges&quot;
-</code></pre>
-
-<pre><code class="r">c(a,b)
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;a&#39; not found
-</code></pre>
 
 <hr/>
 
 <h2>3. More advanced range operations</h2>
 
-<pre><code class="r">x &lt;- IRanges(start = c(40, 80),
-             end = c(67, 114))
-</code></pre>
-
-<pre><code>## Error in IRanges(start = c(40, 80), end = c(67, 114)): could not find function &quot;IRanges&quot;
-</code></pre>
-
-<pre><code class="r">names(x) &lt;- letters[1:length(x)]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
-<pre><code class="r">plotIRanges(x)
-</code></pre>
-
-<pre><code>## Error in plotIRanges(x): could not find function &quot;plotIRanges&quot;
-</code></pre>
-
 <p>By adding 4L, this grows the sequence symmetrically by 4 on each side</p>
-
-<pre><code class="r">(y &lt;- x + 4L)
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
-<pre><code class="r">names(y) &lt;- paste0(names(y), &quot; + 4L&quot;)
-</code></pre>
-
-<pre><code>## Error in paste0(names(y), &quot; + 4L&quot;): object &#39;y&#39; not found
-</code></pre>
-
-<pre><code class="r">y
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;y&#39; not found
-</code></pre>
 
 <p>By subtracting, we symmetrically cut off each end of the sequence</p>
 
-<pre><code class="r">z &lt;- x - 10L 
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
-<pre><code class="r">names(z) &lt;- paste0(names(z), &quot; - 10L&quot;)
-</code></pre>
-
-<pre><code>## Error in paste0(names(z), &quot; - 10L&quot;): object &#39;z&#39; not found
-</code></pre>
-
-<pre><code class="r">z 
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;z&#39; not found
-</code></pre>
-
-<pre><code class="r">plotIRanges(c(x,y,z))
-</code></pre>
-
-<pre><code>## Error in plotIRanges(c(x, y, z)): could not find function &quot;plotIRanges&quot;
-</code></pre>
-
 <p>By restricting the ranges, we cut them off to fit in a specific range</p>
-
-<pre><code class="r">y &lt;- IRanges(start = c(4, 6, 8, 12), width =13)
-</code></pre>
-
-<pre><code>## Error in IRanges(start = c(4, 6, 8, 12), width = 13): could not find function &quot;IRanges&quot;
-</code></pre>
-
-<pre><code class="r">names(y) &lt;- letters[1:length(y)]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;y&#39; not found
-</code></pre>
-
-<pre><code class="r">z &lt;- restrict(x = y, start = 5, end = 10)
-</code></pre>
-
-<pre><code>## Error in restrict(x = y, start = 5, end = 10): could not find function &quot;restrict&quot;
-</code></pre>
-
-<pre><code class="r">names(z) &lt;- paste0(names(z), &quot;-restricted&quot;)
-</code></pre>
-
-<pre><code>## Error in paste0(names(z), &quot;-restricted&quot;): object &#39;z&#39; not found
-</code></pre>
-
-<pre><code class="r">plotIRanges(c(y, z))
-</code></pre>
-
-<pre><code>## Error in plotIRanges(c(y, z)): could not find function &quot;plotIRanges&quot;
-</code></pre>
 
 <p>We can also flank the ranges to create downstream or upstream
 sequences that contain promoter sequences</p>
-
-<pre><code class="r">x &lt;- IRanges(start =c(40,80),
-             width =c(28, 35))
-</code></pre>
-
-<pre><code>## Error in IRanges(start = c(40, 80), width = c(28, 35)): could not find function &quot;IRanges&quot;
-</code></pre>
-
-<pre><code class="r">names(x) &lt;- letters[1:length(x)]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;x&#39; not found
-</code></pre>
-
-<pre><code class="r"># upstream flanks
-y &lt;- flank(x, width = 7, start = TRUE)
-</code></pre>
-
-<pre><code>## Error in flank(x, width = 7, start = TRUE): could not find function &quot;flank&quot;
-</code></pre>
-
-<pre><code class="r">names(y) &lt;- paste0(names(y), &quot;-upstrm&quot;)
-</code></pre>
-
-<pre><code>## Error in paste0(names(y), &quot;-upstrm&quot;): object &#39;y&#39; not found
-</code></pre>
-
-<pre><code class="r"># downstream flanks 
-z &lt;- flank(x, width = 7, start = FALSE)
-</code></pre>
-
-<pre><code>## Error in flank(x, width = 7, start = FALSE): could not find function &quot;flank&quot;
-</code></pre>
-
-<pre><code class="r">names(z) &lt;- paste0(names(z), &quot;-downstrm&quot;)
-</code></pre>
-
-<pre><code>## Error in paste0(names(z), &quot;-downstrm&quot;): object &#39;z&#39; not found
-</code></pre>
-
-<pre><code class="r">plotIRanges(c(x,y,z))
-</code></pre>
-
-<pre><code>## Error in plotIRanges(c(x, y, z)): could not find function &quot;plotIRanges&quot;
-</code></pre>
 
 <p>We can also reduce the ranges that are potentially overlapping
 by merging them to a single range in the result. This is useful if 
@@ -560,80 +367,14 @@ ranges</p>
 
 <pre><code class="r">set.seed(0) # reset random generator, make sure we all have the same result
 # Create a longer set of ranges, 20 total
-
-alns &lt;- IRanges(start =sample(seq_len(50), 20), 
-                width = 5)
-</code></pre>
-
-<pre><code>## Error in IRanges(start = sample(seq_len(50), 20), width = 5): could not find function &quot;IRanges&quot;
-</code></pre>
-
-<pre><code class="r">names(alns) &lt;- letters[1:length(alns)]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;alns&#39; not found
-</code></pre>
-
-<pre><code class="r">plotIRanges(alns)
-</code></pre>
-
-<pre><code>## Error in plotIRanges(alns): could not find function &quot;plotIRanges&quot;
-</code></pre>
-
-<pre><code class="r">alns.reduce &lt;- reduce(alns)
-</code></pre>
-
-<pre><code>## Error in reduce(alns): could not find function &quot;reduce&quot;
-</code></pre>
-
-<pre><code class="r">names(alns.reduce) &lt;- paste0(letters[1:length(alns.reduce)], &quot;-reduce&quot;)
-</code></pre>
-
-<pre><code>## Error in paste0(letters[1:length(alns.reduce)], &quot;-reduce&quot;): object &#39;alns.reduce&#39; not found
-</code></pre>
-
-<pre><code class="r">alns.reduce
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;alns.reduce&#39; not found
-</code></pre>
-
-<pre><code class="r">plotIRanges(c(alns, alns.reduce))
-</code></pre>
-
-<pre><code>## Error in plotIRanges(c(alns, alns.reduce)): could not find function &quot;plotIRanges&quot;
 </code></pre>
 
 <p>Similarly, we can identify the gaps!</p>
 
-<pre><code class="r">alns.gap &lt;- gaps(alns)
-</code></pre>
-
-<pre><code>## Error in gaps(alns): could not find function &quot;gaps&quot;
-</code></pre>
-
-<pre><code class="r">names(alns.gap) &lt;- paste0(letters[1:length(alns.gap)], &quot;-gap&quot;)
-</code></pre>
-
-<pre><code>## Error in paste0(letters[1:length(alns.gap)], &quot;-gap&quot;): object &#39;alns.gap&#39; not found
-</code></pre>
-
-<pre><code class="r">alns.gap
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;alns.gap&#39; not found
-</code></pre>
-
-<pre><code class="r">plotIRanges(c(alns, alns.gap))
-</code></pre>
-
-<pre><code>## Error in plotIRanges(c(alns, alns.gap)): could not find function &quot;plotIRanges&quot;
-</code></pre>
-
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;HannahHelmbrecht/programs/20220223_range_data.R&rdquo;,out_dir = &ldquo;HannahHelmbrecht/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Andy/programs/20220223_range_data.R&rdquo;,out_dir = &ldquo;Andy/output&rdquo;, fig_dir = &ldquo;figures20220223&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
