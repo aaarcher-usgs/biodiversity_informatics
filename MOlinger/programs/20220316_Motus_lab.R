@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: Sydney Holthues
+#' Programmer: AAA
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -13,7 +13,7 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, we will explore modus and manipulate/format data.
+#' In this program, xxx
 #' 
 #' 
 #' ### Header
@@ -37,13 +37,13 @@ set.seed(71587)
 # update_packages()
 
 # install.packages(c("motus", "motusData"), 
-#                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
 #                            CRAN = 'https://cloud.r-project.org'))
 
 # 
 # install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-#                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-#                          CRAN = 'https://cloud.r-project.org'))
+#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#                            CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -60,12 +60,12 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: UTC is Universal Time Coordinated
+#' > Answer: 
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: This is important because it is what all time zones are based off of.
-#' It is universally used.
+#' > Answer: 
+#' 
 
 #' _____________________________________________________________________________
 #' 
@@ -80,10 +80,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#sql.motus <- tagme(projRecv = proj.num, 
-#                  new = TRUE, 
-#                   update = TRUE,
-#                   dir = "../motus")
+sql.motus <- tagme(projRecv = proj.num, 
+                   new = TRUE, 
+                   update = TRUE,
+                   dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -108,7 +108,7 @@ dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: Metadata involving the project is found in the projs table.
+#' > Answer: 
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -117,7 +117,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: There are 6 fields in the species table.
+#' > Answer: 
 #' 
 
 
@@ -152,7 +152,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: The code where we just look at the field names processes faster.
+#' > Answer: 
 #' 
 dbListFields(file.name, "alltags")
 
@@ -170,7 +170,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: There are 63 observations.
+#' > Answer: 
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -185,7 +185,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 127 and 5734
+#' > Answer: 
 #' 
  
 
@@ -243,7 +243,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer: The American Woodcock and the Semipalmated Plover
+#' > Answer:
 #' 
 #' 
 
@@ -280,7 +280,7 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
 # lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                              returnclass = "sf", destdir = "map-data")
+#                               returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
                  destdir = "map-data") # use this if already downloaded shapefiles
@@ -302,7 +302,7 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer: I would increase the numbers being added to the axis
+#' > Answer:
 #' 
 
 #' 
@@ -327,24 +327,11 @@ ggplot(data = world) +
 #' 
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
- ggplot(data = world) + 
-geom_sf(colour = NA) +
-  geom_sf(data = lakes, colour = NA, fill = "blue") +
-  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
-  theme_bw() + 
-  labs(x = "Longitude", y = "Latitude") +
-  geom_path(data = df.tmp, 
-            aes(x = recvDeployLon, y = recvDeployLat, 
-                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
-  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
-             shape = 16, colour = "black") +
-  geom_point(data = df.tmp, 
-             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
-  scale_colour_discrete("motusTagID") 
+#' 
 
 #' _____________________________________________________________________________
 #' 
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Sydney/programs/20220316_Motus_lab.R",out_dir = "Sydney/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220316_Motus_lab.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
