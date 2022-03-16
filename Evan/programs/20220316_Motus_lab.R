@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: SD
+#' Programmer: Evan
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -31,19 +31,19 @@ set.seed(71587)
 #' 
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
-#' Install "remotes" package
+# Install "remotes" package
 # install.packages("remotes")
 # library(remotes)
 # update_packages()
 
-install.packages(c("motus", "motusData"), 
-                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                            CRAN = 'https://cloud.r-project.org'))
+# install.packages(c("motus", "motusData"), 
+#                repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                          CRAN = 'https://cloud.r-project.org'))
 
-# 
- install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
+
+# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+#                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#                          CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -56,16 +56,16 @@ library(rnaturalearth)
 
 #' Set the system environment time to "UTC"
 #' 
-Sys.setenv(TZ = "UTC")
+Sys
+.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: 0
+#' > Answer: 
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: It is the standard time used and all other time zones are +/- so 
-#' many hours to the UTC time zone. 
+#' > Answer: 
 #' 
 
 #' _____________________________________________________________________________
@@ -81,13 +81,13 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#'sql.motus <- tagme(projRecv = proj.num, 
-#'                  new = TRUE, 
-#'                   update = TRUE,
-#'                   dir = "../motus")
+sql.motus <- tagme(projRecv = proj.num, 
+                   new = TRUE, 
+                   update = TRUE,
+                   dir = "../motus")
 # Log in name and password are: motus.sample
 
-#' **Important** After first download, comment out (put hashtag back in)the code above and use this:
+#' **Important** After first download, comment out the code above and use this:
 #' 
 sql.motus <- tagme(projRecv = proj.num, 
                    new = FALSE, 
@@ -109,7 +109,7 @@ dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: The information in this table includes 
+#' > Answer: 
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -118,7 +118,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 6
+#' > Answer: 
 #' 
 
 
@@ -335,4 +335,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "savannadroher/programs/20220316_Motus_lab.R",out_dir = "savannadroher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Evan/programs/20220316_Motus_lab.R",out_dir = "Evan/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
