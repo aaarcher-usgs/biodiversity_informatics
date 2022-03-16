@@ -13,7 +13,9 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, We worked with creating a graph from bird flying patterns depending
+#' on the time of the day. We also worked with creating a map of flight data of birds as
+#' well as making altercations to the map to make it more visually appealing.
 #' 
 #' 
 #' ### Header
