@@ -207,7 +207,7 @@ hr {
 
 <p>March 16, 2022</p>
 
-<p>Programmer: AAA</p>
+<p>Programmer: Nicole Gruwell and Emma Kuechle</p>
 
 <p><strong>Important</strong> - The answers to the 10 questions below can be figured out by
 working through the online guide to Motus in R, which is at motuswts.github.io
@@ -234,18 +234,43 @@ set.seed(71587)
 
 <p>Install &ldquo;remotes&rdquo; package</p>
 
-<pre><code class="r"># install.packages(&quot;remotes&quot;)
-# library(remotes)
-# update_packages()
+<pre><code class="r"> install.packages(&quot;remotes&quot;)
+</code></pre>
 
-# install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
-#                  repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
-#                            CRAN = &#39;https://cloud.r-project.org&#39;))
+<pre><code>## Error in install.packages : Updating loaded packages
+</code></pre>
 
-# 
-# install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
-#                  repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
-#                            CRAN = &#39;https://cloud.r-project.org&#39;))
+<pre><code class="r">library(remotes)
+ update_packages()
+</code></pre>
+
+<pre><code>## These packages have more recent versions available.
+## It is recommended to update all of them.
+## Which would you like to update?
+## 
+## 1: All                           
+## 2: CRAN packages only            
+## 3: None                          
+## 4: Rcpp (1.0.8 -&gt; 1.0.8.2) [CRAN]
+## 5: uuid (1.0-3 -&gt; 1.0-4  ) [CRAN]
+</code></pre>
+
+<pre><code class="r"> install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
+                 repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
+                           CRAN = &#39;https://cloud.r-project.org&#39;))
+</code></pre>
+
+<pre><code>## Warning in install.packages :
+##   packages &#39;motus&#39;, &#39;motusData&#39; are in use and will not be installed
+</code></pre>
+
+<pre><code class="r"># 
+ install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
+                 repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
+                            CRAN = &#39;https://cloud.r-project.org&#39;))
+</code></pre>
+
+<pre><code>## Error in install.packages : Updating loaded packages
 </code></pre>
 
 <p>Load the packages for use</p>
@@ -267,13 +292,15 @@ library(rnaturalearth)
 <p><strong>Q1</strong> What time zone is UTC?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: Greenwich Mean Time</p>
 </blockquote>
 
 <p><strong>Q2</strong> Why is this important?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: Times are stored in the database in UTC time so it is important
+that your work is also in that time. Also, tags can be accidentally changed 
+across  multiple time zones if not in UTC time.</p>
 </blockquote>
 
 <hr/>
@@ -290,43 +317,10 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 
 <p>Download the data</p>
 
-<pre><code class="r">sql.motus &lt;- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = &quot;../motus&quot;)
-</code></pre>
-
-<pre><code>## Warning in tagme(projRecv = proj.num, new = TRUE, update = TRUE, dir = &quot;../motus&quot;): Database ../motus/
-## project-176.motus already exists, so I&#39;m ignoring the &#39;new=TRUE&#39; option
-</code></pre>
-
-<pre><code>## Checking for new data in project 176
-</code></pre>
-
-<pre><code>## Updating metadata
-</code></pre>
-
-<pre><code>## activity:     1 new batch records to check
-</code></pre>
-
-<pre><code>## batchID  1977125 (#     1 of      1): got    156 activity records
-</code></pre>
-
-<pre><code>## batchID  1977125 (#     1 of      1): got      0 activity records
-</code></pre>
-
-<pre><code>## Downloaded 156 activity records
-</code></pre>
-
-<pre><code>## nodeData:     0 new batch records to check
-</code></pre>
-
-<pre><code>## Fetching deprecated batches
-</code></pre>
-
-<pre><code>## Total deprecated batches: 6
-## New deprecated batches: 0
-</code></pre>
+<p>sql.motus &lt;- tagme(projRecv = proj.num, 
+                 new = TRUE, 
+                 update = TRUE,
+                 dir = &ldquo;../motus&rdquo;)</p>
 
 <pre><code class="r"># Log in name and password are: motus.sample
 </code></pre>
@@ -339,32 +333,8 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
                    dir = &quot;../motus&quot;)
 </code></pre>
 
-<pre><code>## Checking for new data in project 176
-</code></pre>
-
-<pre><code>## Updating metadata
-</code></pre>
-
-<pre><code>## activity:     1 new batch records to check
-</code></pre>
-
-<pre><code>## batchID  1977125 (#     1 of      1): got    156 activity records
-</code></pre>
-
-<pre><code>## batchID  1977125 (#     1 of      1): got      0 activity records
-</code></pre>
-
-<pre><code>## Downloaded 156 activity records
-</code></pre>
-
-<pre><code>## nodeData:     0 new batch records to check
-</code></pre>
-
-<pre><code>## Fetching deprecated batches
-</code></pre>
-
-<pre><code>## Total deprecated batches: 6
-## New deprecated batches: 0
+<pre><code>## Error: Login failed with error message
+## &#39;Server returned error &#39;Authentication failed : Authentication token was absent, invalid or expired.&#39;&#39;
 </code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
@@ -384,16 +354,20 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">dbListTables(file.name)
 </code></pre>
 
-<pre><code>##  [1] &quot;activity&quot;    &quot;activityAll&quot; &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;allruns&quot;     &quot;allrunsGPS&quot;  &quot;alltags&quot;     &quot;alltagsGPS&quot; 
-##  [9] &quot;antDeps&quot;     &quot;batchRuns&quot;   &quot;batches&quot;     &quot;clarified&quot;   &quot;deprecated&quot;  &quot;filters&quot;     &quot;gps&quot;         &quot;gpsAll&quot;     
-## [17] &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;    &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;   
-## [25] &quot;recvs&quot;       &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;
+<pre><code>##  [1] &quot;activity&quot;    &quot;activityAll&quot; &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;allruns&quot;    
+##  [6] &quot;allrunsGPS&quot;  &quot;alltags&quot;     &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;  
+## [11] &quot;batches&quot;     &quot;clarified&quot;   &quot;deprecated&quot;  &quot;filters&quot;     &quot;gps&quot;        
+## [16] &quot;gpsAll&quot;      &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;   
+## [21] &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;      
+## [26] &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;    
+## [31] &quot;tagProps&quot;    &quot;tags&quot;
 </code></pre>
 
 <p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: The headers of the project such as ID, Name, Label, TagsPermissions,
+sensorPermissions.</p>
 </blockquote>
 
 <p>Get a list of fields (column names) in the table &ldquo;species&rdquo;</p>
@@ -407,12 +381,15 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <p><strong>Q4</strong> How many fields are in the &ldquo;species&rdquo; table?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer:  6 fields. ID, english, french, scientific, group, and sort.</p>
 </blockquote>
 
 <p>Retrieve the virtual &ldquo;alltags&rdquo; table from the SQLite file</p>
 
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltags&quot;)
+</code></pre>
+
+<pre><code>## Error: external pointer is not valid
 </code></pre>
 
 <p>This is in a different format (list) than we are used to (data.frames). We can 
@@ -421,24 +398,7 @@ use str() to see what this different format contains:</p>
 <pre><code class="r">str(tbl.alltags)
 </code></pre>
 
-<pre><code>## List of 2
-##  $ src:List of 2
-##   ..$ con  :Formal class &#39;SQLiteConnection&#39; [package &quot;RSQLite&quot;] with 8 slots
-##   .. .. ..@ ptr                :&lt;externalptr&gt; 
-##   .. .. ..@ dbname             : chr &quot;C:\\Users\\Nicole\\OneDrive\\Documents\\Biodiversity Informatics\\motus\\project-176.motus&quot;
-##   .. .. ..@ loadable.extensions: logi TRUE
-##   .. .. ..@ flags              : int 70
-##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x00000134b9664a30&gt; 
-##   .. .. ..@ bigint             : chr &quot;integer64&quot;
-##   .. .. ..@ extended_types     : logi FALSE
-##   ..$ disco:&lt;environment: 0x00000134c28a42e0&gt; 
-##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
-##  $ ops:List of 2
-##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
-##   ..$ vars: chr [1:62] &quot;hitID&quot; &quot;runID&quot; &quot;batchID&quot; &quot;ts&quot; ...
-##   ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;op_base_remote&quot; &quot;op_base&quot; &quot;op&quot;
-##  - attr(*, &quot;class&quot;)= chr [1:5] &quot;tbl_SQLiteConnection&quot; &quot;tbl_dbi&quot; &quot;tbl_sql&quot; &quot;tbl_lazy&quot; ...
+<pre><code>## Error in str(tbl.alltags): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <p>The first part of the list, src, is a list that provides details of the 
@@ -457,17 +417,7 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
   names()
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;           
-##  [7] &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;        
-## [19] &quot;motusFilter&quot;    &quot;bootnum&quot;        &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
-## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;tagDeployTest&quot;  &quot;fullID&quot;        
-## [43] &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;       
-## [55] &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
-## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
+<pre><code>## Error in collect(.): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <p><strong>Q5</strong> Compare this list to the one made when we just look at the field 
@@ -480,16 +430,21 @@ names directly (below). Which way was faster to process (if you can tell)?</p>
 <pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;           
-##  [7] &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;        
-## [19] &quot;motusFilter&quot;    &quot;bootnum&quot;        &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
-## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;tagDeployTest&quot;  &quot;fullID&quot;        
-## [43] &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;       
-## [55] &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;            
+##  [5] &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;         
+##  [9] &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
+## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;          
+## [17] &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
+## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
+## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;       
+## [29] &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
+## [33] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
+## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
+## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;  
+## [45] &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
+## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
+## [53] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;     
+## [57] &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
 ## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
 </code></pre>
 
@@ -502,7 +457,7 @@ where these birds were detected!</p>
   mutate(time = as_datetime(ts))
 </code></pre>
 
-<pre><code>## Error in .getClassesFromCache(Class): class should be either a character-string name or a class definition
+<pre><code>## Error in collect(.): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <p>Again, another way to see the column names:</p>
@@ -527,12 +482,15 @@ tag IDs are the IDs that each individual bird has)</p>
   collect() %&gt;% 
   as.data.frame() %&gt;%    
   mutate(time = as_datetime(ts))  
-table(df.alltagsSub$motusTagID)
 </code></pre>
 
-<pre><code>## 
-## 16011 23316 
-##   127  5734
+<pre><code>## Error in filter(., motusTagID %in% c(16011, 23316)): object &#39;tbl.alltags&#39; not found
+</code></pre>
+
+<pre><code class="r">table(df.alltagsSub$motusTagID)
+</code></pre>
+
+<pre><code>## Error in table(df.alltagsSub$motusTagID): object &#39;df.alltagsSub&#39; not found
 </code></pre>
 
 <p><strong>Q7</strong> How many records are associated with each of the two tags?</p>
@@ -550,8 +508,12 @@ data. The details don&#39;t matter, we are just taking out any signals that are
 ambiguous or not biologically sensical.</p>
 
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltagsGPS&quot;)
+</code></pre>
 
-# obtain a table object of the filter
+<pre><code>## Error: external pointer is not valid
+</code></pre>
+
+<pre><code class="r"># obtain a table object of the filter
 
 
 # filter and convert the table into a dataframe, with a few modications
@@ -570,10 +532,7 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
                                   recvDeployName))
 </code></pre>
 
-<pre><code>## Error in try(switch(namei, .S3Class = S3Class(object), slot(object, namei)), : unused argument (error = (function () 
-## {
-##     .rs.recordTraceback(TRUE, 5, .rs.enqueueError)
-## })())
+<pre><code>## Error in filter(., motusFilter == 1): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <p>Ok, now we can make some graphs and maps!</p>
@@ -746,7 +705,7 @@ deployment locations</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;aaarcher/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;NGruwell/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;NGruwell/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
