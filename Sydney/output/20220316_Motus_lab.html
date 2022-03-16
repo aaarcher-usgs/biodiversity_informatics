@@ -377,7 +377,7 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <p><strong>Q4</strong> How many fields are in the &ldquo;species&rdquo; table?</p>
 
 <blockquote>
-<p>Answer: There are 5 fields in the species table.</p>
+<p>Answer: There are 6 fields in the species table.</p>
 </blockquote>
 
 <p>Retrieve the virtual &ldquo;alltags&rdquo; table from the SQLite file</p>
@@ -399,10 +399,10 @@ use str() to see what this different format contains:</p>
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x7fa1fcffd0c0&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x7fa201684d00&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
 ##   .. .. ..@ extended_types     : logi FALSE
-##   ..$ disco:&lt;environment: 0x7fa1fcda67a8&gt; 
+##   ..$ disco:&lt;environment: 0x7fa2025066c8&gt; 
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
 ##  $ ops:List of 2
 ##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
@@ -689,8 +689,27 @@ ymax &lt;- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 <ul>
 <li>Make the lake filled with &ldquo;blue&rdquo; instead of white</li>
-<li>Label x with &ldquo;Longitude&rdquo; and y with &ldquo;Latitude&rdquo;</li>
+<li>Label x with &ldquo;Longitude&rdquo; and y with &ldquo;Latitude&rdquo;
+ggplot(data = world) + </li>
 </ul>
+
+<pre><code class="r">geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = &quot;blue&quot;) +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = &quot;Longitude&quot;, y = &quot;Latitude&quot;) +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = &quot;black&quot;) +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = &quot;red&quot;, shape = 4) +
+  scale_colour_discrete(&quot;motusTagID&quot;) 
+</code></pre>
+
+<pre><code>## Error in fortify(data): object &#39;lakes&#39; not found
+</code></pre>
 
 <hr/>
 
