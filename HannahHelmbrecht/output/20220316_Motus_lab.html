@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Guided tour of movement data with Motus package</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Guided tour of movement data with Motus package</h1>
+
+<p>Biodiversity Informatics (BIOL 475/575)</p>
+
+<p>March 16, 2022</p>
+
+<p>Programmer: Hannah Helmbrecht</p>
+
+<p><strong>Important</strong> - The answers to the 10 questions below can be figured out by
+working through the online guide to Motus in R, which is at motuswts.github.io
+and linked through D2L. (Although a couple questions ask you to interpret code
+or change code using common sense or by googling how to do things or by asking
+a friend.)</p>
+
+<p>In this program, xxx</p>
+
+<h3>Header</h3>
+
+<pre><code class="r"># Load Libraries
+# library(ezknitr)
+# library(ggplot2)
+
+# Clear Environment &amp; Set Seed
+remove(list=ls())
+set.seed(71587)
+</code></pre>
+
+<hr/>
+
+<h2>1. Load libraries from new sources (ch 2)</h2>
+
+<p>Install &ldquo;remotes&rdquo; package</p>
+
+<pre><code class="r"># install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
+#                                   repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
+#                           CRAN = &#39;https://cloud.r-project.org&#39;))
+
+
+# install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
+#                 repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
+#                            CRAN = &#39;https://cloud.r-project.org&#39;))
+</code></pre>
+
+<p>Load the packages for use</p>
+
+<pre><code class="r">library(motus)
+library(motusData)
+library(tidyverse)
+</code></pre>
+
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.1.3
+</code></pre>
+
+<pre><code>## Error: package or namespace load failed for &#39;tidyverse&#39; in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+##  namespace &#39;rlang&#39; 1.0.0 is already loaded, but &gt;= 1.0.1 is required
+</code></pre>
+
+<pre><code class="r">library(DBI)
+library(RSQLite)
+library(lubridate)
+library(rnaturalearth)
+</code></pre>
+
+<p>Set the system environment time to &ldquo;UTC&rdquo;</p>
+
+<pre><code class="r">Sys.setenv(TZ = &quot;UTC&quot;)
+</code></pre>
+
+<p><strong>Q1</strong> What time zone is UTC?</p>
+
+<blockquote>
+<p>Answer: </p>
+</blockquote>
+
+<p><strong>Q2</strong> Why is this important?</p>
+
+<blockquote>
+<p>Answer: </p>
+</blockquote>
+
+<hr/>
+
+<h2>2. Download sample dataset (Ch 3)</h2>
+
+<p><strong>Important</strong> - First, make a folder named &ldquo;motus&rdquo; in the same place as your
+folder named &ldquo;biodiversity_informatics&rdquo;</p>
+
+<p>Set project number</p>
+
+<pre><code class="r">proj.num &lt;- 176
+</code></pre>
+
+<p>Download the data</p>
+
+<pre><code class="r">sql.motus &lt;- tagme(projRecv = proj.num, 
+                   new = TRUE, 
+                   update = TRUE,
+                   dir = &quot;../motus&quot;)
+</code></pre>
+
+<pre><code>## Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]): namespace &#39;rlang&#39; 1.0.0 is already loaded, but &gt;= 1.0.1 is required
+</code></pre>
+
+<pre><code class="r"># Log in name and password are: motus.sample
+</code></pre>
+
+<p><strong>Important</strong> After first download, comment out the code above and use this:</p>
+
+<pre><code class="r">sql.motus &lt;- tagme(projRecv = proj.num, 
+                   new = FALSE, 
+                   update = TRUE,
+                   dir = &quot;../motus&quot;)
+</code></pre>
+
+<pre><code>## Error: Database ../motus/project-176.motus does not exist.
+## If you *really* want to create a new database, specify &#39;new=TRUE&#39;
+## But maybe you just need to specify &#39;dir=&#39; to tell me where to find it?
+</code></pre>
+
+<pre><code class="r"># Log in name and password are: motus.sample
+</code></pre>
+
+<hr/>
+
+<h2>3. Explore data that were downloaded (ch 3)</h2>
+
+<p>Specify the filename of where your data were downloaded</p>
+
+<pre><code class="r">file.name &lt;- dbConnect(SQLite(), &quot;../motus/project-176.motus&quot;)
+</code></pre>
+
+<pre><code>## Error: Could not connect to database:
+## unable to open database file
+</code></pre>
+
+<p>Get a list of tables that were downloaded</p>
+
+<pre><code class="r">dbListTables(file.name)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListTables&#39;: object &#39;file.name&#39; not found
+</code></pre>
+
+<p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
+
+<blockquote>
+<p>Answer: </p>
+</blockquote>
+
+<p>Get a list of fields (column names) in the table &ldquo;species&rdquo;</p>
+
+<pre><code class="r">dbListFields(file.name, &quot;species&quot;) 
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+</code></pre>
+
+<p><strong>Q4</strong> How many fields are in the &ldquo;species&rdquo; table?</p>
+
+<blockquote>
+<p>Answer: </p>
+</blockquote>
+
+<p>Retrieve the virtual &ldquo;alltags&rdquo; table from the SQLite file</p>
+
+<pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltags&quot;)
+</code></pre>
+
+<pre><code>## Error in tbl(sql.motus, &quot;alltags&quot;): could not find function &quot;tbl&quot;
+</code></pre>
+
+<p>This is in a different format (list) than we are used to (data.frames). We can 
+use str() to see what this different format contains:</p>
+
+<pre><code class="r">str(tbl.alltags)
+</code></pre>
+
+<pre><code>## Error in str(tbl.alltags): object &#39;tbl.alltags&#39; not found
+</code></pre>
+
+<p>The first part of the list, src, is a list that provides details of the 
+SQLiteConnection, including the directory where the database is stored. 
+The second part is a list that includes the underlying table. 
+Thus, the R object alltags is a virtual table that stores the database 
+structure and information required to connect to the underlying data in 
+the .motus file. </p>
+
+<p>We can use fairly straightforward commands to explore the table without changing
+its format. Later, we will convert a subset of this to a data.frame. For now, 
+let&#39;s keep looking at it in the SQL format, which allows for faster processing.</p>
+
+<pre><code class="r">tbl.alltags %&gt;%
+  collect() %&gt;% 
+  names()
+</code></pre>
+
+<pre><code>## Error in collect(.): could not find function &quot;collect&quot;
+</code></pre>
+
+<p><strong>Q5</strong> Compare this list to the one made when we just look at the field 
+names directly (below). Which way was faster to process (if you can tell)?</p>
+
+<blockquote>
+<p>Answer: </p>
+</blockquote>
+
+<pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+</code></pre>
+
+<p>Now, let&#39;s convert that to a &ldquo;flat&rdquo; data.frame so that we can start exploring 
+where these birds were detected!</p>
+
+<pre><code class="r">df.alltags &lt;- tbl.alltags %&gt;% 
+  collect() %&gt;% 
+  as.data.frame() %&gt;%     # for all fields in the df (data frame)
+  mutate(time = as_datetime(ts))
+</code></pre>
+
+<pre><code>## Error in mutate(., time = as_datetime(ts)): could not find function &quot;mutate&quot;
+</code></pre>
+
+<p>Again, another way to see the column names:</p>
+
+<pre><code class="r">names(df.alltags)
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.alltags&#39; not found
+</code></pre>
+
+<p><strong>Q6</strong> How many observations are there in this table?</p>
+
+<blockquote>
+<p>Answer: </p>
+</blockquote>
+
+<p>Let&#39;s select only a couple specific tag IDs. (The
+tag IDs are the IDs that each individual bird has)</p>
+
+<pre><code class="r">df.alltagsSub &lt;- tbl.alltags %&gt;%
+  filter(motusTagID %in% c(16011, 23316)) %&gt;% 
+  collect() %&gt;% 
+  as.data.frame() %&gt;%    
+  mutate(time = as_datetime(ts))  
+</code></pre>
+
+<pre><code>## Error in mutate(., time = as_datetime(ts)): could not find function &quot;mutate&quot;
+</code></pre>
+
+<pre><code class="r">table(df.alltagsSub$motusTagID)
+</code></pre>
+
+<pre><code>## Error in table(df.alltagsSub$motusTagID): object &#39;df.alltagsSub&#39; not found
+</code></pre>
+
+<p><strong>Q7</strong> How many records are associated with each of the two tags?</p>
+
+<blockquote>
+<p>Answer: </p>
+</blockquote>
+
+<hr/>
+
+<h2>4. Explore detections (Ch 5)</h2>
+
+<p>First, we&#39;ll just use the filtering function provided by Motus for this sample 
+data. The details don&#39;t matter, we are just taking out any signals that are 
+ambiguous or not biologically sensical.</p>
+
+<pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltagsGPS&quot;)
+</code></pre>
+
+<pre><code>## Error in tbl(sql.motus, &quot;alltagsGPS&quot;): could not find function &quot;tbl&quot;
+</code></pre>
+
+<pre><code class="r"># obtain a table object of the filter
+
+
+# filter and convert the table into a dataframe, with a few modications
+df.alltags.sub &lt;- tbl.alltags %&gt;% 
+  filter(motusFilter == 1) %&gt;%
+  select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, 
+         -mfg, -nomFreq, -markerNumber, -markerType, -tagDepComments, 
+         -fullID, -deviceID, -recvDeployAlt, 
+         -speciesGroup, -gpsLat, -gpsLon, -recvSiteName) %&gt;%
+  collect() %&gt;%
+  mutate(time = as_datetime(ts),  # work with times AFTER transforming to flat file
+         tagDeployStart = as_datetime(tagDeployStart),
+         tagDeployEnd = as_datetime(tagDeployEnd),
+         recvDeployName = if_else(is.na(recvDeployName), 
+                                  paste(recvDeployLat, recvDeployLon, sep=&quot;:&quot;), 
+                                  recvDeployName))
+</code></pre>
+
+<pre><code>## Error in mutate(., time = as_datetime(ts), tagDeployStart = as_datetime(tagDeployStart), : could not find function &quot;mutate&quot;
+</code></pre>
+
+<p>Ok, now we can make some graphs and maps!</p>
+
+<p>Let&#39;s see what time of day the different species of birds are usually detected during.</p>
+
+<p>First, clean data up a little bit and round everything to the nearest hour of the day</p>
+
+<pre><code class="r">df.alltags.sub.2 &lt;- df.alltags.sub %&gt;%
+  mutate(hour = lubridate::hour(time),
+         year = lubridate::year(time),
+         doy = lubridate::yday(time)) %&gt;% 
+  select(motusTagID, port, tagDeployStart, tagDepLat, tagDepLon, 
+         recvDeployLat, recvDeployLon, recvDeployName, antBearing, speciesEN, year, doy, hour) %&gt;% 
+  distinct()
+</code></pre>
+
+<pre><code>## Error in distinct(.): could not find function &quot;distinct&quot;
+</code></pre>
+
+<p>Then graph it!</p>
+
+<pre><code class="r">ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
+       aes(x = hour, y = as.factor(motusTagID), colour = speciesEN)) +
+  theme_bw() + 
+  geom_point() +
+  labs(x = &quot;Hour&quot;, y = &quot;MotusTagID&quot;) +
+  scale_colour_discrete(name = &quot;Species&quot;)
+</code></pre>
+
+<pre><code>## Error in as.ts(x): object &#39;df.alltags.sub.2&#39; not found
+</code></pre>
+
+<p><strong>Q8</strong> Which two species of bird seem to be active only in the mornings and nights and 
+not during the mid-day?</p>
+
+<blockquote>
+<p>Answer:</p>
+</blockquote>
+
+<p>Simplify the data by summarizing by the runID so that we can map the detections</p>
+
+<pre><code class="r"># function to summarize data
+fun.getpath &lt;- function(df) {
+  df %&gt;%
+    filter(tagProjID == 176, # keep only tags registered to the sample project
+           !is.na(recvDeployLat) | !(recvDeployLat == 0)) %&gt;% 
+    group_by(motusTagID, runID, recvDeployName, ambigID, 
+             tagDepLon, tagDepLat, recvDeployLat, recvDeployLon) %&gt;%
+    summarize(max.runLen = max(runLen), time = mean(time), .groups = &quot;drop&quot;) %&gt;%
+    arrange(motusTagID, time) %&gt;%
+    data.frame()
+} # end of function call
+
+# applying function
+df.alltags.path &lt;- fun.getpath(df.alltags.sub)
+</code></pre>
+
+<pre><code>## Error in arrange(., motusTagID, time): could not find function &quot;arrange&quot;
+</code></pre>
+
+<p>Subset the cleaned data</p>
+
+<pre><code class="r">df.alltags.sub.path &lt;- df.alltags.sub %&gt;%
+  filter(tagProjID == 176) %&gt;% # only tags registered to project
+  arrange(motusTagID, time) %&gt;%       # order by time stamp for each tag
+  mutate(date = as_date(time)) %&gt;%    # create date variable
+  group_by(motusTagID, date, recvDeployName, ambigID, 
+           tagDepLon, tagDepLat, recvDeployLat, recvDeployLon)
+</code></pre>
+
+<pre><code>## Error in group_by(., motusTagID, date, recvDeployName, ambigID, tagDepLon, : could not find function &quot;group_by&quot;
+</code></pre>
+
+<pre><code class="r"># Final data ready for plotting
+df.alltags.path &lt;- fun.getpath(df.alltags.sub.path)
+</code></pre>
+
+<pre><code>## Error in arrange(., motusTagID, time): could not find function &quot;arrange&quot;
+</code></pre>
+
+<p>Load some shapefiles to map</p>
+
+<pre><code class="r">world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) 
+# Run these two lines for the first time, then the subsequent lines every time after
+# lakes &lt;- ne_download(scale = &quot;medium&quot;, type = &#39;lakes&#39;, category = &#39;physical&#39;,
+#                               returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
+lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &#39;physical&#39;,
+                 returnclass = &quot;sf&quot;,
+                 destdir = &quot;map-data&quot;) # use this if already downloaded shapefiles
+</code></pre>
+
+<pre><code>## Error in loadNamespace(x): there is no package called &#39;rgdal&#39;
+</code></pre>
+
+<p>We will just use the tags that have been examined carefully and filtered </p>
+
+<pre><code class="r">df.tmp &lt;- df.alltags.path %&gt;%
+  filter(motusTagID %in% c(16011, 16035, 16036, 16037, 16038, 16039)) %&gt;%
+  arrange(time)  %&gt;% # arrange by hour
+  as.data.frame()
+</code></pre>
+
+<pre><code>## Error in arrange(., time): could not find function &quot;arrange&quot;
+</code></pre>
+
+<p>Set limits to map based on locations of detections, ensuring they include the
+deployment locations</p>
+
+<pre><code class="r">xmin &lt;- min(df.tmp$recvDeployLon, na.rm = TRUE) - 2
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
+</code></pre>
+
+<pre><code class="r">xmax &lt;- max(df.tmp$recvDeployLon, na.rm = TRUE) + 2
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
+</code></pre>
+
+<pre><code class="r">ymin &lt;- min(df.tmp$recvDeployLat, na.rm = TRUE) - 1
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
+</code></pre>
+
+<pre><code class="r">ymax &lt;- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
+</code></pre>
+
+<p><strong>Q9</strong> What would you change above to zoom out on this map?</p>
+
+<blockquote>
+<p>Answer:</p>
+</blockquote>
+
+<p>And now we can map the detections!</p>
+
+<pre><code class="r">ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = &quot;white&quot;) +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = &quot;&quot;, y = &quot;&quot;) +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = &quot;black&quot;) +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = &quot;red&quot;, shape = 4) +
+  scale_colour_discrete(&quot;motusTagID&quot;) 
+</code></pre>
+
+<pre><code>## Error in fortify(data): object &#39;lakes&#39; not found
+</code></pre>
+
+<p><strong>Q10</strong> Duplicate the map below (two maps in final html), but change these items:</p>
+
+<ul>
+<li>Make the lake filled with &ldquo;blue&rdquo; instead of white</li>
+<li>Label x with &ldquo;Longitude&rdquo; and y with &ldquo;Latitude&rdquo;</li>
+</ul>
+
+<hr/>
+
+<h3>Footer</h3>
+
+<p>spin this with:
+ezspin(file = &ldquo;HannahHelmbrecht/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;HannahHelmbrecht/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+
+</body>
+
+</html>
