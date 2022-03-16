@@ -327,7 +327,7 @@ ggplot(data = world) +
 #' 
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
-#' ggplot(data = world) + 
+ ggplot(data = world) + 
 geom_sf(colour = NA) +
   geom_sf(data = lakes, colour = NA, fill = "blue") +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
