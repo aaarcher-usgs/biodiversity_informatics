@@ -13,7 +13,11 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, we will be guided through an R for Motus tutorial. Motus is
+#' a wildlife tracking system the uses radio telemetry to track the movement of
+#' birds, bats, and butterflies with all movement data being entered onto the 
+#' online database. In this lab we will download the data, learn how to explore 
+#' and convert these large datasets, and use the data to make plots. 
 #' 
 #' 
 #' ### Header
@@ -252,7 +256,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer: The American Woodcock and the Semiplated plover
+#' > Answer: The American Woodcock and the Semipalmated plover
 #' 
 #' 
 
@@ -364,4 +368,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220316_Motus_lab.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Jenna/programs/20220316_Motus_lab.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
