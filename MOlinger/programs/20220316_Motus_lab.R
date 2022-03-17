@@ -13,7 +13,9 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, We worked with creating a graph from bird flying patterns depending
+#' on the time of the day. We also worked with creating a map of flight data of birds as
+#' well as making altercations to the map to make it more visually appealing.
 #' 
 #' 
 #' ### Header
@@ -106,10 +108,10 @@ file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
 #' Get a list of tables that were downloaded
 #' 
 dbListTables(file.name)
-
+dbListFields(file.name, "projs")
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: 
+#' > Answer: the Id, name, label, tags permissions, and sensors permissions
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -118,7 +120,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 
+#' > Answer: 5
 #' 
 
 
@@ -153,7 +155,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: The SQL format seemed to be a little faster.
 #' 
 dbListFields(file.name, "alltags")
 
@@ -171,7 +173,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: 63
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -186,7 +188,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: 127 and 5734
 #' 
  
 
@@ -244,7 +246,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: American Woodcock and Semipalmated Plover
 #' 
 #' 
 
@@ -280,11 +282,11 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 #' Load some shapefiles to map
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
-# lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                               returnclass = "sf", destdir = "map-data")
+#lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
+#                             returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
-                 destdir = "map-data") # use this if already downloaded shapefiles
+                destdir = "map-data") # use this if already downloaded shapefiles
 
 #' 
 #' We will just use the tags that have been examined carefully and filtered 
@@ -303,7 +305,7 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: We would have to make the minimum and maximum a larger number
 #' 
 
 #' 
@@ -315,6 +317,21 @@ ggplot(data = world) +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
   theme_bw() + 
   labs(x = "", y = "") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
+
+ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "Blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "Longitude", y = "Latitude") +
   geom_path(data = df.tmp, 
             aes(x = recvDeployLon, y = recvDeployLat, 
                 group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
