@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: Nicole Gruwell and Emma Kuechle 
+#' Programmer: AAA
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -23,7 +23,7 @@
 library(ezknitr)
 library(ggplot2)
 
-# Clear Environment & Set Seed
+
 remove(list=ls())
 set.seed(71587)
 
@@ -32,18 +32,18 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
 #' Install "remotes" package
-install.packages("remotes")
-library(remotes)
- update_packages()
+# install.packages("remotes")
+# library(remotes)
+# update_packages()
 
- install.packages(c("motus", "motusData"), 
-                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
+# install.packages(c("motus", "motusData"), 
+                 # repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+                          # CRAN = 'https://cloud.r-project.org'))
 
-# 
-install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
+
+# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+                 # repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+                         #   CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -60,13 +60,11 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: Greenwich Mean Time 
+#' > Answer: Greenwich Mean Time
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: Times are stored in the database in UTC time so it is important
-#' that your work is also in that time. Also, tags can be accidentally changed 
-#' across  multiple time zones if not in UTC time. 
+#' > Answer: Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
 #' 
 
 #' _____________________________________________________________________________
@@ -82,11 +80,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#'sql.motus <- tagme(projRecv = proj.num, 
-#'                   new = TRUE, 
-#'                   update = TRUE,
-#'                  dir = "../motus")
-
+#sql.motus <- tagme(projRecv = proj.num, 
+               #    new = TRUE, 
+                  # update = TRUE,
+                  # dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -107,13 +104,11 @@ file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
 
 #' Get a list of tables that were downloaded
 #' 
-dbListTables(file.name)
+dbListTabels(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
-#' dbListFields(file.name, "projs") 
 #' 
-#' > Answer: the headers of the project such as ID, Name, Label, TagsPermissions,
-#' sensorPermissions
+#' > Answer: id, name, label, tagsPermissions, sensorsPermissions
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -122,8 +117,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 6 fields. ID, english, french, scientific, group, and sort.
-#'
+#' > Answer: 6 fields
 #' 
 
 
@@ -158,8 +152,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: The second of the two seems to be faster and easier to comprehend 
-#' than the first one that was created.
+#' > Answer: alltags
 #' 
 dbListFields(file.name, "alltags")
 
@@ -175,9 +168,13 @@ df.alltags <- tbl.alltags %>%
 #' 
 names(df.alltags)
 
+dbList(file.name)
+dbListObjects(file.name, df.alltags)
+dbListResults(file.name, df.alltags)
+dbListFields(file.name, df.alltags)
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: 188354
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -192,7 +189,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: 127  5734 
 #' 
  
 
@@ -341,4 +338,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "NGRuwell/programs/20220316_Motus_lab.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "ebengtson/programs/20220316_Motus_lab.R",out_dir = "ebengtson/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
