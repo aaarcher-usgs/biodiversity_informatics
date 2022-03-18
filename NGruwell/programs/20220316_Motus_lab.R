@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Nicole Gruwell and Emma Kuechle
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -31,19 +31,18 @@ set.seed(71587)
 #' 
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
-#' Install "remotes" package
-# install.packages("remotes")
-# library(remotes)
-# update_packages()
-
-# install.packages(c("motus", "motusData"), 
-#                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-#                            CRAN = 'https://cloud.r-project.org'))
+#'Install "remotes" package
+#install.packages("remotes")
+#library(remotes)
+#update_packages()
+#install.packages(c("motus", "motusData"), 
+#              repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                           CRAN = 'https://cloud.r-project.org'))
 
 # 
-# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-#                            CRAN = 'https://cloud.r-project.org'))
+ install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+                            CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -60,11 +59,13 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: 
+#' > Answer: Greenwich Mean Time
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: 
+#' > Answer: Times are stored in the database in UTC time so it is important
+#' that your work is also in that time. Also, tags can be accidentally changed 
+#' across  multiple time zones if not in UTC time.
 #' 
 
 #' _____________________________________________________________________________
@@ -80,10 +81,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = "../motus")
+# sql.motus <- tagme(projRecv = proj.num, 
+#'                  new = TRUE, 
+#'                  update = TRUE,
+#'                  dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -92,6 +93,7 @@ sql.motus <- tagme(projRecv = proj.num,
                    new = FALSE, 
                    update = TRUE,
                    dir = "../motus")
+
 # Log in name and password are: motus.sample
 
 
@@ -108,16 +110,18 @@ dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: 
+#' > Answer: The headers of the project such as ID, Name, Label, TagsPermissions,
+#' sensorPermissions.
 #' 
 
 #' Get a list of fields (column names) in the table "species"
 #' 
 dbListFields(file.name, "species") 
 
+
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 
+#' > Answer:  6 fields. ID, english, french, scientific, group, and sort.
 #' 
 
 
@@ -152,7 +156,8 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: the second was the faster way to process as it seems more precise 
+#' and easy to read. 
 #' 
 dbListFields(file.name, "alltags")
 
@@ -334,4 +339,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220316_Motus_lab.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "NGruwell/programs/20220316_Motus_lab.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

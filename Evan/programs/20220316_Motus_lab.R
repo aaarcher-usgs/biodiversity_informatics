@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Evan
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -23,7 +23,7 @@
 library(ezknitr)
 library(ggplot2)
 
-
+# Clear Environment & Set Seed
 remove(list=ls())
 set.seed(71587)
 
@@ -31,19 +31,19 @@ set.seed(71587)
 #' 
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
-#' Install "remotes" package
+# Install "remotes" package
 # install.packages("remotes")
 # library(remotes)
 # update_packages()
 
 # install.packages(c("motus", "motusData"), 
-                 # repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                          # CRAN = 'https://cloud.r-project.org'))
+#                repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                          CRAN = 'https://cloud.r-project.org'))
 
 
 # install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 # repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                         #   CRAN = 'https://cloud.r-project.org'))
+#                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#                          CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -56,15 +56,16 @@ library(rnaturalearth)
 
 #' Set the system environment time to "UTC"
 #' 
-Sys.setenv(TZ = "UTC")
+Sys
+.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: Greenwich Mean Time
+#' > Answer: 
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: Times are stored in the Motus database in UTC, and if you do not keep your environment in UTC, then they can be inadvertently changed during import. Second, if tags have been detected across multiple time zones, then they can also inadvertently be changed.
+#' > Answer: 
 #' 
 
 #' _____________________________________________________________________________
@@ -80,10 +81,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#sql.motus <- tagme(projRecv = proj.num, 
-               #    new = TRUE, 
-                  # update = TRUE,
-                  # dir = "../motus")
+sql.motus <- tagme(projRecv = proj.num, 
+                   new = TRUE, 
+                   update = TRUE,
+                   dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -104,11 +105,11 @@ file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
 
 #' Get a list of tables that were downloaded
 #' 
-dbListTabels(file.name)
+dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: id, name, label, tagsPermissions, sensorsPermissions
+#' > Answer: 
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -117,7 +118,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 6 fields
+#' > Answer: 
 #' 
 
 
@@ -152,7 +153,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: alltags
+#' > Answer: 
 #' 
 dbListFields(file.name, "alltags")
 
@@ -168,13 +169,9 @@ df.alltags <- tbl.alltags %>%
 #' 
 names(df.alltags)
 
-dbList(file.name)
-dbListObjects(file.name, df.alltags)
-dbListResults(file.name, df.alltags)
-dbListFields(file.name, df.alltags)
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 188354
+#' > Answer: 
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -189,7 +186,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 127  5734 
+#' > Answer: 
 #' 
  
 
@@ -338,4 +335,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "ebengtson/programs/20220316_Motus_lab.R",out_dir = "ebengtson/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Evan/programs/20220316_Motus_lab.R",out_dir = "Evan/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
