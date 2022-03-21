@@ -40,9 +40,9 @@ set.seed(71587)
 #                           CRAN = 'https://cloud.r-project.org'))
 
 # 
- install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
+#install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+#                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#                            CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -81,10 +81,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-# sql.motus <- tagme(projRecv = proj.num, 
-#'                  new = TRUE, 
-#'                  update = TRUE,
-#'                  dir = "../motus")
+#sql.motus <- tagme(projRecv = proj.num, 
+#                  new = TRUE, 
+#                  update = TRUE,
+#                  dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -150,7 +150,7 @@ str(tbl.alltags)
 #' let's keep looking at it in the SQL format, which allows for faster processing.
 #' 
 tbl.alltags %>%
-  collect() %>% 
+  collect() %>%
   names()
 
 #' **Q5** Compare this list to the one made when we just look at the field 
@@ -166,7 +166,8 @@ dbListFields(file.name, "alltags")
 #' 
 df.alltags <- tbl.alltags %>% 
   collect() %>% 
-  as.data.frame() %>%     # for all fields in the df (data frame)
+  as.data.frame() %>%
+# for all fields in the df (data frame)
   mutate(time = as_datetime(ts))
 
 #' Again, another way to see the column names:
