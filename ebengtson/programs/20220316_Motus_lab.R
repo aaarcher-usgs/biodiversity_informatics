@@ -80,10 +80,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#sql.motus <- tagme(projRecv = proj.num, 
-               #    new = TRUE, 
-                  # update = TRUE,
-                  # dir = "../motus")
+sql.motus <- tagme(projRecv = proj.num, 
+                new = TRUE, 
+                  update = TRUE,
+                  dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -307,7 +307,7 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 #' **Q9** What would you change above to zoom out on this map?
 #' 
 #' > Answer:
-#' 
+#' to zoom out the map you would change the min to something smaller and the max to something larger. for example min -4 and max +4
 
 #' 
 #' And now we can map the detections!
@@ -328,7 +328,20 @@ ggplot(data = world) +
   scale_colour_discrete("motusTagID") 
 
 #' **Q10** Duplicate the map below (two maps in final html), but change these items:
-#' 
+ggplot(data = world) + 
+geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "longitude", y = "latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
 #' 
