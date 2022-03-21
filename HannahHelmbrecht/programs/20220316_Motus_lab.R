@@ -24,8 +24,8 @@
 # library(ggplot2)
 
 # Clear Environment & Set Seed
-remove(list=ls())
-set.seed(71587)
+# remove(list=ls())
+# set.seed(71587)
 
 #' _____________________________________________________________________________
 #' 

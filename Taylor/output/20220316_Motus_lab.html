@@ -207,7 +207,7 @@ hr {
 
 <p>March 16, 2022</p>
 
-<p>Programmer: SD</p>
+<p>Programmer: Taylor Bergherr</p>
 
 <p><strong>Important</strong> - The answers to the 10 questions below can be figured out by
 working through the online guide to Motus in R, which is at motuswts.github.io
@@ -215,8 +215,9 @@ and linked through D2L. (Although a couple questions ask you to interpret code
 or change code using common sense or by googling how to do things or by asking
 a friend.)</p>
 
-<p>In this program, I performed several functions and codes to explore more 
-about the motus database and discover more about the birds with in it.</p>
+<p>In this program, we worked through the Motus tutorial workbook. Using sample
+data from the Motus database, we were able to explore and interpret data using
+code, and explore and analyze detection data using code and making plots and maps.</p>
 
 <h3>Header</h3>
 
@@ -238,18 +239,15 @@ set.seed(71587)
 <pre><code class="r"># install.packages(&quot;remotes&quot;)
 # library(remotes)
 # update_packages()
-</code></pre>
-
-<p>install.packages(c(&ldquo;motus&rdquo;, &ldquo;motusData&rdquo;), 
-                 repos = c(birdscanada = &#39;<a href="https://birdscanada.r-universe.dev">https://birdscanada.r-universe.dev</a>&#39;,
-                           CRAN = &#39;<a href="https://cloud.r-project.org&#x27;)">https://cloud.r-project.org&#39;)</a>)</p>
-
-<pre><code class="r"># 
- #&#39;install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
-</code></pre>
-
-<pre><code>             repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
-                       CRAN = &#39;https://cloud.r-project.org&#39;))
+# 
+# install.packages(c(&quot;motus&quot;, &quot;motusData&quot;),
+#                   repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
+#                            CRAN = &#39;https://cloud.r-project.org&#39;))
+# 
+# 
+# install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
+#                   repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,
+#                            CRAN = &#39;https://cloud.r-project.org&#39;))
 </code></pre>
 
 <p>Load the packages for use</p>
@@ -271,14 +269,15 @@ library(rnaturalearth)
 <p><strong>Q1</strong> What time zone is UTC?</p>
 
 <blockquote>
-<p>Answer: 0</p>
+<p>Answer: Greenwich Mean Time</p>
 </blockquote>
 
 <p><strong>Q2</strong> Why is this important?</p>
 
 <blockquote>
-<p>Answer: It is the standard time used and all other time zones are +/- so 
-many hours to the UTC time zone. </p>
+<p>Answer: Times are stored in the Motus Database in UTC, so time calculated
+in other time zones can be changed during import. Also, tags detected across
+multiple time-zones may be changed if not in UTC.</p>
 </blockquote>
 
 <hr/>
@@ -295,15 +294,14 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 
 <p>Download the data</p>
 
-<p>sql.motus &lt;- tagme(projRecv = proj.num, 
-                  new = TRUE, 
-                  update = TRUE,
-                 dir = &ldquo;../motus&rdquo;)</p>
-
-<pre><code class="r"># Log in name and password are: motus.sample
+<pre><code class="r"># sql.motus &lt;- tagme(projRecv = proj.num,
+#                    new = TRUE,
+#                    update = TRUE,
+#                    dir = &quot;../motus&quot;)
+# Log in name and password are: motus.sample
 </code></pre>
 
-<p><strong>Important</strong> After first download, comment out (put hashtag back in)the code above and use this:</p>
+<p><strong>Important</strong> After first download, comment out the code above and use this:</p>
 
 <pre><code class="r">sql.motus &lt;- tagme(projRecv = proj.num, 
                    new = FALSE, 
@@ -356,22 +354,24 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">dbListTables(file.name)
 </code></pre>
 
-<pre><code>##  [1] &quot;activity&quot;    &quot;activityAll&quot; &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;allruns&quot;    
-##  [6] &quot;allrunsGPS&quot;  &quot;alltags&quot;     &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;  
-## [11] &quot;batches&quot;     &quot;clarified&quot;   &quot;deprecated&quot;  &quot;filters&quot;     &quot;gps&quot;        
-## [16] &quot;gpsAll&quot;      &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;   
-## [21] &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;      
-## [26] &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;    
-## [31] &quot;tagProps&quot;    &quot;tags&quot;
+<pre><code>##  [1] &quot;activity&quot;    &quot;activityAll&quot; &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;allruns&quot;     &quot;allrunsGPS&quot;  &quot;alltags&quot;     &quot;alltagsGPS&quot; 
+##  [9] &quot;antDeps&quot;     &quot;batchRuns&quot;   &quot;batches&quot;     &quot;clarified&quot;   &quot;deprecated&quot;  &quot;filters&quot;     &quot;gps&quot;         &quot;gpsAll&quot;     
+## [17] &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;    &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;   
+## [25] &quot;recvs&quot;       &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;
 </code></pre>
 
-<p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?
-dbListTables(file.name, &ldquo;projs&rdquo;)</p>
+<p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
 
 <blockquote>
-<p>Answer: The information in this table includes things such as activity,
-tags, batches, and gps. </p>
+<p>Answer: Information provided in the projs table includes ID, name, label,
+tagsPermissions, and sensorPermissions.</p>
 </blockquote>
+
+<pre><code class="r">dbListFields(file.name, &quot;projs&quot;) 
+</code></pre>
+
+<pre><code>## [1] &quot;id&quot;                 &quot;name&quot;               &quot;label&quot;              &quot;tagsPermissions&quot;    &quot;sensorsPermissions&quot;
+</code></pre>
 
 <p>Get a list of fields (column names) in the table &ldquo;species&rdquo;</p>
 
@@ -402,14 +402,14 @@ use str() to see what this different format contains:</p>
 ##  $ src:List of 2
 ##   ..$ con  :Formal class &#39;SQLiteConnection&#39; [package &quot;RSQLite&quot;] with 8 slots
 ##   .. .. ..@ ptr                :&lt;externalptr&gt; 
-##   .. .. ..@ dbname             : chr &quot;C:\\Users\\savan\\Desktop\\BIOL 475_Biodiversity Informatics\\motus\\project-176.motus&quot;
+##   .. .. ..@ dbname             : chr &quot;C:\\Users\\tator\\OneDrive\\Desktop\\motus\\project-176.motus&quot;
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x000001d547570e28&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x00000219be767818&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
 ##   .. .. ..@ extended_types     : logi FALSE
-##   ..$ disco:&lt;environment: 0x000001d54d64da50&gt; 
+##   ..$ disco:&lt;environment: 0x00000219be4fc440&gt; 
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
 ##  $ ops:List of 2
 ##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
@@ -434,21 +434,16 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
   names()
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;            
-##  [5] &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;         
-##  [9] &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;          
-## [17] &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
-## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;       
-## [29] &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
-## [33] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
-## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;  
-## [45] &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
-## [53] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;     
-## [57] &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;           
+##  [7] &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
+## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;        
+## [19] &quot;motusFilter&quot;    &quot;bootnum&quot;        &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
+## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
+## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;tagDeployTest&quot;  &quot;fullID&quot;        
+## [43] &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
+## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;       
+## [55] &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
 ## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
 </code></pre>
 
@@ -456,28 +451,22 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
 names directly (below). Which way was faster to process (if you can tell)?</p>
 
 <blockquote>
-<p>Answer: The second file was extremely faster than the other to process. So
-fast I could hardly tell anything happened. </p>
+<p>Answer: Looking at the field names directly is way faster to process.</p>
 </blockquote>
 
 <pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;            
-##  [5] &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;         
-##  [9] &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;          
-## [17] &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
-## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;       
-## [29] &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
-## [33] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
-## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;  
-## [45] &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
-## [53] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;     
-## [57] &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;           
+##  [7] &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
+## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;        
+## [19] &quot;motusFilter&quot;    &quot;bootnum&quot;        &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
+## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
+## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;tagDeployTest&quot;  &quot;fullID&quot;        
+## [43] &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
+## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;       
+## [55] &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
 ## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
 </code></pre>
 
@@ -495,28 +484,23 @@ where these birds were detected!</p>
 <pre><code class="r">names(df.alltags)
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;            
-##  [5] &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;         
-##  [9] &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;          
-## [17] &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
-## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;       
-## [29] &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
-## [33] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
-## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;  
-## [45] &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
-## [53] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;     
-## [57] &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;    &quot;sig&quot;           
+##  [7] &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
+## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;        
+## [19] &quot;motusFilter&quot;    &quot;bootnum&quot;        &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
+## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
+## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot; &quot;tagDeployTest&quot;  &quot;fullID&quot;        
+## [43] &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
+## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;       
+## [55] &quot;antBearing&quot;     &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
 ## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;   &quot;time&quot;
 </code></pre>
 
 <p><strong>Q6</strong> How many observations are there in this table?</p>
 
 <blockquote>
-<p>Answer: 188,354</p>
+<p>Answer: 188354</p>
 </blockquote>
 
 <p>Let&#39;s select only a couple specific tag IDs. (The
@@ -538,7 +522,8 @@ table(df.alltagsSub$motusTagID)
 <p><strong>Q7</strong> How many records are associated with each of the two tags?</p>
 
 <blockquote>
-<p>Answer: 39,363</p>
+<p>Answer: The first tag ID 16011 has 127 records and the second tag 23316
+has 5,734 records. </p>
 </blockquote>
 
 <hr/>
@@ -601,7 +586,8 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
 not during the mid-day?</p>
 
 <blockquote>
-<p>Answer: American Woodcock and an individual Red Knot </p>
+<p>Answer: The two species of birds include the American Woodcock and the 
+Semipalmated Plover.</p>
 </blockquote>
 
 <p>Simplify the data by summarizing by the runID so that we can map the detections</p>
@@ -638,16 +624,16 @@ df.alltags.path &lt;- fun.getpath(df.alltags.sub.path)
 <p>Load some shapefiles to map</p>
 
 <pre><code class="r">world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) 
-#Run these two lines for the first time, then the subsequent lines every time after
-#lakes &lt;- ne_download(scale = &quot;medium&quot;, type = &#39;lakes&#39;, category = &#39;physical&#39;,
-#                            returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
+# Run these two lines for the first time, then the subsequent lines every time after
+# lakes &lt;- ne_download(scale = &quot;medium&quot;, type = &#39;lakes&#39;, category = &#39;physical&#39;,
+#                               returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
 lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &#39;physical&#39;,
                  returnclass = &quot;sf&quot;,
                  destdir = &quot;map-data&quot;) # use this if already downloaded shapefiles
 </code></pre>
 
 <pre><code>## OGR data source with driver: ESRI Shapefile 
-## Source: &quot;C:\Users\savan\Desktop\BIOL 475_Biodiversity Informatics\biodiversity_informatics\map-data&quot;, layer: &quot;ne_50m_lakes&quot;
+## Source: &quot;C:\Users\tator\OneDrive\Desktop\biodiversity_informatics\map-data&quot;, layer: &quot;ne_50m_lakes&quot;
 ## with 412 features
 ## It has 39 fields
 ## Integer64 fields read as strings:  scalerank ne_id
@@ -673,8 +659,8 @@ ymax &lt;- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 <p><strong>Q9</strong> What would you change above to zoom out on this map?</p>
 
 <blockquote>
-<p>Answer: Change all min and max values to be smaller. To see a significant
-difference in zoom the values would be negative</p>
+<p>Answer: The x &amp; y maximums and minimums in the code above, because these
+specify where on the map is being shown using lat/long coordinates.</p>
 </blockquote>
 
 <p>And now we can map the detections!</p>
@@ -697,6 +683,8 @@ difference in zoom the values would be negative</p>
 
 <p><img src="data:image/png;base64,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" alt="plot of chunk motusMap"/></p>
 
+<p><strong>Q10</strong> Duplicate the map below (two maps in final html), but change these items:</p>
+
 <pre><code class="r">ggplot(data = world) + 
   geom_sf(colour = NA) +
   geom_sf(data = lakes, colour = NA, fill = &quot;blue&quot;) +
@@ -713,9 +701,7 @@ difference in zoom the values would be negative</p>
   scale_colour_discrete(&quot;motusTagID&quot;) 
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt="plot of chunk motusMap"/></p>
-
-<p><strong>Q10</strong> Duplicate the map below (two maps in final html), but change these items:</p>
+<p><img src="data:image/png;base64,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" alt="plot of chunk Motusmap2"/></p>
 
 <ul>
 <li>Make the lake filled with &ldquo;blue&rdquo; instead of white</li>
@@ -727,7 +713,7 @@ difference in zoom the values would be negative</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;savannadroher/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;savannadroher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Taylor/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;Taylor/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
