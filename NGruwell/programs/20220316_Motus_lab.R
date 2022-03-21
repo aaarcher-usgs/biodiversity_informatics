@@ -31,14 +31,13 @@ set.seed(71587)
 #' 
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
-#' Install "remotes" package
- install.packages("remotes")
-library(remotes)
- update_packages()
-
- install.packages(c("motus", "motusData"), 
-                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
+#'Install "remotes" package
+#install.packages("remotes")
+#library(remotes)
+#update_packages()
+#install.packages(c("motus", "motusData"), 
+#              repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                           CRAN = 'https://cloud.r-project.org'))
 
 # 
  install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
@@ -82,7 +81,7 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#'sql.motus <- tagme(projRecv = proj.num, 
+# sql.motus <- tagme(projRecv = proj.num, 
 #'                  new = TRUE, 
 #'                  update = TRUE,
 #'                  dir = "../motus")
@@ -157,7 +156,8 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: the second was the faster way to process as it seems more precise 
+#' and easy to read. 
 #' 
 dbListFields(file.name, "alltags")
 

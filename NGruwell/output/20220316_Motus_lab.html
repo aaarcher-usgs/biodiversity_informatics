@@ -234,78 +234,14 @@ set.seed(71587)
 
 <p>Install &ldquo;remotes&rdquo; package</p>
 
-<pre><code class="r"> install.packages(&quot;remotes&quot;)
-</code></pre>
+<pre><code class="r">#install.packages(&quot;remotes&quot;)
+#library(remotes)
+#update_packages()
+#install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
+#              repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
+#                           CRAN = &#39;https://cloud.r-project.org&#39;))
 
-<pre><code>## Error in install.packages : Updating loaded packages
-</code></pre>
-
-<pre><code class="r">library(remotes)
- update_packages()
-</code></pre>
-
-<pre><code>## These packages have more recent versions available.
-## It is recommended to update all of them.
-## Which would you like to update?
-## 
-## 1: All                           
-## 2: CRAN packages only            
-## 3: None                          
-## 4: Rcpp (1.0.8 -&gt; 1.0.8.2) [CRAN]
-## 5: uuid (1.0-3 -&gt; 1.0-4  ) [CRAN]
-## 
-## Rcpp (1.0.8 -&gt; 1.0.8.2) [CRAN]
-## uuid (1.0-3 -&gt; 1.0-4  ) [CRAN]
-</code></pre>
-
-<pre><code>## Skipping 13 packages not available: translations, zlibbioc, XVector, S4Vectors, rnaturalearthhires, motusData, motus, IRanges, GenomicRanges, GenomeInfoDbData, GenomeInfoDb, BiocVersion, BiocGenerics
-</code></pre>
-
-<pre><code>## Installing 2 packages: Rcpp, uuid
-</code></pre>
-
-<pre><code>## Installing packages into &#39;C:/Users/Nicole/OneDrive/Documents/R/win-library/4.1&#39;
-## (as &#39;lib&#39; is unspecified)
-</code></pre>
-
-<pre><code>## 
-##   There are binary versions available but the source versions are later:
-##      binary  source needs_compilation
-## Rcpp  1.0.8 1.0.8.2              TRUE
-## uuid  1.0-3   1.0-4              TRUE
-## 
-##   Binaries will be installed
-## package &#39;Rcpp&#39; successfully unpacked and MD5 sums checked
-</code></pre>
-
-<pre><code>## Warning: cannot remove prior installation of package &#39;Rcpp&#39;
-</code></pre>
-
-<pre><code>## Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying C:
-## \Users\Nicole\OneDrive\Documents\R\win-library\4.1\00LOCK\Rcpp\libs\x64\Rcpp.dll
-## to C:\Users\Nicole\OneDrive\Documents\R\win-library\4.1\Rcpp\libs\x64\Rcpp.dll:
-## Permission denied
-</code></pre>
-
-<pre><code>## Warning: restored &#39;Rcpp&#39;
-</code></pre>
-
-<pre><code>## package &#39;uuid&#39; successfully unpacked and MD5 sums checked
-## 
-## The downloaded binary packages are in
-##  C:\Users\Nicole\AppData\Local\Temp\RtmpYl1hgm\downloaded_packages
-</code></pre>
-
-<pre><code class="r"> install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
-                 repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
-                           CRAN = &#39;https://cloud.r-project.org&#39;))
-</code></pre>
-
-<pre><code>## Warning in install.packages :
-##   packages &#39;motus&#39;, &#39;motusData&#39; are in use and will not be installed
-</code></pre>
-
-<pre><code class="r"># 
+# 
  install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
                  repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
                             CRAN = &#39;https://cloud.r-project.org&#39;))
@@ -315,22 +251,11 @@ set.seed(71587)
 ## (as &#39;lib&#39; is unspecified)
 </code></pre>
 
-<pre><code>## Warning in install.packages :
-##   unable to access index for repository https://ropensci.r-universe.dev/src/contrib:
-##   cannot open URL &#39;https://ropensci.r-universe.dev/src/contrib/PACKAGES&#39;
-## Warning in install.packages :
-##   package &#39;rnaturalearthhires&#39; is not available for this version of R
-## 
-## A version of this package for your version of R might be available elsewhere,
-## see the ideas at
-## https://cran.r-project.org/doc/manuals/r-patched/R-admin.html#Installing-packages
-## Warning in install.packages :
-##   unable to access index for repository https://ropensci.r-universe.dev/bin/windows/contrib/4.1:
-##   cannot open URL &#39;https://ropensci.r-universe.dev/bin/windows/contrib/4.1/PACKAGES&#39;
+<pre><code>## package &#39;rnaturalearthhires&#39; successfully unpacked and MD5 sums checked
 ## package &#39;rnaturalearthdata&#39; successfully unpacked and MD5 sums checked
 ## 
 ## The downloaded binary packages are in
-##  C:\Users\Nicole\AppData\Local\Temp\RtmpYl1hgm\downloaded_packages
+##  C:\Users\Nicole\AppData\Local\Temp\RtmpY9UZsW\downloaded_packages
 </code></pre>
 
 <p>Load the packages for use</p>
@@ -377,10 +302,13 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 
 <p>Download the data</p>
 
-<p>sql.motus &lt;- tagme(projRecv = proj.num, 
-                 new = TRUE, 
-                 update = TRUE,
-                 dir = &ldquo;../motus&rdquo;)</p>
+<pre><code class="r"># sql.motus &lt;- tagme(projRecv = proj.num, 
+</code></pre>
+
+<pre><code>             new = TRUE, 
+             update = TRUE,
+             dir = &quot;../motus&quot;)
+</code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
 </code></pre>
@@ -438,13 +366,11 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">dbListTables(file.name)
 </code></pre>
 
-<pre><code>##  [1] &quot;activity&quot;    &quot;activityAll&quot; &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;allruns&quot;    
-##  [6] &quot;allrunsGPS&quot;  &quot;alltags&quot;     &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;  
-## [11] &quot;batches&quot;     &quot;clarified&quot;   &quot;deprecated&quot;  &quot;filters&quot;     &quot;gps&quot;        
-## [16] &quot;gpsAll&quot;      &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;   
-## [21] &quot;projAmbig&quot;   &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;      
-## [26] &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;     &quot;tagAmbig&quot;    &quot;tagDeps&quot;    
-## [31] &quot;tagProps&quot;    &quot;tags&quot;
+<pre><code>##  [1] &quot;activity&quot;    &quot;activityAll&quot; &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;allruns&quot;     &quot;allrunsGPS&quot;  &quot;alltags&quot;    
+##  [8] &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;   &quot;batches&quot;     &quot;clarified&quot;   &quot;deprecated&quot;  &quot;filters&quot;    
+## [15] &quot;gps&quot;         &quot;gpsAll&quot;      &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;    &quot;projAmbig&quot;  
+## [22] &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;       &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;    
+## [29] &quot;tagAmbig&quot;    &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;
 </code></pre>
 
 <p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
@@ -487,10 +413,10 @@ use str() to see what this different format contains:</p>
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x0000016eaefdcc58&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x00000244939b6918&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
 ##   .. .. ..@ extended_types     : logi FALSE
-##   ..$ disco:&lt;environment: 0x0000016eae981b90&gt; 
+##   ..$ disco:&lt;environment: 0x000002449172d310&gt; 
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
 ##  $ ops:List of 2
 ##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
@@ -515,21 +441,18 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
   names()
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;            
-##  [5] &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;         
-##  [9] &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;          
-## [17] &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
-## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;       
-## [29] &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
-## [33] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
-## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;  
-## [45] &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
-## [53] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;     
-## [57] &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
+##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
+## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
+## [16] &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
+## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;           
+## [26] &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot;
+## [36] &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
+## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
+## [46] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;  
+## [51] &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;    
+## [56] &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
 ## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
 </code></pre>
 
@@ -537,27 +460,25 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
 names directly (below). Which way was faster to process (if you can tell)?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: the second was the faster way to process as it seems more precise 
+and easy to read. </p>
 </blockquote>
 
 <pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;            
-##  [5] &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;         
-##  [9] &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;          
-## [17] &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
-## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;       
-## [29] &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
-## [33] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
-## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;  
-## [45] &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
-## [53] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;     
-## [57] &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
+##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
+## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
+## [16] &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
+## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;           
+## [26] &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot;
+## [36] &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
+## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
+## [46] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;  
+## [51] &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;    
+## [56] &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
 ## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
 </code></pre>
 
@@ -575,21 +496,18 @@ where these birds were detected!</p>
 <pre><code class="r">names(df.alltags)
 </code></pre>
 
-<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;            
-##  [5] &quot;tsCorrected&quot;    &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;         
-##  [9] &quot;freq&quot;           &quot;freqsd&quot;         &quot;slop&quot;           &quot;burstSlop&quot;     
-## [13] &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;        &quot;port&quot;          
-## [17] &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
-## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;       
-## [25] &quot;mfg&quot;            &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;       
-## [29] &quot;tagBI&quot;          &quot;pulseLen&quot;       &quot;tagDeployID&quot;    &quot;speciesID&quot;     
-## [33] &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot; &quot;tagDeployEnd&quot;  
-## [37] &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
-## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;  
-## [45] &quot;recvDeployLat&quot;  &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;          
-## [49] &quot;recvDeployName&quot; &quot;recvSiteName&quot;   &quot;isRecvMobile&quot;   &quot;recvProjID&quot;    
-## [53] &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;     &quot;antHeight&quot;     
-## [57] &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
+##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
+## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
+## [16] &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
+## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;           
+## [26] &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot;
+## [36] &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
+## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
+## [46] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;  
+## [51] &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;    
+## [56] &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
 ## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;   &quot;time&quot;
 </code></pre>
 
