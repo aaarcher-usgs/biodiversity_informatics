@@ -177,7 +177,7 @@ names(df.alltags)
 #' **Q6** How many observations are there in this table?
 #' 
 #' > Answer: 
-#' 
+#' 188354 observations of 63 variables
 
 #' Let's select only a couple specific tag IDs. (The
 #' tag IDs are the IDs that each individual bird has)
@@ -191,7 +191,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: 5861 records 
 #' 
  
 
@@ -249,7 +249,9 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: The american woodcock is one of them. The second seems to be 
+#' the Red Knot but only with the tag ID 22902, the rest is all periods of the 
+#' day. 
 #' 
 #' 
 
@@ -285,8 +287,8 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 #' Load some shapefiles to map
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
-# lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                               returnclass = "sf", destdir = "map-data")
+#lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
+#                              returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
                  destdir = "map-data") # use this if already downloaded shapefiles
