@@ -13,7 +13,10 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, we created a graph and two maps for data about Canadian birds and 
+#' the data that was collected on their movement. We learned how to input the data, 
+#' change features on a map, change time zones, load shapefiles, as well as many other features that 
+#' go into coding a map and data. 
 #' 
 #' 
 #' ### Header
