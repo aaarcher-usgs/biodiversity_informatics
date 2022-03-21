@@ -81,10 +81,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-#'sql.motus <- tagme(projRecv = proj.num, 
-#'                   new = TRUE, 
-#'                   update = TRUE,
-#'                  dir = "../motus")
+sql.motus <- tagme(projRecv = proj.num, 
+                   new = TRUE, 
+                   update = TRUE,
+                  dir = "../motus")
 
 # Log in name and password are: motus.sample
 
@@ -102,11 +102,11 @@ sql.motus <- tagme(projRecv = proj.num,
 #' ## 3. Explore data that were downloaded (ch 3)
 #' 
 #' Specify the filename of where your data were downloaded
-file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
+Motus<- dbConnect(SQLite(), "../motus/project-176.motus")
 
 #' Get a list of tables that were downloaded
 #' 
-dbListTables(file.name)
+dbListTables(Motus)
 
 #' **Q3** What type of information is in the "projs" table?
 #' dbListFields(file.name, "projs") 
@@ -121,7 +121,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 6 fields. ID, english, french, scientific, group, and sort.
+#' > Answer: 6 fields. They are : ID, english, french, scientific, group, and sort.
 #'
 #' 
 
@@ -157,8 +157,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: The second of the two seems to be faster and easier to comprehend 
-#' than the first one that was created.
+#' > Answer: The second one was easier to understand and faster from what it seems.
 #' 
 dbListFields(file.name, "alltags")
 
@@ -176,7 +175,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: 188,354
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -191,7 +190,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: 127, 5734
 #' 
  
 
