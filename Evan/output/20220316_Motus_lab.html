@@ -207,7 +207,7 @@ hr {
 
 <p>March 16, 2022</p>
 
-<p>Programmer: Hannah Helmbrecht</p>
+<p>Programmer: Evan</p>
 
 <p><strong>Important</strong> - The answers to the 10 questions below can be figured out by
 working through the online guide to Motus in R, which is at motuswts.github.io
@@ -220,8 +220,8 @@ a friend.)</p>
 <h3>Header</h3>
 
 <pre><code class="r"># Load Libraries
-# library(ezknitr)
-# library(ggplot2)
+library(ezknitr)
+library(ggplot2)
 
 # Clear Environment &amp; Set Seed
 remove(list=ls())
@@ -232,30 +232,50 @@ set.seed(71587)
 
 <h2>1. Load libraries from new sources (ch 2)</h2>
 
-<p>Install &ldquo;remotes&rdquo; package</p>
+<pre><code class="r"># Install &quot;remotes&quot; package
+# install.packages(&quot;remotes&quot;)
+# library(remotes)
+# update_packages()
 
-<pre><code class="r"># install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
-#                                   repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
-#                           CRAN = &#39;https://cloud.r-project.org&#39;))
+# install.packages(c(&quot;motus&quot;, &quot;motusData&quot;), 
+#                repos = c(birdscanada = &#39;https://birdscanada.r-universe.dev&#39;,
+#                          CRAN = &#39;https://cloud.r-project.org&#39;))
 
 
 # install.packages(c(&quot;rnaturalearthhires&quot;, &quot;rnaturalearthdata&quot;),
 #                 repos = c(ropensci = &#39;https://ropensci.r-universe.dev&#39;,  
-#                            CRAN = &#39;https://cloud.r-project.org&#39;))
+#                          CRAN = &#39;https://cloud.r-project.org&#39;))
 </code></pre>
 
 <p>Load the packages for use</p>
 
 <pre><code class="r">library(motus)
 library(motusData)
-library(tidyverse)
 </code></pre>
 
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.1.3
+<pre><code>## Error in library(motusData): there is no package called &#39;motusData&#39;
 </code></pre>
 
-<pre><code>## Error: package or namespace load failed for &#39;tidyverse&#39; in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-##  namespace &#39;rlang&#39; 1.0.0 is already loaded, but &gt;= 1.0.1 is required
+<pre><code class="r">library(tidyverse)
+</code></pre>
+
+<pre><code>## ── Attaching packages ────────────────────────────────── tidyverse 1.3.1 ──
+</code></pre>
+
+<pre><code>## ✓ tibble  3.1.6     ✓ dplyr   1.0.8
+## ✓ tidyr   1.2.0     ✓ stringr 1.4.0
+## ✓ readr   2.1.2     ✓ forcats 0.5.1
+## ✓ purrr   0.3.4
+</code></pre>
+
+<pre><code>## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## x lubridate::as.difftime() masks base::as.difftime()
+## x lubridate::date()        masks base::date()
+## x dplyr::filter()          masks stats::filter()
+## x lubridate::intersect()   masks base::intersect()
+## x dplyr::lag()             masks stats::lag()
+## x lubridate::setdiff()     masks base::setdiff()
+## x lubridate::union()       masks base::union()
 </code></pre>
 
 <pre><code class="r">library(DBI)
@@ -264,9 +284,21 @@ library(lubridate)
 library(rnaturalearth)
 </code></pre>
 
+<pre><code>## Error in library(rnaturalearth): there is no package called &#39;rnaturalearth&#39;
+</code></pre>
+
 <p>Set the system environment time to &ldquo;UTC&rdquo;</p>
 
-<pre><code class="r">Sys.setenv(TZ = &quot;UTC&quot;)
+<pre><code class="r">Sys
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Sys&#39; not found
+</code></pre>
+
+<pre><code class="r">.setenv(TZ = &quot;UTC&quot;)
+</code></pre>
+
+<pre><code>## Error in .setenv(TZ = &quot;UTC&quot;): could not find function &quot;.setenv&quot;
 </code></pre>
 
 <p><strong>Q1</strong> What time zone is UTC?</p>
@@ -301,7 +333,16 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
                    dir = &quot;../motus&quot;)
 </code></pre>
 
-<pre><code>## Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]): namespace &#39;rlang&#39; 1.0.0 is already loaded, but &gt;= 1.0.1 is required
+<pre><code>## Please enter a value for login name at motus.org
+## ==&gt;
+</code></pre>
+
+<pre><code>## Please enter a value for password at motus.org
+## ==&gt;
+</code></pre>
+
+<pre><code>## Error: Login failed with error message
+## &#39;Server returned error &#39;Authentication failed : Authentication token was absent, invalid or expired.&#39;&#39;
 </code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
@@ -315,9 +356,8 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
                    dir = &quot;../motus&quot;)
 </code></pre>
 
-<pre><code>## Error: Database ../motus/project-176.motus does not exist.
-## If you *really* want to create a new database, specify &#39;new=TRUE&#39;
-## But maybe you just need to specify &#39;dir=&#39; to tell me where to find it?
+<pre><code>## Error: Login failed with error message
+## &#39;Server returned error &#39;Authentication failed : Authentication token was absent, invalid or expired.&#39;&#39;
 </code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
@@ -332,16 +372,12 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">file.name &lt;- dbConnect(SQLite(), &quot;../motus/project-176.motus&quot;)
 </code></pre>
 
-<pre><code>## Error: Could not connect to database:
-## unable to open database file
-</code></pre>
-
 <p>Get a list of tables that were downloaded</p>
 
 <pre><code class="r">dbListTables(file.name)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListTables&#39;: object &#39;file.name&#39; not found
+<pre><code>## character(0)
 </code></pre>
 
 <p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
@@ -355,7 +391,7 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">dbListFields(file.name, &quot;species&quot;) 
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+<pre><code>## Error: no such table: species
 </code></pre>
 
 <p><strong>Q4</strong> How many fields are in the &ldquo;species&rdquo; table?</p>
@@ -369,7 +405,7 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltags&quot;)
 </code></pre>
 
-<pre><code>## Error in tbl(sql.motus, &quot;alltags&quot;): could not find function &quot;tbl&quot;
+<pre><code>## Error in tbl(sql.motus, &quot;alltags&quot;): object &#39;sql.motus&#39; not found
 </code></pre>
 
 <p>This is in a different format (list) than we are used to (data.frames). We can 
@@ -397,7 +433,7 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
   names()
 </code></pre>
 
-<pre><code>## Error in collect(.): could not find function &quot;collect&quot;
+<pre><code>## Error in collect(.): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <p><strong>Q5</strong> Compare this list to the one made when we just look at the field 
@@ -410,7 +446,7 @@ names directly (below). Which way was faster to process (if you can tell)?</p>
 <pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+<pre><code>## Error: no such table: alltags
 </code></pre>
 
 <p>Now, let&#39;s convert that to a &ldquo;flat&rdquo; data.frame so that we can start exploring 
@@ -422,7 +458,7 @@ where these birds were detected!</p>
   mutate(time = as_datetime(ts))
 </code></pre>
 
-<pre><code>## Error in mutate(., time = as_datetime(ts)): could not find function &quot;mutate&quot;
+<pre><code>## Error in collect(.): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <p>Again, another way to see the column names:</p>
@@ -449,7 +485,7 @@ tag IDs are the IDs that each individual bird has)</p>
   mutate(time = as_datetime(ts))  
 </code></pre>
 
-<pre><code>## Error in mutate(., time = as_datetime(ts)): could not find function &quot;mutate&quot;
+<pre><code>## Error in filter(., motusTagID %in% c(16011, 23316)): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <pre><code class="r">table(df.alltagsSub$motusTagID)
@@ -475,7 +511,7 @@ ambiguous or not biologically sensical.</p>
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltagsGPS&quot;)
 </code></pre>
 
-<pre><code>## Error in tbl(sql.motus, &quot;alltagsGPS&quot;): could not find function &quot;tbl&quot;
+<pre><code>## Error in tbl(sql.motus, &quot;alltagsGPS&quot;): object &#39;sql.motus&#39; not found
 </code></pre>
 
 <pre><code class="r"># obtain a table object of the filter
@@ -497,7 +533,7 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
                                   recvDeployName))
 </code></pre>
 
-<pre><code>## Error in mutate(., time = as_datetime(ts), tagDeployStart = as_datetime(tagDeployStart), : could not find function &quot;mutate&quot;
+<pre><code>## Error in filter(., motusFilter == 1): object &#39;tbl.alltags&#39; not found
 </code></pre>
 
 <p>Ok, now we can make some graphs and maps!</p>
@@ -515,7 +551,7 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
   distinct()
 </code></pre>
 
-<pre><code>## Error in distinct(.): could not find function &quot;distinct&quot;
+<pre><code>## Error in mutate(., hour = lubridate::hour(time), year = lubridate::year(time), : object &#39;df.alltags.sub&#39; not found
 </code></pre>
 
 <p>Then graph it!</p>
@@ -528,7 +564,7 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
   scale_colour_discrete(name = &quot;Species&quot;)
 </code></pre>
 
-<pre><code>## Error in as.ts(x): object &#39;df.alltags.sub.2&#39; not found
+<pre><code>## Error in filter(df.alltags.sub.2, year(tagDeployStart) == 2016): object &#39;df.alltags.sub.2&#39; not found
 </code></pre>
 
 <p><strong>Q8</strong> Which two species of bird seem to be active only in the mornings and nights and 
@@ -556,7 +592,7 @@ fun.getpath &lt;- function(df) {
 df.alltags.path &lt;- fun.getpath(df.alltags.sub)
 </code></pre>
 
-<pre><code>## Error in arrange(., motusTagID, time): could not find function &quot;arrange&quot;
+<pre><code>## Error in filter(., tagProjID == 176, !is.na(recvDeployLat) | !(recvDeployLat == : object &#39;df.alltags.sub&#39; not found
 </code></pre>
 
 <p>Subset the cleaned data</p>
@@ -569,20 +605,25 @@ df.alltags.path &lt;- fun.getpath(df.alltags.sub)
            tagDepLon, tagDepLat, recvDeployLat, recvDeployLon)
 </code></pre>
 
-<pre><code>## Error in group_by(., motusTagID, date, recvDeployName, ambigID, tagDepLon, : could not find function &quot;group_by&quot;
+<pre><code>## Error in filter(., tagProjID == 176): object &#39;df.alltags.sub&#39; not found
 </code></pre>
 
 <pre><code class="r"># Final data ready for plotting
 df.alltags.path &lt;- fun.getpath(df.alltags.sub.path)
 </code></pre>
 
-<pre><code>## Error in arrange(., motusTagID, time): could not find function &quot;arrange&quot;
+<pre><code>## Error in filter(., tagProjID == 176, !is.na(recvDeployLat) | !(recvDeployLat == : object &#39;df.alltags.sub.path&#39; not found
 </code></pre>
 
 <p>Load some shapefiles to map</p>
 
 <pre><code class="r">world &lt;- ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;) 
-# Run these two lines for the first time, then the subsequent lines every time after
+</code></pre>
+
+<pre><code>## Error in ne_countries(scale = &quot;medium&quot;, returnclass = &quot;sf&quot;): could not find function &quot;ne_countries&quot;
+</code></pre>
+
+<pre><code class="r"># Run these two lines for the first time, then the subsequent lines every time after
 # lakes &lt;- ne_download(scale = &quot;medium&quot;, type = &#39;lakes&#39;, category = &#39;physical&#39;,
 #                               returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
 lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &#39;physical&#39;,
@@ -590,7 +631,7 @@ lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, catego
                  destdir = &quot;map-data&quot;) # use this if already downloaded shapefiles
 </code></pre>
 
-<pre><code>## Error in loadNamespace(x): there is no package called &#39;rgdal&#39;
+<pre><code>## Error in ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &quot;physical&quot;, : could not find function &quot;ne_load&quot;
 </code></pre>
 
 <p>We will just use the tags that have been examined carefully and filtered </p>
@@ -601,7 +642,7 @@ lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, catego
   as.data.frame()
 </code></pre>
 
-<pre><code>## Error in arrange(., time): could not find function &quot;arrange&quot;
+<pre><code>## Error in filter(., motusTagID %in% c(16011, 16035, 16036, 16037, 16038, : object &#39;df.alltags.path&#39; not found
 </code></pre>
 
 <p>Set limits to map based on locations of detections, ensuring they include the
@@ -655,7 +696,7 @@ deployment locations</p>
   scale_colour_discrete(&quot;motusTagID&quot;) 
 </code></pre>
 
-<pre><code>## Error in fortify(data): object &#39;lakes&#39; not found
+<pre><code>## Error in ggplot(data = world): object &#39;world&#39; not found
 </code></pre>
 
 <p><strong>Q10</strong> Duplicate the map below (two maps in final html), but change these items:</p>
@@ -670,7 +711,7 @@ deployment locations</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;HannahHelmbrecht/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;HannahHelmbrecht/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Evan/programs/20220316_Motus_lab.R&rdquo;,out_dir = &ldquo;Evan/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
