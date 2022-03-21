@@ -344,7 +344,7 @@ geom_sf(colour = NA) +
   scale_colour_discrete("motusTagID") 
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
-#' 
+#' hopefully i didnt mess things up
 
 #' _____________________________________________________________________________
 #' 
