@@ -310,7 +310,8 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: to zoom out the map, the minimum would lower and the maximum would
+#' be changed to higher. This would make the map larger. 
 #' 
 
 #' 
@@ -332,7 +333,20 @@ ggplot(data = world) +
   scale_colour_discrete("motusTagID") 
 
 #' **Q10** Duplicate the map below (two maps in final html), but change these items:
-#' 
+ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "longitude", y = "latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
 #' 
