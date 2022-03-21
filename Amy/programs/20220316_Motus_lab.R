@@ -117,7 +117,7 @@ dbListTables(Motus)
 
 #' Get a list of fields (column names) in the table "species"
 #' 
-dbListFields(file.name, "species") 
+dbListFields(Motus, "species") 
 
 #' **Q4** How many fields are in the "species" table?
 #' 
@@ -159,7 +159,7 @@ tbl.alltags %>%
 #' 
 #' > Answer: The second one was easier to understand and faster from what it seems.
 #' 
-dbListFields(file.name, "alltags")
+dbListFields(Motus), "alltags")
 
 #' Now, let's convert that to a "flat" data.frame so that we can start exploring 
 #' where these birds were detected!
@@ -248,7 +248,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: Red knott, and American Woodcock
 #' 
 #' 
 
@@ -307,7 +307,8 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: You would change the max to something larger and min to something
+#' smaller
 #' 
 
 #' 
@@ -330,6 +331,21 @@ ggplot(data = world) +
 
 #' **Q10** Duplicate the map below (two maps in final html), but change these items:
 #' 
+ggplot(data = world) + 
+geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "longitude", y = "latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID")
+
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
 #' 
