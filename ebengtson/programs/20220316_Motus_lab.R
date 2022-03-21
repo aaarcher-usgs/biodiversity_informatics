@@ -189,7 +189,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 127  5734 
+#' > Answer: 127,  5734 
 #' 
  
 
@@ -247,7 +247,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: american woodcock, red knott
 #' 
 #' 
 
