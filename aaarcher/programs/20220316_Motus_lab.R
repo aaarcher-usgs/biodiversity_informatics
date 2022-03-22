@@ -122,7 +122,8 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 
+#' > Answer: 6 fields. ID, english, french, scientific, group, and sort.
+#'
 #' 
 
 
@@ -157,7 +158,8 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: The second of the two seems to be faster and easier to comprehend 
+#' than the first one that was created.
 #' 
 dbListFields(file.name, "alltags")
 

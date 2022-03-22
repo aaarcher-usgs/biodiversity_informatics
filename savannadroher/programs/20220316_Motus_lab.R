@@ -13,7 +13,8 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, I performed several functions and codes to explore more 
+#' about the motus database and discover more about the birds with in it.
 #' 
 #' 
 #' ### Header
@@ -36,14 +37,14 @@ set.seed(71587)
 # library(remotes)
 # update_packages()
 
-install.packages(c("motus", "motusData"), 
-                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                            CRAN = 'https://cloud.r-project.org'))
+#'install.packages(c("motus", "motusData"), 
+#'                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#'                            CRAN = 'https://cloud.r-project.org'))
 
 # 
- install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
+ #'install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+#'                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#'                            CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -60,11 +61,12 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: 
+#' > Answer: 0
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: 
+#' > Answer: It is the standard time used and all other time zones are +/- so 
+#' many hours to the UTC time zone. 
 #' 
 
 #' _____________________________________________________________________________
@@ -80,13 +82,14 @@ proj.num <- 176
 
 #' Download the data
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = "../motus")
+#'sql.motus <- tagme(projRecv = proj.num, 
+#'                   new = TRUE, 
+#'                   update = TRUE,
+#'                  dir = "../motus")
+
 # Log in name and password are: motus.sample
 
-#' **Important** After first download, comment out the code above and use this:
+#' **Important** After first download, comment out (put hashtag back in)the code above and use this:
 #' 
 sql.motus <- tagme(projRecv = proj.num, 
                    new = FALSE, 
@@ -106,9 +109,12 @@ file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
 #' 
 dbListTables(file.name)
 
+
 #' **Q3** What type of information is in the "projs" table?
+#' dbListTables(file.name, "projs")
 #' 
-#' > Answer: 
+#' > Answer: The information in this table includes things such as activity,
+#' tags, batches, and gps. 
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -117,7 +123,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 
+#' > Answer: 6
 #' 
 
 
@@ -152,7 +158,8 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: The second file was extremely faster than the other to process. So
+#' fast I could hardly tell anything happened. 
 #' 
 dbListFields(file.name, "alltags")
 
@@ -170,7 +177,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: 188,354
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -185,7 +192,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: 39,363
 #' 
  
 
@@ -243,7 +250,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: American Woodcock and an individual Red Knot 
 #' 
 #' 
 
@@ -278,9 +285,9 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 
 #' Load some shapefiles to map
 world <- ne_countries(scale = "medium", returnclass = "sf") 
-# Run these two lines for the first time, then the subsequent lines every time after
-# lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                               returnclass = "sf", destdir = "map-data")
+#Run these two lines for the first time, then the subsequent lines every time after
+#lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
+#                            returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
                  destdir = "map-data") # use this if already downloaded shapefiles
@@ -302,18 +309,37 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: Change all min and max values to be smaller. To see a significant
+#' difference in zoom the values would be negative
 #' 
 
 #' 
 #' And now we can map the detections!
 #+ motusMap
+
+
 ggplot(data = world) + 
   geom_sf(colour = NA) +
   geom_sf(data = lakes, colour = NA, fill = "white") +
   coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
   theme_bw() + 
   labs(x = "", y = "") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
+
+
+ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "Longitude", y = "Latitude") +
   geom_path(data = df.tmp, 
             aes(x = recvDeployLon, y = recvDeployLat, 
                 group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
