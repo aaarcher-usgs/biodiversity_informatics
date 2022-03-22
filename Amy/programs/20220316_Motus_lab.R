@@ -159,7 +159,7 @@ tbl.alltags %>%
 #' 
 #' > Answer: The second one was easier to understand and faster 
 #' 
-dbListFields(Motus), "alltags")
+dbListFields(Motus, "alltags")
 
 #' Now, let's convert that to a "flat" data.frame so that we can start exploring 
 #' where these birds were detected!
