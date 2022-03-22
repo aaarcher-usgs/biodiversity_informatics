@@ -90,10 +90,10 @@ sql.motus <- tagme(projRecv = proj.num,
 
 #' **Important** After first download, comment out the code above and use this:
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = FALSE, 
-                   update = TRUE,
-                   dir = "../motus")
+#'sql.motus <- tagme(projRecv = proj.num, 
+#'                   new = FALSE, 
+#'                  update = TRUE,
+#'                 dir = "../motus")
 # Log in name and password are: motus.sample
 
 
@@ -157,7 +157,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: The second one was easier to understand and faster from what it seems.
+#' > Answer: The second one was easier to understand and faster 
 #' 
 dbListFields(Motus), "alltags")
 
