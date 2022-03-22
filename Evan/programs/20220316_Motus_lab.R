@@ -56,16 +56,15 @@ library(rnaturalearth)
 
 #' Set the system environment time to "UTC"
 #' 
-Sys
-.setenv(TZ = "UTC")
+Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: 
+#' > Answer: UTC is Universal Time Coordinated
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: 
+#' > Answer: As its name suggests, it is a universal time that is used
 #' 
 
 #' _____________________________________________________________________________
@@ -81,10 +80,7 @@ proj.num <- 176
 
 #' Download the data
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = "../motus")
+
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -109,7 +105,7 @@ dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: 
+#' > Answer: Names and IDs!
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -118,7 +114,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 
+#' > Answer: 6 fields!
 #' 
 
 
@@ -153,7 +149,8 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: The first way in my opinion might have been faster, since all you
+#' are required to do is list the names of the fields.
 #' 
 dbListFields(file.name, "alltags")
 
@@ -171,7 +168,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: it says 188354 observations!
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -186,7 +183,8 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: There are 5861 total observations. For bird tag 16011, there are 
+#' 127 and for bird tagged 23316, there are 5734!
 #' 
  
 
@@ -203,7 +201,7 @@ tbl.alltags <- tbl(sql.motus, "alltagsGPS")
 # obtain a table object of the filter
 
 
-# filter and convert the table into a dataframe, with a few modications
+# filter and convert the table into a dataframe, with a few modifications
 df.alltags.sub <- tbl.alltags %>% 
   filter(motusFilter == 1) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, 
@@ -244,7 +242,12 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: The American Woodcock has a few markings in the early hours, and the 
+#' Red Knot (though somewhat confusing) has a few markings in the morning as well.
+#' It appears to also have other tags where they are active all other times of the day,
+#' however it is not fair to say either the Pectoral Sandpiper and Semipalmated Plover are
+#' active only in the mornings. 
+#' 
 #' 
 #' 
 
@@ -280,8 +283,8 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 #' Load some shapefiles to map
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
-# lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                               returnclass = "sf", destdir = "map-data")
+lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
+                             returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
                  destdir = "map-data") # use this if already downloaded shapefiles
