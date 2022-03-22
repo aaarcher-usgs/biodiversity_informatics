@@ -92,7 +92,7 @@ sql.motus <- tagme(projRecv = proj.num,
 #' 
 #'sql.motus <- tagme(projRecv = proj.num, 
 #'                   new = FALSE, 
-#'                  update = TRUE,
+#'                   update = TRUE,
 #'                 dir = "../motus")
 # Log in name and password are: motus.sample
 
