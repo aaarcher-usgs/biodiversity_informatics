@@ -151,11 +151,6 @@ dbListFields(file.name, "species")
 > Answer: 6
 
 
-```{r }
-#[1] "id"         "english"    "french"     "scientific" "group"      "sort"  
-```
-
-
 Retrieve the virtual "alltags" table from the SQLite file
 
 
@@ -238,7 +233,7 @@ table(df.alltagsSub$motusTagID)
 
 **Q7** How many records are associated with each of the two tags?
 
-> Answer: 16011 has 127 records. 23316 has 5734 records
+> Answer: tag:16011 has 127 records. tag 23316 has 5734
 
 _____________________________________________________________________________
 
