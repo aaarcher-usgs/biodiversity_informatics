@@ -387,9 +387,6 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <p>Answer: 6</p>
 </blockquote>
 
-<pre><code class="r">#[1] &quot;id&quot;         &quot;english&quot;    &quot;french&quot;     &quot;scientific&quot; &quot;group&quot;      &quot;sort&quot;  
-</code></pre>
-
 <p>Retrieve the virtual &ldquo;alltags&rdquo; table from the SQLite file</p>
 
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltags&quot;)
@@ -409,10 +406,10 @@ use str() to see what this different format contains:</p>
 ##   .. .. ..@ loadable.extensions: logi TRUE
 ##   .. .. ..@ flags              : int 70
 ##   .. .. ..@ vfs                : chr &quot;&quot;
-##   .. .. ..@ ref                :&lt;environment: 0x5b2c5fd14218&gt; 
+##   .. .. ..@ ref                :&lt;environment: 0x5afa59931160&gt; 
 ##   .. .. ..@ bigint             : chr &quot;integer64&quot;
 ##   .. .. ..@ extended_types     : logi FALSE
-##   ..$ disco:&lt;environment: 0x5b2c5fabbf18&gt; 
+##   ..$ disco:&lt;environment: 0x5afa444fd520&gt; 
 ##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
 ##  $ ops:List of 2
 ##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
@@ -540,7 +537,7 @@ table(df.alltagsSub$motusTagID)
 <p><strong>Q7</strong> How many records are associated with each of the two tags?</p>
 
 <blockquote>
-<p>Answer: 16011 has 127 records. 23316 has 5734 records</p>
+<p>Answer: tag:16011 has 127 records. tag 23316 has 5734</p>
 </blockquote>
 
 <hr/>
