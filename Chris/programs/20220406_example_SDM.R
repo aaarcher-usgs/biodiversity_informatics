@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Sydney
+#' Programmer: Chris Krueth
 #' 
 #' ### Header
 #' 
@@ -17,8 +17,6 @@ library(sdmpredictors)
 library(fuzzySim)
 library(sdm)
 library(raster)
-
-library(ezknitr)
 
 remove(list = ls())
 
@@ -133,7 +131,7 @@ unique(pred_layers$dataset_code)
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$name)  
 # example of marine variables dataset
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)  
- 
+
 #' 
 #' Let's choose one dataset (e.g. WorldClim) and 
 #' one particular set of variables 
@@ -292,7 +290,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='Sydney/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='Chris/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -303,4 +301,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Sydney/programs/20220406_example_SDM.R",out_dir = "Sydney/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Chris/programs/20220406_example_SDM.R",out_dir = "Chris/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
