@@ -17,6 +17,7 @@ library(sdmpredictors)
 library(fuzzySim)
 library(sdm)
 library(raster)
+
 library(ezknitr)
 
 remove(list = ls())
@@ -132,7 +133,7 @@ unique(pred_layers$dataset_code)
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$name)  
 # example of marine variables dataset
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)  
-
+ 
 #' 
 #' Let's choose one dataset (e.g. WorldClim) and 
 #' one particular set of variables 
