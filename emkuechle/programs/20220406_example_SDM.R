@@ -86,7 +86,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
 remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
                                    complete.cases(presences)]
-length(remove.IDs) # how many to remove? How many should be left?
+length(remove.IDs) # how many to remove? How many should be left? A: 3332
 
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
@@ -301,4 +301,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "emkuechle/programs/20220406_example_SDM.R",out_dir = "emkuechle/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
