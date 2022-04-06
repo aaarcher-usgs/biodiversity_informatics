@@ -35,14 +35,12 @@ set.seed(71587)
 # install.packages("remotes")
 # library(remotes)
 # update_packages()
-
-# install.packages(c("motus", "motusData"), 
+# install.packages(c("motus", "motusData"),
 #                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
 #                            CRAN = 'https://cloud.r-project.org'))
-
 # 
 # install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',
 #                            CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
@@ -80,10 +78,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = "../motus")
+#sql.motus <- tagme(projRecv = proj.num, 
+#                   new = TRUE, 
+#                   update = TRUE,
+#                   dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
