@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Emma Kuechle 
 #' 
 #' ### Header
 #' 
