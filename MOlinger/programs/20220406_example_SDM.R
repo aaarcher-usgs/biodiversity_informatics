@@ -4,13 +4,13 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Nicole Gruwell and Emma Kuechle 
+#' Programmer: Mason
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -144,7 +144,7 @@ layers_choice
 
 
 #' Define folder for downloading the map layers:
-options(sdmpredictors_datadir = "../outputs/sdmpredictors")
+options(sdmpredictors_datadir = "../outputs/sdmpredictors/")
 
 #' load the layers to the current R session 
 #' (downloading them if they aren't already in the folder defined above):
@@ -290,7 +290,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='NGruwell/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='MOlinger/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -301,4 +301,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "NGruwell/programs/20220406_example_SDM.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "MOlinger/programs/20220406_example_SDM.R",out_dir = "MOlinger/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
