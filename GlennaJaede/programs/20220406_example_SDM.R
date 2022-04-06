@@ -10,7 +10,7 @@
 #' 
 #' 
 # Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
