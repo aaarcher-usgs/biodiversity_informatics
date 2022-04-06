@@ -6,7 +6,7 @@
 #' 
 #' Programmer: Taylor Bergherr
 #' 
-#' ### Header
+#' ### In this program
 #' 
 #' 
 # Load Libraries
