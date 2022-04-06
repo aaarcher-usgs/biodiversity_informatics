@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Emma Kuechle 
+#' Programmer: Nicole Gruwell 
 #' 
 #' ### Header
 #' 
