@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Emma Kuechle 
+#' Programmer: Chris Krueth
 #' 
 #' ### Header
 #' 
@@ -86,7 +86,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
 remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
                                    complete.cases(presences)]
-length(remove.IDs) # how many to remove? How many should be left? A: 3332
+length(remove.IDs) # how many to remove? How many should be left?
 
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
@@ -290,7 +290,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='Chris/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -301,4 +301,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "emkuechle/programs/20220406_example_SDM.R",out_dir = "emkuechle/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Chris/programs/20220406_example_SDM.R",out_dir = "Chris/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
