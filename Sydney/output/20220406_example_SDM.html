@@ -220,6 +220,8 @@ library(fuzzySim)
 library(sdm)
 library(raster)
 
+library(ezknitr)
+
 remove(list = ls())
 </code></pre>
 
@@ -246,28 +248,28 @@ remove(list = ls())
 
 <pre><code>## Records found [3350] 
 ## Records returned [3350] 
-## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea
-##      blandingii] 
+## Args [hasCoordinate=TRUE, limit=20000, offset=0,
+##      scientificName=Emydoidea blandingii] 
 ## # A tibble: 3,350 × 142
-##    key        scientificName      decimalLatitude decimalLongitude issues datasetKey
-##    &lt;chr&gt;      &lt;chr&gt;                         &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     
-##  1 3747173794 Emydoidea blanding…            41.6            -83.2 cdrou… 50c9509d-…
-##  2 3059016268 Emydoidea blanding…            41.8            -83.1 cdrou… 50c9509d-…
-##  3 3067885721 Emydoidea blanding…            42.8            -84.4 cdrou… 50c9509d-…
-##  4 3068028225 Emydoidea blanding…            43.1            -80.7 cdrou… 50c9509d-…
-##  5 3068070749 Emydoidea blanding…            42.5            -71.3 cdrou… 50c9509d-…
-##  6 3068096788 Emydoidea blanding…            42.6            -84.4 cdrou… 50c9509d-…
-##  7 3068129441 Emydoidea blanding…            43.4            -89.8 cdrou… 50c9509d-…
-##  8 3070362510 Emydoidea blanding…            42.8            -84.5 cdrou… 50c9509d-…
-##  9 3070380118 Emydoidea blanding…            44.4            -65.1 cdrou… 50c9509d-…
-## 10 3070397669 Emydoidea blanding…            44.0            -77.3 cdrou… 50c9509d-…
-## # … with 3,340 more rows, and 136 more variables: publishingOrgKey &lt;chr&gt;,
-## #   installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;,
-## #   lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
-## #   hostingOrganizationKey &lt;chr&gt;, basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;,
-## #   taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;,
-## #   orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;,
-## #   acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, …
+##    key        scientificName  decimalLatitude decimalLongitude issues
+##    &lt;chr&gt;      &lt;chr&gt;                     &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt; 
+##  1 3747173794 Emydoidea blan…            41.6            -83.2 cdrou…
+##  2 3059016268 Emydoidea blan…            41.8            -83.1 cdrou…
+##  3 3067885721 Emydoidea blan…            42.8            -84.4 cdrou…
+##  4 3068028225 Emydoidea blan…            43.1            -80.7 cdrou…
+##  5 3068070749 Emydoidea blan…            42.5            -71.3 cdrou…
+##  6 3068096788 Emydoidea blan…            42.6            -84.4 cdrou…
+##  7 3068129441 Emydoidea blan…            43.4            -89.8 cdrou…
+##  8 3070362510 Emydoidea blan…            42.8            -84.5 cdrou…
+##  9 3070380118 Emydoidea blan…            44.4            -65.1 cdrou…
+## 10 3070397669 Emydoidea blan…            44.0            -77.3 cdrou…
+## # … with 3,340 more rows, and 137 more variables: datasetKey &lt;chr&gt;,
+## #   publishingOrgKey &lt;chr&gt;, installationKey &lt;chr&gt;,
+## #   publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;,
+## #   lastParsed &lt;chr&gt;, crawlId &lt;int&gt;, hostingOrganizationKey &lt;chr&gt;,
+## #   basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;,
+## #   kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;,
+## #   orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, …
 </code></pre>
 
 <p>Citations for data. Run this once, only after analysis so that you 
@@ -353,22 +355,22 @@ length(remove.IDs) # how many to remove? How many should be left?
 summary(presences)
 </code></pre>
 
-<pre><code>##      key            decimalLongitude  decimalLatitude coordinateUncertaintyInMeters
-##  Length:3332        Min.   :-101.91   Min.   :33.52   Min.   :   10                
-##  Class :character   1st Qu.: -83.53   1st Qu.:42.60   1st Qu.:27190                
-##  Mode  :character   Median : -79.43   Median :44.43   Median :27285                
-##                     Mean   : -80.61   Mean   :43.99   Mean   :25667                
-##                     3rd Qu.: -76.55   3rd Qu.:45.03   3rd Qu.:27537                
-##                     Max.   : -63.76   Max.   :48.85   Max.   :70000                
-##                                                       NA&#39;s   :329                  
-##     uniqueID     
-##  Min.   :   1.0  
-##  1st Qu.: 835.8  
-##  Median :1670.5  
-##  Mean   :1672.6  
-##  3rd Qu.:2510.2  
-##  Max.   :3350.0  
-## 
+<pre><code>##      key            decimalLongitude  decimalLatitude
+##  Length:3332        Min.   :-101.91   Min.   :33.52  
+##  Class :character   1st Qu.: -83.53   1st Qu.:42.60  
+##  Mode  :character   Median : -79.43   Median :44.43  
+##                     Mean   : -80.61   Mean   :43.99  
+##                     3rd Qu.: -76.55   3rd Qu.:45.03  
+##                     Max.   : -63.76   Max.   :48.85  
+##                                                      
+##  coordinateUncertaintyInMeters    uniqueID     
+##  Min.   :   10                 Min.   :   1.0  
+##  1st Qu.:27190                 1st Qu.: 835.8  
+##  Median :27285                 Median :1670.5  
+##  Mean   :25667                 Mean   :1672.6  
+##  3rd Qu.:27537                 3rd Qu.:2510.2  
+##  Max.   :70000                 Max.   :3350.0  
+##  NA&#39;s   :329
 </code></pre>
 
 <pre><code class="r"># map the cleaned occurrence records on top of the raw ones:
@@ -435,40 +437,74 @@ unique(pred_layers$dataset_code)
 unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, ]$name)  
 </code></pre>
 
-<pre><code>##  [1] &quot;Altitude&quot;                            &quot;Annual mean temperature&quot;            
-##  [3] &quot;Mean diurnal temperature range&quot;      &quot;Isothermality&quot;                      
-##  [5] &quot;Temperature seasonality&quot;             &quot;Maximum temperature&quot;                
-##  [7] &quot;Minimum temperature&quot;                 &quot;Annual temperature range&quot;           
-##  [9] &quot;Mean temperature of wettest quarter&quot; &quot;Mean temperature of driest quarter&quot; 
-## [11] &quot;Mean temperature of warmest quarter&quot; &quot;Mean temperature of coldest quarter&quot;
-## [13] &quot;Annual precipitation&quot;                &quot;Precipitation of wettest month&quot;     
-## [15] &quot;Precipitation of driest month&quot;       &quot;Precipitation seasonality&quot;          
-## [17] &quot;Precipitation of wettest quarter&quot;    &quot;Precipitation of driest quarter&quot;    
-## [19] &quot;Precipitation of warmest quarter&quot;    &quot;Precipitation of coldest quarter&quot;   
-## [21] &quot;Precipitation (January)&quot;             &quot;Precipitation (February)&quot;           
-## [23] &quot;Precipitation (March)&quot;               &quot;Precipitation (April)&quot;              
-## [25] &quot;Precipitation (May)&quot;                 &quot;Precipitation (June)&quot;               
-## [27] &quot;Precipitation (July)&quot;                &quot;Precipitation (August)&quot;             
-## [29] &quot;Precipitation (September)&quot;           &quot;Precipitation (October)&quot;            
-## [31] &quot;Precipitation (November)&quot;            &quot;Precipitation (December)&quot;           
-## [33] &quot;Maximum temperature (January)&quot;       &quot;Maximum temperature (February)&quot;     
-## [35] &quot;Maximum temperature (March)&quot;         &quot;Maximum temperature (April)&quot;        
-## [37] &quot;Maximum temperature (May)&quot;           &quot;Maximum temperature (June)&quot;         
-## [39] &quot;Maximum temperature (July)&quot;          &quot;Maximum temperature (August)&quot;       
-## [41] &quot;Maximum temperature (September)&quot;     &quot;Maximum temperature (October)&quot;      
-## [43] &quot;Maximum temperature (November)&quot;      &quot;Maximum temperature (December)&quot;     
-## [45] &quot;Mean temperature (January)&quot;          &quot;Mean temperature (February)&quot;        
-## [47] &quot;Mean temperature (March)&quot;            &quot;Mean temperature (April)&quot;           
-## [49] &quot;Mean temperature (May)&quot;              &quot;Mean temperature (June)&quot;            
-## [51] &quot;Mean temperature (July)&quot;             &quot;Mean temperature (August)&quot;          
-## [53] &quot;Mean temperature (September)&quot;        &quot;Mean temperature (October)&quot;         
-## [55] &quot;Mean temperature (November)&quot;         &quot;Mean temperature (December)&quot;        
-## [57] &quot;Minimum temperature (January)&quot;       &quot;Minimum temperature (February)&quot;     
-## [59] &quot;Minimum temperature (March)&quot;         &quot;Minimum temperature (April)&quot;        
-## [61] &quot;Minimum temperature (May)&quot;           &quot;Minimum temperature (June)&quot;         
-## [63] &quot;Minimum temperature (July)&quot;          &quot;Minimum temperature (August)&quot;       
-## [65] &quot;Minimum temperature (September)&quot;     &quot;Minimum temperature (October)&quot;      
-## [67] &quot;Minimum temperature (November)&quot;      &quot;Minimum temperature (December)&quot;
+<pre><code>##  [1] &quot;Altitude&quot;                           
+##  [2] &quot;Annual mean temperature&quot;            
+##  [3] &quot;Mean diurnal temperature range&quot;     
+##  [4] &quot;Isothermality&quot;                      
+##  [5] &quot;Temperature seasonality&quot;            
+##  [6] &quot;Maximum temperature&quot;                
+##  [7] &quot;Minimum temperature&quot;                
+##  [8] &quot;Annual temperature range&quot;           
+##  [9] &quot;Mean temperature of wettest quarter&quot;
+## [10] &quot;Mean temperature of driest quarter&quot; 
+## [11] &quot;Mean temperature of warmest quarter&quot;
+## [12] &quot;Mean temperature of coldest quarter&quot;
+## [13] &quot;Annual precipitation&quot;               
+## [14] &quot;Precipitation of wettest month&quot;     
+## [15] &quot;Precipitation of driest month&quot;      
+## [16] &quot;Precipitation seasonality&quot;          
+## [17] &quot;Precipitation of wettest quarter&quot;   
+## [18] &quot;Precipitation of driest quarter&quot;    
+## [19] &quot;Precipitation of warmest quarter&quot;   
+## [20] &quot;Precipitation of coldest quarter&quot;   
+## [21] &quot;Precipitation (January)&quot;            
+## [22] &quot;Precipitation (February)&quot;           
+## [23] &quot;Precipitation (March)&quot;              
+## [24] &quot;Precipitation (April)&quot;              
+## [25] &quot;Precipitation (May)&quot;                
+## [26] &quot;Precipitation (June)&quot;               
+## [27] &quot;Precipitation (July)&quot;               
+## [28] &quot;Precipitation (August)&quot;             
+## [29] &quot;Precipitation (September)&quot;          
+## [30] &quot;Precipitation (October)&quot;            
+## [31] &quot;Precipitation (November)&quot;           
+## [32] &quot;Precipitation (December)&quot;           
+## [33] &quot;Maximum temperature (January)&quot;      
+## [34] &quot;Maximum temperature (February)&quot;     
+## [35] &quot;Maximum temperature (March)&quot;        
+## [36] &quot;Maximum temperature (April)&quot;        
+## [37] &quot;Maximum temperature (May)&quot;          
+## [38] &quot;Maximum temperature (June)&quot;         
+## [39] &quot;Maximum temperature (July)&quot;         
+## [40] &quot;Maximum temperature (August)&quot;       
+## [41] &quot;Maximum temperature (September)&quot;    
+## [42] &quot;Maximum temperature (October)&quot;      
+## [43] &quot;Maximum temperature (November)&quot;     
+## [44] &quot;Maximum temperature (December)&quot;     
+## [45] &quot;Mean temperature (January)&quot;         
+## [46] &quot;Mean temperature (February)&quot;        
+## [47] &quot;Mean temperature (March)&quot;           
+## [48] &quot;Mean temperature (April)&quot;           
+## [49] &quot;Mean temperature (May)&quot;             
+## [50] &quot;Mean temperature (June)&quot;            
+## [51] &quot;Mean temperature (July)&quot;            
+## [52] &quot;Mean temperature (August)&quot;          
+## [53] &quot;Mean temperature (September)&quot;       
+## [54] &quot;Mean temperature (October)&quot;         
+## [55] &quot;Mean temperature (November)&quot;        
+## [56] &quot;Mean temperature (December)&quot;        
+## [57] &quot;Minimum temperature (January)&quot;      
+## [58] &quot;Minimum temperature (February)&quot;     
+## [59] &quot;Minimum temperature (March)&quot;        
+## [60] &quot;Minimum temperature (April)&quot;        
+## [61] &quot;Minimum temperature (May)&quot;          
+## [62] &quot;Minimum temperature (June)&quot;         
+## [63] &quot;Minimum temperature (July)&quot;         
+## [64] &quot;Minimum temperature (August)&quot;       
+## [65] &quot;Minimum temperature (September)&quot;    
+## [66] &quot;Minimum temperature (October)&quot;      
+## [67] &quot;Minimum temperature (November)&quot;     
+## [68] &quot;Minimum temperature (December)&quot;
 </code></pre>
 
 <pre><code class="r"># example of marine variables dataset
@@ -903,13 +939,7 @@ layers_choice
 (downloading them if they aren&#39;t already in the folder defined above):</p>
 
 <pre><code class="r">layers &lt;- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
-</code></pre>
-
-<pre><code>## Warning in normalizePath(paste0(datadir), winslash = &quot;/&quot;, mustWork = NA):
-## path[1]=&quot;../outputs/sdmpredictors&quot;: No such file or directory
-</code></pre>
-
-<pre><code class="r">layers
+layers
 </code></pre>
 
 <pre><code>## $WC_alt
@@ -1143,10 +1173,10 @@ length(layers)
 names(layers)
 </code></pre>
 
-<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot; 
-##  [7] &quot;WC_bio6&quot;  &quot;WC_bio7&quot;  &quot;WC_bio8&quot;  &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot;
-## [13] &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot; &quot;WC_bio16&quot; &quot;WC_bio17&quot;
-## [19] &quot;WC_bio18&quot; &quot;WC_bio19&quot;
+<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot; 
+##  [6] &quot;WC_bio5&quot;  &quot;WC_bio6&quot;  &quot;WC_bio7&quot;  &quot;WC_bio8&quot;  &quot;WC_bio9&quot; 
+## [11] &quot;WC_bio10&quot; &quot;WC_bio11&quot; &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot;
+## [16] &quot;WC_bio15&quot; &quot;WC_bio16&quot; &quot;WC_bio17&quot; &quot;WC_bio18&quot; &quot;WC_bio19&quot;
 </code></pre>
 
 <pre><code class="r">plot(layers[[1]], main = names(layers)[1])
@@ -1436,7 +1466,7 @@ and the presence/absence of the species):</p>
 
 <p>Prediction map</p>
 
-<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;aaarcher/output/figures/p1.img&#39;) 
+<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;Sydney/output/figures/p1.img&#39;) 
 </code></pre>
 
 <pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;object&#39; in selecting a method for function &#39;predict&#39;: object &#39;m1&#39; not found
@@ -1465,7 +1495,7 @@ and the presence/absence of the species):</p>
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;aaarcher/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;Sydney/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;Sydney/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
