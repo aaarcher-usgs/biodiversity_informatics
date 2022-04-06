@@ -1,8 +1,28 @@
+#' # Guided tour of species distribution modeling: Blanding's turtle
+#' 
+#' Biodiversity Informatics (BIOL 475/575)
+#' 
+#' April 6, 2022
+#' 
+#' Programmer: AAA
+#' 
+#' ### Header
+#' 
+#' 
+# Load Libraries
+
 library(rgbif)
 library(terra)
 library(sdmpredictors)
+library(fuzzySim)
+library(sdm)
+library(raster)
 
 remove(list = ls())
+
+#' _____________________________________________________________________________
+#' 
+#' ## 1. Download data
 #' 
 #' Scientific name of the species
 myspecies <- "Emydoidea blandingii"
@@ -22,6 +42,10 @@ gbif_data
 #' 
 # gbif_citation(gbif_data)
 
+
+#' _____________________________________________________________________________
+#' 
+#' ## 2. Explore and clean data
 #' 
 #' Map the species occurrence data:
 #'
@@ -86,14 +110,17 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
        pch = 20, 
        col = "red")
 
+#' _____________________________________________________________________________
+#' 
+#' ## 3. Download predictors data
 #' 
 #' We'll use functions in the 'sdmpredictors' package to access 
 #' different online datasets:
-pred_datasets <- list_datasets(terrestrial = TRUE, marine = TRUE)
+pred_datasets <- sdmpredictors::list_datasets(terrestrial = TRUE, marine = TRUE)
 pred_datasets$description
 
 #' 
-#' Remember to always cite the data sources!
+#' Remember to always cite the data sources! (run this line only for citing)
 # pred_datasets[,c(1,6)]
 
 #' Explore the possible data:
@@ -116,15 +143,17 @@ layers_choice <- layers_choice[1:20, ]
 layers_choice
 
 
-# define folder for downloading the map layers:
+#' Define folder for downloading the map layers:
 options(sdmpredictors_datadir = "../outputs/sdmpredictors")
-# load the layers to the current R session (downloading them if they aren't already in the folder defined above):
-layers <- load_layers(layers_choice$layer_code, rasterstack = FALSE)  # rasterstack=TRUE gives error when there are layers with different extents
+
+#' load the layers to the current R session 
+#' (downloading them if they aren't already in the folder defined above):
+layers <- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
 layers
+
 # see how many elements in 'layers':
 length(layers)
-# plot each layer:
-#sapply(layers, plot)
+
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
@@ -134,24 +163,39 @@ plot(layers[[5]], main = names(layers)[5])
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
 unique(sapply(layers, raster::extent))
-# if you get more than one extent (which doesn't happen with WorldClim, but may happen with other datasets), you'll have to crop all layers to the minimum common extent before proceeding
-# for example, if the first layer has the smallest extent:
+
+# if you get more than one extent (which doesn't happen with WorldClim, 
+# but may happen with other datasets), you'll have to crop all layers to the 
+# minimum common extent before proceeding. 
+# For example, if the first layer has the smallest extent:
 #layers <- lapply(layers, crop, extent(layers[[1]]))
 
-# once all layers have the same extent and resolution, you can stack them in a single multi-layer Raster object:
+#' Once all layers have the same extent and resolution, 
+#' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-# you can instead convert them to a SpatRaster object (of package 'terra') for faster processing:
-#layers <- terra::rast(layers)
-plot(layers)
+plot(layers[[1:4]])
 
-# select the study area, e.g. (if your species is terrestrial) using the countries where your species has occurrence points (which means it was surveyed in those countries):
-# (mind there are several other ways of delimiting the study area, e.g. using ecoregions or other biogeographic units)
-# first, convert the species occurrences to a spatial object (like when you import a delimited text file into a GIS, you need to specify which columns contain the spatial coordinates and what is the cartographic projection / coordinate reference system):
+#' _____________________________________________________________________________
+#' 
+#' ## 4. Define study area and extent of possible range
+#' 
+#' Select the study area, e.g. (if your species is terrestrial) 
+#' using the countries where your species has occurrence points 
+#' (which means it was surveyed in those countries)
+#' 
+#' Mind there are several other ways of delimiting the study area, 
+#' e.g. using ecoregions or other biogeographic units)
+#' 
+#' First, convert the species occurrences to a spatial object 
+#' (like when you import a delimited text file into a GIS, 
+#' you need to specify which columns contain the spatial coordinates and 
+#' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
                      geom = c("decimalLongitude", "decimalLatitude"), 
                      crs = "+proj=longlat")
-# then get the country polygons that contain presence points:
+
+#' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
 plot(pres_countries)
 plot(pres_spat_vect, col = "blue", add = TRUE)
@@ -162,14 +206,14 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #chosen_countries <- subset(pres_countries, pres_countries$NAME %in% c("United States of America", "Canada" ))
 #plot(chosen_countries)
 
-# alternatively or additionally to this, or if you can't select evenly surveyed countries (e.g. if you're working with marine species), you can delimit the modelling region as a buffer of a given distance -- e.g. 2 geographic degrees, or 200 km, or some estimate of the dispersal capacity of our species:
+#' Then also buffer your points with reasonable distance
 pres_buff <- terra::aggregate(terra::buffer(pres_spat_vect, width = 50000))
 plot(pres_buff, lwd = 2)
 plot(pres_spat_vect, col = "blue", add = TRUE)
 plot(countries, border = "tan", add = TRUE)
-#plot(chosen_countries, border = "green", add = TRUE)
 
-
+#' Finally, define study area as the area within buffer but also 
+#' within countries (e.g., not ocean)
 studyarea <- intersect(pres_buff, countries)
 plot(studyarea, border = "red", lwd = 3, add = TRUE)
 
@@ -181,23 +225,19 @@ studyarea <- as(studyarea, "Spatial")
 #plot(studyarea, border = "green", add = TRUE)
 
 
-# cut the variable maps with the limits of the study area:
-# layers_cut <- terra::crop(layers, studyarea)
-# plot(layers_cut)
-# plot(layers_cut[[1]])
-# plot(countries, border = "tan", add = TRUE)
-# plot(studyarea, add = TRUE)
-# plot(pres_spatial, col = "blue", add = TRUE)
+#' Cut the variable maps with the limits of the study area:
+layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
+plot(layers_cut[[1]])
 
-# remember, the spatial resolution of the variables should be adequate to the data and study area!
-# closely inspect your species data vs. the size of the variables' pixels:
-plot(layers[[1]], 
-     xlim = range(presences$decimalLongitude), 
-     ylim = range(presences$decimalLatitude))
+#' Remember, the spatial resolution of the variables should be 
+#' adequate to the data and study area!
+#' 
+#' Closely inspect your species data vs. the size of the variables' pixels:
+plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
-#resolution matches pixel resolution:
-plot(layers[[1]], xlim = c(-84, -82), ylim = c(42, 43))
+# resolution matches pixel resolution:
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
@@ -209,54 +249,56 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 # run the command below only if you did need to aggregate the layers:
 #layers_cut <- layers_aggr
 
-pres_spatial$Occurrence <- 1
-pres_spatial <- as(pres_spat_vect, "Spatial")
 
 #' Have to add in non-presence data
 #' 
-absences <- sp::spsample(x = studyarea,
-                         n = nrow(presences), 
-                         type = "random")
-abs_spat <- as(absences, "SpatialPointsDataFrame")
-plot(abs_spat, col = "black", add = TRUE)
-
-maptools::spRbind(pres_spat_vect, absences)
+dat <- fuzzySim::gridRecords(rst = layers_cut, 
+                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+head(dat)
+table(dat$presence)
 
 
-# now make a dataframe (which you'll need for modelling) of the species 
-# occurrence data gridded (thinned) to the resolution of the raster variables
-# i.e., one row per pixel with the values of the variables 
-# and the presence/absence of the species:
-df.sdm <- sdm::sdmData(train = pres_spatial,
-                  predictors = layers[[1]])
-
-m1 <- sdm(Occurrence ~ ., data = df.sdm, methods = c("glm", "gam"))
-
-
-
+#' Map these data
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
 points(dat[dat$presence == 1, c("x", "y")], col = "blue", cex = 0.7)
 
+#' Now, convert back to a spatial data frame
+dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
+                                   data = dat,
+                                   proj4string = crs("+proj=longlat"))
 
-# SAVE OBJECTS FOR FUTURE USE ####
 
-# save "dat" as a .csv file on disk:
-write.csv(dat, paste0("../outputs/", myspecies, "/presences/data_gridded.csv"), row.names = FALSE)
-
-# save the names and codes of the chosen variables:
-write.csv(layers_choice, paste0("../outputs/", myspecies, "/layers_choice.csv"), row.names = FALSE)
-
-# create a folder and save each of 'layers_cut' as a raster map:
-layers_dir <- paste0("../outputs/", myspecies, "/layers_cut")
-dir.create(layers_dir)
-for (l in 1:nlyr(layers_cut)) {
-  writeRaster(layers_cut[[l]], overwrite=TRUE,
-              filename = paste0(layers_dir, "/", names(layers_cut)[l], ".tif"))
-}
+#' Finally, make a dataframe (which you'll need for modelling) of the species 
+#' occurrence data gridded (thinned) to the resolution of the raster variables  
+#' (i.e., one row per pixel with the values of the variables 
+#' and the presence/absence of the species):
+df.sdm <- sdm::sdmData(formula = presence ~ .,
+                       train = dat_spat,
+                  predictors = layers_cut[[1:2]])
+df.sdm
 
 
 
+#' _____________________________________________________________________________
+#' 
+#' ## 5. Run models and create a predicted distribution map
+m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1
 
-# I suggest you use this species dataset first for the practicals, as it should work properly from beginning to end; and then repeat the above script to build another analogous dataset with your own species, region and variables
+#' Prediction map
+#' 
+p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
+plot(studyarea, border = "red", lwd = 3)
+plot(countries, border = "tan", add = T)
+plot(p1, add = T)
+
+
+#' _____________________________________________________________________________
+#' 
+#' ### Footer
+#' 
+#' spin this with:
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
