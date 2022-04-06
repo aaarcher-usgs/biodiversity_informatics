@@ -4,13 +4,14 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Nicole Gruwell and Emma Kuechle 
+#' Programmer: Jenna Butler
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
 
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -49,7 +50,7 @@ gbif_data
 #' 
 #' Map the species occurrence data:
 #'
-#' Download shapefiles of world countries
+#' Download shape files of world countries
 countries <- terra::vect("data/countries/world_countries.shp")
 
 
@@ -221,8 +222,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-#studyarea <- intersect(studyarea, mywindow)
-#plot(studyarea, border = "green", add = TRUE)
+# studyarea <- intersect(studyarea, mywindow)
+# plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -290,7 +291,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='NGruwell/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='Jenna/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -301,4 +302,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "NGruwell/programs/20220406_example_SDM.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Jenna/programs/20220406_example_SDM.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
