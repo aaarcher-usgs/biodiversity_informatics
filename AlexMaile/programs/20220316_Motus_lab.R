@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: Nicole Gruwell and Emma Kuechle 
+#' Programmer: Alex Maile
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -13,7 +13,7 @@
 #' a friend.)
 #' 
 #' 
-#' In this program, xxx
+#' In this program, 
 #' 
 #' 
 #' ### Header
@@ -32,31 +32,18 @@ set.seed(71587)
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
 #' Install "remotes" package
-<<<<<<< HEAD
-# install.packages("remotes")
-# library(remotes)
-# update_packages()
-# install.packages(c("motus", "motusData"),
+#install.packages("remotes")
+#library(remotes)
+#update_packages()
+
+#install.packages(c("motus", "motusData"), 
 #                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
 #                            CRAN = 'https://cloud.r-project.org'))
-# 
-# install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',
+
+ 
+#install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
+#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',  
 #                            CRAN = 'https://cloud.r-project.org'))
-=======
-install.packages("remotes")
-library(remotes)
- update_packages()
-
- install.packages(c("motus", "motusData"), 
-                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
-
-# 
-install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
->>>>>>> 38ac4b4016a43fe4f38aaa2df4967106f356deee
 
 #' Load the packages for use
 library(motus)
@@ -73,13 +60,11 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: Greenwich Mean Time 
+#' > Answer: it is the universal time zone
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: Times are stored in the database in UTC time so it is important
-#' that your work is also in that time. Also, tags can be accidentally changed 
-#' across  multiple time zones if not in UTC time. 
+#' > Answer: it allows all users despite geographic position, to recieve and understand the data in a congruent manner, as to avoid any descepancies caused by time zones
 #' 
 
 #' _____________________________________________________________________________
@@ -95,18 +80,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-<<<<<<< HEAD
 #sql.motus <- tagme(projRecv = proj.num, 
 #                   new = TRUE, 
 #                   update = TRUE,
 #                   dir = "../motus")
-=======
-#'sql.motus <- tagme(projRecv = proj.num, 
-#'                   new = TRUE, 
-#'                   update = TRUE,
-#'                  dir = "../motus")
-
->>>>>>> 38ac4b4016a43fe4f38aaa2df4967106f356deee
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -130,10 +107,8 @@ file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
 dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
-#' dbListFields(file.name, "projs") 
 #' 
-#' > Answer: the headers of the project such as ID, Name, Label, TagsPermissions,
-#' sensorPermissions
+#' > Answer: Information that is collected such as the tag that comes by the area, gps info, and other information collected 
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -142,8 +117,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 6 fields. ID, english, french, scientific, group, and sort.
-#'
+#' > Answer: 6
 #' 
 
 
@@ -178,8 +152,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: The second of the two seems to be faster and easier to comprehend 
-#' than the first one that was created.
+#' > Answer: This list has a wider variety of data associated with it. This also includes various things such as comments, the identification, tag information and dates. 
 #' 
 dbListFields(file.name, "alltags")
 
@@ -197,7 +170,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: 188354
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -212,7 +185,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: 127, 5734
 #' 
  
 
@@ -270,7 +243,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: American woodpecker
 #' 
 #' 
 
@@ -329,7 +302,7 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: Increase the X and Y max to zoom out. By shrinking the x and y that would shrink it
 #' 
 
 #' 
@@ -351,6 +324,22 @@ ggplot(data = world) +
   scale_colour_discrete("motusTagID") 
 
 #' **Q10** Duplicate the map below (two maps in final html), but change these items:
+#' I was unable to see what this would actually produce but this is based off me looking at the code.
+ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "Longitude", y = "Latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID") 
+#' 
 #' 
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
@@ -361,4 +350,4 @@ ggplot(data = world) +
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "NGRuwell/programs/20220316_Motus_lab.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+ezspin(file = "AlexMaile/programs/20220316_Motus_lab.R",out_dir = "AlexMaile/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

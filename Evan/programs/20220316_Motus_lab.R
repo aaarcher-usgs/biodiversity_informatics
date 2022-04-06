@@ -4,7 +4,7 @@
 #' 
 #' March 16, 2022
 #' 
-#' Programmer: Nicole Gruwell and Emma Kuechle 
+#' Programmer: Evan
 #' 
 #' **Important** - The answers to the 10 questions below can be figured out by
 #' working through the online guide to Motus in R, which is at motuswts.github.io
@@ -31,32 +31,19 @@ set.seed(71587)
 #' 
 #' ## 1. Load libraries from new sources (ch 2)
 #' 
-#' Install "remotes" package
-<<<<<<< HEAD
+# Install "remotes" package
 # install.packages("remotes")
 # library(remotes)
 # update_packages()
-# install.packages(c("motus", "motusData"),
-#                  repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-#                            CRAN = 'https://cloud.r-project.org'))
-# 
+
+# install.packages(c("motus", "motusData"), 
+#                repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
+#                          CRAN = 'https://cloud.r-project.org'))
+
+
 # install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-#                  repos = c(ropensci = 'https://ropensci.r-universe.dev',
-#                            CRAN = 'https://cloud.r-project.org'))
-=======
-install.packages("remotes")
-library(remotes)
- update_packages()
-
- install.packages(c("motus", "motusData"), 
-                 repos = c(birdscanada = 'https://birdscanada.r-universe.dev',
-                           CRAN = 'https://cloud.r-project.org'))
-
-# 
-install.packages(c("rnaturalearthhires", "rnaturalearthdata"),
-                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
-                            CRAN = 'https://cloud.r-project.org'))
->>>>>>> 38ac4b4016a43fe4f38aaa2df4967106f356deee
+#                 repos = c(ropensci = 'https://ropensci.r-universe.dev',  
+#                          CRAN = 'https://cloud.r-project.org'))
 
 #' Load the packages for use
 library(motus)
@@ -73,13 +60,11 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: Greenwich Mean Time 
+#' > Answer: UTC is Universal Time Coordinated
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: Times are stored in the database in UTC time so it is important
-#' that your work is also in that time. Also, tags can be accidentally changed 
-#' across  multiple time zones if not in UTC time. 
+#' > Answer: As its name suggests, it is a universal time that is used
 #' 
 
 #' _____________________________________________________________________________
@@ -95,26 +80,12 @@ proj.num <- 176
 
 #' Download the data
 #' 
-<<<<<<< HEAD
-#sql.motus <- tagme(projRecv = proj.num, 
-#                   new = TRUE, 
-#                   update = TRUE,
-#                   dir = "../motus")
-=======
-#'sql.motus <- tagme(projRecv = proj.num, 
-#'                   new = TRUE, 
-#'                   update = TRUE,
-#'                  dir = "../motus")
 
->>>>>>> 38ac4b4016a43fe4f38aaa2df4967106f356deee
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = FALSE, 
-                   update = TRUE,
-                   dir = "../motus")
+
 # Log in name and password are: motus.sample
 
 
@@ -130,10 +101,8 @@ file.name <- dbConnect(SQLite(), "../motus/project-176.motus")
 dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
-#' dbListFields(file.name, "projs") 
 #' 
-#' > Answer: the headers of the project such as ID, Name, Label, TagsPermissions,
-#' sensorPermissions
+#' > Answer: Names and IDs!
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -142,8 +111,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 6 fields. ID, english, french, scientific, group, and sort.
-#'
+#' > Answer: 6 fields!
 #' 
 
 
@@ -178,8 +146,8 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: The second of the two seems to be faster and easier to comprehend 
-#' than the first one that was created.
+#' > Answer: The first way in my opinion might have been faster, since all you
+#' are required to do is list the names of the fields.
 #' 
 dbListFields(file.name, "alltags")
 
@@ -197,7 +165,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: it says 188354 observations!
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -212,7 +180,8 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: There are 5861 total observations. For bird tag 16011, there are 
+#' 127 and for bird tagged 23316, there are 5734!
 #' 
  
 
@@ -229,7 +198,7 @@ tbl.alltags <- tbl(sql.motus, "alltagsGPS")
 # obtain a table object of the filter
 
 
-# filter and convert the table into a dataframe, with a few modications
+# filter and convert the table into a dataframe, with a few modifications
 df.alltags.sub <- tbl.alltags %>% 
   filter(motusFilter == 1) %>%
   select(-noise, -slop, -burstSlop, -done, -bootnum, -codeSet, 
@@ -270,7 +239,12 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: The American Woodcock has a few markings in the early hours, and the 
+#' Red Knot (though somewhat confusing) has a few markings in the morning as well.
+#' It appears to also have other tags where they are active all other times of the day,
+#' however it is not fair to say either the Pectoral Sandpiper and Semipalmated Plover are
+#' active only in the mornings. 
+#' 
 #' 
 #' 
 
@@ -306,8 +280,8 @@ df.alltags.path <- fun.getpath(df.alltags.sub.path)
 #' Load some shapefiles to map
 world <- ne_countries(scale = "medium", returnclass = "sf") 
 # Run these two lines for the first time, then the subsequent lines every time after
-# lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
-#                               returnclass = "sf", destdir = "map-data")
+lakes <- ne_download(scale = "medium", type = 'lakes', category = 'physical',
+                             returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
                  destdir = "map-data") # use this if already downloaded shapefiles
@@ -329,7 +303,8 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: The x and y mins and maxes depict the location of interest, so changing
+#' these should zoom you in or out!
 #' 
 
 #' 
@@ -355,10 +330,23 @@ ggplot(data = world) +
 #' - Make the lake filled with "blue" instead of white
 #' - Label x with "Longitude" and y with "Latitude"
 #' 
-
+ggplot(data = world) + 
+  geom_sf(colour = NA) +
+  geom_sf(data = lakes, colour = NA, fill = "blue") +
+  coord_sf(xlim = c(xmin, xmax), ylim = c(ymin, ymax), expand = FALSE) +
+  theme_bw() + 
+  labs(x = "Longitude", y = "Latitude") +
+  geom_path(data = df.tmp, 
+            aes(x = recvDeployLon, y = recvDeployLat, 
+                group = as.factor(motusTagID), colour = as.factor(motusTagID))) +
+  geom_point(data = df.tmp, aes(x = recvDeployLon, y = recvDeployLat), 
+             shape = 16, colour = "black") +
+  geom_point(data = df.tmp, 
+             aes(x = tagDepLon, y = tagDepLat), colour = "red", shape = 4) +
+  scale_colour_discrete("motusTagID")
 #' _____________________________________________________________________________
 #' 
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "NGRuwell/programs/20220316_Motus_lab.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Evan/programs/20220316_Motus_lab.R",out_dir = "Evan/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
