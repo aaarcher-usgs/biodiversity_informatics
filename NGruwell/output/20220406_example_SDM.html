@@ -894,13 +894,7 @@ layers_choice
 (downloading them if they aren&#39;t already in the folder defined above):</p>
 
 <pre><code class="r">layers &lt;- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
-</code></pre>
-
-<pre><code>## Warning in normalizePath(path.expand(path), winslash, mustWork): path[1]=&quot;../outputs/sdmpredictors&quot;: The
-## system cannot find the path specified
-</code></pre>
-
-<pre><code class="r">layers
+layers
 </code></pre>
 
 <pre><code>## $WC_alt
@@ -1291,7 +1285,7 @@ plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE)
 <pre><code class="r">plot(layers_cut[[1]])
 </code></pre>
 
-<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
 
 <p>Remember, the spatial resolution of the variables should be 
@@ -1302,7 +1296,7 @@ adequate to the data and study area!</p>
 <pre><code class="r">plot(layers_cut[[1]])
 </code></pre>
 
-<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
 
 <pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, cex = 0.1, add = TRUE)
@@ -1316,7 +1310,7 @@ adequate to the data and study area!</p>
 plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 </code></pre>
 
-<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
 
 <pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
@@ -1339,21 +1333,38 @@ plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 
 <pre><code class="r">dat &lt;- fuzzySim::gridRecords(rst = layers_cut, 
                    pres.coords = presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)])
+head(dat)
 </code></pre>
 
-<pre><code>## Error in fuzzySim::gridRecords(rst = layers_cut, pres.coords = presences[, : object &#39;layers_cut&#39; not found
-</code></pre>
-
-<pre><code class="r">head(dat)
-</code></pre>
-
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;dat&#39; not found
+<pre><code>##   presence         x        y cells WC_alt WC_bio1 WC_bio2 WC_bio3 WC_bio4 WC_bio5 WC_bio6 WC_bio7
+## 1        1 -83.20833 41.62500 43656    173     9.9    10.3    0.27   96.06    28.9    -8.4    37.3
+## 2        1 -83.12500 41.79167 42713    172     9.7     9.6    0.26   95.98    28.2    -8.3    36.5
+## 3        1 -84.45833 42.79167 37033    260     8.1    11.0    0.28   96.49    27.9   -10.4    38.3
+## 4        1 -80.70833 43.04167 35662    305     7.1    10.1    0.27   93.69    26.3   -10.2    36.5
+## 5        1 -71.37500 42.45833 39078     56     9.0    11.8    0.31   89.97    28.0    -9.4    37.4
+## 6        1 -84.45833 42.62500 37977    271     8.2    11.0    0.28   96.57    27.8   -10.3    38.1
+##   WC_bio8 WC_bio9 WC_bio10 WC_bio11 WC_bio12 WC_bio13 WC_bio14 WC_bio15 WC_bio16 WC_bio17 WC_bio18
+## 1    21.9    -1.6     21.9     -2.9      845       92       42       21      263      152      263
+## 2    21.7    -1.8     21.7     -3.0      842       89       44       20      257      155      257
+## 3    20.1    -4.8     20.1     -4.8      784       88       35       25      242      127      242
+## 4    18.0    -4.4     18.8     -5.2      939       93       58       12      259      197      255
+## 5    -0.3    20.4     20.4     -2.9     1118      116       84       10      312      255      255
+## 6    20.2    -4.8     20.2     -4.8      785       88       34       26      243      126      243
+##   WC_bio19
+## 1      155
+## 2      160
+## 3      127
+## 4      206
+## 5      285
+## 6      126
 </code></pre>
 
 <pre><code class="r">table(dat$presence)
 </code></pre>
 
-<pre><code>## Error in table(dat$presence): object &#39;dat&#39; not found
+<pre><code>## 
+##     0     1 
+## 15002  1537
 </code></pre>
 
 <p>Map these data</p>
@@ -1361,21 +1372,21 @@ plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 <pre><code class="r">plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 </code></pre>
 
-<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
 
 <pre><code class="r"># plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;red&quot;, cex = 0.5)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
 </code></pre>
 
 <pre><code class="r"># plot the presences (pixels with presence records):
 points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue&quot;, cex = 0.7)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
 </code></pre>
 
 <p>Now, convert back to a spatial data frame</p>
@@ -1383,9 +1394,6 @@ points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue
 <pre><code class="r">dat_spat &lt;- SpatialPointsDataFrame(coords = dat[,c(&quot;x&quot;, &quot;y&quot;)],
                                    data = dat,
                                    proj4string = crs(&quot;+proj=longlat&quot;))
-</code></pre>
-
-<pre><code>## Error in is(coords, &quot;SpatialPoints&quot;): object &#39;dat&#39; not found
 </code></pre>
 
 <p>Finally, make a dataframe (which you&#39;ll need for modelling) of the species 
@@ -1398,13 +1406,26 @@ and the presence/absence of the species):</p>
                   predictors = layers_cut[[1:2]])
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;train&#39; in selecting a method for function &#39;sdmData&#39;: object &#39;dat_spat&#39; not found
+<pre><code>## Warning in proj4string(train): CRS object has comment, which is lost in output; in tests, see
+## https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html
+
+## Warning in proj4string(train): CRS object has comment, which is lost in output; in tests, see
+## https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html
 </code></pre>
 
 <pre><code class="r">df.sdm
 </code></pre>
 
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.sdm&#39; not found
+<pre><code>## class                                 : sdmdata 
+## =========================================================== 
+## number of species                     :  1 
+## species names                         :  presence 
+## number of features                    :  23 
+## feature names                         :  cells, WC_bio2, WC_bio3, ... 
+## type                                  :  Presence-Absence 
+## has independet test data?             :  FALSE 
+## number of records                     :  16539 
+## has Coordinates?                      :  TRUE
 </code></pre>
 
 <hr/>
@@ -1412,15 +1433,31 @@ and the presence/absence of the species):</p>
 <h2>5. Run models and create a predicted distribution map</h2>
 
 <pre><code class="r">m1 &lt;- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c(&quot;glm&quot;))
+m1
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;data&#39; in selecting a method for function &#39;sdm&#39;: object &#39;df.sdm&#39; not found
-</code></pre>
-
-<pre><code class="r">m1
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;m1&#39; not found
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model performance (per species), using training test dataset:
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.66    |     0.15    |     0.25    |     0.6
 </code></pre>
 
 <p>Prediction map</p>
@@ -1428,7 +1465,7 @@ and the presence/absence of the species):</p>
 <pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;aaarcher/output/figures/p1.img&#39;) 
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;object&#39; in selecting a method for function &#39;predict&#39;: object &#39;m1&#39; not found
+<pre><code>## Error in .getGDALtransient(x, filename = filename, options = options, : filename exists; use overwrite=TRUE
 </code></pre>
 
 <pre><code class="r">plot(studyarea, border = &quot;red&quot;, lwd = 3)
@@ -1446,7 +1483,7 @@ and the presence/absence of the species):</p>
 <pre><code class="r">plot(p1, add = T)
 </code></pre>
 
-<pre><code>## Error in plot(p1, add = T): object &#39;p1&#39; not found
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
 
 <hr/>
