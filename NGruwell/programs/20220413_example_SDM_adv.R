@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Emma Kuechle and Nicole Gruwell 
 #' 
 #' ### Header
 #' 
@@ -25,13 +25,13 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Morpho menelaus"
 
 #' 
 #' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                      limit = 20200)
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -60,8 +60,8 @@ points(gbif_data$data[ , c("decimalLongitude", "decimalLatitude")],
        pch = 20, 
        col = "green")
 
-#' Notice that one green dot shows up in Europe. This species does NOT
-#' occur in Europe!
+#' Notice that two red dots shows up in Europe and Asia. This species does NOT
+#' occur in either!
 #' 
 #' How can you find out which one is the outlier?
 presences <- gbif_data$data[ , c("key","decimalLongitude", 
@@ -139,7 +139,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_prec4", "WC_prec11", "WC_bio17"), ]
 layers_choice
 
 
