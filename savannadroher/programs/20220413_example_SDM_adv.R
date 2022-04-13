@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Glenna Jaede
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
@@ -139,7 +139,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[1:4, ]
 layers_choice
 
 
@@ -157,7 +157,7 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
@@ -290,10 +290,41 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img', overwrite=T) 
+p1 <- predict(m1, newdata = layers_cut, 
+              filename='aaarcher/output/figures/p1.img', 
+              overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+#' Variable importance
+#' 
+vi <- getVarImp(m1)
+plot(vi)
+
+#' View Coefficients
+#' 
+getModelObject(m1)[[1]]
+
+
+#' Variable selection?
+#' 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_alt^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = T)
+getModelObject(m2.select)[[1]]
+getVarImp(m2.select)
+plot(getVarImp(m2.select))
+
+#' Cross-validation
+#' 
+m3.cv <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c("glm"), 
+             replication = "cv", cv.folds = 4, n = 5)
+m3.cv
+getModelObject(m3.cv, id = 1)[[1]]
+getVarImp(m3.cv)
+
+
 
 
 #' _____________________________________________________________________________
@@ -301,46 +332,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "GlennaJaede/programs/20220406_example_SDM.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
-
-
-
-
-#' Notes for project:
-#' 
-#' Week 12 SDM on d2l ring ouzel example works through different ideas for code. Ideas and outlines
-#' SDM package website for packages
-#' Outputs, all the ways to look at and interperate model
-#' Worldclim variables and definitions
-#' 
-#' Conceptualization
-#' Study objectives: 
-#' biological information, what does the species eat, where is it found, what types of habitats, etc
-#' Potential predicators
-#' STUDY OBJECTIVE What is a good question for species
-#' 
-#' Where could this species be?
-#' Where could it be headed? (invasive)
-#' 5 potential predictors that you hypothesize affect the spacial distribution of your species. Positive or negetive.
-#' 
-#' Data preparation
-#' Records information, good? How reliable? what region?
-#' what are the absences
-#' only need the layers and extent from step one.
-#' 
-#' 
-#' Model fitting
-#' algorithm choice
-#' how are you going to deal with multicollinearity
-#' Model definition
-#' model selection: compare modles, choose variables with variable importance of stepwise model selection,
-#' something that supports your hypothesis.
-#' crossvalidation: 4 folds and 5 runs for this class
-#' 
-#' 
-#' 
-#' 
-#'
-#'
-#'
-#'
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
