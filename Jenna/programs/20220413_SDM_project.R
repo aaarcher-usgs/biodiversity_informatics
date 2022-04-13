@@ -79,7 +79,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
        pch = 20, 
        col = "green")
 
-#' 
+ #' 
 #' These data look good, but let's remove any data points that have
 #' very uncertain coordinates (>70,000 m)
 #' 

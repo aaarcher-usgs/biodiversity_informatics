@@ -25,7 +25,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Gallinago andina"
 
 #' 
 #' Download the data using rgbif library
@@ -55,15 +55,9 @@ countries <- terra::vect("data/countries/world_countries.shp")
 
 #' 
 #' Plot the countries, then add the occurrences in green
-plot(countries)  
-points(gbif_data$data[ , c("decimalLongitude", "decimalLatitude")], 
-       pch = 20, 
-       col = "green")
-
-#' Notice that one green dot shows up in Europe. This species does NOT
-#' occur in Europe!
+#' One point shows up in Africa.
 #' 
-#' How can you find out which one is the outlier?
+#' Open presence and remove the outlier
 presences <- gbif_data$data[ , c("key","decimalLongitude", 
                                  "decimalLatitude", 
                                  "coordinateUncertaintyInMeters")]
@@ -71,20 +65,12 @@ presences$uniqueID <- 1:nrow(presences)
 presences <- presences[presences$decimalLongitude < 0,]
 
 #' 
-#' Let's re-plot the map within the coordinates of our presence points:
-plot(countries, xlim = range(presences$decimalLongitude), 
-     ylim = range(presences$decimalLatitude), border = "grey")
-points(presences[ , c("decimalLongitude", "decimalLatitude")], 
-       pch = 20, 
-       col = "green")
-
-#' 
 #' These data look good, but let's remove any data points that have
 #' very uncertain coordinates (>70,000 m)
 #' 
 #' 
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
-remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
+remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 15000 &
                                    complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 

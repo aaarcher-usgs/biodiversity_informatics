@@ -1,10 +1,10 @@
-#' # Guided tour of species distribution modeling: Blanding's turtle
+#' # Guided tour of species distribution modeling: Blanding's turtle ## (even though fish are better)
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Glenna Jaede
+#' Programmer: Alex Maile
 #' 
 #' ### Header
 #' 
@@ -25,10 +25,10 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Cryptobranchus alleganiensis"
 
 #' 
-#' Download the data using rgbif library
+#' Download the data
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -290,7 +290,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img', overwrite=T) 
+p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -301,46 +301,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "GlennaJaede/programs/20220406_example_SDM.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
-
-
-
-
-#' Notes for project:
-#' 
-#' Week 12 SDM on d2l ring ouzel example works through different ideas for code. Ideas and outlines
-#' SDM package website for packages
-#' Outputs, all the ways to look at and interperate model
-#' Worldclim variables and definitions
-#' 
-#' Conceptualization
-#' Study objectives: 
-#' biological information, what does the species eat, where is it found, what types of habitats, etc
-#' Potential predicators
-#' STUDY OBJECTIVE What is a good question for species
-#' 
-#' Where could this species be?
-#' Where could it be headed? (invasive)
-#' 5 potential predictors that you hypothesize affect the spacial distribution of your species. Positive or negetive.
-#' 
-#' Data preparation
-#' Records information, good? How reliable? what region?
-#' what are the absences
-#' only need the layers and extent from step one.
-#' 
-#' 
-#' Model fitting
-#' algorithm choice
-#' how are you going to deal with multicollinearity
-#' Model definition
-#' model selection: compare modles, choose variables with variable importance of stepwise model selection,
-#' something that supports your hypothesis.
-#' crossvalidation: 4 folds and 5 runs for this class
-#' 
-#' 
-#' 
-#' 
-#'
-#'
-#'
-#'
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
