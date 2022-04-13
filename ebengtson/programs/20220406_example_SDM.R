@@ -11,6 +11,7 @@
 #' 
 # Load Libraries
 
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -25,7 +26,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Aeshna sitchensis"
 
 #' 
 #' Download the data
@@ -290,7 +291,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='ebengtson/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
