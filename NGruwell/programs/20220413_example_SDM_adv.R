@@ -290,6 +290,9 @@ m1 <- sdm(presence ~ WC_bio19 + WC_bio17 + WC_prec4 + WC_prec11 ,
           methods = c("glm"))
 m1
 
+
+
+
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
