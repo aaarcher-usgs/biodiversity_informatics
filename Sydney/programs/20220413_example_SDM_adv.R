@@ -88,6 +88,7 @@ remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000
                                    complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
+
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
@@ -99,7 +100,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 0]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -137,9 +138,9 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[c(" BO_sstmin")]
 layers_choice
 
 
