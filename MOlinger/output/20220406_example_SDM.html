@@ -207,12 +207,12 @@ hr {
 
 <p>April 6, 2022</p>
 
-<p>Programmer: Nicole Gruwell </p>
+<p>Programmer: Mason</p>
 
 <h3>Header</h3>
 
 <pre><code class="r"># Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -247,26 +247,26 @@ remove(list = ls())
 <pre><code>## Records found [3350] 
 ## Records returned [3350] 
 ## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea blandingii] 
-## # A tibble: 3,350 x 142
-##    key        scientificName          decimalLatitude decimalLongitude issues datasetKey publishingOrgKey
-##    &lt;chr&gt;      &lt;chr&gt;                             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;           
-##  1 3747173794 Emydoidea blandingii (~            41.6            -83.2 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  2 3059016268 Emydoidea blandingii (~            41.8            -83.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  3 3067885721 Emydoidea blandingii (~            42.8            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  4 3068028225 Emydoidea blandingii (~            43.1            -80.7 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  5 3068070749 Emydoidea blandingii (~            42.5            -71.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  6 3068096788 Emydoidea blandingii (~            42.6            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  7 3068129441 Emydoidea blandingii (~            43.4            -89.8 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  8 3070362510 Emydoidea blandingii (~            42.8            -84.5 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  9 3070380118 Emydoidea blandingii (~            44.4            -65.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## 10 3070397669 Emydoidea blandingii (~            44.0            -77.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## # ... with 3,340 more rows, and 135 more variables: installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;,
-## #   protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;, hostingOrganizationKey &lt;chr&gt;,
-## #   basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;,
-## #   classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;,
-## #   acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;,
-## #   family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, genericName &lt;chr&gt;, specificEpithet &lt;chr&gt;, taxonRank &lt;chr&gt;,
-## #   taxonomicStatus &lt;chr&gt;, iucnRedListCategory &lt;chr&gt;, dateIdentified &lt;chr&gt;, ...
+## # A tibble: 3,350 × 142
+##    key        scientificName   decimalLatitude decimalLongitude issues datasetKey publishingOrgKey
+##    &lt;chr&gt;      &lt;chr&gt;                      &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;           
+##  1 3747173794 Emydoidea bland…            41.6            -83.2 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  2 3059016268 Emydoidea bland…            41.8            -83.1 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  3 3067885721 Emydoidea bland…            42.8            -84.4 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  4 3068028225 Emydoidea bland…            43.1            -80.7 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  5 3068070749 Emydoidea bland…            42.5            -71.3 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  6 3068096788 Emydoidea bland…            42.6            -84.4 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  7 3068129441 Emydoidea bland…            43.4            -89.8 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  8 3070362510 Emydoidea bland…            42.8            -84.5 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+##  9 3070380118 Emydoidea bland…            44.4            -65.1 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+## 10 3070397669 Emydoidea bland…            44.0            -77.3 cdrou… 50c9509d-… 28eb1a3f-1c15-4…
+## # … with 3,340 more rows, and 135 more variables: installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;,
+## #   protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
+## #   hostingOrganizationKey &lt;chr&gt;, basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;,
+## #   kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;,
+## #   genusKey &lt;int&gt;, speciesKey &lt;int&gt;, acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;,
+## #   kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+## #   genericName &lt;chr&gt;, specificEpithet &lt;chr&gt;, taxonRank &lt;chr&gt;, taxonomicStatus &lt;chr&gt;, …
 </code></pre>
 
 <p>Citations for data. Run this once, only after analysis so that you 
@@ -352,14 +352,22 @@ length(remove.IDs) # how many to remove? How many should be left?
 summary(presences)
 </code></pre>
 
-<pre><code>##      key            decimalLongitude  decimalLatitude coordinateUncertaintyInMeters    uniqueID     
-##  Length:3332        Min.   :-101.91   Min.   :33.52   Min.   :   10                 Min.   :   1.0  
-##  Class :character   1st Qu.: -83.53   1st Qu.:42.60   1st Qu.:27190                 1st Qu.: 835.8  
-##  Mode  :character   Median : -79.43   Median :44.43   Median :27285                 Median :1670.5  
-##                     Mean   : -80.61   Mean   :43.99   Mean   :25667                 Mean   :1672.6  
-##                     3rd Qu.: -76.55   3rd Qu.:45.03   3rd Qu.:27537                 3rd Qu.:2510.2  
-##                     Max.   : -63.76   Max.   :48.85   Max.   :70000                 Max.   :3350.0  
-##                                                       NA&#39;s   :329
+<pre><code>##      key            decimalLongitude  decimalLatitude coordinateUncertaintyInMeters
+##  Length:3332        Min.   :-101.91   Min.   :33.52   Min.   :   10                
+##  Class :character   1st Qu.: -83.53   1st Qu.:42.60   1st Qu.:27190                
+##  Mode  :character   Median : -79.43   Median :44.43   Median :27285                
+##                     Mean   : -80.61   Mean   :43.99   Mean   :25667                
+##                     3rd Qu.: -76.55   3rd Qu.:45.03   3rd Qu.:27537                
+##                     Max.   : -63.76   Max.   :48.85   Max.   :70000                
+##                                                       NA&#39;s   :329                  
+##     uniqueID     
+##  Min.   :   1.0  
+##  1st Qu.: 835.8  
+##  Median :1670.5  
+##  Mean   :1672.6  
+##  3rd Qu.:2510.2  
+##  Max.   :3350.0  
+## 
 </code></pre>
 
 <pre><code class="r"># map the cleaned occurrence records on top of the raw ones:
@@ -405,7 +413,7 @@ pred_datasets$description
 ## [2] &quot;Bio-ORACLE is a set of GIS rasters providing geophysical, biotic and environmental data for surface and benthic marine realms at a spatial resolution 5 arcmin (9.2 km) in the ESRI ascii and tif format.&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 ## [3] &quot;MARSPEC is a set of high resolution climatic and geophysical GIS data layers for the world ocean. Seven geophysical variables were derived from the SRTM30_PLUS high resolution bathymetry dataset.  These layers characterize the horizontal orientation (aspect), slope, and curvature of the seafloor and the distance from shore.  Ten \&quot;bioclimatic\&quot; variables were derived from NOAA&#39;s World Ocean Atlas and NASA&#39;s MODIS satellite imagery and characterize the inter-annual means, extremes, and variances in sea surface temperature and salinity. These variables will be useful to those interested in the spatial ecology of marine shallow-water and surface-associated pelagic organisms across the globe. Note that, in contrary to the original MARSPEC, all layers have unscaled values.&quot;
 ## [4] &quot;The ENVIREM dataset is a set of 16 climatic and 2 topographic variables that can be used in modeling species&#39; distributions. The strengths of this dataset include their close ties to ecological processes, and their availability at a global scale, at several spatial resolutions, and for several time periods. The underlying temperature and precipitation data that went into their construction comes from the WorldClim dataset (www.worldclim.org), and the solar radiation data comes from the Consortium for Spatial Information (www.cgiar-csi.org). The data are compatible with and expand the set of variables from WorldClim v1.4 (www.worldclim.org).&quot;                                                                                                                                  
-## [5] &quot;The dataset consists of near-global, spatially continuous, and freshwater-specific environmental variables in a standardized 1km grid. We delineated the sub-catchment for each grid cell along the HydroSHEDS river network and summarized the upstream environment (climate, topography, land cover, surface geology and soil) to each grid cell using various metrics (average, minimum, maximum, range, sum, inverse distance-weighted average and sum). All variables were subsequently averaged across single lakes and reservoirs of the Global lakes and Wetlands Database that are connected to the river network. Monthly climate variables were summarized into 19 long-term climatic variables following the ÒbioclimÓ framework.&quot;
+## [5] &quot;The dataset consists of near-global, spatially continuous, and freshwater-specific environmental variables in a standardized 1km grid. We delineated the sub-catchment for each grid cell along the HydroSHEDS river network and summarized the upstream environment (climate, topography, land cover, surface geology and soil) to each grid cell using various metrics (average, minimum, maximum, range, sum, inverse distance-weighted average and sum). All variables were subsequently averaged across single lakes and reservoirs of the Global lakes and Wetlands Database that are connected to the river network. Monthly climate variables were summarized into 19 long-term climatic variables following the \xd2bioclim\xd3 framework.&quot;
 </code></pre>
 
 <p>Remember to always cite the data sources! (run this line only for citing)</p>
@@ -887,7 +895,7 @@ layers_choice
 
 <p>Define folder for downloading the map layers:</p>
 
-<pre><code class="r">options(sdmpredictors_datadir = &quot;../outputs/sdmpredictors&quot;)
+<pre><code class="r">options(sdmpredictors_datadir = &quot;../outputs/sdmpredictors/&quot;)
 </code></pre>
 
 <p>load the layers to the current R session 
@@ -1128,9 +1136,9 @@ length(layers)
 names(layers)
 </code></pre>
 
-<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot;  &quot;WC_bio6&quot;  &quot;WC_bio7&quot;  &quot;WC_bio8&quot; 
-## [10] &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot; &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot; &quot;WC_bio16&quot; &quot;WC_bio17&quot;
-## [19] &quot;WC_bio18&quot; &quot;WC_bio19&quot;
+<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot;  &quot;WC_bio6&quot;  &quot;WC_bio7&quot; 
+##  [9] &quot;WC_bio8&quot;  &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot; &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot;
+## [17] &quot;WC_bio16&quot; &quot;WC_bio17&quot; &quot;WC_bio18&quot; &quot;WC_bio19&quot;
 </code></pre>
 
 <pre><code class="r">plot(layers[[1]], main = names(layers)[1])
@@ -1200,8 +1208,9 @@ what is the cartographic projection / coordinate reference system):</p>
 <pre><code class="r">names(presences)
 </code></pre>
 
-<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;              &quot;decimalLatitude&quot;              
-## [4] &quot;coordinateUncertaintyInMeters&quot; &quot;uniqueID&quot;
+<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;             
+## [3] &quot;decimalLatitude&quot;               &quot;coordinateUncertaintyInMeters&quot;
+## [5] &quot;uniqueID&quot;
 </code></pre>
 
 <pre><code class="r">pres_spat_vect &lt;- vect(presences, 
@@ -1336,27 +1345,27 @@ plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 head(dat)
 </code></pre>
 
-<pre><code>##   presence         x        y cells WC_alt WC_bio1 WC_bio2 WC_bio3 WC_bio4 WC_bio5 WC_bio6 WC_bio7
-## 1        1 -83.20833 41.62500 43656    173     9.9    10.3    0.27   96.06    28.9    -8.4    37.3
-## 2        1 -83.12500 41.79167 42713    172     9.7     9.6    0.26   95.98    28.2    -8.3    36.5
-## 3        1 -84.45833 42.79167 37033    260     8.1    11.0    0.28   96.49    27.9   -10.4    38.3
-## 4        1 -80.70833 43.04167 35662    305     7.1    10.1    0.27   93.69    26.3   -10.2    36.5
-## 5        1 -71.37500 42.45833 39078     56     9.0    11.8    0.31   89.97    28.0    -9.4    37.4
-## 6        1 -84.45833 42.62500 37977    271     8.2    11.0    0.28   96.57    27.8   -10.3    38.1
-##   WC_bio8 WC_bio9 WC_bio10 WC_bio11 WC_bio12 WC_bio13 WC_bio14 WC_bio15 WC_bio16 WC_bio17 WC_bio18
-## 1    21.9    -1.6     21.9     -2.9      845       92       42       21      263      152      263
-## 2    21.7    -1.8     21.7     -3.0      842       89       44       20      257      155      257
-## 3    20.1    -4.8     20.1     -4.8      784       88       35       25      242      127      242
-## 4    18.0    -4.4     18.8     -5.2      939       93       58       12      259      197      255
-## 5    -0.3    20.4     20.4     -2.9     1118      116       84       10      312      255      255
-## 6    20.2    -4.8     20.2     -4.8      785       88       34       26      243      126      243
-##   WC_bio19
-## 1      155
-## 2      160
-## 3      127
-## 4      206
-## 5      285
-## 6      126
+<pre><code>##   presence         x        y cells WC_alt WC_bio1 WC_bio2 WC_bio3 WC_bio4 WC_bio5 WC_bio6
+## 1        1 -83.20833 41.62500 43656    173     9.9    10.3    0.27   96.06    28.9    -8.4
+## 2        1 -83.12500 41.79167 42713    172     9.7     9.6    0.26   95.98    28.2    -8.3
+## 3        1 -84.45833 42.79167 37033    260     8.1    11.0    0.28   96.49    27.9   -10.4
+## 4        1 -80.70833 43.04167 35662    305     7.1    10.1    0.27   93.69    26.3   -10.2
+## 5        1 -71.37500 42.45833 39078     56     9.0    11.8    0.31   89.97    28.0    -9.4
+## 6        1 -84.45833 42.62500 37977    271     8.2    11.0    0.28   96.57    27.8   -10.3
+##   WC_bio7 WC_bio8 WC_bio9 WC_bio10 WC_bio11 WC_bio12 WC_bio13 WC_bio14 WC_bio15 WC_bio16 WC_bio17
+## 1    37.3    21.9    -1.6     21.9     -2.9      845       92       42       21      263      152
+## 2    36.5    21.7    -1.8     21.7     -3.0      842       89       44       20      257      155
+## 3    38.3    20.1    -4.8     20.1     -4.8      784       88       35       25      242      127
+## 4    36.5    18.0    -4.4     18.8     -5.2      939       93       58       12      259      197
+## 5    37.4    -0.3    20.4     20.4     -2.9     1118      116       84       10      312      255
+## 6    38.1    20.2    -4.8     20.2     -4.8      785       88       34       26      243      126
+##   WC_bio18 WC_bio19
+## 1      263      155
+## 2      257      160
+## 3      242      127
+## 4      255      206
+## 5      255      285
+## 6      243      126
 </code></pre>
 
 <pre><code class="r">table(dat$presence)
@@ -1462,7 +1471,7 @@ m1
 
 <p>Prediction map</p>
 
-<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;aaarcher/output/figures/p1.img&#39;) 
+<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;MOlinger/output/figures/p1.img&#39;) 
 </code></pre>
 
 <pre><code>## Error in .getGDALtransient(x, filename = filename, options = options, : filename exists; use overwrite=TRUE
@@ -1491,7 +1500,7 @@ m1
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;aaarcher/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;MOlinger/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;MOlinger/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

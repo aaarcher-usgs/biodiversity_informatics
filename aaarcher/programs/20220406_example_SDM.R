@@ -10,7 +10,7 @@
 #' 
 #' 
 # Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -28,7 +28,7 @@ remove(list = ls())
 myspecies <- "Emydoidea blandingii"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -290,7 +290,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img', overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)

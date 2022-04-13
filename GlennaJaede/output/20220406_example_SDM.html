@@ -207,12 +207,12 @@ hr {
 
 <p>April 6, 2022</p>
 
-<p>Programmer: Nicole Gruwell </p>
+<p>Programmer: Glenna Jaede</p>
 
 <h3>Header</h3>
 
 <pre><code class="r"># Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -232,7 +232,7 @@ remove(list = ls())
 <pre><code class="r">myspecies &lt;- &quot;Emydoidea blandingii&quot;
 </code></pre>
 
-<p>Download the data</p>
+<p>Download the data using rgbif library</p>
 
 <pre><code class="r">gbif_data &lt;- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
@@ -246,27 +246,28 @@ remove(list = ls())
 
 <pre><code>## Records found [3350] 
 ## Records returned [3350] 
-## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea blandingii] 
+## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea
+##      blandingii] 
 ## # A tibble: 3,350 x 142
-##    key        scientificName          decimalLatitude decimalLongitude issues datasetKey publishingOrgKey
-##    &lt;chr&gt;      &lt;chr&gt;                             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;           
-##  1 3747173794 Emydoidea blandingii (~            41.6            -83.2 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  2 3059016268 Emydoidea blandingii (~            41.8            -83.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  3 3067885721 Emydoidea blandingii (~            42.8            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  4 3068028225 Emydoidea blandingii (~            43.1            -80.7 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  5 3068070749 Emydoidea blandingii (~            42.5            -71.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  6 3068096788 Emydoidea blandingii (~            42.6            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  7 3068129441 Emydoidea blandingii (~            43.4            -89.8 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  8 3070362510 Emydoidea blandingii (~            42.8            -84.5 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  9 3070380118 Emydoidea blandingii (~            44.4            -65.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## 10 3070397669 Emydoidea blandingii (~            44.0            -77.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## # ... with 3,340 more rows, and 135 more variables: installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;,
-## #   protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;, hostingOrganizationKey &lt;chr&gt;,
-## #   basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;,
-## #   classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;,
-## #   acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;,
-## #   family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, genericName &lt;chr&gt;, specificEpithet &lt;chr&gt;, taxonRank &lt;chr&gt;,
-## #   taxonomicStatus &lt;chr&gt;, iucnRedListCategory &lt;chr&gt;, dateIdentified &lt;chr&gt;, ...
+##    key       scientificName decimalLatitude decimalLongitude issues datasetKey
+##    &lt;chr&gt;     &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     
+##  1 37471737~ Emydoidea bla~            41.6            -83.2 cdrou~ 50c9509d-~
+##  2 30590162~ Emydoidea bla~            41.8            -83.1 cdrou~ 50c9509d-~
+##  3 30678857~ Emydoidea bla~            42.8            -84.4 cdrou~ 50c9509d-~
+##  4 30680282~ Emydoidea bla~            43.1            -80.7 cdrou~ 50c9509d-~
+##  5 30680707~ Emydoidea bla~            42.5            -71.3 cdrou~ 50c9509d-~
+##  6 30680967~ Emydoidea bla~            42.6            -84.4 cdrou~ 50c9509d-~
+##  7 30681294~ Emydoidea bla~            43.4            -89.8 cdrou~ 50c9509d-~
+##  8 30703625~ Emydoidea bla~            42.8            -84.5 cdrou~ 50c9509d-~
+##  9 30703801~ Emydoidea bla~            44.4            -65.1 cdrou~ 50c9509d-~
+## 10 30703976~ Emydoidea bla~            44.0            -77.3 cdrou~ 50c9509d-~
+## # ... with 3,340 more rows, and 136 more variables: publishingOrgKey &lt;chr&gt;,
+## #   installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;,
+## #   lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
+## #   hostingOrganizationKey &lt;chr&gt;, basisOfRecord &lt;chr&gt;,
+## #   occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;,
+## #   phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;,
+## #   genusKey &lt;int&gt;, speciesKey &lt;int&gt;, acceptedTaxonKey &lt;int&gt;, ...
 </code></pre>
 
 <p>Citations for data. Run this once, only after analysis so that you 
@@ -352,14 +353,22 @@ length(remove.IDs) # how many to remove? How many should be left?
 summary(presences)
 </code></pre>
 
-<pre><code>##      key            decimalLongitude  decimalLatitude coordinateUncertaintyInMeters    uniqueID     
-##  Length:3332        Min.   :-101.91   Min.   :33.52   Min.   :   10                 Min.   :   1.0  
-##  Class :character   1st Qu.: -83.53   1st Qu.:42.60   1st Qu.:27190                 1st Qu.: 835.8  
-##  Mode  :character   Median : -79.43   Median :44.43   Median :27285                 Median :1670.5  
-##                     Mean   : -80.61   Mean   :43.99   Mean   :25667                 Mean   :1672.6  
-##                     3rd Qu.: -76.55   3rd Qu.:45.03   3rd Qu.:27537                 3rd Qu.:2510.2  
-##                     Max.   : -63.76   Max.   :48.85   Max.   :70000                 Max.   :3350.0  
-##                                                       NA&#39;s   :329
+<pre><code>##      key            decimalLongitude  decimalLatitude
+##  Length:3332        Min.   :-101.91   Min.   :33.52  
+##  Class :character   1st Qu.: -83.53   1st Qu.:42.60  
+##  Mode  :character   Median : -79.43   Median :44.43  
+##                     Mean   : -80.61   Mean   :43.99  
+##                     3rd Qu.: -76.55   3rd Qu.:45.03  
+##                     Max.   : -63.76   Max.   :48.85  
+##                                                      
+##  coordinateUncertaintyInMeters    uniqueID     
+##  Min.   :   10                 Min.   :   1.0  
+##  1st Qu.:27190                 1st Qu.: 835.8  
+##  Median :27285                 Median :1670.5  
+##  Mean   :25667                 Mean   :1672.6  
+##  3rd Qu.:27537                 3rd Qu.:2510.2  
+##  Max.   :70000                 Max.   :3350.0  
+##  NA&#39;s   :329
 </code></pre>
 
 <pre><code class="r"># map the cleaned occurrence records on top of the raw ones:
@@ -426,40 +435,74 @@ unique(pred_layers$dataset_code)
 unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, ]$name)  
 </code></pre>
 
-<pre><code>##  [1] &quot;Altitude&quot;                            &quot;Annual mean temperature&quot;            
-##  [3] &quot;Mean diurnal temperature range&quot;      &quot;Isothermality&quot;                      
-##  [5] &quot;Temperature seasonality&quot;             &quot;Maximum temperature&quot;                
-##  [7] &quot;Minimum temperature&quot;                 &quot;Annual temperature range&quot;           
-##  [9] &quot;Mean temperature of wettest quarter&quot; &quot;Mean temperature of driest quarter&quot; 
-## [11] &quot;Mean temperature of warmest quarter&quot; &quot;Mean temperature of coldest quarter&quot;
-## [13] &quot;Annual precipitation&quot;                &quot;Precipitation of wettest month&quot;     
-## [15] &quot;Precipitation of driest month&quot;       &quot;Precipitation seasonality&quot;          
-## [17] &quot;Precipitation of wettest quarter&quot;    &quot;Precipitation of driest quarter&quot;    
-## [19] &quot;Precipitation of warmest quarter&quot;    &quot;Precipitation of coldest quarter&quot;   
-## [21] &quot;Precipitation (January)&quot;             &quot;Precipitation (February)&quot;           
-## [23] &quot;Precipitation (March)&quot;               &quot;Precipitation (April)&quot;              
-## [25] &quot;Precipitation (May)&quot;                 &quot;Precipitation (June)&quot;               
-## [27] &quot;Precipitation (July)&quot;                &quot;Precipitation (August)&quot;             
-## [29] &quot;Precipitation (September)&quot;           &quot;Precipitation (October)&quot;            
-## [31] &quot;Precipitation (November)&quot;            &quot;Precipitation (December)&quot;           
-## [33] &quot;Maximum temperature (January)&quot;       &quot;Maximum temperature (February)&quot;     
-## [35] &quot;Maximum temperature (March)&quot;         &quot;Maximum temperature (April)&quot;        
-## [37] &quot;Maximum temperature (May)&quot;           &quot;Maximum temperature (June)&quot;         
-## [39] &quot;Maximum temperature (July)&quot;          &quot;Maximum temperature (August)&quot;       
-## [41] &quot;Maximum temperature (September)&quot;     &quot;Maximum temperature (October)&quot;      
-## [43] &quot;Maximum temperature (November)&quot;      &quot;Maximum temperature (December)&quot;     
-## [45] &quot;Mean temperature (January)&quot;          &quot;Mean temperature (February)&quot;        
-## [47] &quot;Mean temperature (March)&quot;            &quot;Mean temperature (April)&quot;           
-## [49] &quot;Mean temperature (May)&quot;              &quot;Mean temperature (June)&quot;            
-## [51] &quot;Mean temperature (July)&quot;             &quot;Mean temperature (August)&quot;          
-## [53] &quot;Mean temperature (September)&quot;        &quot;Mean temperature (October)&quot;         
-## [55] &quot;Mean temperature (November)&quot;         &quot;Mean temperature (December)&quot;        
-## [57] &quot;Minimum temperature (January)&quot;       &quot;Minimum temperature (February)&quot;     
-## [59] &quot;Minimum temperature (March)&quot;         &quot;Minimum temperature (April)&quot;        
-## [61] &quot;Minimum temperature (May)&quot;           &quot;Minimum temperature (June)&quot;         
-## [63] &quot;Minimum temperature (July)&quot;          &quot;Minimum temperature (August)&quot;       
-## [65] &quot;Minimum temperature (September)&quot;     &quot;Minimum temperature (October)&quot;      
-## [67] &quot;Minimum temperature (November)&quot;      &quot;Minimum temperature (December)&quot;
+<pre><code>##  [1] &quot;Altitude&quot;                           
+##  [2] &quot;Annual mean temperature&quot;            
+##  [3] &quot;Mean diurnal temperature range&quot;     
+##  [4] &quot;Isothermality&quot;                      
+##  [5] &quot;Temperature seasonality&quot;            
+##  [6] &quot;Maximum temperature&quot;                
+##  [7] &quot;Minimum temperature&quot;                
+##  [8] &quot;Annual temperature range&quot;           
+##  [9] &quot;Mean temperature of wettest quarter&quot;
+## [10] &quot;Mean temperature of driest quarter&quot; 
+## [11] &quot;Mean temperature of warmest quarter&quot;
+## [12] &quot;Mean temperature of coldest quarter&quot;
+## [13] &quot;Annual precipitation&quot;               
+## [14] &quot;Precipitation of wettest month&quot;     
+## [15] &quot;Precipitation of driest month&quot;      
+## [16] &quot;Precipitation seasonality&quot;          
+## [17] &quot;Precipitation of wettest quarter&quot;   
+## [18] &quot;Precipitation of driest quarter&quot;    
+## [19] &quot;Precipitation of warmest quarter&quot;   
+## [20] &quot;Precipitation of coldest quarter&quot;   
+## [21] &quot;Precipitation (January)&quot;            
+## [22] &quot;Precipitation (February)&quot;           
+## [23] &quot;Precipitation (March)&quot;              
+## [24] &quot;Precipitation (April)&quot;              
+## [25] &quot;Precipitation (May)&quot;                
+## [26] &quot;Precipitation (June)&quot;               
+## [27] &quot;Precipitation (July)&quot;               
+## [28] &quot;Precipitation (August)&quot;             
+## [29] &quot;Precipitation (September)&quot;          
+## [30] &quot;Precipitation (October)&quot;            
+## [31] &quot;Precipitation (November)&quot;           
+## [32] &quot;Precipitation (December)&quot;           
+## [33] &quot;Maximum temperature (January)&quot;      
+## [34] &quot;Maximum temperature (February)&quot;     
+## [35] &quot;Maximum temperature (March)&quot;        
+## [36] &quot;Maximum temperature (April)&quot;        
+## [37] &quot;Maximum temperature (May)&quot;          
+## [38] &quot;Maximum temperature (June)&quot;         
+## [39] &quot;Maximum temperature (July)&quot;         
+## [40] &quot;Maximum temperature (August)&quot;       
+## [41] &quot;Maximum temperature (September)&quot;    
+## [42] &quot;Maximum temperature (October)&quot;      
+## [43] &quot;Maximum temperature (November)&quot;     
+## [44] &quot;Maximum temperature (December)&quot;     
+## [45] &quot;Mean temperature (January)&quot;         
+## [46] &quot;Mean temperature (February)&quot;        
+## [47] &quot;Mean temperature (March)&quot;           
+## [48] &quot;Mean temperature (April)&quot;           
+## [49] &quot;Mean temperature (May)&quot;             
+## [50] &quot;Mean temperature (June)&quot;            
+## [51] &quot;Mean temperature (July)&quot;            
+## [52] &quot;Mean temperature (August)&quot;          
+## [53] &quot;Mean temperature (September)&quot;       
+## [54] &quot;Mean temperature (October)&quot;         
+## [55] &quot;Mean temperature (November)&quot;        
+## [56] &quot;Mean temperature (December)&quot;        
+## [57] &quot;Minimum temperature (January)&quot;      
+## [58] &quot;Minimum temperature (February)&quot;     
+## [59] &quot;Minimum temperature (March)&quot;        
+## [60] &quot;Minimum temperature (April)&quot;        
+## [61] &quot;Minimum temperature (May)&quot;          
+## [62] &quot;Minimum temperature (June)&quot;         
+## [63] &quot;Minimum temperature (July)&quot;         
+## [64] &quot;Minimum temperature (August)&quot;       
+## [65] &quot;Minimum temperature (September)&quot;    
+## [66] &quot;Minimum temperature (October)&quot;      
+## [67] &quot;Minimum temperature (November)&quot;     
+## [68] &quot;Minimum temperature (December)&quot;
 </code></pre>
 
 <pre><code class="r"># example of marine variables dataset
@@ -1128,8 +1171,9 @@ length(layers)
 names(layers)
 </code></pre>
 
-<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot;  &quot;WC_bio6&quot;  &quot;WC_bio7&quot;  &quot;WC_bio8&quot; 
-## [10] &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot; &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot; &quot;WC_bio16&quot; &quot;WC_bio17&quot;
+<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot; 
+##  [7] &quot;WC_bio6&quot;  &quot;WC_bio7&quot;  &quot;WC_bio8&quot;  &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot;
+## [13] &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot; &quot;WC_bio16&quot; &quot;WC_bio17&quot;
 ## [19] &quot;WC_bio18&quot; &quot;WC_bio19&quot;
 </code></pre>
 
@@ -1200,8 +1244,9 @@ what is the cartographic projection / coordinate reference system):</p>
 <pre><code class="r">names(presences)
 </code></pre>
 
-<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;              &quot;decimalLatitude&quot;              
-## [4] &quot;coordinateUncertaintyInMeters&quot; &quot;uniqueID&quot;
+<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;             
+## [3] &quot;decimalLatitude&quot;               &quot;coordinateUncertaintyInMeters&quot;
+## [5] &quot;uniqueID&quot;
 </code></pre>
 
 <pre><code class="r">pres_spat_vect &lt;- vect(presences, 
@@ -1285,7 +1330,7 @@ plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE)
 <pre><code class="r">plot(layers_cut[[1]])
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <p>Remember, the spatial resolution of the variables should be 
@@ -1296,7 +1341,7 @@ adequate to the data and study area!</p>
 <pre><code class="r">plot(layers_cut[[1]])
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, cex = 0.1, add = TRUE)
@@ -1310,7 +1355,7 @@ adequate to the data and study area!</p>
 plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
@@ -1333,38 +1378,21 @@ plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 
 <pre><code class="r">dat &lt;- fuzzySim::gridRecords(rst = layers_cut, 
                    pres.coords = presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)])
-head(dat)
 </code></pre>
 
-<pre><code>##   presence         x        y cells WC_alt WC_bio1 WC_bio2 WC_bio3 WC_bio4 WC_bio5 WC_bio6 WC_bio7
-## 1        1 -83.20833 41.62500 43656    173     9.9    10.3    0.27   96.06    28.9    -8.4    37.3
-## 2        1 -83.12500 41.79167 42713    172     9.7     9.6    0.26   95.98    28.2    -8.3    36.5
-## 3        1 -84.45833 42.79167 37033    260     8.1    11.0    0.28   96.49    27.9   -10.4    38.3
-## 4        1 -80.70833 43.04167 35662    305     7.1    10.1    0.27   93.69    26.3   -10.2    36.5
-## 5        1 -71.37500 42.45833 39078     56     9.0    11.8    0.31   89.97    28.0    -9.4    37.4
-## 6        1 -84.45833 42.62500 37977    271     8.2    11.0    0.28   96.57    27.8   -10.3    38.1
-##   WC_bio8 WC_bio9 WC_bio10 WC_bio11 WC_bio12 WC_bio13 WC_bio14 WC_bio15 WC_bio16 WC_bio17 WC_bio18
-## 1    21.9    -1.6     21.9     -2.9      845       92       42       21      263      152      263
-## 2    21.7    -1.8     21.7     -3.0      842       89       44       20      257      155      257
-## 3    20.1    -4.8     20.1     -4.8      784       88       35       25      242      127      242
-## 4    18.0    -4.4     18.8     -5.2      939       93       58       12      259      197      255
-## 5    -0.3    20.4     20.4     -2.9     1118      116       84       10      312      255      255
-## 6    20.2    -4.8     20.2     -4.8      785       88       34       26      243      126      243
-##   WC_bio19
-## 1      155
-## 2      160
-## 3      127
-## 4      206
-## 5      285
-## 6      126
+<pre><code>## Error in fuzzySim::gridRecords(rst = layers_cut, pres.coords = presences[, : object &#39;layers_cut&#39; not found
+</code></pre>
+
+<pre><code class="r">head(dat)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;dat&#39; not found
 </code></pre>
 
 <pre><code class="r">table(dat$presence)
 </code></pre>
 
-<pre><code>## 
-##     0     1 
-## 15002  1537
+<pre><code>## Error in table(dat$presence): object &#39;dat&#39; not found
 </code></pre>
 
 <p>Map these data</p>
@@ -1372,21 +1400,21 @@ head(dat)
 <pre><code class="r">plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <pre><code class="r"># plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;red&quot;, cex = 0.5)
 </code></pre>
 
-<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
 </code></pre>
 
 <pre><code class="r"># plot the presences (pixels with presence records):
 points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue&quot;, cex = 0.7)
 </code></pre>
 
-<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
 </code></pre>
 
 <p>Now, convert back to a spatial data frame</p>
@@ -1394,6 +1422,9 @@ points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue
 <pre><code class="r">dat_spat &lt;- SpatialPointsDataFrame(coords = dat[,c(&quot;x&quot;, &quot;y&quot;)],
                                    data = dat,
                                    proj4string = crs(&quot;+proj=longlat&quot;))
+</code></pre>
+
+<pre><code>## Error in is(coords, &quot;SpatialPoints&quot;): object &#39;dat&#39; not found
 </code></pre>
 
 <p>Finally, make a dataframe (which you&#39;ll need for modelling) of the species 
@@ -1406,26 +1437,13 @@ and the presence/absence of the species):</p>
                   predictors = layers_cut[[1:2]])
 </code></pre>
 
-<pre><code>## Warning in proj4string(train): CRS object has comment, which is lost in output; in tests, see
-## https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html
-
-## Warning in proj4string(train): CRS object has comment, which is lost in output; in tests, see
-## https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;train&#39; in selecting a method for function &#39;sdmData&#39;: object &#39;dat_spat&#39; not found
 </code></pre>
 
 <pre><code class="r">df.sdm
 </code></pre>
 
-<pre><code>## class                                 : sdmdata 
-## =========================================================== 
-## number of species                     :  1 
-## species names                         :  presence 
-## number of features                    :  23 
-## feature names                         :  cells, WC_bio2, WC_bio3, ... 
-## type                                  :  Presence-Absence 
-## has independet test data?             :  FALSE 
-## number of records                     :  16539 
-## has Coordinates?                      :  TRUE
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.sdm&#39; not found
 </code></pre>
 
 <hr/>
@@ -1433,39 +1451,23 @@ and the presence/absence of the species):</p>
 <h2>5. Run models and create a predicted distribution map</h2>
 
 <pre><code class="r">m1 &lt;- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c(&quot;glm&quot;))
-m1
 </code></pre>
 
-<pre><code>## class                                 : sdmModels 
-## ======================================================== 
-## number of species                     :  1 
-## number of modelling methods           :  1 
-## names of modelling methods            :  glm 
-## ------------------------------------------
-## model run success percentage (per species)  :
-## ------------------------------------------
-## method          presence         
-## ---------------------- 
-## glm        :        100   %
-## 
-## ###################################################################
-## model performance (per species), using training test dataset:
-## -------------------------------------------------------------------------------
-## 
-##  ## species   :  presence 
-## =========================
-## 
-## methods    :     AUC     |     COR     |     TSS     |     Deviance 
-## -------------------------------------------------------------------------
-## glm        :     0.66    |     0.15    |     0.25    |     0.6
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;data&#39; in selecting a method for function &#39;sdm&#39;: object &#39;df.sdm&#39; not found
+</code></pre>
+
+<pre><code class="r">m1
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;m1&#39; not found
 </code></pre>
 
 <p>Prediction map</p>
 
-<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;aaarcher/output/figures/p1.img&#39;) 
+<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;aaarcher/output/figures/p1.img&#39;, overwrite=T) 
 </code></pre>
 
-<pre><code>## Error in .getGDALtransient(x, filename = filename, options = options, : filename exists; use overwrite=TRUE
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;object&#39; in selecting a method for function &#39;predict&#39;: object &#39;m1&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(studyarea, border = &quot;red&quot;, lwd = 3)
@@ -1483,7 +1485,7 @@ m1
 <pre><code class="r">plot(p1, add = T)
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(p1, add = T): object &#39;p1&#39; not found
 </code></pre>
 
 <hr/>
@@ -1491,7 +1493,7 @@ m1
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;aaarcher/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;GlennaJaede/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;GlennaJaede/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 

@@ -26,7 +26,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Bombus affinis"
 
 #' 
 #' Download the data
@@ -79,7 +79,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
        pch = 20, 
        col = "green")
 
-#' 
+ #' 
 #' These data look good, but let's remove any data points that have
 #' very uncertain coordinates (>70,000 m)
 #' 
@@ -193,8 +193,8 @@ plot(layers[[1:4]])
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                     geom = c("decimalLongitude", "decimalLatitude"), 
-                     crs = "+proj=longlat")
+                       geom = c("decimalLongitude", "decimalLatitude"), 
+                       crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -254,7 +254,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
@@ -278,7 +278,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                  predictors = layers_cut[[1:2]])
+                       predictors = layers_cut[[1:2]])
 df.sdm
 
 

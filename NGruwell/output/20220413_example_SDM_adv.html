@@ -207,12 +207,12 @@ hr {
 
 <p>April 6, 2022</p>
 
-<p>Programmer: Nicole Gruwell </p>
+<p>Programmer: Emma Kuechle and Nicole Gruwell </p>
 
 <h3>Header</h3>
 
 <pre><code class="r"># Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -229,14 +229,14 @@ remove(list = ls())
 
 <p>Scientific name of the species</p>
 
-<pre><code class="r">myspecies &lt;- &quot;Emydoidea blandingii&quot;
+<pre><code class="r">myspecies &lt;- &quot;Morpho menelaus&quot;
 </code></pre>
 
-<p>Download the data</p>
+<p>Download the data using rgbif library</p>
 
 <pre><code class="r">gbif_data &lt;- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                      limit = 20200)
 </code></pre>
 
 <p>See if &ldquo;Records returned&rdquo; is smaller than &ldquo;Records found&rdquo;, in which case you need to re-run &#39;occ_data&#39; with a larger &#39;limit&#39; above</p>
@@ -244,23 +244,23 @@ remove(list = ls())
 <pre><code class="r">gbif_data  
 </code></pre>
 
-<pre><code>## Records found [3350] 
-## Records returned [3350] 
-## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea blandingii] 
-## # A tibble: 3,350 x 142
+<pre><code>## Records found [791] 
+## Records returned [791] 
+## Args [hasCoordinate=TRUE, limit=20200, offset=0, scientificName=Morpho menelaus] 
+## # A tibble: 791 x 154
 ##    key        scientificName          decimalLatitude decimalLongitude issues datasetKey publishingOrgKey
 ##    &lt;chr&gt;      &lt;chr&gt;                             &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;           
-##  1 3747173794 Emydoidea blandingii (~            41.6            -83.2 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  2 3059016268 Emydoidea blandingii (~            41.8            -83.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  3 3067885721 Emydoidea blandingii (~            42.8            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  4 3068028225 Emydoidea blandingii (~            43.1            -80.7 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  5 3068070749 Emydoidea blandingii (~            42.5            -71.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  6 3068096788 Emydoidea blandingii (~            42.6            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  7 3068129441 Emydoidea blandingii (~            43.4            -89.8 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  8 3070362510 Emydoidea blandingii (~            42.8            -84.5 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  9 3070380118 Emydoidea blandingii (~            44.4            -65.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## 10 3070397669 Emydoidea blandingii (~            44.0            -77.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## # ... with 3,340 more rows, and 135 more variables: installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;,
+##  1 3455887643 Morpho menelaus Linnae~            9.64            -82.6 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  2 3457217712 Morpho menelaus Linnae~            9.63            -82.6 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  3 3466079282 Morpho menelaus Linnae~            9.64            -82.6 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  4 3466349213 Morpho menelaus menela~            4.17            -59.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  5 3466391924 Morpho menelaus Linnae~           -3.47            -79.8 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  6 3747252595 Morpho menelaus Linnae~           -3.12            -60.0 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  7 3090753318 Morpho menelaus Linnae~          -20.2             -44.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  8 3058954340 Morpho menelaus Linnae~            8.64            -83.7 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+##  9 3090742771 Morpho menelaus Linnae~            8.83            -80.6 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+## 10 3124556431 Morpho menelaus Linnae~            4.64            -52.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
+## # ... with 781 more rows, and 147 more variables: installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;,
 ## #   protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;, hostingOrganizationKey &lt;chr&gt;,
 ## #   basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;,
 ## #   classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;,
@@ -302,8 +302,8 @@ can properly cite your data sources on the final presentation.</p>
 <pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
 </code></pre>
 
-<p>Notice that one green dot shows up in Europe. This species does NOT
-occur in Europe!</p>
+<p>Notice that two red dots shows up in Europe and Asia. This species does NOT
+occur in either!</p>
 
 <p>How can you find out which one is the outlier?</p>
 
@@ -337,7 +337,7 @@ very uncertain coordinates (&gt;70,000 m)</p>
 <pre><code class="r">range(presences$coordinateUncertaintyInMeters, na.rm = T)
 </code></pre>
 
-<pre><code>## [1]      10 2931895
+<pre><code>## [1]       1 2359900
 </code></pre>
 
 <pre><code class="r">remove.IDs &lt;- presences$uniqueID[presences$coordinateUncertaintyInMeters &gt; 70000 &amp;
@@ -345,21 +345,21 @@ very uncertain coordinates (&gt;70,000 m)</p>
 length(remove.IDs) # how many to remove? How many should be left?
 </code></pre>
 
-<pre><code>## [1] 17
+<pre><code>## [1] 24
 </code></pre>
 
 <pre><code class="r">presences &lt;- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 </code></pre>
 
-<pre><code>##      key            decimalLongitude  decimalLatitude coordinateUncertaintyInMeters    uniqueID     
-##  Length:3332        Min.   :-101.91   Min.   :33.52   Min.   :   10                 Min.   :   1.0  
-##  Class :character   1st Qu.: -83.53   1st Qu.:42.60   1st Qu.:27190                 1st Qu.: 835.8  
-##  Mode  :character   Median : -79.43   Median :44.43   Median :27285                 Median :1670.5  
-##                     Mean   : -80.61   Mean   :43.99   Mean   :25667                 Mean   :1672.6  
-##                     3rd Qu.: -76.55   3rd Qu.:45.03   3rd Qu.:27537                 3rd Qu.:2510.2  
-##                     Max.   : -63.76   Max.   :48.85   Max.   :70000                 Max.   :3350.0  
-##                                                       NA&#39;s   :329
+<pre><code>##      key            decimalLongitude decimalLatitude    coordinateUncertaintyInMeters    uniqueID    
+##  Length:764         Min.   :-91.09   Min.   :-27.5969   Min.   :    1                 Min.   :  1.0  
+##  Class :character   1st Qu.:-79.85   1st Qu.: -2.4497   1st Qu.:  150                 1st Qu.:194.8  
+##  Mode  :character   Median :-70.43   Median :  0.8870   Median :  977                 Median :385.5  
+##                     Mean   :-67.34   Mean   :  0.6246   Mean   : 4571                 Mean   :388.1  
+##                     3rd Qu.:-52.30   3rd Qu.:  8.5240   3rd Qu.: 3036                 3rd Qu.:577.2  
+##                     Max.   :-34.81   Max.   : 15.3195   Max.   :66042                 Max.   :791.0  
+##                                                         NA&#39;s   :393
 </code></pre>
 
 <pre><code class="r"># map the cleaned occurrence records on top of the raw ones:
@@ -858,31 +858,14 @@ layers_choice
 ## 68      Minimum temperature (December)  WC_tmin12
 </code></pre>
 
-<pre><code class="r">layers_choice &lt;- layers_choice[1:20, ]
+<pre><code class="r">layers_choice &lt;- layers_choice[layers_choice$layer_code %in% c(&quot;WC_prec4&quot;, &quot;WC_prec11&quot;, &quot;WC_bio17&quot;), ]
 layers_choice
 </code></pre>
 
-<pre><code>##                                   name layer_code
-## 1                             Altitude     WC_alt
-## 2              Annual mean temperature    WC_bio1
-## 3       Mean diurnal temperature range    WC_bio2
-## 4                        Isothermality    WC_bio3
-## 5              Temperature seasonality    WC_bio4
-## 6                  Maximum temperature    WC_bio5
-## 7                  Minimum temperature    WC_bio6
-## 8             Annual temperature range    WC_bio7
-## 9  Mean temperature of wettest quarter    WC_bio8
-## 10  Mean temperature of driest quarter    WC_bio9
-## 11 Mean temperature of warmest quarter   WC_bio10
-## 12 Mean temperature of coldest quarter   WC_bio11
-## 13                Annual precipitation   WC_bio12
-## 14      Precipitation of wettest month   WC_bio13
-## 15       Precipitation of driest month   WC_bio14
-## 16           Precipitation seasonality   WC_bio15
-## 17    Precipitation of wettest quarter   WC_bio16
-## 18     Precipitation of driest quarter   WC_bio17
-## 19    Precipitation of warmest quarter   WC_bio18
-## 20    Precipitation of coldest quarter   WC_bio19
+<pre><code>##                               name layer_code
+## 18 Precipitation of driest quarter   WC_bio17
+## 24           Precipitation (April)   WC_prec4
+## 31        Precipitation (November)  WC_prec11
 </code></pre>
 
 <p>Define folder for downloading the map layers:</p>
@@ -897,194 +880,7 @@ layers_choice
 layers
 </code></pre>
 
-<pre><code>## $WC_alt
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_alt_lonlat.tif 
-## names      : WC_alt 
-## values     : -415, 6485  (min, max)
-## 
-## 
-## $WC_bio1
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio1_lonlat.tif 
-## names      : WC_bio1 
-## values     : -27.4, 31.6  (min, max)
-## 
-## 
-## $WC_bio2
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio2_lonlat.tif 
-## names      : WC_bio2 
-## values     : 0.9, 21.3  (min, max)
-## 
-## 
-## $WC_bio3
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio3_lonlat.tif 
-## names      : WC_bio3 
-## values     : 0.08, 0.96  (min, max)
-## 
-## 
-## $WC_bio4
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio4_lonlat.tif 
-## names      : WC_bio4 
-## values     : 0.72, 226.92  (min, max)
-## 
-## 
-## $WC_bio5
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio5_lonlat.tif 
-## names      : WC_bio5 
-## values     : -7.3, 48.9  (min, max)
-## 
-## 
-## $WC_bio6
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio6_lonlat.tif 
-## names      : WC_bio6 
-## values     : -55.5, 25.8  (min, max)
-## 
-## 
-## $WC_bio7
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio7_lonlat.tif 
-## names      : WC_bio7 
-## values     : 5.3, 72.5  (min, max)
-## 
-## 
-## $WC_bio8
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio8_lonlat.tif 
-## names      : WC_bio8 
-## values     : -27.3, 37.6  (min, max)
-## 
-## 
-## $WC_bio9
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio9_lonlat.tif 
-## names      : WC_bio9 
-## values     : -49.1, 36.5  (min, max)
-## 
-## 
-## $WC_bio10
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio10_lonlat.tif 
-## names      : WC_bio10 
-## values     : -11.4, 38.1  (min, max)
-## 
-## 
-## $WC_bio11
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio11_lonlat.tif 
-## names      : WC_bio11 
-## values     : -49.7, 28.9  (min, max)
-## 
-## 
-## $WC_bio12
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio12_lonlat.tif 
-## names      : WC_bio12 
-## values     : 0, 9967  (min, max)
-## 
-## 
-## $WC_bio13
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio13_lonlat.tif 
-## names      : WC_bio13 
-## values     : 0, 2198  (min, max)
-## 
-## 
-## $WC_bio14
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio14_lonlat.tif 
-## names      : WC_bio14 
-## values     : 0, 666  (min, max)
-## 
-## 
-## $WC_bio15
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio15_lonlat.tif 
-## names      : WC_bio15 
-## values     : 0, 265  (min, max)
-## 
-## 
-## $WC_bio16
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio16_lonlat.tif 
-## names      : WC_bio16 
-## values     : 0, 5691  (min, max)
-## 
-## 
-## $WC_bio17
+<pre><code>## $WC_bio17
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
 ## resolution : 0.08333333, 0.08333333  (x, y)
@@ -1095,42 +891,40 @@ layers
 ## values     : 0, 2212  (min, max)
 ## 
 ## 
-## $WC_bio18
+## $WC_prec4
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
 ## resolution : 0.08333333, 0.08333333  (x, y)
 ## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
 ## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio18_lonlat.tif 
-## names      : WC_bio18 
-## values     : 0, 4372  (min, max)
+## source     : WC_prec4_lonlat.tif 
+## names      : WC_prec4 
+## values     : 0, 829  (min, max)
 ## 
 ## 
-## $WC_bio19
+## $WC_prec11
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
 ## resolution : 0.08333333, 0.08333333  (x, y)
 ## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
 ## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio19_lonlat.tif 
-## names      : WC_bio19 
-## values     : 0, 4282  (min, max)
+## source     : WC_prec11_lonlat.tif 
+## names      : WC_prec11 
+## values     : 0, 928  (min, max)
 </code></pre>
 
 <pre><code class="r"># see how many elements in &#39;layers&#39;:
 length(layers)
 </code></pre>
 
-<pre><code>## [1] 20
+<pre><code>## [1] 3
 </code></pre>
 
 <pre><code class="r"># plot a couple of layers to see how they look:
 names(layers)
 </code></pre>
 
-<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot;  &quot;WC_bio6&quot;  &quot;WC_bio7&quot;  &quot;WC_bio8&quot; 
-## [10] &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot; &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot; &quot;WC_bio16&quot; &quot;WC_bio17&quot;
-## [19] &quot;WC_bio18&quot; &quot;WC_bio19&quot;
+<pre><code>## [1] &quot;WC_bio17&quot;  &quot;WC_prec4&quot;  &quot;WC_prec11&quot;
 </code></pre>
 
 <pre><code class="r">plot(layers[[1]], main = names(layers)[1])
@@ -1139,7 +933,7 @@ names(layers)
 <pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
 
-<pre><code class="r">plot(layers[[5]], main = names(layers)[5])
+<pre><code class="r">plot(layers[[2]], main = names(layers)[2])
 </code></pre>
 
 <pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
@@ -1178,7 +972,7 @@ you can stack them in a single multi-layer Raster object and plot some to check<
 plot(layers[[1:4]])
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in .local(x, ...): not a valid subset
 </code></pre>
 
 <hr/>
@@ -1256,16 +1050,21 @@ plot(pres_buff, lwd = 2)
 within countries (e.g., not ocean)</p>
 
 <pre><code class="r">studyarea &lt;- intersect(pres_buff, countries)
-plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE)
 </code></pre>
 
-<pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; is a list, but does not have components &#39;x&#39; and &#39;y&#39;
+<pre><code>## Error in match(as.vector(x), y, 0L): &#39;match&#39; requires vector arguments
+</code></pre>
+
+<pre><code class="r">plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE): object &#39;studyarea&#39; not found
 </code></pre>
 
 <pre><code class="r">studyarea &lt;- as(studyarea, &quot;Spatial&quot;)
 </code></pre>
 
-<pre><code>## Error in as(studyarea, &quot;Spatial&quot;): no method or default for coercing &quot;list&quot; to &quot;Spatial&quot;
+<pre><code>## Error in .class1(object): object &#39;studyarea&#39; not found
 </code></pre>
 
 <pre><code class="r"># IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
@@ -1279,13 +1078,13 @@ plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE)
 <pre><code class="r">layers_cut &lt;- terra::crop(terra::mask(layers, studyarea), studyarea)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;crop&#39;: unable to find an inherited method for function &#39;mask&#39; for signature &#39;&quot;RasterStack&quot;, &quot;list&quot;&#39;
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;crop&#39;: error in evaluating the argument &#39;mask&#39; in selecting a method for function &#39;mask&#39;: object &#39;studyarea&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(layers_cut[[1]])
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <p>Remember, the spatial resolution of the variables should be 
@@ -1296,7 +1095,7 @@ adequate to the data and study area!</p>
 <pre><code class="r">plot(layers_cut[[1]])
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, cex = 0.1, add = TRUE)
@@ -1310,7 +1109,7 @@ adequate to the data and study area!</p>
 plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
@@ -1333,38 +1132,21 @@ plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 
 <pre><code class="r">dat &lt;- fuzzySim::gridRecords(rst = layers_cut, 
                    pres.coords = presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)])
-head(dat)
 </code></pre>
 
-<pre><code>##   presence         x        y cells WC_alt WC_bio1 WC_bio2 WC_bio3 WC_bio4 WC_bio5 WC_bio6 WC_bio7
-## 1        1 -83.20833 41.62500 43656    173     9.9    10.3    0.27   96.06    28.9    -8.4    37.3
-## 2        1 -83.12500 41.79167 42713    172     9.7     9.6    0.26   95.98    28.2    -8.3    36.5
-## 3        1 -84.45833 42.79167 37033    260     8.1    11.0    0.28   96.49    27.9   -10.4    38.3
-## 4        1 -80.70833 43.04167 35662    305     7.1    10.1    0.27   93.69    26.3   -10.2    36.5
-## 5        1 -71.37500 42.45833 39078     56     9.0    11.8    0.31   89.97    28.0    -9.4    37.4
-## 6        1 -84.45833 42.62500 37977    271     8.2    11.0    0.28   96.57    27.8   -10.3    38.1
-##   WC_bio8 WC_bio9 WC_bio10 WC_bio11 WC_bio12 WC_bio13 WC_bio14 WC_bio15 WC_bio16 WC_bio17 WC_bio18
-## 1    21.9    -1.6     21.9     -2.9      845       92       42       21      263      152      263
-## 2    21.7    -1.8     21.7     -3.0      842       89       44       20      257      155      257
-## 3    20.1    -4.8     20.1     -4.8      784       88       35       25      242      127      242
-## 4    18.0    -4.4     18.8     -5.2      939       93       58       12      259      197      255
-## 5    -0.3    20.4     20.4     -2.9     1118      116       84       10      312      255      255
-## 6    20.2    -4.8     20.2     -4.8      785       88       34       26      243      126      243
-##   WC_bio19
-## 1      155
-## 2      160
-## 3      127
-## 4      206
-## 5      285
-## 6      126
+<pre><code>## Error in fuzzySim::gridRecords(rst = layers_cut, pres.coords = presences[, : object &#39;layers_cut&#39; not found
+</code></pre>
+
+<pre><code class="r">head(dat)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;dat&#39; not found
 </code></pre>
 
 <pre><code class="r">table(dat$presence)
 </code></pre>
 
-<pre><code>## 
-##     0     1 
-## 15002  1537
+<pre><code>## Error in table(dat$presence): object &#39;dat&#39; not found
 </code></pre>
 
 <p>Map these data</p>
@@ -1372,21 +1154,21 @@ head(dat)
 <pre><code class="r">plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
 </code></pre>
 
 <pre><code class="r"># plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;red&quot;, cex = 0.5)
 </code></pre>
 
-<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
 </code></pre>
 
 <pre><code class="r"># plot the presences (pixels with presence records):
 points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue&quot;, cex = 0.7)
 </code></pre>
 
-<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
 </code></pre>
 
 <p>Now, convert back to a spatial data frame</p>
@@ -1394,6 +1176,9 @@ points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue
 <pre><code class="r">dat_spat &lt;- SpatialPointsDataFrame(coords = dat[,c(&quot;x&quot;, &quot;y&quot;)],
                                    data = dat,
                                    proj4string = crs(&quot;+proj=longlat&quot;))
+</code></pre>
+
+<pre><code>## Error in is(coords, &quot;SpatialPoints&quot;): object &#39;dat&#39; not found
 </code></pre>
 
 <p>Finally, make a dataframe (which you&#39;ll need for modelling) of the species 
@@ -1406,72 +1191,47 @@ and the presence/absence of the species):</p>
                   predictors = layers_cut[[1:2]])
 </code></pre>
 
-<pre><code>## Warning in proj4string(train): CRS object has comment, which is lost in output; in tests, see
-## https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html
-
-## Warning in proj4string(train): CRS object has comment, which is lost in output; in tests, see
-## https://cran.r-project.org/web/packages/sp/vignettes/CRS_warnings.html
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;train&#39; in selecting a method for function &#39;sdmData&#39;: object &#39;dat_spat&#39; not found
 </code></pre>
 
 <pre><code class="r">df.sdm
 </code></pre>
 
-<pre><code>## class                                 : sdmdata 
-## =========================================================== 
-## number of species                     :  1 
-## species names                         :  presence 
-## number of features                    :  23 
-## feature names                         :  cells, WC_bio2, WC_bio3, ... 
-## type                                  :  Presence-Absence 
-## has independet test data?             :  FALSE 
-## number of records                     :  16539 
-## has Coordinates?                      :  TRUE
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.sdm&#39; not found
 </code></pre>
 
 <hr/>
 
 <h2>5. Run models and create a predicted distribution map</h2>
 
-<pre><code class="r">m1 &lt;- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c(&quot;glm&quot;))
-m1
+<pre><code class="r">m1 &lt;- sdm(presence ~ WC_alt + WC_bio1, 
+          data = df.sdm, 
+          methods = c(&quot;glm&quot;))
 </code></pre>
 
-<pre><code>## class                                 : sdmModels 
-## ======================================================== 
-## number of species                     :  1 
-## number of modelling methods           :  1 
-## names of modelling methods            :  glm 
-## ------------------------------------------
-## model run success percentage (per species)  :
-## ------------------------------------------
-## method          presence         
-## ---------------------- 
-## glm        :        100   %
-## 
-## ###################################################################
-## model performance (per species), using training test dataset:
-## -------------------------------------------------------------------------------
-## 
-##  ## species   :  presence 
-## =========================
-## 
-## methods    :     AUC     |     COR     |     TSS     |     Deviance 
-## -------------------------------------------------------------------------
-## glm        :     0.66    |     0.15    |     0.25    |     0.6
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;data&#39; in selecting a method for function &#39;sdm&#39;: object &#39;df.sdm&#39; not found
+</code></pre>
+
+<pre><code class="r">m1
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;m1&#39; not found
 </code></pre>
 
 <p>Prediction map</p>
 
-<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;aaarcher/output/figures/p1.img&#39;) 
+<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, 
+              filename=&#39;aaarcher/output/figures/p1.img&#39;, 
+              overwrite=T) 
 </code></pre>
 
-<pre><code>## Error in .getGDALtransient(x, filename = filename, options = options, : filename exists; use overwrite=TRUE
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;object&#39; in selecting a method for function &#39;predict&#39;: object &#39;m1&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(studyarea, border = &quot;red&quot;, lwd = 3)
 </code></pre>
 
-<pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; is a list, but does not have components &#39;x&#39; and &#39;y&#39;
+<pre><code>## Error in plot(studyarea, border = &quot;red&quot;, lwd = 3): object &#39;studyarea&#39; not found
 </code></pre>
 
 <pre><code class="r">plot(countries, border = &quot;tan&quot;, add = T)
@@ -1483,7 +1243,129 @@ m1
 <pre><code class="r">plot(p1, add = T)
 </code></pre>
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+<pre><code>## Error in plot(p1, add = T): object &#39;p1&#39; not found
+</code></pre>
+
+<p>Variable importance</p>
+
+<pre><code class="r">vi &lt;- getVarImp(m1)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getVarImp&#39;: object &#39;m1&#39; not found
+</code></pre>
+
+<pre><code class="r">vi
+</code></pre>
+
+<pre><code>## function (name = NULL, file = &quot;&quot;) 
+## edit.default(name, file, editor = &quot;vi&quot;)
+## &lt;bytecode: 0x0000027a8533db98&gt;
+## &lt;environment: namespace:utils&gt;
+</code></pre>
+
+<pre><code class="r">plot(vi)
+</code></pre>
+
+<pre><code>## Error in .External2(C_edit, name, file, title, editor): unable to run editor &#39;vi&#39;
+</code></pre>
+
+<p>View Coefficients</p>
+
+<pre><code class="r">plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getModelObject&#39;: object &#39;m1&#39; not found
+</code></pre>
+
+<pre><code class="r"># sensical scales
+</code></pre>
+
+<p>Variable selection?</p>
+
+<pre><code class="r">m2.select &lt;- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c(&quot;glm&quot;), var.selection = T)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;data&#39; in selecting a method for function &#39;sdm&#39;: object &#39;df.sdm&#39; not found
+</code></pre>
+
+<pre><code class="r">getModelObject(m2.select)[[1]]
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getModelObject&#39;: object &#39;m2.select&#39; not found
+</code></pre>
+
+<pre><code class="r">getVarImp(m2.select)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getVarImp&#39;: object &#39;m2.select&#39; not found
+</code></pre>
+
+<pre><code class="r">plot(getVarImp(m2.select))
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getVarImp&#39;: object &#39;m2.select&#39; not found
+</code></pre>
+
+<pre><code class="r">m2.select
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;m2.select&#39; not found
+</code></pre>
+
+<p>Based on these results, I will remove quadratic altitude term</p>
+
+<pre><code class="r">m2.noaltquad &lt;- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c(&quot;glm&quot;), var.selection = F)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;data&#39; in selecting a method for function &#39;sdm&#39;: object &#39;df.sdm&#39; not found
+</code></pre>
+
+<pre><code class="r">m2.noaltquad
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;m2.noaltquad&#39; not found
+</code></pre>
+
+<pre><code class="r">getVarImp(m2.noaltquad)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getVarImp&#39;: object &#39;m2.noaltquad&#39; not found
+</code></pre>
+
+<p>Cross-validation</p>
+
+<pre><code class="r">m3.cv &lt;- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c(&quot;glm&quot;), 
+             replication = &quot;cv&quot;, cv.folds = 4, n = 2) # n = 5 for your assignment
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;data&#39; in selecting a method for function &#39;sdm&#39;: object &#39;df.sdm&#39; not found
+</code></pre>
+
+<pre><code class="r">m3.cv
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;m3.cv&#39; not found
+</code></pre>
+
+<pre><code class="r">plogis(getModelObject(m3.cv, id = 1)[[1]])
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getModelObject&#39;: object &#39;m3.cv&#39; not found
+</code></pre>
+
+<pre><code class="r">getVarImp(m3.cv)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;getVarImp&#39;: object &#39;m3.cv&#39; not found
+</code></pre>
+
+<pre><code class="r">roc(m3.cv)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;roc&#39;: object &#39;m3.cv&#39; not found
 </code></pre>
 
 <hr/>

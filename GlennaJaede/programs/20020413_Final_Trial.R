@@ -4,13 +4,12 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Jenna Butler
+#' Programmer: Glenna Jaede
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-
 library(ezknitr)
 library(rgbif)
 library(terra)
@@ -26,10 +25,10 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Gallinago andina"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -50,21 +49,15 @@ gbif_data
 #' 
 #' Map the species occurrence data:
 #'
-#' Download shape files of world countries
+#' Download shapefiles of world countries
 countries <- terra::vect("data/countries/world_countries.shp")
 
 
 #' 
 #' Plot the countries, then add the occurrences in green
-plot(countries)  
-points(gbif_data$data[ , c("decimalLongitude", "decimalLatitude")], 
-       pch = 20, 
-       col = "green")
-
-#' Notice that one green dot shows up in Europe. This species does NOT
-#' occur in Europe!
+#' One point shows up in Africa.
 #' 
-#' How can you find out which one is the outlier?
+#' Open presence and remove the outlier
 presences <- gbif_data$data[ , c("key","decimalLongitude", 
                                  "decimalLatitude", 
                                  "coordinateUncertaintyInMeters")]
@@ -72,20 +65,12 @@ presences$uniqueID <- 1:nrow(presences)
 presences <- presences[presences$decimalLongitude < 0,]
 
 #' 
-#' Let's re-plot the map within the coordinates of our presence points:
-plot(countries, xlim = range(presences$decimalLongitude), 
-     ylim = range(presences$decimalLatitude), border = "grey")
-points(presences[ , c("decimalLongitude", "decimalLatitude")], 
-       pch = 20, 
-       col = "green")
-
-#' 
 #' These data look good, but let's remove any data points that have
 #' very uncertain coordinates (>70,000 m)
 #' 
 #' 
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
-remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
+remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 15000 &
                                    complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
@@ -222,8 +207,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-# studyarea <- intersect(studyarea, mywindow)
-# plot(studyarea, border = "green", add = TRUE)
+#studyarea <- intersect(studyarea, mywindow)
+#plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -291,7 +276,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='Jenna/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img', overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -302,4 +287,46 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Jenna/programs/20220406_example_SDM.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220406_example_SDM.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+
+
+
+
+#' Notes for project:
+#' 
+#' Week 12 SDM on d2l ring ouzel example works through different ideas for code. Ideas and outlines
+#' SDM package website for packages
+#' Outputs, all the ways to look at and interperate model
+#' Worldclim variables and definitions
+#' 
+#' Conceptualization
+#' Study objectives: 
+#' biological information, what does the species eat, where is it found, what types of habitats, etc
+#' Potential predicators
+#' STUDY OBJECTIVE What is a good question for species
+#' 
+#' Where could this species be?
+#' Where could it be headed? (invasive)
+#' 5 potential predictors that you hypothesize affect the spacial distribution of your species. Positive or negetive.
+#' 
+#' Data preparation
+#' Records information, good? How reliable? what region?
+#' what are the absences
+#' only need the layers and extent from step one.
+#' 
+#' 
+#' Model fitting
+#' algorithm choice
+#' how are you going to deal with multicollinearity
+#' Model definition
+#' model selection: compare modles, choose variables with variable importance of stepwise model selection,
+#' something that supports your hypothesis.
+#' crossvalidation: 4 folds and 5 runs for this class
+#' 
+#' 
+#' 
+#' 
+#'
+#'
+#'
+#'

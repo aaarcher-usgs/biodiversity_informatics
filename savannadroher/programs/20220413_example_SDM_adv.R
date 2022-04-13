@@ -4,13 +4,12 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Jenna Butler
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-
 library(ezknitr)
 library(rgbif)
 library(terra)
@@ -26,13 +25,13 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Aeshna sitchensis"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                       limit = 20000) 
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -50,7 +49,7 @@ gbif_data
 #' 
 #' Map the species occurrence data:
 #'
-#' Download shape files of world countries
+#' Download shapefiles of world countries
 countries <- terra::vect("data/countries/world_countries.shp")
 
 
@@ -138,9 +137,9 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim", "Freshwater"), c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("FW_soil_avg_02","WC_alt","WC_bio18","WC_bio1"),]
 layers_choice
 
 
@@ -158,7 +157,11 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
+plot(layers[[3]], main = names(layers)[3])
+plot(layers[[4]], main = names(layers)[4])
+
+
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
@@ -169,7 +172,7 @@ unique(sapply(layers, raster::extent))
 # but may happen with other datasets), you'll have to crop all layers to the 
 # minimum common extent before proceeding. 
 # For example, if the first layer has the smallest extent:
-#layers <- lapply(layers, crop, extent(layers[[1]]))
+layers <- lapply(layers, crop, extent(layers[[1]]))
 
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
@@ -222,8 +225,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-# studyarea <- intersect(studyarea, mywindow)
-# plot(studyarea, border = "green", add = TRUE)
+#studyarea <- intersect(studyarea, mywindow)
+#plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -291,10 +294,41 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='Jenna/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, 
+              filename='aaarcher/output/figures/p1.img', 
+              overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+#' Variable importance
+#' 
+vi <- getVarImp(m1)
+plot(vi)
+
+#' View Coefficients
+#' 
+getModelObject(m1)[[1]]
+
+
+#' Variable selection?
+#' 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_alt^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = T)
+getModelObject(m2.select)[[1]]
+getVarImp(m2.select)
+plot(getVarImp(m2.select))
+
+#' Cross-validation
+#' 
+m3.cv <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c("glm"), 
+             replication = "cv", cv.folds = 4, n = 5)
+m3.cv
+getModelObject(m3.cv, id = 1)[[1]]
+getVarImp(m3.cv)
+
+
 
 
 #' _____________________________________________________________________________
@@ -302,4 +336,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Jenna/programs/20220406_example_SDM.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

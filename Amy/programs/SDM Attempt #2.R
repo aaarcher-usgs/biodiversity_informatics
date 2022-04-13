@@ -4,13 +4,12 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Jenna Butler
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-
 library(ezknitr)
 library(rgbif)
 library(terra)
@@ -26,10 +25,10 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Lycaeides melissa samuelis"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -50,7 +49,7 @@ gbif_data
 #' 
 #' Map the species occurrence data:
 #'
-#' Download shape files of world countries
+#' Download shapefiles of world countries
 countries <- terra::vect("data/countries/world_countries.shp")
 
 
@@ -140,7 +139,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5", "WC_bio13"), ]
 layers_choice
 
 
@@ -158,7 +157,7 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
@@ -174,7 +173,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[c("WC_bio5", "WC_bio13"),]])
 
 #' _____________________________________________________________________________
 #' 
@@ -222,8 +221,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-# studyarea <- intersect(studyarea, mywindow)
-# plot(studyarea, border = "green", add = TRUE)
+#studyarea <- intersect(studyarea, mywindow)
+#plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -238,7 +237,7 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]], xlim = c(-120, -77), ylim = c(40, 45))
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
@@ -260,7 +259,7 @@ table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]], xlim = c(-120, -77), ylim = c(40, 45))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -286,15 +285,58 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ WC_bio5 + WC_bio13, 
+          data = df.sdm, 
+          methods = c("glm"))
 m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='Jenna/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, 
+              filename='Amy/output/figures/p1.img', 
+              overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+#' Variable importance
+#' 
+vi <- getVarImp(m1)
+vi
+plot(vi)
+
+#' View Coefficients
+#' 
+plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+# sensical scales
+
+
+#' Variable selection?
+#' 
+m2.select <- sdm(presence ~ WC_bio5 + (WC_bio5^2) + WC_bio13 + (WC_bio13^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = T)
+getModelObject(m2.select)[[1]]
+getVarImp(m2.select)
+plot(getVarImp(m2.select))
+m2.select
+
+#' Based on these results, I will remove quadratic altitude term
+m2.noaltquad <- sdm(presence ~ WC_bio5 + WC_bio13
+                 data = df.sdm, methods = c("glm"), var.selection = F)
+m2.noaltquad
+getVarImp(m2.noaltquad)
+
+
+#' Cross-validation
+#' 
+m3.cv <- sdm(presence ~ WC_bio5 + WC_bio13
+             data = df.sdm, methods = c("glm"), 
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
+m3.cv
+plogis(getModelObject(m3.cv, id = 1)[[1]])
+getVarImp(m3.cv)
+roc(m3.cv)
+
 
 
 #' _____________________________________________________________________________
@@ -302,4 +344,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Jenna/programs/20220406_example_SDM.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
