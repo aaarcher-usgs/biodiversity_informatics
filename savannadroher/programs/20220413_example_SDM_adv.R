@@ -25,13 +25,13 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Aeshna sitchensis"
 
 #' 
 #' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                       limit = 20000) 
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -137,9 +137,9 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim", "Freshwater"), c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("FW_soil_avg_02","WC_alt","WC_bio18","WC_bio1"),]
 layers_choice
 
 
@@ -158,6 +158,10 @@ length(layers)
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
 plot(layers[[2]], main = names(layers)[2])
+plot(layers[[3]], main = names(layers)[3])
+plot(layers[[4]], main = names(layers)[4])
+
+
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
@@ -168,7 +172,7 @@ unique(sapply(layers, raster::extent))
 # but may happen with other datasets), you'll have to crop all layers to the 
 # minimum common extent before proceeding. 
 # For example, if the first layer has the smallest extent:
-#layers <- lapply(layers, crop, extent(layers[[1]]))
+layers <- lapply(layers, crop, extent(layers[[1]]))
 
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
