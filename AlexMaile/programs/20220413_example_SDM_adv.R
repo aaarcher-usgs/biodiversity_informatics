@@ -1,10 +1,10 @@
-#' # Guided tour of species distribution modeling: Blanding's turtle ## (even though fish are better)
+#' # Guided tour of species distribution modeling: Blanding's turtle
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Alex Maile
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
@@ -25,10 +25,10 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Cryptobranchus alleganiensis"
+myspecies <- "Emydoidea blandingii"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -139,7 +139,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[1:4, ]
 layers_choice
 
 
@@ -157,7 +157,7 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
@@ -285,15 +285,58 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ WC_alt + WC_bio1, 
+          data = df.sdm, 
+          methods = c("glm"))
 m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, 
+              filename='aaarcher/output/figures/p1.img', 
+              overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+#' Variable importance
+#' 
+vi <- getVarImp(m1)
+vi
+plot(vi)
+
+#' View Coefficients
+#' 
+plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+# sensical scales
+
+
+#' Variable selection?
+#' 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = T)
+getModelObject(m2.select)[[1]]
+getVarImp(m2.select)
+plot(getVarImp(m2.select))
+m2.select
+
+#' Based on these results, I will remove quadratic altitude term
+m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = F)
+m2.noaltquad
+getVarImp(m2.noaltquad)
+
+
+#' Cross-validation
+#' 
+m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c("glm"), 
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
+m3.cv
+plogis(getModelObject(m3.cv, id = 1)[[1]])
+getVarImp(m3.cv)
+roc(m3.cv)
+
 
 
 #' _____________________________________________________________________________
