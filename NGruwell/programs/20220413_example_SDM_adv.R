@@ -2,9 +2,9 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' April 13, 2022
+#' April 6, 2022
 #' 
-#' Programmer: Sydney
+#' Programmer: Emma Kuechle and Nicole Gruwell 
 #' 
 #' ### Header
 #' 
@@ -25,13 +25,13 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Trichechus manatus manatus"
+myspecies <- "Morpho menelaus"
 
 #' 
 #' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 1000)
+                      limit = 20200)
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -60,8 +60,8 @@ points(gbif_data$data[ , c("decimalLongitude", "decimalLatitude")],
        pch = 20, 
        col = "green")
 
-#' Notice that one green dot shows up in Europe. This species does NOT
-#' occur in Europe!
+#' Notice that two red dots shows up in Europe and Asia. This species does NOT
+#' occur in either!
 #' 
 #' How can you find out which one is the outlier?
 presences <- gbif_data$data[ , c("key","decimalLongitude", 
@@ -88,7 +88,6 @@ remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000
                                    complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
-
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
@@ -100,7 +99,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 0]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -138,9 +137,9 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[c(" BO_sstmin")]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_prec4", "WC_prec11", "WC_bio17"), ]
 layers_choice
 
 
@@ -286,7 +285,9 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ WC_alt + WC_bio1, 
+          data = df.sdm, 
+          methods = c("glm"))
 m1
 
 #' Prediction map
@@ -301,30 +302,40 @@ plot(p1, add = T)
 #' Variable importance
 #' 
 vi <- getVarImp(m1)
+vi
 plot(vi)
 
 #' View Coefficients
 #' 
-getModelObject(m1)[[1]]
+plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+# sensical scales
 
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_alt^2), 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
 plot(getVarImp(m2.select))
+m2.select
+
+#' Based on these results, I will remove quadratic altitude term
+m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = F)
+m2.noaltquad
+getVarImp(m2.noaltquad)
+
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
              data = df.sdm, methods = c("glm"), 
-             replication = "cv", cv.folds = 4, n = 5)
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
 m3.cv
-getModelObject(m3.cv, id = 1)[[1]]
+plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
-
+roc(m3.cv)
 
 
 
@@ -333,4 +344,4 @@ getVarImp(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Sydney/programs/202204013_example_SDM_adv.R",out_dir = "Sydney/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
