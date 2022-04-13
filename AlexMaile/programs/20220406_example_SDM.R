@@ -1,10 +1,10 @@
-#' # Guided tour of species distribution modeling: Blanding's turtle
+#' # Guided tour of species distribution modeling: Blanding's turtle ## (even though fish are better)
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Mariah Simones
+#' Programmer: Alex Maile
 #' 
 #' ### Header
 #' 
@@ -25,7 +25,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Cryptobranchus alleganiensis"
 
 #' 
 #' Download the data
@@ -290,7 +290,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='mariahsimones/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -301,4 +301,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "mariahsimones/programs/20220406_example_SDM.R",out_dir = "mariahsimones/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
