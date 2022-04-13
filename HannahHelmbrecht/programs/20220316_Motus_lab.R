@@ -20,8 +20,8 @@
 #' 
 #' 
 # Load Libraries
-# library(ezknitr)
-# library(ggplot2)
+ library(ezknitr)
+ library(ggplot2)
 
 # Clear Environment & Set Seed
 # remove(list=ls())
@@ -59,11 +59,13 @@ Sys.setenv(TZ = "UTC")
 
 #' **Q1** What time zone is UTC?
 #' 
-#' > Answer: 
+#' > Answer: Greenwich Mean Time
 #' 
 #' **Q2** Why is this important?
 #' 
-#' > Answer: For accuracy 
+#' > Answer: Times are stored in the Motus database in UTC 
+#'  and if the environment is not in UTC, they can be inadvertently changed during import.
+#'  The time zone needs to remain consistent.
 #' 
 
 #' _____________________________________________________________________________
@@ -79,10 +81,10 @@ proj.num <- 176
 
 #' Download the data
 #' 
-sql.motus <- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = "../motus")
+# sql.motus <- tagme(projRecv = proj.num, 
+#                    new = TRUE, 
+#                    update = TRUE,
+#                    dir = "../motus")
 # Log in name and password are: motus.sample
 
 #' **Important** After first download, comment out the code above and use this:
@@ -107,7 +109,7 @@ dbListTables(file.name)
 
 #' **Q3** What type of information is in the "projs" table?
 #' 
-#' > Answer: 
+#' > Answer: The project number and name 
 #' 
 
 #' Get a list of fields (column names) in the table "species"
@@ -116,7 +118,7 @@ dbListFields(file.name, "species")
 
 #' **Q4** How many fields are in the "species" table?
 #' 
-#' > Answer: 
+#' > Answer: 6
 #' 
 
 
@@ -151,7 +153,7 @@ tbl.alltags %>%
 #' **Q5** Compare this list to the one made when we just look at the field 
 #' names directly (below). Which way was faster to process (if you can tell)?
 #' 
-#' > Answer: 
+#' > Answer: The second way was faster to process though they were close in time. 
 #' 
 dbListFields(file.name, "alltags")
 
@@ -169,7 +171,7 @@ names(df.alltags)
 
 #' **Q6** How many observations are there in this table?
 #' 
-#' > Answer: 
+#' > Answer: 188,354 observations
 #' 
 
 #' Let's select only a couple specific tag IDs. (The
@@ -184,7 +186,7 @@ table(df.alltagsSub$motusTagID)
 
 #' **Q7** How many records are associated with each of the two tags?
 #' 
-#' > Answer: 
+#' > Answer: 63
 #' 
  
 
@@ -242,7 +244,7 @@ ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016),
 #' **Q8** Which two species of bird seem to be active only in the mornings and nights and 
 #' not during the mid-day?
 #' 
-#' > Answer:
+#' > Answer: American Woodcock and one of the Red Knot birds
 #' 
 #' 
 
@@ -282,7 +284,8 @@ world <- ne_countries(scale = "medium", returnclass = "sf")
 #                               returnclass = "sf", destdir = "map-data")
 lakes <- ne_load(type = "lakes", scale = "medium", category = 'physical',
                  returnclass = "sf",
-                 destdir = "map-data") # use this if already downloaded shapefiles
+                 destdir = "map-data") 
+# use this if already downloaded shapefiles
 
 #' 
 #' We will just use the tags that have been examined carefully and filtered 
@@ -301,7 +304,8 @@ ymax <- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 
 #' **Q9** What would you change above to zoom out on this map?
 #' 
-#' > Answer:
+#' > Answer: Changing the minimum values of this map would
+#' allow us to zoom out further.
 #' 
 
 #' 

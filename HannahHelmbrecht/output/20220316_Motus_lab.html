@@ -220,12 +220,12 @@ a friend.)</p>
 <h3>Header</h3>
 
 <pre><code class="r"># Load Libraries
-# library(ezknitr)
-# library(ggplot2)
+ library(ezknitr)
+ library(ggplot2)
 
 # Clear Environment &amp; Set Seed
-remove(list=ls())
-set.seed(71587)
+# remove(list=ls())
+# set.seed(71587)
 </code></pre>
 
 <hr/>
@@ -249,16 +249,7 @@ set.seed(71587)
 <pre><code class="r">library(motus)
 library(motusData)
 library(tidyverse)
-</code></pre>
-
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code>## Error: package or namespace load failed for &#39;tidyverse&#39; in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-##  namespace &#39;rlang&#39; 1.0.0 is already loaded, but &gt;= 1.0.1 is required
-</code></pre>
-
-<pre><code class="r">library(DBI)
+library(DBI)
 library(RSQLite)
 library(lubridate)
 library(rnaturalearth)
@@ -272,13 +263,15 @@ library(rnaturalearth)
 <p><strong>Q1</strong> What time zone is UTC?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: Greenwich Mean Time</p>
 </blockquote>
 
 <p><strong>Q2</strong> Why is this important?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: Times are stored in the Motus database in UTC 
+ and if the environment is not in UTC, they can be inadvertently changed during import.
+ The time zone needs to remain consistent.</p>
 </blockquote>
 
 <hr/>
@@ -295,16 +288,11 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 
 <p>Download the data</p>
 
-<pre><code class="r">sql.motus &lt;- tagme(projRecv = proj.num, 
-                   new = TRUE, 
-                   update = TRUE,
-                   dir = &quot;../motus&quot;)
-</code></pre>
-
-<pre><code>## Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]): namespace &#39;rlang&#39; 1.0.0 is already loaded, but &gt;= 1.0.1 is required
-</code></pre>
-
-<pre><code class="r"># Log in name and password are: motus.sample
+<pre><code class="r"># sql.motus &lt;- tagme(projRecv = proj.num, 
+#                    new = TRUE, 
+#                    update = TRUE,
+#                    dir = &quot;../motus&quot;)
+# Log in name and password are: motus.sample
 </code></pre>
 
 <p><strong>Important</strong> After first download, comment out the code above and use this:</p>
@@ -315,9 +303,32 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
                    dir = &quot;../motus&quot;)
 </code></pre>
 
-<pre><code>## Error: Database ../motus/project-176.motus does not exist.
-## If you *really* want to create a new database, specify &#39;new=TRUE&#39;
-## But maybe you just need to specify &#39;dir=&#39; to tell me where to find it?
+<pre><code>## Checking for new data in project 176
+</code></pre>
+
+<pre><code>## Updating metadata
+</code></pre>
+
+<pre><code>## activity:     1 new batch records to check
+</code></pre>
+
+<pre><code>## batchID  1977125 (#     1 of      1): got    156 activity records
+</code></pre>
+
+<pre><code>## batchID  1977125 (#     1 of      1): got      0 activity records
+</code></pre>
+
+<pre><code>## Downloaded 156 activity records
+</code></pre>
+
+<pre><code>## nodeData:     0 new batch records to check
+</code></pre>
+
+<pre><code>## Fetching deprecated batches
+</code></pre>
+
+<pre><code>## Total deprecated batches: 6
+## New deprecated batches: 0
 </code></pre>
 
 <pre><code class="r"># Log in name and password are: motus.sample
@@ -332,22 +343,22 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">file.name &lt;- dbConnect(SQLite(), &quot;../motus/project-176.motus&quot;)
 </code></pre>
 
-<pre><code>## Error: Could not connect to database:
-## unable to open database file
-</code></pre>
-
 <p>Get a list of tables that were downloaded</p>
 
 <pre><code class="r">dbListTables(file.name)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListTables&#39;: object &#39;file.name&#39; not found
+<pre><code>##  [1] &quot;activity&quot;    &quot;activityAll&quot; &quot;admInfo&quot;     &quot;allambigs&quot;   &quot;allruns&quot;     &quot;allrunsGPS&quot;  &quot;alltags&quot;    
+##  [8] &quot;alltagsGPS&quot;  &quot;antDeps&quot;     &quot;batchRuns&quot;   &quot;batches&quot;     &quot;clarified&quot;   &quot;deprecated&quot;  &quot;filters&quot;    
+## [15] &quot;gps&quot;         &quot;gpsAll&quot;      &quot;hits&quot;        &quot;meta&quot;        &quot;nodeData&quot;    &quot;nodeDeps&quot;    &quot;projAmbig&quot;  
+## [22] &quot;projBatch&quot;   &quot;projs&quot;       &quot;recvDeps&quot;    &quot;recvs&quot;       &quot;runs&quot;        &quot;runsFilters&quot; &quot;species&quot;    
+## [29] &quot;tagAmbig&quot;    &quot;tagDeps&quot;     &quot;tagProps&quot;    &quot;tags&quot;
 </code></pre>
 
 <p><strong>Q3</strong> What type of information is in the &ldquo;projs&rdquo; table?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: The project number and name </p>
 </blockquote>
 
 <p>Get a list of fields (column names) in the table &ldquo;species&rdquo;</p>
@@ -355,21 +366,18 @@ folder named &ldquo;biodiversity_informatics&rdquo;</p>
 <pre><code class="r">dbListFields(file.name, &quot;species&quot;) 
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+<pre><code>## [1] &quot;id&quot;         &quot;english&quot;    &quot;french&quot;     &quot;scientific&quot; &quot;group&quot;      &quot;sort&quot;
 </code></pre>
 
 <p><strong>Q4</strong> How many fields are in the &ldquo;species&rdquo; table?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: 6</p>
 </blockquote>
 
 <p>Retrieve the virtual &ldquo;alltags&rdquo; table from the SQLite file</p>
 
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltags&quot;)
-</code></pre>
-
-<pre><code>## Error in tbl(sql.motus, &quot;alltags&quot;): could not find function &quot;tbl&quot;
 </code></pre>
 
 <p>This is in a different format (list) than we are used to (data.frames). We can 
@@ -378,7 +386,24 @@ use str() to see what this different format contains:</p>
 <pre><code class="r">str(tbl.alltags)
 </code></pre>
 
-<pre><code>## Error in str(tbl.alltags): object &#39;tbl.alltags&#39; not found
+<pre><code>## List of 2
+##  $ src:List of 2
+##   ..$ con  :Formal class &#39;SQLiteConnection&#39; [package &quot;RSQLite&quot;] with 8 slots
+##   .. .. ..@ ptr                :&lt;externalptr&gt; 
+##   .. .. ..@ dbname             : chr &quot;C:\\Users\\donhe\\Downloads\\R-hannah helmbrecht\\motus\\project-176.motus&quot;
+##   .. .. ..@ loadable.extensions: logi TRUE
+##   .. .. ..@ flags              : int 70
+##   .. .. ..@ vfs                : chr &quot;&quot;
+##   .. .. ..@ ref                :&lt;environment: 0x000001dd4a88f0a0&gt; 
+##   .. .. ..@ bigint             : chr &quot;integer64&quot;
+##   .. .. ..@ extended_types     : logi FALSE
+##   ..$ disco:&lt;environment: 0x000001dd4b95d940&gt; 
+##   ..- attr(*, &quot;class&quot;)= chr [1:4] &quot;src_SQLiteConnection&quot; &quot;src_dbi&quot; &quot;src_sql&quot; &quot;src&quot;
+##  $ ops:List of 2
+##   ..$ x   : &#39;ident&#39; chr &quot;alltags&quot;
+##   ..$ vars: chr [1:62] &quot;hitID&quot; &quot;runID&quot; &quot;batchID&quot; &quot;ts&quot; ...
+##   ..- attr(*, &quot;class&quot;)= chr [1:3] &quot;op_base_remote&quot; &quot;op_base&quot; &quot;op&quot;
+##  - attr(*, &quot;class&quot;)= chr [1:5] &quot;tbl_SQLiteConnection&quot; &quot;tbl_dbi&quot; &quot;tbl_sql&quot; &quot;tbl_lazy&quot; ...
 </code></pre>
 
 <p>The first part of the list, src, is a list that provides details of the 
@@ -397,20 +422,44 @@ let&#39;s keep looking at it in the SQL format, which allows for faster processi
   names()
 </code></pre>
 
-<pre><code>## Error in collect(.): could not find function &quot;collect&quot;
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
+##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
+## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
+## [16] &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
+## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;           
+## [26] &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot;
+## [36] &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
+## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
+## [46] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;  
+## [51] &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;    
+## [56] &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
 </code></pre>
 
 <p><strong>Q5</strong> Compare this list to the one made when we just look at the field 
 names directly (below). Which way was faster to process (if you can tell)?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: The second way was faster to process though they were close in time. </p>
 </blockquote>
 
 <pre><code class="r">dbListFields(file.name, &quot;alltags&quot;)
 </code></pre>
 
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;conn&#39; in selecting a method for function &#39;dbListFields&#39;: object &#39;file.name&#39; not found
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
+##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
+## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
+## [16] &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
+## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;           
+## [26] &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot;
+## [36] &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
+## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
+## [46] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;  
+## [51] &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;    
+## [56] &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;
 </code></pre>
 
 <p>Now, let&#39;s convert that to a &ldquo;flat&rdquo; data.frame so that we can start exploring 
@@ -422,21 +471,30 @@ where these birds were detected!</p>
   mutate(time = as_datetime(ts))
 </code></pre>
 
-<pre><code>## Error in mutate(., time = as_datetime(ts)): could not find function &quot;mutate&quot;
-</code></pre>
-
 <p>Again, another way to see the column names:</p>
 
 <pre><code class="r">names(df.alltags)
 </code></pre>
 
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.alltags&#39; not found
+<pre><code>##  [1] &quot;hitID&quot;          &quot;runID&quot;          &quot;batchID&quot;        &quot;ts&quot;             &quot;tsCorrected&quot;   
+##  [6] &quot;sig&quot;            &quot;sigsd&quot;          &quot;noise&quot;          &quot;freq&quot;           &quot;freqsd&quot;        
+## [11] &quot;slop&quot;           &quot;burstSlop&quot;      &quot;done&quot;           &quot;motusTagID&quot;     &quot;ambigID&quot;       
+## [16] &quot;port&quot;           &quot;nodeNum&quot;        &quot;runLen&quot;         &quot;motusFilter&quot;    &quot;bootnum&quot;       
+## [21] &quot;tagProjID&quot;      &quot;mfgID&quot;          &quot;tagType&quot;        &quot;codeSet&quot;        &quot;mfg&quot;           
+## [26] &quot;tagModel&quot;       &quot;tagLifespan&quot;    &quot;nomFreq&quot;        &quot;tagBI&quot;          &quot;pulseLen&quot;      
+## [31] &quot;tagDeployID&quot;    &quot;speciesID&quot;      &quot;markerNumber&quot;   &quot;markerType&quot;     &quot;tagDeployStart&quot;
+## [36] &quot;tagDeployEnd&quot;   &quot;tagDepLat&quot;      &quot;tagDepLon&quot;      &quot;tagDepAlt&quot;      &quot;tagDepComments&quot;
+## [41] &quot;tagDeployTest&quot;  &quot;fullID&quot;         &quot;deviceID&quot;       &quot;recvDeployID&quot;   &quot;recvDeployLat&quot; 
+## [46] &quot;recvDeployLon&quot;  &quot;recvDeployAlt&quot;  &quot;recv&quot;           &quot;recvDeployName&quot; &quot;recvSiteName&quot;  
+## [51] &quot;isRecvMobile&quot;   &quot;recvProjID&quot;     &quot;recvUtcOffset&quot;  &quot;antType&quot;        &quot;antBearing&quot;    
+## [56] &quot;antHeight&quot;      &quot;speciesEN&quot;      &quot;speciesFR&quot;      &quot;speciesSci&quot;     &quot;speciesGroup&quot;  
+## [61] &quot;tagProjName&quot;    &quot;recvProjName&quot;   &quot;time&quot;
 </code></pre>
 
 <p><strong>Q6</strong> How many observations are there in this table?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: 188,354 observations</p>
 </blockquote>
 
 <p>Let&#39;s select only a couple specific tag IDs. (The
@@ -447,21 +505,18 @@ tag IDs are the IDs that each individual bird has)</p>
   collect() %&gt;% 
   as.data.frame() %&gt;%    
   mutate(time = as_datetime(ts))  
+table(df.alltagsSub$motusTagID)
 </code></pre>
 
-<pre><code>## Error in mutate(., time = as_datetime(ts)): could not find function &quot;mutate&quot;
-</code></pre>
-
-<pre><code class="r">table(df.alltagsSub$motusTagID)
-</code></pre>
-
-<pre><code>## Error in table(df.alltagsSub$motusTagID): object &#39;df.alltagsSub&#39; not found
+<pre><code>## 
+## 16011 23316 
+##   127  5734
 </code></pre>
 
 <p><strong>Q7</strong> How many records are associated with each of the two tags?</p>
 
 <blockquote>
-<p>Answer: </p>
+<p>Answer: 63</p>
 </blockquote>
 
 <hr/>
@@ -473,12 +528,8 @@ data. The details don&#39;t matter, we are just taking out any signals that are
 ambiguous or not biologically sensical.</p>
 
 <pre><code class="r">tbl.alltags &lt;- tbl(sql.motus, &quot;alltagsGPS&quot;)
-</code></pre>
 
-<pre><code>## Error in tbl(sql.motus, &quot;alltagsGPS&quot;): could not find function &quot;tbl&quot;
-</code></pre>
-
-<pre><code class="r"># obtain a table object of the filter
+# obtain a table object of the filter
 
 
 # filter and convert the table into a dataframe, with a few modications
@@ -497,9 +548,6 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
                                   recvDeployName))
 </code></pre>
 
-<pre><code>## Error in mutate(., time = as_datetime(ts), tagDeployStart = as_datetime(tagDeployStart), : could not find function &quot;mutate&quot;
-</code></pre>
-
 <p>Ok, now we can make some graphs and maps!</p>
 
 <p>Let&#39;s see what time of day the different species of birds are usually detected during.</p>
@@ -515,9 +563,6 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
   distinct()
 </code></pre>
 
-<pre><code>## Error in distinct(.): could not find function &quot;distinct&quot;
-</code></pre>
-
 <p>Then graph it!</p>
 
 <pre><code class="r">ggplot(data = filter(df.alltags.sub.2, year(tagDeployStart) == 2016), 
@@ -528,14 +573,13 @@ df.alltags.sub &lt;- tbl.alltags %&gt;%
   scale_colour_discrete(name = &quot;Species&quot;)
 </code></pre>
 
-<pre><code>## Error in as.ts(x): object &#39;df.alltags.sub.2&#39; not found
-</code></pre>
+<p><img src="data:image/png;base64,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" alt="plot of chunk motusHOD"/></p>
 
 <p><strong>Q8</strong> Which two species of bird seem to be active only in the mornings and nights and 
 not during the mid-day?</p>
 
 <blockquote>
-<p>Answer:</p>
+<p>Answer: American Woodcock and one of the Red Knot birds</p>
 </blockquote>
 
 <p>Simplify the data by summarizing by the runID so that we can map the detections</p>
@@ -556,9 +600,6 @@ fun.getpath &lt;- function(df) {
 df.alltags.path &lt;- fun.getpath(df.alltags.sub)
 </code></pre>
 
-<pre><code>## Error in arrange(., motusTagID, time): could not find function &quot;arrange&quot;
-</code></pre>
-
 <p>Subset the cleaned data</p>
 
 <pre><code class="r">df.alltags.sub.path &lt;- df.alltags.sub %&gt;%
@@ -567,16 +608,9 @@ df.alltags.path &lt;- fun.getpath(df.alltags.sub)
   mutate(date = as_date(time)) %&gt;%    # create date variable
   group_by(motusTagID, date, recvDeployName, ambigID, 
            tagDepLon, tagDepLat, recvDeployLat, recvDeployLon)
-</code></pre>
 
-<pre><code>## Error in group_by(., motusTagID, date, recvDeployName, ambigID, tagDepLon, : could not find function &quot;group_by&quot;
-</code></pre>
-
-<pre><code class="r"># Final data ready for plotting
+# Final data ready for plotting
 df.alltags.path &lt;- fun.getpath(df.alltags.sub.path)
-</code></pre>
-
-<pre><code>## Error in arrange(., motusTagID, time): could not find function &quot;arrange&quot;
 </code></pre>
 
 <p>Load some shapefiles to map</p>
@@ -587,10 +621,13 @@ df.alltags.path &lt;- fun.getpath(df.alltags.sub.path)
 #                               returnclass = &quot;sf&quot;, destdir = &quot;map-data&quot;)
 lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, category = &#39;physical&#39;,
                  returnclass = &quot;sf&quot;,
-                 destdir = &quot;map-data&quot;) # use this if already downloaded shapefiles
+                 destdir = &quot;map-data&quot;) 
 </code></pre>
 
 <pre><code>## Error in loadNamespace(x): there is no package called &#39;rgdal&#39;
+</code></pre>
+
+<pre><code class="r"># use this if already downloaded shapefiles
 </code></pre>
 
 <p>We will just use the tags that have been examined carefully and filtered </p>
@@ -601,40 +638,20 @@ lakes &lt;- ne_load(type = &quot;lakes&quot;, scale = &quot;medium&quot;, catego
   as.data.frame()
 </code></pre>
 
-<pre><code>## Error in arrange(., time): could not find function &quot;arrange&quot;
-</code></pre>
-
 <p>Set limits to map based on locations of detections, ensuring they include the
 deployment locations</p>
 
 <pre><code class="r">xmin &lt;- min(df.tmp$recvDeployLon, na.rm = TRUE) - 2
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
-</code></pre>
-
-<pre><code class="r">xmax &lt;- max(df.tmp$recvDeployLon, na.rm = TRUE) + 2
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
-</code></pre>
-
-<pre><code class="r">ymin &lt;- min(df.tmp$recvDeployLat, na.rm = TRUE) - 1
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
-</code></pre>
-
-<pre><code class="r">ymax &lt;- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.tmp&#39; not found
+xmax &lt;- max(df.tmp$recvDeployLon, na.rm = TRUE) + 2
+ymin &lt;- min(df.tmp$recvDeployLat, na.rm = TRUE) - 1
+ymax &lt;- max(df.tmp$recvDeployLat, na.rm = TRUE) + 1
 </code></pre>
 
 <p><strong>Q9</strong> What would you change above to zoom out on this map?</p>
 
 <blockquote>
-<p>Answer:</p>
+<p>Answer: Changing the minimum values of this map would
+allow us to zoom out further.</p>
 </blockquote>
 
 <p>And now we can map the detections!</p>
