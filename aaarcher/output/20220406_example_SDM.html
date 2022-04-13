@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Guided tour of species distribution modeling: Blanding&#39;s turtle</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Guided tour of species distribution modeling: Blanding&#39;s turtle</h1>
+
+<p>Biodiversity Informatics (BIOL 475/575)</p>
+
+<p>April 6, 2022</p>
+
+<p>Programmer: Glenna Jaedefdsafas</p>
+
+<h3>Header</h3>
+
+<pre><code class="r"># Load Libraries
+library(ezknitr)
+library(rgbif)
+library(terra)
+library(sdmpredictors)
+library(fuzzySim)
+library(sdm)
+library(raster)
+
+remove(list = ls())
+</code></pre>
+
+<hr/>
+
+<h2>1. Download data</h2>
+
+<p>Scientific name of the species</p>
+
+<pre><code class="r">myspecies &lt;- &quot;Emydoidea blandingii&quot;
+</code></pre>
+
+<p>Download the data using rgbif library</p>
+
+<pre><code class="r">gbif_data &lt;- occ_data(scientificName = myspecies, 
+                      hasCoordinate = TRUE, 
+                      limit = 20000)
+</code></pre>
+
+<p>See if &ldquo;Records returned&rdquo; is smaller than &ldquo;Records found&rdquo;, in which case you need to re-run &#39;occ_data&#39; with a larger &#39;limit&#39; above</p>
+
+<pre><code class="r">gbif_data  
+</code></pre>
+
+<pre><code>## Records found [3350] 
+## Records returned [3350] 
+## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea
+##      blandingii] 
+## # A tibble: 3,350 x 142
+##    key       scientificName decimalLatitude decimalLongitude issues datasetKey
+##    &lt;chr&gt;     &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     
+##  1 37471737~ Emydoidea bla~            41.6            -83.2 cdrou~ 50c9509d-~
+##  2 30590162~ Emydoidea bla~            41.8            -83.1 cdrou~ 50c9509d-~
+##  3 30678857~ Emydoidea bla~            42.8            -84.4 cdrou~ 50c9509d-~
+##  4 30680282~ Emydoidea bla~            43.1            -80.7 cdrou~ 50c9509d-~
+##  5 30680707~ Emydoidea bla~            42.5            -71.3 cdrou~ 50c9509d-~
+##  6 30680967~ Emydoidea bla~            42.6            -84.4 cdrou~ 50c9509d-~
+##  7 30681294~ Emydoidea bla~            43.4            -89.8 cdrou~ 50c9509d-~
+##  8 30703625~ Emydoidea bla~            42.8            -84.5 cdrou~ 50c9509d-~
+##  9 30703801~ Emydoidea bla~            44.4            -65.1 cdrou~ 50c9509d-~
+## 10 30703976~ Emydoidea bla~            44.0            -77.3 cdrou~ 50c9509d-~
+## # ... with 3,340 more rows, and 136 more variables: publishingOrgKey &lt;chr&gt;,
+## #   installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;,
+## #   lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
+## #   hostingOrganizationKey &lt;chr&gt;, basisOfRecord &lt;chr&gt;,
+## #   occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;,
+## #   phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;,
+## #   genusKey &lt;int&gt;, speciesKey &lt;int&gt;, acceptedTaxonKey &lt;int&gt;, ...
+</code></pre>
+
+<p>Citations for data. Run this once, only after analysis so that you 
+can properly cite your data sources on the final presentation.</p>
+
+<pre><code class="r"># gbif_citation(gbif_data)
+</code></pre>
+
+<hr/>
+
+<h2>2. Explore and clean data</h2>
+
+<p>Map the species occurrence data:</p>
+
+<p>Download shapefiles of world countries</p>
+
+<pre><code class="r">countries &lt;- terra::vect(&quot;data/countries/world_countries.shp&quot;)
+</code></pre>
+
+<p>Plot the countries, then add the occurrences in green</p>
+
+<pre><code class="r">plot(countries)  
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">points(gbif_data$data[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)], 
+       pch = 20, 
+       col = &quot;green&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<p>Notice that one green dot shows up in Europe. This species does NOT
+occur in Europe!</p>
+
+<p>How can you find out which one is the outlier?</p>
+
+<pre><code class="r">presences &lt;- gbif_data$data[ , c(&quot;key&quot;,&quot;decimalLongitude&quot;, 
+                                 &quot;decimalLatitude&quot;, 
+                                 &quot;coordinateUncertaintyInMeters&quot;)]
+presences$uniqueID &lt;- 1:nrow(presences)
+presences &lt;- presences[presences$decimalLongitude &lt; 0,]
+</code></pre>
+
+<p>Let&#39;s re-plot the map within the coordinates of our presence points:</p>
+
+<pre><code class="r">plot(countries, xlim = range(presences$decimalLongitude), 
+     ylim = range(presences$decimalLatitude), border = &quot;grey&quot;)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">points(presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)], 
+       pch = 20, 
+       col = &quot;green&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<p>These data look good, but let&#39;s remove any data points that have
+very uncertain coordinates (&gt;70,000 m)</p>
+
+<pre><code class="r">range(presences$coordinateUncertaintyInMeters, na.rm = T)
+</code></pre>
+
+<pre><code>## [1]      10 2931895
+</code></pre>
+
+<pre><code class="r">remove.IDs &lt;- presences$uniqueID[presences$coordinateUncertaintyInMeters &gt; 70000 &amp;
+                                   complete.cases(presences)]
+length(remove.IDs) # how many to remove? How many should be left?
+</code></pre>
+
+<pre><code>## [1] 17
+</code></pre>
+
+<pre><code class="r">presences &lt;- presences[! presences$uniqueID %in% remove.IDs,]
+summary(presences)
+</code></pre>
+
+<pre><code>##      key            decimalLongitude  decimalLatitude
+##  Length:3332        Min.   :-101.91   Min.   :33.52  
+##  Class :character   1st Qu.: -83.53   1st Qu.:42.60  
+##  Mode  :character   Median : -79.43   Median :44.43  
+##                     Mean   : -80.61   Mean   :43.99  
+##                     3rd Qu.: -76.55   3rd Qu.:45.03  
+##                     Max.   : -63.76   Max.   :48.85  
+##                                                      
+##  coordinateUncertaintyInMeters    uniqueID     
+##  Min.   :   10                 Min.   :   1.0  
+##  1st Qu.:27190                 1st Qu.: 835.8  
+##  Median :27285                 Median :1670.5  
+##  Mean   :25667                 Mean   :1672.6  
+##  3rd Qu.:27537                 3rd Qu.:2510.2  
+##  Max.   :70000                 Max.   :3350.0  
+##  NA&#39;s   :329
+</code></pre>
+
+<pre><code class="r"># map the cleaned occurrence records on top of the raw ones:
+points(presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;),], 
+       pch = 20, 
+       col = &quot;blue&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<p>Blanding&#39;s turtle is NOT located in southern states. We need to also
+remove records from areas that are not possible.</p>
+
+<pre><code class="r">remove.IDs.SE &lt;- presences$uniqueID[presences$decimalLatitude &lt; 39]
+presences &lt;- presences[! presences$uniqueID %in% remove.IDs.SE,]
+</code></pre>
+
+<p>Double check: Did the number of records make sense??</p>
+
+<p>Map the cleaned occurrence records on top of the raw ones:</p>
+
+<pre><code class="r">points(presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;),], 
+       pch = 20, 
+       col = &quot;red&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<hr/>
+
+<h2>3. Download predictors data</h2>
+
+<p>We&#39;ll use functions in the &#39;sdmpredictors&#39; package to access 
+different online datasets:</p>
+
+<pre><code class="r">pred_datasets &lt;- sdmpredictors::list_datasets(terrestrial = TRUE, marine = TRUE)
+pred_datasets$description
+</code></pre>
+
+<pre><code>## [1] &quot;WorldClim is a set of global climate layers (climate grids). Note that all data has been transformed back to real values, so there is no need to e.g. divide temperature layers by 10.&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+## [2] &quot;Bio-ORACLE is a set of GIS rasters providing geophysical, biotic and environmental data for surface and benthic marine realms at a spatial resolution 5 arcmin (9.2 km) in the ESRI ascii and tif format.&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+## [3] &quot;MARSPEC is a set of high resolution climatic and geophysical GIS data layers for the world ocean. Seven geophysical variables were derived from the SRTM30_PLUS high resolution bathymetry dataset.  These layers characterize the horizontal orientation (aspect), slope, and curvature of the seafloor and the distance from shore.  Ten \&quot;bioclimatic\&quot; variables were derived from NOAA&#39;s World Ocean Atlas and NASA&#39;s MODIS satellite imagery and characterize the inter-annual means, extremes, and variances in sea surface temperature and salinity. These variables will be useful to those interested in the spatial ecology of marine shallow-water and surface-associated pelagic organisms across the globe. Note that, in contrary to the original MARSPEC, all layers have unscaled values.&quot;
+## [4] &quot;The ENVIREM dataset is a set of 16 climatic and 2 topographic variables that can be used in modeling species&#39; distributions. The strengths of this dataset include their close ties to ecological processes, and their availability at a global scale, at several spatial resolutions, and for several time periods. The underlying temperature and precipitation data that went into their construction comes from the WorldClim dataset (www.worldclim.org), and the solar radiation data comes from the Consortium for Spatial Information (www.cgiar-csi.org). The data are compatible with and expand the set of variables from WorldClim v1.4 (www.worldclim.org).&quot;                                                                                                                                  
+## [5] &quot;The dataset consists of near-global, spatially continuous, and freshwater-specific environmental variables in a standardized 1km grid. We delineated the sub-catchment for each grid cell along the HydroSHEDS river network and summarized the upstream environment (climate, topography, land cover, surface geology and soil) to each grid cell using various metrics (average, minimum, maximum, range, sum, inverse distance-weighted average and sum). All variables were subsequently averaged across single lakes and reservoirs of the Global lakes and Wetlands Database that are connected to the river network. Monthly climate variables were summarized into 19 long-term climatic variables following the ÒbioclimÓ framework.&quot;
+</code></pre>
+
+<p>Remember to always cite the data sources! (run this line only for citing)</p>
+
+<pre><code class="r"># pred_datasets[,c(1,6)]
+</code></pre>
+
+<p>Explore the possible data:</p>
+
+<pre><code class="r">pred_layers &lt;- list_layers(datasets = pred_datasets)
+unique(pred_layers$dataset_code)
+</code></pre>
+
+<pre><code>## [1] &quot;WorldClim&quot;  &quot;Bio-ORACLE&quot; &quot;MARSPEC&quot;    &quot;ENVIREM&quot;    &quot;Freshwater&quot;
+</code></pre>
+
+<pre><code class="r"># example of terrestrial variables dataset
+unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, ]$name)  
+</code></pre>
+
+<pre><code>##  [1] &quot;Altitude&quot;                           
+##  [2] &quot;Annual mean temperature&quot;            
+##  [3] &quot;Mean diurnal temperature range&quot;     
+##  [4] &quot;Isothermality&quot;                      
+##  [5] &quot;Temperature seasonality&quot;            
+##  [6] &quot;Maximum temperature&quot;                
+##  [7] &quot;Minimum temperature&quot;                
+##  [8] &quot;Annual temperature range&quot;           
+##  [9] &quot;Mean temperature of wettest quarter&quot;
+## [10] &quot;Mean temperature of driest quarter&quot; 
+## [11] &quot;Mean temperature of warmest quarter&quot;
+## [12] &quot;Mean temperature of coldest quarter&quot;
+## [13] &quot;Annual precipitation&quot;               
+## [14] &quot;Precipitation of wettest month&quot;     
+## [15] &quot;Precipitation of driest month&quot;      
+## [16] &quot;Precipitation seasonality&quot;          
+## [17] &quot;Precipitation of wettest quarter&quot;   
+## [18] &quot;Precipitation of driest quarter&quot;    
+## [19] &quot;Precipitation of warmest quarter&quot;   
+## [20] &quot;Precipitation of coldest quarter&quot;   
+## [21] &quot;Precipitation (January)&quot;            
+## [22] &quot;Precipitation (February)&quot;           
+## [23] &quot;Precipitation (March)&quot;              
+## [24] &quot;Precipitation (April)&quot;              
+## [25] &quot;Precipitation (May)&quot;                
+## [26] &quot;Precipitation (June)&quot;               
+## [27] &quot;Precipitation (July)&quot;               
+## [28] &quot;Precipitation (August)&quot;             
+## [29] &quot;Precipitation (September)&quot;          
+## [30] &quot;Precipitation (October)&quot;            
+## [31] &quot;Precipitation (November)&quot;           
+## [32] &quot;Precipitation (December)&quot;           
+## [33] &quot;Maximum temperature (January)&quot;      
+## [34] &quot;Maximum temperature (February)&quot;     
+## [35] &quot;Maximum temperature (March)&quot;        
+## [36] &quot;Maximum temperature (April)&quot;        
+## [37] &quot;Maximum temperature (May)&quot;          
+## [38] &quot;Maximum temperature (June)&quot;         
+## [39] &quot;Maximum temperature (July)&quot;         
+## [40] &quot;Maximum temperature (August)&quot;       
+## [41] &quot;Maximum temperature (September)&quot;    
+## [42] &quot;Maximum temperature (October)&quot;      
+## [43] &quot;Maximum temperature (November)&quot;     
+## [44] &quot;Maximum temperature (December)&quot;     
+## [45] &quot;Mean temperature (January)&quot;         
+## [46] &quot;Mean temperature (February)&quot;        
+## [47] &quot;Mean temperature (March)&quot;           
+## [48] &quot;Mean temperature (April)&quot;           
+## [49] &quot;Mean temperature (May)&quot;             
+## [50] &quot;Mean temperature (June)&quot;            
+## [51] &quot;Mean temperature (July)&quot;            
+## [52] &quot;Mean temperature (August)&quot;          
+## [53] &quot;Mean temperature (September)&quot;       
+## [54] &quot;Mean temperature (October)&quot;         
+## [55] &quot;Mean temperature (November)&quot;        
+## [56] &quot;Mean temperature (December)&quot;        
+## [57] &quot;Minimum temperature (January)&quot;      
+## [58] &quot;Minimum temperature (February)&quot;     
+## [59] &quot;Minimum temperature (March)&quot;        
+## [60] &quot;Minimum temperature (April)&quot;        
+## [61] &quot;Minimum temperature (May)&quot;          
+## [62] &quot;Minimum temperature (June)&quot;         
+## [63] &quot;Minimum temperature (July)&quot;         
+## [64] &quot;Minimum temperature (August)&quot;       
+## [65] &quot;Minimum temperature (September)&quot;    
+## [66] &quot;Minimum temperature (October)&quot;      
+## [67] &quot;Minimum temperature (November)&quot;     
+## [68] &quot;Minimum temperature (December)&quot;
+</code></pre>
+
+<pre><code class="r"># example of marine variables dataset
+unique(pred_layers[pred_layers$dataset_code == &quot;Bio-ORACLE&quot;, ]$name)  
+</code></pre>
+
+<pre><code>##   [1] &quot;Calcite (mean)&quot;                                             
+##   [2] &quot;Chlorophyll A (maximum)&quot;                                    
+##   [3] &quot;Chlorophyll A (mean)&quot;                                       
+##   [4] &quot;Chlorophyll A (minimum)&quot;                                    
+##   [5] &quot;Chlorophyll A (range)&quot;                                      
+##   [6] &quot;Cloud fraction (mean)&quot;                                      
+##   [7] &quot;Cloud fraction (minimum)&quot;                                   
+##   [8] &quot;Diffuse attenuation coefficient at 490 nm (maximum)&quot;        
+##   [9] &quot;Diffuse attenuation coefficient at 490 nm (mean)&quot;           
+##  [10] &quot;Diffuse attenuation coefficient at 490 nm (minimum)&quot;        
+##  [11] &quot;Dissolved oxygen&quot;                                           
+##  [12] &quot;Nitrate&quot;                                                    
+##  [13] &quot;Photosynthetically available radiation (maximum)&quot;           
+##  [14] &quot;Photosynthetically available radiation (mean)&quot;              
+##  [15] &quot;pH&quot;                                                         
+##  [16] &quot;Phosphate&quot;                                                  
+##  [17] &quot;Salinity&quot;                                                   
+##  [18] &quot;Silicate&quot;                                                   
+##  [19] &quot;Sea surface temperature (maximum)&quot;                          
+##  [20] &quot;Sea surface temperature (mean)&quot;                             
+##  [21] &quot;Sea surface temperature (minimum)&quot;                          
+##  [22] &quot;Sea surface temperature (range)&quot;                            
+##  [23] &quot;Bathymetry (minimum)&quot;                                       
+##  [24] &quot;Bathymetry (maximum)&quot;                                       
+##  [25] &quot;Bathymetry (mean)&quot;                                          
+##  [26] &quot;Chlorophyll concentration (maximum at max depth)&quot;           
+##  [27] &quot;Chlorophyll concentration (maximum at mean depth)&quot;          
+##  [28] &quot;Chlorophyll concentration (maximum at min depth)&quot;           
+##  [29] &quot;Chlorophyll concentration (mean at max depth)&quot;              
+##  [30] &quot;Chlorophyll concentration (mean at mean depth)&quot;             
+##  [31] &quot;Chlorophyll concentration (mean at min depth)&quot;              
+##  [32] &quot;Chlorophyll concentration (minimum at max depth)&quot;           
+##  [33] &quot;Chlorophyll concentration (minimum at mean depth)&quot;          
+##  [34] &quot;Chlorophyll concentration (minimum at min depth)&quot;           
+##  [35] &quot;Chlorophyll concentration (range at max depth)&quot;             
+##  [36] &quot;Chlorophyll concentration (range at mean depth)&quot;            
+##  [37] &quot;Chlorophyll concentration (range at min depth)&quot;             
+##  [38] &quot;Chlorophyll concentration (longterm max at max depth)&quot;      
+##  [39] &quot;Chlorophyll concentration (longterm max at mean depth)&quot;     
+##  [40] &quot;Chlorophyll concentration (longterm max at min depth)&quot;      
+##  [41] &quot;Chlorophyll concentration (longterm min at max depth)&quot;      
+##  [42] &quot;Chlorophyll concentration (longterm min at min depth)&quot;      
+##  [43] &quot;Current velocity (maximum at max depth)&quot;                    
+##  [44] &quot;Current velocity (maximum at mean depth)&quot;                   
+##  [45] &quot;Current velocity (maximum at min depth)&quot;                    
+##  [46] &quot;Current velocity (mean at max depth)&quot;                       
+##  [47] &quot;Current velocity (mean at mean depth)&quot;                      
+##  [48] &quot;Current velocity (mean at min depth)&quot;                       
+##  [49] &quot;Current velocity (minimum at max depth)&quot;                    
+##  [50] &quot;Current velocity (minimum at mean depth)&quot;                   
+##  [51] &quot;Current velocity (minimum at min depth)&quot;                    
+##  [52] &quot;Current velocity (range at max depth)&quot;                      
+##  [53] &quot;Current velocity (range at mean depth)&quot;                     
+##  [54] &quot;Current velocity (range at min depth)&quot;                      
+##  [55] &quot;Current velocity (longterm max at max depth)&quot;               
+##  [56] &quot;Current velocity (longterm max at mean depth)&quot;              
+##  [57] &quot;Current velocity (longterm max at min depth)&quot;               
+##  [58] &quot;Current velocity (longterm min at max depth)&quot;               
+##  [59] &quot;Current velocity (longterm min at min depth)&quot;               
+##  [60] &quot;Dissolved oxygen concentration (maximum at max depth)&quot;      
+##  [61] &quot;Dissolved oxygen concentration (maximum at mean depth)&quot;     
+##  [62] &quot;Dissolved oxygen concentration (maximum at min depth)&quot;      
+##  [63] &quot;Dissolved oxygen concentration (mean at max depth)&quot;         
+##  [64] &quot;Dissolved oxygen concentration (mean at mean depth)&quot;        
+##  [65] &quot;Dissolved oxygen concentration (mean at min depth)&quot;         
+##  [66] &quot;Dissolved oxygen concentration (minimum at max depth)&quot;      
+##  [67] &quot;Dissolved oxygen concentration (minimum at mean depth)&quot;     
+##  [68] &quot;Dissolved oxygen concentration (minimum at min depth)&quot;      
+##  [69] &quot;Dissolved oxygen concentration (range at max depth)&quot;        
+##  [70] &quot;Dissolved oxygen concentration (range at mean depth)&quot;       
+##  [71] &quot;Dissolved oxygen concentration (range at min depth)&quot;        
+##  [72] &quot;Dissolved oxygen concentration (longterm max at max depth)&quot; 
+##  [73] &quot;Dissolved oxygen concentration (longterm max at mean depth)&quot;
+##  [74] &quot;Dissolved oxygen concentration (longterm max at min depth)&quot; 
+##  [75] &quot;Dissolved oxygen concentration (longterm min at max depth)&quot; 
+##  [76] &quot;Dissolved oxygen concentration (longterm min at min depth)&quot; 
+##  [77] &quot;Iron concentration (maximum at max depth)&quot;                  
+##  [78] &quot;Iron concentration (maximum at mean depth)&quot;                 
+##  [79] &quot;Iron concentration (maximum at min depth)&quot;                  
+##  [80] &quot;Iron concentration (mean at max depth)&quot;                     
+##  [81] &quot;Iron concentration (mean at mean depth)&quot;                    
+##  [82] &quot;Iron concentration (mean at min depth)&quot;                     
+##  [83] &quot;Iron concentration (minimum at max depth)&quot;                  
+##  [84] &quot;Iron concentration (minimum at mean depth)&quot;                 
+##  [85] &quot;Iron concentration (minimum at min depth)&quot;                  
+##  [86] &quot;Iron concentration (range at max depth)&quot;                    
+##  [87] &quot;Iron concentration (range at mean depth)&quot;                   
+##  [88] &quot;Iron concentration (range at min depth)&quot;                    
+##  [89] &quot;Iron concentration (longterm max at max depth)&quot;             
+##  [90] &quot;Iron concentration (longterm max at mean depth)&quot;            
+##  [91] &quot;Iron concentration (longterm max at min depth)&quot;             
+##  [92] &quot;Iron concentration (longterm min at max depth)&quot;             
+##  [93] &quot;Iron concentration (longterm min at min depth)&quot;             
+##  [94] &quot;Phosphate concentration (maximum at max depth)&quot;             
+##  [95] &quot;Phosphate concentration (maximum at mean depth)&quot;            
+##  [96] &quot;Phosphate concentration (maximum at min depth)&quot;             
+##  [97] &quot;Phosphate concentration (mean at max depth)&quot;                
+##  [98] &quot;Phosphate concentration (mean at mean depth)&quot;               
+##  [99] &quot;Phosphate concentration (mean at min depth)&quot;                
+## [100] &quot;Phosphate concentration (minimum at max depth)&quot;             
+## [101] &quot;Phosphate concentration (minimum at mean depth)&quot;            
+## [102] &quot;Phosphate concentration (minimum at min depth)&quot;             
+## [103] &quot;Phosphate concentration (range at max depth)&quot;               
+## [104] &quot;Phosphate concentration (range at mean depth)&quot;              
+## [105] &quot;Phosphate concentration (range at min depth)&quot;               
+## [106] &quot;Phosphate concentration (longterm max at max depth)&quot;        
+## [107] &quot;Phosphate concentration (longterm max at mean depth)&quot;       
+## [108] &quot;Phosphate concentration (longterm max at min depth)&quot;        
+## [109] &quot;Phosphate concentration (longterm min at max depth)&quot;        
+## [110] &quot;Phosphate concentration (longterm min at min depth)&quot;        
+## [111] &quot;Light at bottom (maximum at max depth)&quot;                     
+## [112] &quot;Light at bottom (maximum at mean depth)&quot;                    
+## [113] &quot;Light at bottom (maximum at min depth)&quot;                     
+## [114] &quot;Light at bottom (mean at max depth)&quot;                        
+## [115] &quot;Light at bottom (mean at mean depth)&quot;                       
+## [116] &quot;Light at bottom (mean at min depth)&quot;                        
+## [117] &quot;Light at bottom (minimum at max depth)&quot;                     
+## [118] &quot;Light at bottom (minimum at mean depth)&quot;                    
+## [119] &quot;Light at bottom (minimum at min depth)&quot;                     
+## [120] &quot;Light at bottom (range at max depth)&quot;                       
+## [121] &quot;Light at bottom (range at mean depth)&quot;                      
+## [122] &quot;Light at bottom (range at min depth)&quot;                       
+## [123] &quot;Light at bottom (longterm max at max depth)&quot;                
+## [124] &quot;Light at bottom (longterm max at mean depth)&quot;               
+## [125] &quot;Light at bottom (longterm max at min depth)&quot;                
+## [126] &quot;Light at bottom (longterm min at max depth)&quot;                
+## [127] &quot;Light at bottom (longterm min at min depth)&quot;                
+## [128] &quot;Nitrate concentration (maximum at max depth)&quot;               
+## [129] &quot;Nitrate concentration (maximum at mean depth)&quot;              
+## [130] &quot;Nitrate concentration (maximum at min depth)&quot;               
+## [131] &quot;Nitrate concentration (mean at max depth)&quot;                  
+## [132] &quot;Nitrate concentration (mean at mean depth)&quot;                 
+## [133] &quot;Nitrate concentration (mean at min depth)&quot;                  
+## [134] &quot;Nitrate concentration (minimum at max depth)&quot;               
+## [135] &quot;Nitrate concentration (minimum at mean depth)&quot;              
+## [136] &quot;Nitrate concentration (minimum at min depth)&quot;               
+## [137] &quot;Nitrate concentration (range at max depth)&quot;                 
+## [138] &quot;Nitrate concentration (range at mean depth)&quot;                
+## [139] &quot;Nitrate concentration (range at min depth)&quot;                 
+## [140] &quot;Nitrate concentration (longterm max at max depth)&quot;          
+## [141] &quot;Nitrate concentration (longterm max at mean depth)&quot;         
+## [142] &quot;Nitrate concentration (longterm max at min depth)&quot;          
+## [143] &quot;Nitrate concentration (longterm min at max depth)&quot;          
+## [144] &quot;Nitrate concentration (longterm min at min depth)&quot;          
+## [145] &quot;Sea water temperature (maximum at max depth)&quot;               
+## [146] &quot;Sea water temperature (maximum at mean depth)&quot;              
+## [147] &quot;Sea water temperature (maximum at min depth)&quot;               
+## [148] &quot;Sea water temperature (mean at max depth)&quot;                  
+## [149] &quot;Sea water temperature (mean at mean depth)&quot;                 
+## [150] &quot;Sea water temperature (mean at min depth)&quot;                  
+## [151] &quot;Sea water temperature (minimum at max depth)&quot;               
+## [152] &quot;Sea water temperature (minimum at mean depth)&quot;              
+## [153] &quot;Sea water temperature (minimum at min depth)&quot;               
+## [154] &quot;Sea water temperature (range at max depth)&quot;                 
+## [155] &quot;Sea water temperature (range at mean depth)&quot;                
+## [156] &quot;Sea water temperature (range at min depth)&quot;                 
+## [157] &quot;Sea water temperature (longterm max at max depth)&quot;          
+## [158] &quot;Sea water temperature (longterm max at mean depth)&quot;         
+## [159] &quot;Sea water temperature (longterm max at min depth)&quot;          
+## [160] &quot;Sea water temperature (longterm min at max depth)&quot;          
+## [161] &quot;Sea water temperature (longterm min at min depth)&quot;          
+## [162] &quot;Carbon phytoplankton biomass (maximum at max depth)&quot;        
+## [163] &quot;Carbon phytoplankton biomass (maximum at mean depth)&quot;       
+## [164] &quot;Carbon phytoplankton biomass (maximum at min depth)&quot;        
+## [165] &quot;Carbon phytoplankton biomass (mean at max depth)&quot;           
+## [166] &quot;Carbon phytoplankton biomass (mean at mean depth)&quot;          
+## [167] &quot;Carbon phytoplankton biomass (mean at min depth)&quot;           
+## [168] &quot;Carbon phytoplankton biomass (minimum at max depth)&quot;        
+## [169] &quot;Carbon phytoplankton biomass (minimum at mean depth)&quot;       
+## [170] &quot;Carbon phytoplankton biomass (minimum at min depth)&quot;        
+## [171] &quot;Carbon phytoplankton biomass (range at max depth)&quot;          
+## [172] &quot;Carbon phytoplankton biomass (range at mean depth)&quot;         
+## [173] &quot;Carbon phytoplankton biomass (range at min depth)&quot;          
+## [174] &quot;Carbon phytoplankton biomass (longterm max at max depth)&quot;   
+## [175] &quot;Carbon phytoplankton biomass (longterm max at mean depth)&quot;  
+## [176] &quot;Carbon phytoplankton biomass (longterm max at min depth)&quot;   
+## [177] &quot;Carbon phytoplankton biomass (longterm min at max depth)&quot;   
+## [178] &quot;Carbon phytoplankton biomass (longterm min at min depth)&quot;   
+## [179] &quot;Primary production (maximum at max depth)&quot;                  
+## [180] &quot;Primary production (maximum at mean depth)&quot;                 
+## [181] &quot;Primary production (maximum at min depth)&quot;                  
+## [182] &quot;Primary production (mean at max depth)&quot;                     
+## [183] &quot;Primary production (mean at mean depth)&quot;                    
+## [184] &quot;Primary production (mean at min depth)&quot;                     
+## [185] &quot;Primary production (minimum at max depth)&quot;                  
+## [186] &quot;Primary production (minimum at mean depth)&quot;                 
+## [187] &quot;Primary production (minimum at min depth)&quot;                  
+## [188] &quot;Primary production (range at max depth)&quot;                    
+## [189] &quot;Primary production (range at mean depth)&quot;                   
+## [190] &quot;Primary production (range at min depth)&quot;                    
+## [191] &quot;Primary production (longterm max at max depth)&quot;             
+## [192] &quot;Primary production (longterm max at mean depth)&quot;            
+## [193] &quot;Primary production (longterm max at min depth)&quot;             
+## [194] &quot;Primary production (longterm min at max depth)&quot;             
+## [195] &quot;Primary production (longterm min at min depth)&quot;             
+## [196] &quot;Sea water salinity (maximum at max depth)&quot;                  
+## [197] &quot;Sea water salinity (maximum at mean depth)&quot;                 
+## [198] &quot;Sea water salinity (maximum at min depth)&quot;                  
+## [199] &quot;Sea water salinity (mean at max depth)&quot;                     
+## [200] &quot;Sea water salinity (mean at mean depth)&quot;                    
+## [201] &quot;Sea water salinity (mean at min depth)&quot;                     
+## [202] &quot;Sea water salinity (minimum at max depth)&quot;                  
+## [203] &quot;Sea water salinity (minimum at mean depth)&quot;                 
+## [204] &quot;Sea water salinity (minimum at min depth)&quot;                  
+## [205] &quot;Sea water salinity (range at max depth)&quot;                    
+## [206] &quot;Sea water salinity (range at mean depth)&quot;                   
+## [207] &quot;Sea water salinity (range at min depth)&quot;                    
+## [208] &quot;Sea water salinity (longterm max at max depth)&quot;             
+## [209] &quot;Sea water salinity (longterm max at mean depth)&quot;            
+## [210] &quot;Sea water salinity (longterm max at min depth)&quot;             
+## [211] &quot;Sea water salinity (longterm min at max depth)&quot;             
+## [212] &quot;Sea water salinity (longterm min at min depth)&quot;             
+## [213] &quot;Silicate concentration (maximum at max depth)&quot;              
+## [214] &quot;Silicate concentration (maximum at mean depth)&quot;             
+## [215] &quot;Silicate concentration (maximum at min depth)&quot;              
+## [216] &quot;Silicate concentration (mean at max depth)&quot;                 
+## [217] &quot;Silicate concentration (mean at mean depth)&quot;                
+## [218] &quot;Silicate concentration (mean at min depth)&quot;                 
+## [219] &quot;Silicate concentration (minimum at max depth)&quot;              
+## [220] &quot;Silicate concentration (minimum at mean depth)&quot;             
+## [221] &quot;Silicate concentration (minimum at min depth)&quot;              
+## [222] &quot;Silicate concentration (range at max depth)&quot;                
+## [223] &quot;Silicate concentration (range at mean depth)&quot;               
+## [224] &quot;Silicate concentration (range at min depth)&quot;                
+## [225] &quot;Silicate concentration (longterm max at max depth)&quot;         
+## [226] &quot;Silicate concentration (longterm max at mean depth)&quot;        
+## [227] &quot;Silicate concentration (longterm max at min depth)&quot;         
+## [228] &quot;Silicate concentration (longterm min at max depth)&quot;         
+## [229] &quot;Silicate concentration (longterm min at min depth)&quot;         
+## [230] &quot;Sea ice concentration (longterm max)&quot;                       
+## [231] &quot;Sea ice concentration (longterm min)&quot;                       
+## [232] &quot;Sea ice concentration (maximum)&quot;                            
+## [233] &quot;Sea ice concentration (mean)&quot;                               
+## [234] &quot;Sea ice concentration (minimum)&quot;                            
+## [235] &quot;Sea ice concentration (range)&quot;                              
+## [236] &quot;Sea ice thickness (longterm max)&quot;                           
+## [237] &quot;Sea ice thickness (longterm min)&quot;                           
+## [238] &quot;Sea ice thickness (maximum)&quot;                                
+## [239] &quot;Sea ice thickness (mean)&quot;                                   
+## [240] &quot;Sea ice thickness (minimum)&quot;                                
+## [241] &quot;Sea ice thickness (range)&quot;                                  
+## [242] &quot;Sea surface temperature (longterm max)&quot;                     
+## [243] &quot;Sea surface temperature (longterm min)&quot;                     
+## [244] &quot;Chlorophyll concentration (maximum)&quot;                        
+## [245] &quot;Chlorophyll concentration (mean)&quot;                           
+## [246] &quot;Chlorophyll concentration (minimum)&quot;                        
+## [247] &quot;Chlorophyll concentration (range)&quot;                          
+## [248] &quot;Chlorophyll concentration (longterm max)&quot;                   
+## [249] &quot;Chlorophyll concentration (longterm min)&quot;                   
+## [250] &quot;Current velocity (maximum)&quot;                                 
+## [251] &quot;Current velocity (mean)&quot;                                    
+## [252] &quot;Current velocity (minimum)&quot;                                 
+## [253] &quot;Current velocity (range)&quot;                                   
+## [254] &quot;Current velocity (longterm max)&quot;                            
+## [255] &quot;Current velocity (longterm min)&quot;                            
+## [256] &quot;Dissolved oxygen concentration (maximum)&quot;                   
+## [257] &quot;Dissolved oxygen concentration (mean)&quot;                      
+## [258] &quot;Dissolved oxygen concentration (minimum)&quot;                   
+## [259] &quot;Dissolved oxygen concentration (range)&quot;                     
+## [260] &quot;Dissolved oxygen concentration (longterm max)&quot;              
+## [261] &quot;Dissolved oxygen concentration (longterm min)&quot;              
+## [262] &quot;Iron concentration (maximum)&quot;                               
+## [263] &quot;Iron concentration (mean)&quot;                                  
+## [264] &quot;Iron concentration (minimum)&quot;                               
+## [265] &quot;Iron concentration (range)&quot;                                 
+## [266] &quot;Iron concentration (longterm max)&quot;                          
+## [267] &quot;Iron concentration (longterm min)&quot;                          
+## [268] &quot;Phosphate concentration (maximum)&quot;                          
+## [269] &quot;Phosphate concentration (mean)&quot;                             
+## [270] &quot;Phosphate concentration (minimum)&quot;                          
+## [271] &quot;Phosphate concentration (range)&quot;                            
+## [272] &quot;Phosphate concentration (longterm max)&quot;                     
+## [273] &quot;Phosphate concentration (longterm min)&quot;                     
+## [274] &quot;Nitrate concentration (maximum)&quot;                            
+## [275] &quot;Nitrate concentration (mean)&quot;                               
+## [276] &quot;Nitrate concentration (minimum)&quot;                            
+## [277] &quot;Nitrate concentration (range)&quot;                              
+## [278] &quot;Nitrate concentration (longterm max)&quot;                       
+## [279] &quot;Nitrate concentration (longterm min)&quot;                       
+## [280] &quot;Carbon phytoplankton biomass (maximum)&quot;                     
+## [281] &quot;Carbon phytoplankton biomass (mean)&quot;                        
+## [282] &quot;Carbon phytoplankton biomass (minimum)&quot;                     
+## [283] &quot;Carbon phytoplankton biomass (range)&quot;                       
+## [284] &quot;Carbon phytoplankton biomass (longterm max)&quot;                
+## [285] &quot;Carbon phytoplankton biomass (longterm min)&quot;                
+## [286] &quot;Primary production (maximum)&quot;                               
+## [287] &quot;Primary production (mean)&quot;                                  
+## [288] &quot;Primary production (minimum)&quot;                               
+## [289] &quot;Primary production (range)&quot;                                 
+## [290] &quot;Primary production (longterm max)&quot;                          
+## [291] &quot;Primary production (longterm min)&quot;                          
+## [292] &quot;Sea surface salinity (maximum)&quot;                             
+## [293] &quot;Sea surface salinity (mean)&quot;                                
+## [294] &quot;Sea surface salinity (minimum)&quot;                             
+## [295] &quot;Sea surface salinity (range)&quot;                               
+## [296] &quot;Sea surface salinity (longterm max)&quot;                        
+## [297] &quot;Sea surface salinity (longterm min)&quot;                        
+## [298] &quot;Silicate concentration (maximum)&quot;                           
+## [299] &quot;Silicate concentration (mean)&quot;                              
+## [300] &quot;Silicate concentration (minimum)&quot;                           
+## [301] &quot;Silicate concentration (range)&quot;                             
+## [302] &quot;Silicate concentration (longterm max)&quot;                      
+## [303] &quot;Silicate concentration (longterm min)&quot;                      
+## [304] &quot;Cloud fraction (maximum)&quot;                                   
+## [305] &quot;BO_damax&quot;                                                   
+## [306] &quot;BO_damean&quot;                                                  
+## [307] &quot;BO_damin&quot;                                                   
+## [308] &quot;BO_parmax&quot;                                                  
+## [309] &quot;BO_parmean&quot;                                                 
+## [310] &quot;BO_ph&quot;
+</code></pre>
+
+<p>Let&#39;s choose one dataset (e.g. WorldClim) and 
+one particular set of variables 
+(e.g. altitude and the bioclimatic ones, 
+which are in rows 1 to 20):</p>
+
+<pre><code class="r">layers_choice &lt;- unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, c(&quot;name&quot;, &quot;layer_code&quot;)])
+layers_choice
+</code></pre>
+
+<pre><code>##                                   name layer_code
+## 1                             Altitude     WC_alt
+## 2              Annual mean temperature    WC_bio1
+## 3       Mean diurnal temperature range    WC_bio2
+## 4                        Isothermality    WC_bio3
+## 5              Temperature seasonality    WC_bio4
+## 6                  Maximum temperature    WC_bio5
+## 7                  Minimum temperature    WC_bio6
+## 8             Annual temperature range    WC_bio7
+## 9  Mean temperature of wettest quarter    WC_bio8
+## 10  Mean temperature of driest quarter    WC_bio9
+## 11 Mean temperature of warmest quarter   WC_bio10
+## 12 Mean temperature of coldest quarter   WC_bio11
+## 13                Annual precipitation   WC_bio12
+## 14      Precipitation of wettest month   WC_bio13
+## 15       Precipitation of driest month   WC_bio14
+## 16           Precipitation seasonality   WC_bio15
+## 17    Precipitation of wettest quarter   WC_bio16
+## 18     Precipitation of driest quarter   WC_bio17
+## 19    Precipitation of warmest quarter   WC_bio18
+## 20    Precipitation of coldest quarter   WC_bio19
+## 21             Precipitation (January)   WC_prec1
+## 22            Precipitation (February)   WC_prec2
+## 23               Precipitation (March)   WC_prec3
+## 24               Precipitation (April)   WC_prec4
+## 25                 Precipitation (May)   WC_prec5
+## 26                Precipitation (June)   WC_prec6
+## 27                Precipitation (July)   WC_prec7
+## 28              Precipitation (August)   WC_prec8
+## 29           Precipitation (September)   WC_prec9
+## 30             Precipitation (October)  WC_prec10
+## 31            Precipitation (November)  WC_prec11
+## 32            Precipitation (December)  WC_prec12
+## 33       Maximum temperature (January)   WC_tmax1
+## 34      Maximum temperature (February)   WC_tmax2
+## 35         Maximum temperature (March)   WC_tmax3
+## 36         Maximum temperature (April)   WC_tmax4
+## 37           Maximum temperature (May)   WC_tmax5
+## 38          Maximum temperature (June)   WC_tmax6
+## 39          Maximum temperature (July)   WC_tmax7
+## 40        Maximum temperature (August)   WC_tmax8
+## 41     Maximum temperature (September)   WC_tmax9
+## 42       Maximum temperature (October)  WC_tmax10
+## 43      Maximum temperature (November)  WC_tmax11
+## 44      Maximum temperature (December)  WC_tmax12
+## 45          Mean temperature (January)  WC_tmean1
+## 46         Mean temperature (February)  WC_tmean2
+## 47            Mean temperature (March)  WC_tmean3
+## 48            Mean temperature (April)  WC_tmean4
+## 49              Mean temperature (May)  WC_tmean5
+## 50             Mean temperature (June)  WC_tmean6
+## 51             Mean temperature (July)  WC_tmean7
+## 52           Mean temperature (August)  WC_tmean8
+## 53        Mean temperature (September)  WC_tmean9
+## 54          Mean temperature (October) WC_tmean10
+## 55         Mean temperature (November) WC_tmean11
+## 56         Mean temperature (December) WC_tmean12
+## 57       Minimum temperature (January)   WC_tmin1
+## 58      Minimum temperature (February)   WC_tmin2
+## 59         Minimum temperature (March)   WC_tmin3
+## 60         Minimum temperature (April)   WC_tmin4
+## 61           Minimum temperature (May)   WC_tmin5
+## 62          Minimum temperature (June)   WC_tmin6
+## 63          Minimum temperature (July)   WC_tmin7
+## 64        Minimum temperature (August)   WC_tmin8
+## 65     Minimum temperature (September)   WC_tmin9
+## 66       Minimum temperature (October)  WC_tmin10
+## 67      Minimum temperature (November)  WC_tmin11
+## 68      Minimum temperature (December)  WC_tmin12
+</code></pre>
+
+<pre><code class="r">layers_choice &lt;- layers_choice[1:20, ]
+layers_choice
+</code></pre>
+
+<pre><code>##                                   name layer_code
+## 1                             Altitude     WC_alt
+## 2              Annual mean temperature    WC_bio1
+## 3       Mean diurnal temperature range    WC_bio2
+## 4                        Isothermality    WC_bio3
+## 5              Temperature seasonality    WC_bio4
+## 6                  Maximum temperature    WC_bio5
+## 7                  Minimum temperature    WC_bio6
+## 8             Annual temperature range    WC_bio7
+## 9  Mean temperature of wettest quarter    WC_bio8
+## 10  Mean temperature of driest quarter    WC_bio9
+## 11 Mean temperature of warmest quarter   WC_bio10
+## 12 Mean temperature of coldest quarter   WC_bio11
+## 13                Annual precipitation   WC_bio12
+## 14      Precipitation of wettest month   WC_bio13
+## 15       Precipitation of driest month   WC_bio14
+## 16           Precipitation seasonality   WC_bio15
+## 17    Precipitation of wettest quarter   WC_bio16
+## 18     Precipitation of driest quarter   WC_bio17
+## 19    Precipitation of warmest quarter   WC_bio18
+## 20    Precipitation of coldest quarter   WC_bio19
+</code></pre>
+
+<p>Define folder for downloading the map layers:</p>
+
+<pre><code class="r">options(sdmpredictors_datadir = &quot;../outputs/sdmpredictors&quot;)
+</code></pre>
+
+<p>load the layers to the current R session 
+(downloading them if they aren&#39;t already in the folder defined above):</p>
+
+<pre><code class="r">layers &lt;- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
+layers
+</code></pre>
+
+<pre><code>## $WC_alt
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_alt_lonlat.tif 
+## names      : WC_alt 
+## values     : -415, 6485  (min, max)
+## 
+## 
+## $WC_bio1
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio1_lonlat.tif 
+## names      : WC_bio1 
+## values     : -27.4, 31.6  (min, max)
+## 
+## 
+## $WC_bio2
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio2_lonlat.tif 
+## names      : WC_bio2 
+## values     : 0.9, 21.3  (min, max)
+## 
+## 
+## $WC_bio3
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio3_lonlat.tif 
+## names      : WC_bio3 
+## values     : 0.08, 0.96  (min, max)
+## 
+## 
+## $WC_bio4
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio4_lonlat.tif 
+## names      : WC_bio4 
+## values     : 0.72, 226.92  (min, max)
+## 
+## 
+## $WC_bio5
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio5_lonlat.tif 
+## names      : WC_bio5 
+## values     : -7.3, 48.9  (min, max)
+## 
+## 
+## $WC_bio6
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio6_lonlat.tif 
+## names      : WC_bio6 
+## values     : -55.5, 25.8  (min, max)
+## 
+## 
+## $WC_bio7
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio7_lonlat.tif 
+## names      : WC_bio7 
+## values     : 5.3, 72.5  (min, max)
+## 
+## 
+## $WC_bio8
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio8_lonlat.tif 
+## names      : WC_bio8 
+## values     : -27.3, 37.6  (min, max)
+## 
+## 
+## $WC_bio9
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio9_lonlat.tif 
+## names      : WC_bio9 
+## values     : -49.1, 36.5  (min, max)
+## 
+## 
+## $WC_bio10
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio10_lonlat.tif 
+## names      : WC_bio10 
+## values     : -11.4, 38.1  (min, max)
+## 
+## 
+## $WC_bio11
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio11_lonlat.tif 
+## names      : WC_bio11 
+## values     : -49.7, 28.9  (min, max)
+## 
+## 
+## $WC_bio12
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio12_lonlat.tif 
+## names      : WC_bio12 
+## values     : 0, 9967  (min, max)
+## 
+## 
+## $WC_bio13
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio13_lonlat.tif 
+## names      : WC_bio13 
+## values     : 0, 2198  (min, max)
+## 
+## 
+## $WC_bio14
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio14_lonlat.tif 
+## names      : WC_bio14 
+## values     : 0, 666  (min, max)
+## 
+## 
+## $WC_bio15
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio15_lonlat.tif 
+## names      : WC_bio15 
+## values     : 0, 265  (min, max)
+## 
+## 
+## $WC_bio16
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio16_lonlat.tif 
+## names      : WC_bio16 
+## values     : 0, 5691  (min, max)
+## 
+## 
+## $WC_bio17
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio17_lonlat.tif 
+## names      : WC_bio17 
+## values     : 0, 2212  (min, max)
+## 
+## 
+## $WC_bio18
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio18_lonlat.tif 
+## names      : WC_bio18 
+## values     : 0, 4372  (min, max)
+## 
+## 
+## $WC_bio19
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio19_lonlat.tif 
+## names      : WC_bio19 
+## values     : 0, 4282  (min, max)
+</code></pre>
+
+<pre><code class="r"># see how many elements in &#39;layers&#39;:
+length(layers)
+</code></pre>
+
+<pre><code>## [1] 20
+</code></pre>
+
+<pre><code class="r"># plot a couple of layers to see how they look:
+names(layers)
+</code></pre>
+
+<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot; 
+##  [7] &quot;WC_bio6&quot;  &quot;WC_bio7&quot;  &quot;WC_bio8&quot;  &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot;
+## [13] &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot; &quot;WC_bio16&quot; &quot;WC_bio17&quot;
+## [19] &quot;WC_bio18&quot; &quot;WC_bio19&quot;
+</code></pre>
+
+<pre><code class="r">plot(layers[[1]], main = names(layers)[1])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(layers[[5]], main = names(layers)[5])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># find out if your layers have different extents or resolutions:
+unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, ]$cellsize_lonlat)  
+</code></pre>
+
+<pre><code>## [1] 0.08333333
+</code></pre>
+
+<pre><code class="r"># 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
+unique(sapply(layers, raster::extent))
+</code></pre>
+
+<pre><code>## [[1]]
+## class      : Extent 
+## xmin       : -180 
+## xmax       : 180 
+## ymin       : -60 
+## ymax       : 90
+</code></pre>
+
+<pre><code class="r"># if you get more than one extent (which doesn&#39;t happen with WorldClim, 
+# but may happen with other datasets), you&#39;ll have to crop all layers to the 
+# minimum common extent before proceeding. 
+# For example, if the first layer has the smallest extent:
+#layers &lt;- lapply(layers, crop, extent(layers[[1]]))
+</code></pre>
+
+<p>Once all layers have the same extent and resolution, 
+you can stack them in a single multi-layer Raster object and plot some to check</p>
+
+<pre><code class="r">layers &lt;- raster::stack(layers)
+plot(layers[[1:4]])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<hr/>
+
+<h2>4. Define study area and extent of possible range</h2>
+
+<p>Select the study area, e.g. (if your species is terrestrial) 
+using the countries where your species has occurrence points 
+(which means it was surveyed in those countries)</p>
+
+<p>Mind there are several other ways of delimiting the study area, 
+e.g. using ecoregions or other biogeographic units)</p>
+
+<p>First, convert the species occurrences to a spatial object 
+(like when you import a delimited text file into a GIS, 
+you need to specify which columns contain the spatial coordinates and 
+what is the cartographic projection / coordinate reference system):</p>
+
+<pre><code class="r">names(presences)
+</code></pre>
+
+<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;             
+## [3] &quot;decimalLatitude&quot;               &quot;coordinateUncertaintyInMeters&quot;
+## [5] &quot;uniqueID&quot;
+</code></pre>
+
+<pre><code class="r">pres_spat_vect &lt;- vect(presences, 
+                     geom = c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;), 
+                     crs = &quot;+proj=longlat&quot;)
+</code></pre>
+
+<p>Then get the country polygons that contain presence points:</p>
+
+<pre><code class="r">pres_countries &lt;- countries[pres_spat_vect, ]
+plot(pres_countries)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># if your species is terrestrial and you see that in some countries it is clearly under-surveyed, you can select only particular countries where the survey was better distributed, for example:
+#names(pres_countries)
+#unique(pres_countries$NAME)
+#chosen_countries &lt;- subset(pres_countries, pres_countries$NAME %in% c(&quot;United States of America&quot;, &quot;Canada&quot; ))
+#plot(chosen_countries)
+</code></pre>
+
+<p>Then also buffer your points with reasonable distance</p>
+
+<pre><code class="r">pres_buff &lt;- terra::aggregate(terra::buffer(pres_spat_vect, width = 50000))
+plot(pres_buff, lwd = 2)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(countries, border = &quot;tan&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<p>Finally, define study area as the area within buffer but also 
+within countries (e.g., not ocean)</p>
+
+<pre><code class="r">studyarea &lt;- intersect(pres_buff, countries)
+plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; is a list, but does not have components &#39;x&#39; and &#39;y&#39;
+</code></pre>
+
+<pre><code class="r">studyarea &lt;- as(studyarea, &quot;Spatial&quot;)
+</code></pre>
+
+<pre><code>## Error in as(studyarea, &quot;Spatial&quot;): no method or default for coercing &quot;list&quot; to &quot;Spatial&quot;
+</code></pre>
+
+<pre><code class="r"># IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
+# you need to intersect or crop with that too:
+#studyarea &lt;- intersect(studyarea, mywindow)
+#plot(studyarea, border = &quot;green&quot;, add = TRUE)
+</code></pre>
+
+<p>Cut the variable maps with the limits of the study area:</p>
+
+<pre><code class="r">layers_cut &lt;- terra::crop(terra::mask(layers, studyarea), studyarea)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;crop&#39;: unable to find an inherited method for function &#39;mask&#39; for signature &#39;&quot;RasterStack&quot;, &quot;list&quot;&#39;
+</code></pre>
+
+<pre><code class="r">plot(layers_cut[[1]])
+</code></pre>
+
+<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
+</code></pre>
+
+<p>Remember, the spatial resolution of the variables should be 
+adequate to the data and study area!</p>
+
+<p>Closely inspect your species data vs. the size of the variables&#39; pixels:</p>
+
+<pre><code class="r">plot(layers_cut[[1]])
+</code></pre>
+
+<pre><code>## Error in plot(layers_cut[[1]]): object &#39;layers_cut&#39; not found
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, cex = 0.1, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># plot within smaller x/y limits if necessary to see if presence point 
+# resolution matches pixel resolution:
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+</code></pre>
+
+<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the &#39;fact&#39; value that best matches your presence data resolution to your variables&#39; resolution):
+# layers_aggr &lt;- terra::aggregate(layers_cut, fact = 5, fun = mean)
+# res(layers_aggr)
+# plot(layers_aggr[[1]], xlim = range(presences$decimalLongitude), ylim = range(presences$decimalLatitude))
+# plot(pres_spatial, col = &quot;blue&quot;, cex = 0.1, add = TRUE)
+
+# run the command below only if you did need to aggregate the layers:
+#layers_cut &lt;- layers_aggr
+</code></pre>
+
+<p>Have to add in non-presence data</p>
+
+<pre><code class="r">dat &lt;- fuzzySim::gridRecords(rst = layers_cut, 
+                   pres.coords = presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)])
+</code></pre>
+
+<pre><code>## Error in fuzzySim::gridRecords(rst = layers_cut, pres.coords = presences[, : object &#39;layers_cut&#39; not found
+</code></pre>
+
+<pre><code class="r">head(dat)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;dat&#39; not found
+</code></pre>
+
+<pre><code class="r">table(dat$presence)
+</code></pre>
+
+<pre><code>## Error in table(dat$presence): object &#39;dat&#39; not found
+</code></pre>
+
+<p>Map these data</p>
+
+<pre><code class="r">plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+</code></pre>
+
+<pre><code>## Error in plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44)): object &#39;layers_cut&#39; not found
+</code></pre>
+
+<pre><code class="r"># plot the absences (pixels without presence records):
+points(dat[dat$presence == 0, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;red&quot;, cex = 0.5)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
+</code></pre>
+
+<pre><code class="r"># plot the presences (pixels with presence records):
+points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue&quot;, cex = 0.7)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;points&#39;: object &#39;dat&#39; not found
+</code></pre>
+
+<p>Now, convert back to a spatial data frame</p>
+
+<pre><code class="r">dat_spat &lt;- SpatialPointsDataFrame(coords = dat[,c(&quot;x&quot;, &quot;y&quot;)],
+                                   data = dat,
+                                   proj4string = crs(&quot;+proj=longlat&quot;))
+</code></pre>
+
+<pre><code>## Error in is(coords, &quot;SpatialPoints&quot;): object &#39;dat&#39; not found
+</code></pre>
+
+<p>Finally, make a dataframe (which you&#39;ll need for modelling) of the species 
+occurrence data gridded (thinned) to the resolution of the raster variables<br/>
+(i.e., one row per pixel with the values of the variables 
+and the presence/absence of the species):</p>
+
+<pre><code class="r">df.sdm &lt;- sdm::sdmData(formula = presence ~ .,
+                       train = dat_spat,
+                  predictors = layers_cut[[1:2]])
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;train&#39; in selecting a method for function &#39;sdmData&#39;: object &#39;dat_spat&#39; not found
+</code></pre>
+
+<pre><code class="r">df.sdm
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;df.sdm&#39; not found
+</code></pre>
+
+<hr/>
+
+<h2>5. Run models and create a predicted distribution map</h2>
+
+<pre><code class="r">m1 &lt;- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c(&quot;glm&quot;))
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;data&#39; in selecting a method for function &#39;sdm&#39;: object &#39;df.sdm&#39; not found
+</code></pre>
+
+<pre><code class="r">m1
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;m1&#39; not found
+</code></pre>
+
+<p>Prediction map</p>
+
+<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;aaarcher/output/figures/p1.img&#39;, overwrite=T) 
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;object&#39; in selecting a method for function &#39;predict&#39;: object &#39;m1&#39; not found
+</code></pre>
+
+<pre><code class="r">plot(studyarea, border = &quot;red&quot;, lwd = 3)
+</code></pre>
+
+<pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; is a list, but does not have components &#39;x&#39; and &#39;y&#39;
+</code></pre>
+
+<pre><code class="r">plot(countries, border = &quot;tan&quot;, add = T)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(p1, add = T)
+</code></pre>
+
+<pre><code>## Error in plot(p1, add = T): object &#39;p1&#39; not found
+</code></pre>
+
+<hr/>
+
+<h3>Footer</h3>
+
+<p>spin this with:
+ezspin(file = &ldquo;GlennaJaede/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;aaarcher/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+
+</body>
+
+</html>
