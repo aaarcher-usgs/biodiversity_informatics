@@ -10,7 +10,7 @@
 #' 
 #' 
 # Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -25,7 +25,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Cryptobranchus alleganiensis"
 
 #' 
 #' Download the data
