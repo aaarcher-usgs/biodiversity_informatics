@@ -207,61 +207,20 @@ hr {
 
 <p>April 6, 2022</p>
 
-<p>Programmer: Glenna Jaede</p>
+<p>Programmer: Glenna Jaedefdsafas</p>
 
 <h3>Header</h3>
 
 <pre><code class="r"># Load Libraries
 library(ezknitr)
 library(rgbif)
-</code></pre>
+library(terra)
+library(sdmpredictors)
+library(fuzzySim)
+library(sdm)
+library(raster)
 
-<pre><code>## Warning: package &#39;rgbif&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code class="r">library(terra)
-</code></pre>
-
-<pre><code>## Warning: package &#39;terra&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code>## terra 1.5.21
-</code></pre>
-
-<pre><code class="r">library(sdmpredictors)
-</code></pre>
-
-<pre><code>## Warning: package &#39;sdmpredictors&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code class="r">library(fuzzySim)
-</code></pre>
-
-<pre><code>## Warning: package &#39;fuzzySim&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code class="r">library(sdm)
-</code></pre>
-
-<pre><code>## Warning: package &#39;sdm&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code>## Loading required package: sp
-</code></pre>
-
-<pre><code>## Warning: package &#39;sp&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code>## sdm 1.1-8 (2021-11-11)
-</code></pre>
-
-<pre><code class="r">library(raster)
-</code></pre>
-
-<pre><code>## Warning: package &#39;raster&#39; was built under R version 4.1.3
-</code></pre>
-
-<pre><code class="r">remove(list = ls())
+remove(list = ls())
 </code></pre>
 
 <hr/>
@@ -978,13 +937,7 @@ layers_choice
 (downloading them if they aren&#39;t already in the folder defined above):</p>
 
 <pre><code class="r">layers &lt;- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
-</code></pre>
-
-<pre><code>## Warning in normalizePath(path.expand(path), winslash, mustWork): path[1]=&quot;../
-## outputs/sdmpredictors&quot;: The system cannot find the path specified
-</code></pre>
-
-<pre><code class="r">layers
+layers
 </code></pre>
 
 <pre><code>## $WC_alt

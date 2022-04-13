@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Glenna Jaedefdsafas
+#' Programmer: Glenna Jaede
 #' 
 #' ### Header
 #' 
