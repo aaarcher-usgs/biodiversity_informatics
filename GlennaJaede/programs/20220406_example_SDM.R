@@ -302,3 +302,45 @@ plot(p1, add = T)
 #' 
 #' spin this with:
 #' ezspin(file = "GlennaJaede/programs/20220406_example_SDM.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+
+
+
+
+#' Notes for project:
+#' 
+#' Week 12 SDM on d2l ring ouzel example works through different ideas for code. Ideas and outlines
+#' SDM package website for packages
+#' Outputs, all the ways to look at and interperate model
+#' Worldclim variables and definitions
+#' 
+#' Conceptualization
+#' Study objectives: 
+#' biological information, what does the species eat, where is it found, what types of habitats, etc
+#' Potential predicators
+#' STUDY OBJECTIVE What is a good question for species
+#' 
+#' Where could this species be?
+#' Where could it be headed? (invasive)
+#' 5 potential predictors that you hypothesize affect the spacial distribution of your species. Positive or negetive.
+#' 
+#' Data preparation
+#' Records information, good? How reliable? what region?
+#' what are the absences
+#' only need the layers and extent from step one.
+#' 
+#' 
+#' Model fitting
+#' algorithm choice
+#' how are you going to deal with multicollinearity
+#' Model definition
+#' model selection: compare modles, choose variables with variable importance of stepwise model selection,
+#' something that supports your hypothesis.
+#' crossvalidation: 4 folds and 5 runs for this class
+#' 
+#' 
+#' 
+#' 
+#'
+#'
+#'
+#'
