@@ -285,7 +285,9 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ WC_alt + WC_bio1, 
+          data = df.sdm, 
+          methods = c("glm"))
 m1
 
 #' Prediction map
@@ -300,30 +302,40 @@ plot(p1, add = T)
 #' Variable importance
 #' 
 vi <- getVarImp(m1)
+vi
 plot(vi)
 
 #' View Coefficients
 #' 
-getModelObject(m1)[[1]]
+plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+# sensical scales
 
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_alt^2), 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
 plot(getVarImp(m2.select))
+m2.select
+
+#' Based on these results, I will remove quadratic altitude term
+m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = F)
+m2.noaltquad
+getVarImp(m2.noaltquad)
+
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
              data = df.sdm, methods = c("glm"), 
-             replication = "cv", cv.folds = 4, n = 5)
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
 m3.cv
-getModelObject(m3.cv, id = 1)[[1]]
+plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
-
+roc(m3.cv)
 
 
 
