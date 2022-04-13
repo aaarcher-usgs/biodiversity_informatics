@@ -301,4 +301,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "GlennaJaede/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220406_example_SDM.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
