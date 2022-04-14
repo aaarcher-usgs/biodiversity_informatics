@@ -99,8 +99,8 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
-presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+#remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+#presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
 #' 
@@ -139,7 +139,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_prec4", "WC_prec11", "WC_bio17"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_prec4", "WC_prec11" , "WC_bio17", "WC_bio19"), ]
 layers_choice
 
 
@@ -173,7 +173,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:3]])
 
 #' _____________________________________________________________________________
 #' 
@@ -237,8 +237,8 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
-plot(pres_spat_vect, col = "blue", add = TRUE)
+#plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+#plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
 # layers_aggr <- terra::aggregate(layers_cut, fact = 5, fun = mean)
@@ -259,7 +259,7 @@ table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]], xlim = c(-90, -40), ylim = c(-30, 20))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -285,10 +285,13 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, 
+m1 <- sdm(presence ~ WC_bio19 + WC_bio17 + WC_prec4 + WC_prec11 , 
           data = df.sdm, 
           methods = c("glm"))
 m1
+
+
+
 
 #' Prediction map
 #' 
@@ -344,4 +347,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "NGruwell/programs/20220413_example_SDM_adv.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

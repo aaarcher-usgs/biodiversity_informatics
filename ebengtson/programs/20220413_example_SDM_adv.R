@@ -4,13 +4,12 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Erin Bengtson
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-
 library(ezknitr)
 library(rgbif)
 library(terra)
@@ -29,7 +28,7 @@ remove(list = ls())
 myspecies <- "Aeshna sitchensis"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -138,10 +137,12 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim", "Freshwater"), c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("FW_soil_avg_02","WC_alt","WC_bio18","WC_bio1"),]
 layers_choice
+
+
 
 
 #' Define folder for downloading the map layers:
@@ -152,16 +153,25 @@ options(sdmpredictors_datadir = "../outputs/sdmpredictors")
 layers <- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
 layers
 
+
+
 # see how many elements in 'layers':
 length(layers)
 
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
+plot(layers[[3]], main = names(layers)[3])
+plot(layers[[4]], main = names(layers)[4])
+
+# ################################## remove freshwater layer until Dr. Archer figures it out
+layers <- layers[1:3]
+# ################################## remove freshwater layer until Dr. Archer figures it out
+
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
+unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim","Freshwater"), ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
 unique(sapply(layers, raster::extent))
 
@@ -169,12 +179,17 @@ unique(sapply(layers, raster::extent))
 # but may happen with other datasets), you'll have to crop all layers to the 
 # minimum common extent before proceeding. 
 # For example, if the first layer has the smallest extent:
-#layers <- lapply(layers, crop, extent(layers[[1]]))
+#layers <- lapply(layers, crop, extent(layers[[4]]))
+#unique(sapply(layers, raster::extent))
+#layersExtent <- layers
+#layersExtent[[4]] <- extend(layers[[4]], extent(layers[[1]]))
+#unique(sapply(layersExtent, raster::extent))
+
 
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers)
 
 #' _____________________________________________________________________________
 #' 
@@ -286,15 +301,58 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ WC_alt + WC_bio1, 
+          data = df.sdm, 
+          methods = c("glm"))
 m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='ebengtson/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, 
+              filename='aaarcher/output/figures/p1.img', 
+              overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+#' Variable importance
+#' 
+vi <- getVarImp(m1)
+vi
+plot(vi)
+
+#' View Coefficients
+#' 
+plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+# sensical scales
+
+
+#' Variable selection?
+#' 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = T)
+getModelObject(m2.select)[[1]]
+getVarImp(m2.select)
+plot(getVarImp(m2.select))
+m2.select
+
+#' Based on these results, I will remove quadratic altitude term
+m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = F)
+m2.noaltquad
+getVarImp(m2.noaltquad)
+
+
+#' Cross-validation
+#' 
+m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c("glm"), 
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
+m3.cv
+plogis(getModelObject(m3.cv, id = 1)[[1]])
+getVarImp(m3.cv)
+roc(m3.cv)
+
 
 
 #' _____________________________________________________________________________
