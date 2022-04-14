@@ -866,15 +866,32 @@ layers_choice
 ## 68      Minimum temperature (December)  WC_tmin12
 </code></pre>
 
-<pre><code class="r">layers_choice &lt;- layers_choice[layers_choice$layer_code %in% c(&quot;WC_prec4&quot;, &quot;WC_prec11&quot; , &quot;WC_bio17&quot;, &quot;WC_bio19&quot;), ]
-layers_choice
+<pre><code class="r">layers_choice &lt;- layers_choice[layers_choice$layer_code %in% c(&quot;WC_tmin4&quot;, &quot;WC_prec11&quot; , &quot;WC_bio1&quot;, &quot;WC_prec10&quot;, &quot;WC_bio4&quot; , &quot;WC_bio6&quot;, &quot;WC_prec3&quot;, &quot;WC_tmax4&quot;, &quot;WC_prec4&quot;, &quot;WC_tmax3&quot;, &quot;WC_tmin10&quot;, &quot;WC_tmax10&quot;,  &quot;WC_tmin11&quot;
+,&quot;WC_bio12&quot; , &quot;WC_bio13&quot;, &quot;WC_bio14&quot; , &quot;WC_tmin3&quot; , &quot;WC_tmax11&quot; , &quot;WC_bio17&quot;, &quot;WC_bio7&quot; , &quot;WC_bio7&quot;), ]
+layers_choice 
 </code></pre>
 
-<pre><code>##                                name layer_code
-## 18  Precipitation of driest quarter   WC_bio17
-## 20 Precipitation of coldest quarter   WC_bio19
-## 24            Precipitation (April)   WC_prec4
-## 31         Precipitation (November)  WC_prec11
+<pre><code>##                               name layer_code
+## 2          Annual mean temperature    WC_bio1
+## 5          Temperature seasonality    WC_bio4
+## 7              Minimum temperature    WC_bio6
+## 8         Annual temperature range    WC_bio7
+## 13            Annual precipitation   WC_bio12
+## 14  Precipitation of wettest month   WC_bio13
+## 15   Precipitation of driest month   WC_bio14
+## 18 Precipitation of driest quarter   WC_bio17
+## 23           Precipitation (March)   WC_prec3
+## 24           Precipitation (April)   WC_prec4
+## 30         Precipitation (October)  WC_prec10
+## 31        Precipitation (November)  WC_prec11
+## 35     Maximum temperature (March)   WC_tmax3
+## 36     Maximum temperature (April)   WC_tmax4
+## 42   Maximum temperature (October)  WC_tmax10
+## 43  Maximum temperature (November)  WC_tmax11
+## 59     Minimum temperature (March)   WC_tmin3
+## 60     Minimum temperature (April)   WC_tmin4
+## 66   Minimum temperature (October)  WC_tmin10
+## 67  Minimum temperature (November)  WC_tmin11
 </code></pre>
 
 <p>Define folder for downloading the map layers:</p>
@@ -889,7 +906,84 @@ layers_choice
 layers
 </code></pre>
 
-<pre><code>## $WC_bio17
+<pre><code>## $WC_bio1
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio1_lonlat.tif 
+## names      : WC_bio1 
+## values     : -27.4, 31.6  (min, max)
+## 
+## 
+## $WC_bio4
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio4_lonlat.tif 
+## names      : WC_bio4 
+## values     : 0.72, 226.92  (min, max)
+## 
+## 
+## $WC_bio6
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio6_lonlat.tif 
+## names      : WC_bio6 
+## values     : -55.5, 25.8  (min, max)
+## 
+## 
+## $WC_bio7
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio7_lonlat.tif 
+## names      : WC_bio7 
+## values     : 5.3, 72.5  (min, max)
+## 
+## 
+## $WC_bio12
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio12_lonlat.tif 
+## names      : WC_bio12 
+## values     : 0, 9967  (min, max)
+## 
+## 
+## $WC_bio13
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio13_lonlat.tif 
+## names      : WC_bio13 
+## values     : 0, 2198  (min, max)
+## 
+## 
+## $WC_bio14
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio14_lonlat.tif 
+## names      : WC_bio14 
+## values     : 0, 666  (min, max)
+## 
+## 
+## $WC_bio17
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
 ## resolution : 0.08333333, 0.08333333  (x, y)
@@ -900,15 +994,15 @@ layers
 ## values     : 0, 2212  (min, max)
 ## 
 ## 
-## $WC_bio19
+## $WC_prec3
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
 ## resolution : 0.08333333, 0.08333333  (x, y)
 ## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
 ## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio19_lonlat.tif 
-## names      : WC_bio19 
-## values     : 0, 4282  (min, max)
+## source     : WC_prec3_lonlat.tif 
+## names      : WC_prec3 
+## values     : 0, 733  (min, max)
 ## 
 ## 
 ## $WC_prec4
@@ -922,6 +1016,17 @@ layers
 ## values     : 0, 829  (min, max)
 ## 
 ## 
+## $WC_prec10
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_prec10_lonlat.tif 
+## names      : WC_prec10 
+## values     : 0, 1055  (min, max)
+## 
+## 
 ## $WC_prec11
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
@@ -931,20 +1036,110 @@ layers
 ## source     : WC_prec11_lonlat.tif 
 ## names      : WC_prec11 
 ## values     : 0, 928  (min, max)
+## 
+## 
+## $WC_tmax3
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmax3_lonlat.tif 
+## names      : WC_tmax3 
+## values     : -42.7, 42.2  (min, max)
+## 
+## 
+## $WC_tmax4
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmax4_lonlat.tif 
+## names      : WC_tmax4 
+## values     : -34.1, 42.9  (min, max)
+## 
+## 
+## $WC_tmax10
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmax10_lonlat.tif 
+## names      : WC_tmax10 
+## values     : -26.9, 40.2  (min, max)
+## 
+## 
+## $WC_tmax11
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmax11_lonlat.tif 
+## names      : WC_tmax11 
+## values     : -37.9, 40.2  (min, max)
+## 
+## 
+## $WC_tmin3
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmin3_lonlat.tif 
+## names      : WC_tmin3 
+## values     : -47, 27.8  (min, max)
+## 
+## 
+## $WC_tmin4
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmin4_lonlat.tif 
+## names      : WC_tmin4 
+## values     : -38.3, 28.5  (min, max)
+## 
+## 
+## $WC_tmin10
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmin10_lonlat.tif 
+## names      : WC_tmin10 
+## values     : -30.5, 27.2  (min, max)
+## 
+## 
+## $WC_tmin11
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmin11_lonlat.tif 
+## names      : WC_tmin11 
+## values     : -45.8, 26.8  (min, max)
 </code></pre>
 
 <pre><code class="r"># see how many elements in &#39;layers&#39;:
 length(layers)
 </code></pre>
 
-<pre><code>## [1] 4
+<pre><code>## [1] 20
 </code></pre>
 
 <pre><code class="r"># plot a couple of layers to see how they look:
 names(layers)
 </code></pre>
 
-<pre><code>## [1] &quot;WC_bio17&quot;  &quot;WC_bio19&quot;  &quot;WC_prec4&quot;  &quot;WC_prec11&quot;
+<pre><code>##  [1] &quot;WC_bio1&quot;   &quot;WC_bio4&quot;   &quot;WC_bio6&quot;   &quot;WC_bio7&quot;   &quot;WC_bio12&quot;  &quot;WC_bio13&quot;  &quot;WC_bio14&quot; 
+##  [8] &quot;WC_bio17&quot;  &quot;WC_prec3&quot;  &quot;WC_prec4&quot;  &quot;WC_prec10&quot; &quot;WC_prec11&quot; &quot;WC_tmax3&quot;  &quot;WC_tmax4&quot; 
+## [15] &quot;WC_tmax10&quot; &quot;WC_tmax11&quot; &quot;WC_tmin3&quot;  &quot;WC_tmin4&quot;  &quot;WC_tmin10&quot; &quot;WC_tmin11&quot;
 </code></pre>
 
 <pre><code class="r">plot(layers[[1]], main = names(layers)[1])
@@ -1141,13 +1336,27 @@ adequate to the data and study area!</p>
 head(dat)
 </code></pre>
 
-<pre><code>##   presence         x          y  cells WC_bio17 WC_bio19 WC_prec4 WC_prec11
-## 4        1 -59.12500   4.208333  94368      183      267      149        56
-## 5        1 -79.79167  -3.458333 156772       63       63      149        36
-## 6        1 -60.04167  -3.125000 154285      212      831      284       166
-## 7        1 -44.29167 -20.208333 294079       33       48       57       235
-## 8        1 -83.70833   8.625000  57980      263     1573      210       580
-## 9        1 -80.62500   8.875000  55974      351     1131      231       362
+<pre><code>##   presence         x          y  cells WC_bio1 WC_bio4 WC_bio6 WC_bio7 WC_bio12 WC_bio13 WC_bio14
+## 4        1 -59.12500   4.208333  94368    25.9    5.36    20.7    11.1     1763      346       46
+## 5        1 -79.79167  -3.458333 156772    23.7    5.31    18.1    11.6     1050      199       14
+## 6        1 -60.04167  -3.125000 154285    27.5    4.47    22.9    10.1     2159      296       57
+## 7        1 -44.29167 -20.208333 294079    20.9   19.33     9.9    19.3     1362      292       10
+## 8        1 -83.70833   8.625000  57980    25.9    7.58    19.1    14.4     4654      786       57
+## 9        1 -80.62500   8.875000  55974    26.4    6.94    21.8    10.1     3290      390       80
+##   WC_bio17 WC_prec3 WC_prec4 WC_prec10 WC_prec11 WC_tmax3 WC_tmax4 WC_tmax10 WC_tmax11 WC_tmin3
+## 4      183       89      149        46        56     30.3     30.4      31.8      31.2     21.1
+## 5       63      192      149        31        36     29.4     29.7      28.0      28.4     19.5
+## 6      212      296      284       125       166     30.9     31.0      32.3      31.5     23.4
+## 7       33      149       57       123       235     28.3     26.8      28.2      28.0     16.1
+## 8      263      127      210       786       580     33.5     33.3      30.0      29.8     20.5
+## 9      351       80      231       379       362     31.8     31.9      29.3      29.1     22.7
+##   WC_tmin4 WC_tmin10 WC_tmin11
+## 4     21.5      22.1      21.8
+## 5     19.6      18.5      18.4
+## 6     23.4      23.8      23.6
+## 7     13.7      16.3      17.0
+## 8     21.4      20.4      20.0
+## 9     23.5      21.9      22.1
 </code></pre>
 
 <pre><code class="r">table(dat$presence)
@@ -1160,7 +1369,7 @@ head(dat)
 
 <p>Map these data</p>
 
-<pre><code class="r">plot(layers_cut[[1]], xlim = c(-90, -40), ylim = c(-30, 20))
+<pre><code class="r">plot(layers_cut[[1]], xlim = c(-90, -35), ylim = c(-30, 15))
 </code></pre>
 
 <pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
@@ -1211,8 +1420,8 @@ and the presence/absence of the species):</p>
 ## =========================================================== 
 ## number of species                     :  1 
 ## species names                         :  presence 
-## number of features                    :  7 
-## feature names                         :  cells, WC_prec4, WC_prec11, ... 
+## number of features                    :  23 
+## feature names                         :  cells, WC_bio6, WC_bio7, ... 
 ## type                                  :  Presence-Absence 
 ## has independet test data?             :  FALSE 
 ## number of records                     :  14423 
@@ -1223,7 +1432,7 @@ and the presence/absence of the species):</p>
 
 <h2>5. Run models and create a predicted distribution map</h2>
 
-<pre><code class="r">m1 &lt;- sdm(presence ~ WC_bio19 + WC_bio17 + WC_prec4 + WC_prec11 , 
+<pre><code class="r">m1 &lt;- sdm(presence ~ I(WC_bio12^2) +  WC_bio6 , 
           data = df.sdm, 
           methods = c(&quot;glm&quot;))
 m1
@@ -1250,13 +1459,13 @@ m1
 ## 
 ## methods    :     AUC     |     COR     |     TSS     |     Deviance 
 ## -------------------------------------------------------------------------
-## glm        :     0.6     |     0.06    |     0.16    |     0.19
+## glm        :     0.61    |     0.03    |     0.17    |     0.19
 </code></pre>
 
 <p>Prediction map</p>
 
 <pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, 
-              filename=&#39;aaarcher/output/figures/p1.img&#39;, 
+              filename= &#39;NGruwell/output/figures/p1.img&#39;, 
               overwrite=T) 
 plot(studyarea, border = &quot;red&quot;, lwd = 3)
 </code></pre>
@@ -1291,24 +1500,20 @@ plot(studyarea, border = &quot;red&quot;, lwd = 3)
 <pre><code>## Relative Variable Importance 
 ## ============================================================= 
 ## method              : Permutation based on two metrics (Pearson Correlation and AUC)
-## number of variables :  4 
-## variable names      :  WC_bio19, WC_bio17, WC_prec4, WC_prec11, ... 
+## number of variables :  2 
+## variable names      :  WC_bio12.quad, WC_bio6 
 ## ============================================================= 
 ## Relative variable importance 
 ## ---------------------------------------------- 
 ## Based on Correlation metric: 
 ## ---------------------------------------------- 
-## WC_bio19            : *********************************** (69.4 %) 
-## WC_bio17            : ***** (9.1 %) 
-## WC_prec4            : * (1.4 %) 
-## WC_prec11           : *************************** (54.4 %) 
+## WC_bio12.quad       : *************************************** (78 %) 
+## WC_bio6             : ******* (13.5 %) 
 ## ============================================================= 
 ## Based on AUC metric: 
 ## ---------------------------------------------- 
-## WC_bio19            : ******* (13.6 %) 
-## WC_bio17            :  (0.7 %) 
-## WC_prec4            :  (0.1 %) 
-## WC_prec11           : **** (7.2 %) 
+## WC_bio12.quad       : ******** (15.1 %) 
+## WC_bio6             : ** (3.6 %) 
 ## =============================================================
 </code></pre>
 
@@ -1323,8 +1528,8 @@ plot(studyarea, border = &quot;red&quot;, lwd = 3)
 <pre><code class="r">plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
 </code></pre>
 
-<pre><code>## (Intercept)    WC_bio19    WC_bio17    WC_prec4   WC_prec11 
-## 0.009949676 0.500195971 0.499812251 0.499874687 0.500632883
+<pre><code>##   (Intercept) WC_bio12.quad       WC_bio6 
+##   0.009091321   0.500000011   0.507070031
 </code></pre>
 
 <pre><code class="r"># sensical scales
