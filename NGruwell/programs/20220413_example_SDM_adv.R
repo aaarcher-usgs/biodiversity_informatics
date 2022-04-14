@@ -137,10 +137,12 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
+
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_prec4", "WC_prec11" , "WC_bio17", "WC_bio19"), ]
-layers_choice
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_tmin4", "WC_prec11" , "WC_bio1", "WC_prec10", "WC_bio4" , "WC_bio6", "WC_prec3", "WC_tmax4", "WC_prec4", "WC_tmax3", "WC_tmin10", "WC_tmax10",  "WC_tmin11"
+,"WC_bio12" , "WC_bio13", "WC_bio14" , "WC_tmin3" , "WC_tmax11" , "WC_bio17", "WC_bio7" , "WC_bio7"), ]
+layers_choice 
 
 
 #' Define folder for downloading the map layers:
@@ -259,7 +261,7 @@ table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-90, -40), ylim = c(-30, 20))
+plot(layers_cut[[1]], xlim = c(-90, -35), ylim = c(-30, 15))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -285,18 +287,16 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio19 + WC_bio17 + WC_prec4 + WC_prec11 , 
+m1 <- sdm(presence ~ I(WC_bio12^2) +  WC_bio6 , 
           data = df.sdm, 
           methods = c("glm"))
 m1
 
 
-
-
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
-              filename='aaarcher/output/figures/p1.img', 
+              filename= 'NGruwell/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
