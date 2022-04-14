@@ -128,7 +128,7 @@ layers_choice <- unique(pred_layers[
         pred_layers$dataset_code %in% c("WorldClim", "ENVIREM"),
         c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5", "WC_bio12", "ER_climaticMoistureIndex", "WC_bio19", "WC_bio1"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1"), ]
 layers_choice
 
 
@@ -147,7 +147,7 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[2]], main = names(layers)[2])
+plot(layers[[5]], main = names(layers)[5])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat) 
@@ -164,7 +164,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[c("WC_bio5", "WC_bio12", "ER_climaticMoistureIndex", "WC_bio19", "WC_bio1"),]])
+plot(layers[[c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1"),]])
 
 #' _____________________________________________________________________________
 #' 
@@ -212,8 +212,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-#studyarea <- intersect(studyarea, mywindow)
-#plot(studyarea, border = "green", add = TRUE)
+# studyarea <- intersect(studyarea, mywindow)
+# plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -276,7 +276,7 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio5 + WC_bio12 + ER_climaticMoistureIndex + WC_bio19 + WC_bio1,
+m1 <- sdm(presence ~ WC_bio5 + WC_bio12 + ER_thermicityIndex + WC_bio19 + WC_bio1,
           data = df.sdm, 
           methods = c("glm"))
 m1
