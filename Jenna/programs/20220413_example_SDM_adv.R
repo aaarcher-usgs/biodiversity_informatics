@@ -85,7 +85,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
 #' 
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
 remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
-                                         complete.cases(presences)]
+                                   complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
@@ -96,6 +96,19 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
        pch = 20, 
        col = "blue")
 
+#' Blanding's turtle is NOT located in southern states. We need to also
+#' remove records from areas that are not possible.
+#' 
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+
+#' Double check: Did the number of records make sense??
+#' 
+
+#' Map the cleaned occurrence records on top of the raw ones:
+points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+       pch = 20, 
+       col = "red")
 
 #' _____________________________________________________________________________
 #' 
@@ -124,11 +137,12 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[
-        pred_layers$dataset_code %in% c("WorldClim", "ENVIREM"),
-        c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+# layers_choice <- unique(pred_layers[
+# pred_layers$dataset_code %in% c("WorldClim", "Bio-ORACLE"),
+# c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5", "WC_bio12", "ER_climaticMoistureIndex", "WC_bio19", "WC_bio1"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5" , "WC_bio12"), ]
 layers_choice
 
 
@@ -150,8 +164,7 @@ plot(layers[[1]], main = names(layers)[1])
 plot(layers[[2]], main = names(layers)[2])
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat) 
-unique(pred_layers[pred_layers$dataset_code == "ENVIREM", ]$cellsize_lonlat)
+unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
 unique(sapply(layers, raster::extent))
 
@@ -164,7 +177,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[c("WC_bio5", "WC_bio12", "ER_climaticMoistureIndex", "WC_bio19", "WC_bio1"),]])
+plot(layers[[c("WC_bio5" , "WC_bio12"),]])
 
 #' _____________________________________________________________________________
 #' 
@@ -183,8 +196,8 @@ plot(layers[[c("WC_bio5", "WC_bio12", "ER_climaticMoistureIndex", "WC_bio19", "W
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                       geom = c("decimalLongitude", "decimalLatitude"), 
-                       crs = "+proj=longlat")
+                     geom = c("decimalLongitude", "decimalLatitude"), 
+                     crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -228,7 +241,7 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-130, -65), ylim = c(30, 55))
+plot(layers_cut[[1]], xlim = c(-130, 60), ylim = c(41, 44))
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
@@ -244,13 +257,13 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-130, -65), ylim = c(30, 55))
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -268,7 +281,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                       predictors = layers_cut[[1:2]])
+                  predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -276,16 +289,15 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio5 + WC_bio12 + ER_climaticMoistureIndex + WC_bio19 + WC_bio1,
+m1 <- sdm(presence ~ WC_bio5 + WC_bio12,
           data = df.sdm, 
           methods = c("glm"))
 m1
 
-
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
-              filename='Jenna/output/figures/p1.img', 
+              filename='aaarcher/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
@@ -305,7 +317,7 @@ plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1 + ER_climaticMoistureIndex, 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
@@ -313,17 +325,17 @@ plot(getVarImp(m2.select))
 m2.select
 
 #' Based on these results, I will remove quadratic altitude term
-m2.noaltquad <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1, 
-                    data = df.sdm, methods = c("glm"), var.selection = F)
+m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
 
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1, 
+m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
              data = df.sdm, methods = c("glm"), 
-             replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
 m3.cv
 plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
@@ -336,4 +348,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Jenna/programs/20220406_example_SDM.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
