@@ -172,7 +172,7 @@ unique(sapply(layers, raster::extent))
 # but may happen with other datasets), you'll have to crop all layers to the 
 # minimum common extent before proceeding. 
 # For example, if the first layer has the smallest extent:
-layers <- lapply(layers, crop, extent(layers[[1]]))
+#layers <- lapply(layers, crop, extent(layers[[4]]))
 
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
