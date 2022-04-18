@@ -96,6 +96,20 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
        pch = 20, 
        col = "blue")
 
+#' Blanding's turtle is NOT located in southern states. We need to also
+#' remove records from areas that are not possible.
+#' 
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+
+#' Double check: Did the number of records make sense??
+#' 
+
+#' Map the cleaned occurrence records on top of the raw ones:
+points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+       pch = 20, 
+       col = "red")
+
 
 #' _____________________________________________________________________________
 #' 
@@ -203,6 +217,7 @@ plot(pres_buff, lwd = 2)
 plot(pres_spat_vect, col = "blue", add = TRUE)
 plot(countries, border = "tan", add = TRUE)
 
+
 #' Finally, define study area as the area within buffer but also 
 #' within countries (e.g., not ocean)
 studyarea <- intersect(pres_buff, countries)
@@ -305,7 +320,8 @@ plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1 + ER_climaticMoistureIndex, 
+m2.select <- sdm(presence ~ WC_bio5 + I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + ER_thermicityIndex +
+                         I(ER_thermicityIndex^2) + WC_bio19 + I(WC_bio19^2) + WC_bio1 + I(WC_bio1^2),
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
@@ -313,7 +329,7 @@ plot(getVarImp(m2.select))
 m2.select
 
 #' Based on these results, I will remove quadratic altitude term
-m2.noaltquad <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1, 
+m2.noaltquad <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
                     data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
@@ -321,7 +337,7 @@ getVarImp(m2.noaltquad)
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1, 
+m3.cv <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
              data = df.sdm, methods = c("glm"), 
              replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
 m3.cv
