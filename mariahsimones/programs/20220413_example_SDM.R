@@ -4,13 +4,13 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Jenna Butler
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-library(ezknitr)
+
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -25,10 +25,10 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Lycaeides melissa samuelis"
+myspecies <- "Emydoidea blandingii"
 
 #' 
-#' Download the data using rgbif library
+#' Download the data
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -85,7 +85,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
 #' 
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
 remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
-                                         complete.cases(presences)]
+                                   complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
@@ -109,7 +109,6 @@ presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
        pch = 20, 
        col = "red")
-
 
 #' _____________________________________________________________________________
 #' 
@@ -138,13 +137,10 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[
-        pred_layers$dataset_code %in% c("WorldClim", "ENVIREM"),
-        c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1"), ]
+layers_choice <- layers_choice[1:20, ]
 layers_choice
-
 
 
 #' Define folder for downloading the map layers:
@@ -164,8 +160,7 @@ plot(layers[[1]], main = names(layers)[1])
 plot(layers[[5]], main = names(layers)[5])
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat) 
-unique(pred_layers[pred_layers$dataset_code == "ENVIREM", ]$cellsize_lonlat)
+unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
 unique(sapply(layers, raster::extent))
 
@@ -178,7 +173,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1"),]])
+plot(layers[[1:4]])
 
 #' _____________________________________________________________________________
 #' 
@@ -197,8 +192,8 @@ plot(layers[[c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                       geom = c("decimalLongitude", "decimalLatitude"), 
-                       crs = "+proj=longlat")
+                     geom = c("decimalLongitude", "decimalLatitude"), 
+                     crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -217,7 +212,6 @@ plot(pres_buff, lwd = 2)
 plot(pres_spat_vect, col = "blue", add = TRUE)
 plot(countries, border = "tan", add = TRUE)
 
-
 #' Finally, define study area as the area within buffer but also 
 #' within countries (e.g., not ocean)
 studyarea <- intersect(pres_buff, countries)
@@ -227,8 +221,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-# studyarea <- intersect(studyarea, mywindow)
-# plot(studyarea, border = "green", add = TRUE)
+#studyarea <- intersect(studyarea, mywindow)
+#plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -243,7 +237,7 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-130, -65), ylim = c(30, 55))
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
@@ -259,13 +253,13 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-130, -65), ylim = c(30, 55))
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -283,7 +277,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                       predictors = layers_cut[[1:2]])
+                  predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -291,60 +285,15 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio5 + WC_bio12 + ER_thermicityIndex + WC_bio19 + WC_bio1,
-          data = df.sdm, 
-          methods = c("glm"))
+m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
 m1
-
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, 
-              filename='Jenna/output/figures/p1.img', 
-              overwrite=T) 
+p1 <- predict(m1, newdata = layers_cut, filename='aaarcher/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
-
-#' Variable importance
-#' 
-vi <- getVarImp(m1)
-vi
-plot(vi)
-
-#' View Coefficients
-#' 
-plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
-# sensical scales
-
-
-#' Variable selection?
-#' 
-m2.select <- sdm(presence ~ WC_bio5 + I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + ER_thermicityIndex +
-                         I(ER_thermicityIndex^2) + WC_bio19 + I(WC_bio19^2) + WC_bio1 + I(WC_bio1^2),
-                 data = df.sdm, methods = c("glm"), var.selection = T)
-getModelObject(m2.select)[[1]]
-getVarImp(m2.select)
-plot(getVarImp(m2.select))
-m2.select
-
-#' Based on these results, I will remove quadratic altitude term
-m2.noaltquad <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
-                    data = df.sdm, methods = c("glm"), var.selection = F)
-m2.noaltquad
-getVarImp(m2.noaltquad)
-
-
-#' Cross-validation
-#' 
-m3.cv <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
-             data = df.sdm, methods = c("glm"), 
-             replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
-m3.cv
-plogis(getModelObject(m3.cv, id = 1)[[1]])
-getVarImp(m3.cv)
-roc(m3.cv)
-
 
 
 #' _____________________________________________________________________________
@@ -352,4 +301,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Jenna/programs/20220406_example_SDM.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
