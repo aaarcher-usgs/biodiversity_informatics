@@ -209,7 +209,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #plot(chosen_countries)
 
 #' Then also buffer your points with reasonable distance
-pres_buff <- terra::aggregate(terra::buffer(pres_spat_vect, width = 50000))
+pres_buff <- terra::aggregate(terra::buffer(pres_spat_vect, width = 25000))
 plot(pres_buff, lwd = 2)
 plot(pres_spat_vect, col = "blue", add = TRUE)
 plot(countries, border = "tan", add = TRUE)
@@ -287,12 +287,34 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2),
+#' 
+
+m1 <- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2) ,
           data = df.sdm, 
-          methods = c("glm"))
+          methods = c("glm" ))
 m1
+getVarImp(m1)
 
+m2 <- sdm(presence ~ WC_bio12 ,
+          data = df.sdm, 
+          methods = c("glm" ))
+m2
+getVarImp(m2)
+m3 <- sdm(presence ~  WC_bio1 + I(WC_bio1^2) ,
+          data = df.sdm, 
+          methods = c("glm" ))
+m3
 
+m4 <- sdm(presence ~  WC_bio1 ,
+          data = df.sdm, 
+          methods = c("glm" ))
+m4
+
+m5 <- sdm(presence ~ WC_bio12 + WC_bio1 ,
+          data = df.sdm, 
+          methods = c("glm" ))
+m5
+getVarImp(m5)
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
