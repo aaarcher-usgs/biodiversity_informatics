@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Guided tour of species distribution modeling: Blanding&#39;s turtle</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Guided tour of species distribution modeling: Blanding&#39;s turtle</h1>
+
+<p>Biodiversity Informatics (BIOL 475/575)</p>
+
+<p>April 6, 2022</p>
+
+<p>Programmer: Jenna Butler</p>
+
+<h3>Header</h3>
+
+<pre><code class="r"># Load Libraries
+library(ezknitr)
+library(rgbif)
+library(terra)
+library(sdmpredictors)
+library(fuzzySim)
+library(sdm)
+library(raster)
+
+remove(list = ls())
+</code></pre>
+
+<hr/>
+
+<h2>1. Download data</h2>
+
+<p>Scientific name of the species</p>
+
+<pre><code class="r">myspecies &lt;- &quot;Emydoidea blandingii&quot;
+</code></pre>
+
+<p>Download the data using rgbif library</p>
+
+<pre><code class="r">gbif_data &lt;- occ_data(scientificName = myspecies, 
+                      hasCoordinate = TRUE, 
+                      limit = 20000)
+</code></pre>
+
+<p>See if &ldquo;Records returned&rdquo; is smaller than &ldquo;Records found&rdquo;, in which case you need to re-run &#39;occ_data&#39; with a larger &#39;limit&#39; above</p>
+
+<pre><code class="r">gbif_data  
+</code></pre>
+
+<pre><code>## Records found [3350] 
+## Records returned [3350] 
+## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea blandingii] 
+## # A tibble: 3,350 x 142
+##    key   scientificName decimalLatitude decimalLongitude issues datasetKey publishingOrgKey installationKey publishingCount~
+##    &lt;chr&gt; &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;           
+##  1 3747~ Emydoidea bla~            41.6            -83.2 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  2 3059~ Emydoidea bla~            41.8            -83.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  3 3067~ Emydoidea bla~            42.8            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  4 3068~ Emydoidea bla~            43.1            -80.7 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  5 3068~ Emydoidea bla~            42.5            -71.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  6 3068~ Emydoidea bla~            42.6            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  7 3068~ Emydoidea bla~            43.4            -89.8 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  8 3070~ Emydoidea bla~            42.8            -84.5 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+##  9 3070~ Emydoidea bla~            44.4            -65.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ CA              
+## 10 3070~ Emydoidea bla~            44.0            -77.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~ 997448a8-f762-~ US              
+## # ... with 3,340 more rows, and 133 more variables: protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
+## #   hostingOrganizationKey &lt;chr&gt;, basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;,
+## #   phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;,
+## #   acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;,
+## #   genus &lt;chr&gt;, species &lt;chr&gt;, genericName &lt;chr&gt;, specificEpithet &lt;chr&gt;, taxonRank &lt;chr&gt;, taxonomicStatus &lt;chr&gt;,
+## #   iucnRedListCategory &lt;chr&gt;, dateIdentified &lt;chr&gt;, coordinateUncertaintyInMeters &lt;dbl&gt;, stateProvince &lt;chr&gt;, year &lt;int&gt;,
+## #   month &lt;int&gt;, day &lt;int&gt;, eventDate &lt;chr&gt;, modified &lt;chr&gt;, lastInterpreted &lt;chr&gt;, references &lt;chr&gt;, license &lt;chr&gt;, ...
+</code></pre>
+
+<p>Citations for data. Run this once, only after analysis so that you 
+can properly cite your data sources on the final presentation.</p>
+
+<pre><code class="r"># gbif_citation(gbif_data)
+</code></pre>
+
+<hr/>
+
+<h2>2. Explore and clean data</h2>
+
+<p>Map the species occurrence data:</p>
+
+<p>Download shapefiles of world countries</p>
+
+<pre><code class="r">countries &lt;- terra::vect(&quot;data/countries/world_countries.shp&quot;)
+</code></pre>
+
+<p>Plot the countries, then add the occurrences in green</p>
+
+<pre><code class="r">plot(countries)  
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">points(gbif_data$data[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)], 
+       pch = 20, 
+       col = &quot;green&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<p>Notice that one green dot shows up in Europe. This species does NOT
+occur in Europe!</p>
+
+<p>How can you find out which one is the outlier?</p>
+
+<pre><code class="r">presences &lt;- gbif_data$data[ , c(&quot;key&quot;,&quot;decimalLongitude&quot;, 
+                                 &quot;decimalLatitude&quot;, 
+                                 &quot;coordinateUncertaintyInMeters&quot;)]
+presences$uniqueID &lt;- 1:nrow(presences)
+presences &lt;- presences[presences$decimalLongitude &lt; 0,]
+</code></pre>
+
+<p>Let&#39;s re-plot the map within the coordinates of our presence points:</p>
+
+<pre><code class="r">plot(countries, xlim = range(presences$decimalLongitude), 
+     ylim = range(presences$decimalLatitude), border = &quot;grey&quot;)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">points(presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)], 
+       pch = 20, 
+       col = &quot;green&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<p>These data look good, but let&#39;s remove any data points that have
+very uncertain coordinates (&gt;70,000 m)</p>
+
+<pre><code class="r">range(presences$coordinateUncertaintyInMeters, na.rm = T)
+</code></pre>
+
+<pre><code>## [1]      10 2931895
+</code></pre>
+
+<pre><code class="r">remove.IDs &lt;- presences$uniqueID[presences$coordinateUncertaintyInMeters &gt; 70000 &amp;
+                                         complete.cases(presences)]
+length(remove.IDs) # how many to remove? How many should be left?
+</code></pre>
+
+<pre><code>## [1] 17
+</code></pre>
+
+<pre><code class="r">presences &lt;- presences[! presences$uniqueID %in% remove.IDs,]
+summary(presences)
+</code></pre>
+
+<pre><code>##      key            decimalLongitude  decimalLatitude coordinateUncertaintyInMeters    uniqueID     
+##  Length:3332        Min.   :-101.91   Min.   :33.52   Min.   :   10                 Min.   :   1.0  
+##  Class :character   1st Qu.: -83.53   1st Qu.:42.60   1st Qu.:27190                 1st Qu.: 835.8  
+##  Mode  :character   Median : -79.43   Median :44.43   Median :27285                 Median :1670.5  
+##                     Mean   : -80.61   Mean   :43.99   Mean   :25667                 Mean   :1672.6  
+##                     3rd Qu.: -76.55   3rd Qu.:45.03   3rd Qu.:27537                 3rd Qu.:2510.2  
+##                     Max.   : -63.76   Max.   :48.85   Max.   :70000                 Max.   :3350.0  
+##                                                       NA&#39;s   :329
+</code></pre>
+
+<pre><code class="r"># map the cleaned occurrence records on top of the raw ones:
+points(presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;),], 
+       pch = 20, 
+       col = &quot;blue&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<p>Blanding&#39;s turtle is NOT located in southern states. We need to also
+remove records from areas that are not possible.</p>
+
+<pre><code class="r">remove.IDs.SE &lt;- presences$uniqueID[presences$decimalLatitude &lt; 39]
+presences &lt;- presences[! presences$uniqueID %in% remove.IDs.SE,]
+</code></pre>
+
+<p>Double check: Did the number of records make sense??</p>
+
+<p>Map the cleaned occurrence records on top of the raw ones:</p>
+
+<pre><code class="r">points(presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;),], 
+       pch = 20, 
+       col = &quot;red&quot;)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<hr/>
+
+<h2>3. Download predictors data</h2>
+
+<p>We&#39;ll use functions in the &#39;sdmpredictors&#39; package to access 
+different online datasets:</p>
+
+<pre><code class="r">pred_datasets &lt;- sdmpredictors::list_datasets(terrestrial = TRUE, marine = TRUE)
+pred_datasets$description
+</code></pre>
+
+<pre><code>## [1] &quot;WorldClim is a set of global climate layers (climate grids). Note that all data has been transformed back to real values, so there is no need to e.g. divide temperature layers by 10.&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+## [2] &quot;Bio-ORACLE is a set of GIS rasters providing geophysical, biotic and environmental data for surface and benthic marine realms at a spatial resolution 5 arcmin (9.2 km) in the ESRI ascii and tif format.&quot;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+## [3] &quot;MARSPEC is a set of high resolution climatic and geophysical GIS data layers for the world ocean. Seven geophysical variables were derived from the SRTM30_PLUS high resolution bathymetry dataset.  These layers characterize the horizontal orientation (aspect), slope, and curvature of the seafloor and the distance from shore.  Ten \&quot;bioclimatic\&quot; variables were derived from NOAA&#39;s World Ocean Atlas and NASA&#39;s MODIS satellite imagery and characterize the inter-annual means, extremes, and variances in sea surface temperature and salinity. These variables will be useful to those interested in the spatial ecology of marine shallow-water and surface-associated pelagic organisms across the globe. Note that, in contrary to the original MARSPEC, all layers have unscaled values.&quot;
+## [4] &quot;The ENVIREM dataset is a set of 16 climatic and 2 topographic variables that can be used in modeling species&#39; distributions. The strengths of this dataset include their close ties to ecological processes, and their availability at a global scale, at several spatial resolutions, and for several time periods. The underlying temperature and precipitation data that went into their construction comes from the WorldClim dataset (www.worldclim.org), and the solar radiation data comes from the Consortium for Spatial Information (www.cgiar-csi.org). The data are compatible with and expand the set of variables from WorldClim v1.4 (www.worldclim.org).&quot;                                                                                                                                  
+## [5] &quot;The dataset consists of near-global, spatially continuous, and freshwater-specific environmental variables in a standardized 1km grid. We delineated the sub-catchment for each grid cell along the HydroSHEDS river network and summarized the upstream environment (climate, topography, land cover, surface geology and soil) to each grid cell using various metrics (average, minimum, maximum, range, sum, inverse distance-weighted average and sum). All variables were subsequently averaged across single lakes and reservoirs of the Global lakes and Wetlands Database that are connected to the river network. Monthly climate variables were summarized into 19 long-term climatic variables following the ÒbioclimÓ framework.&quot;
+</code></pre>
+
+<p>Remember to always cite the data sources! (run this line only for citing)</p>
+
+<pre><code class="r"># pred_datasets[,c(1,6)]
+</code></pre>
+
+<p>Explore the possible data:</p>
+
+<pre><code class="r">pred_layers &lt;- list_layers(datasets = pred_datasets)
+unique(pred_layers$dataset_code)
+</code></pre>
+
+<pre><code>## [1] &quot;WorldClim&quot;  &quot;Bio-ORACLE&quot; &quot;MARSPEC&quot;    &quot;ENVIREM&quot;    &quot;Freshwater&quot;
+</code></pre>
+
+<pre><code class="r"># example of terrestrial variables dataset
+unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, ]$name)  
+</code></pre>
+
+<pre><code>##  [1] &quot;Altitude&quot;                            &quot;Annual mean temperature&quot;             &quot;Mean diurnal temperature range&quot;     
+##  [4] &quot;Isothermality&quot;                       &quot;Temperature seasonality&quot;             &quot;Maximum temperature&quot;                
+##  [7] &quot;Minimum temperature&quot;                 &quot;Annual temperature range&quot;            &quot;Mean temperature of wettest quarter&quot;
+## [10] &quot;Mean temperature of driest quarter&quot;  &quot;Mean temperature of warmest quarter&quot; &quot;Mean temperature of coldest quarter&quot;
+## [13] &quot;Annual precipitation&quot;                &quot;Precipitation of wettest month&quot;      &quot;Precipitation of driest month&quot;      
+## [16] &quot;Precipitation seasonality&quot;           &quot;Precipitation of wettest quarter&quot;    &quot;Precipitation of driest quarter&quot;    
+## [19] &quot;Precipitation of warmest quarter&quot;    &quot;Precipitation of coldest quarter&quot;    &quot;Precipitation (January)&quot;            
+## [22] &quot;Precipitation (February)&quot;            &quot;Precipitation (March)&quot;               &quot;Precipitation (April)&quot;              
+## [25] &quot;Precipitation (May)&quot;                 &quot;Precipitation (June)&quot;                &quot;Precipitation (July)&quot;               
+## [28] &quot;Precipitation (August)&quot;              &quot;Precipitation (September)&quot;           &quot;Precipitation (October)&quot;            
+## [31] &quot;Precipitation (November)&quot;            &quot;Precipitation (December)&quot;            &quot;Maximum temperature (January)&quot;      
+## [34] &quot;Maximum temperature (February)&quot;      &quot;Maximum temperature (March)&quot;         &quot;Maximum temperature (April)&quot;        
+## [37] &quot;Maximum temperature (May)&quot;           &quot;Maximum temperature (June)&quot;          &quot;Maximum temperature (July)&quot;         
+## [40] &quot;Maximum temperature (August)&quot;        &quot;Maximum temperature (September)&quot;     &quot;Maximum temperature (October)&quot;      
+## [43] &quot;Maximum temperature (November)&quot;      &quot;Maximum temperature (December)&quot;      &quot;Mean temperature (January)&quot;         
+## [46] &quot;Mean temperature (February)&quot;         &quot;Mean temperature (March)&quot;            &quot;Mean temperature (April)&quot;           
+## [49] &quot;Mean temperature (May)&quot;              &quot;Mean temperature (June)&quot;             &quot;Mean temperature (July)&quot;            
+## [52] &quot;Mean temperature (August)&quot;           &quot;Mean temperature (September)&quot;        &quot;Mean temperature (October)&quot;         
+## [55] &quot;Mean temperature (November)&quot;         &quot;Mean temperature (December)&quot;         &quot;Minimum temperature (January)&quot;      
+## [58] &quot;Minimum temperature (February)&quot;      &quot;Minimum temperature (March)&quot;         &quot;Minimum temperature (April)&quot;        
+## [61] &quot;Minimum temperature (May)&quot;           &quot;Minimum temperature (June)&quot;          &quot;Minimum temperature (July)&quot;         
+## [64] &quot;Minimum temperature (August)&quot;        &quot;Minimum temperature (September)&quot;     &quot;Minimum temperature (October)&quot;      
+## [67] &quot;Minimum temperature (November)&quot;      &quot;Minimum temperature (December)&quot;
+</code></pre>
+
+<pre><code class="r"># example of marine variables dataset
+unique(pred_layers[pred_layers$dataset_code == &quot;Bio-ORACLE&quot;, ]$name)  
+</code></pre>
+
+<pre><code>##   [1] &quot;Calcite (mean)&quot;                                             
+##   [2] &quot;Chlorophyll A (maximum)&quot;                                    
+##   [3] &quot;Chlorophyll A (mean)&quot;                                       
+##   [4] &quot;Chlorophyll A (minimum)&quot;                                    
+##   [5] &quot;Chlorophyll A (range)&quot;                                      
+##   [6] &quot;Cloud fraction (mean)&quot;                                      
+##   [7] &quot;Cloud fraction (minimum)&quot;                                   
+##   [8] &quot;Diffuse attenuation coefficient at 490 nm (maximum)&quot;        
+##   [9] &quot;Diffuse attenuation coefficient at 490 nm (mean)&quot;           
+##  [10] &quot;Diffuse attenuation coefficient at 490 nm (minimum)&quot;        
+##  [11] &quot;Dissolved oxygen&quot;                                           
+##  [12] &quot;Nitrate&quot;                                                    
+##  [13] &quot;Photosynthetically available radiation (maximum)&quot;           
+##  [14] &quot;Photosynthetically available radiation (mean)&quot;              
+##  [15] &quot;pH&quot;                                                         
+##  [16] &quot;Phosphate&quot;                                                  
+##  [17] &quot;Salinity&quot;                                                   
+##  [18] &quot;Silicate&quot;                                                   
+##  [19] &quot;Sea surface temperature (maximum)&quot;                          
+##  [20] &quot;Sea surface temperature (mean)&quot;                             
+##  [21] &quot;Sea surface temperature (minimum)&quot;                          
+##  [22] &quot;Sea surface temperature (range)&quot;                            
+##  [23] &quot;Bathymetry (minimum)&quot;                                       
+##  [24] &quot;Bathymetry (maximum)&quot;                                       
+##  [25] &quot;Bathymetry (mean)&quot;                                          
+##  [26] &quot;Chlorophyll concentration (maximum at max depth)&quot;           
+##  [27] &quot;Chlorophyll concentration (maximum at mean depth)&quot;          
+##  [28] &quot;Chlorophyll concentration (maximum at min depth)&quot;           
+##  [29] &quot;Chlorophyll concentration (mean at max depth)&quot;              
+##  [30] &quot;Chlorophyll concentration (mean at mean depth)&quot;             
+##  [31] &quot;Chlorophyll concentration (mean at min depth)&quot;              
+##  [32] &quot;Chlorophyll concentration (minimum at max depth)&quot;           
+##  [33] &quot;Chlorophyll concentration (minimum at mean depth)&quot;          
+##  [34] &quot;Chlorophyll concentration (minimum at min depth)&quot;           
+##  [35] &quot;Chlorophyll concentration (range at max depth)&quot;             
+##  [36] &quot;Chlorophyll concentration (range at mean depth)&quot;            
+##  [37] &quot;Chlorophyll concentration (range at min depth)&quot;             
+##  [38] &quot;Chlorophyll concentration (longterm max at max depth)&quot;      
+##  [39] &quot;Chlorophyll concentration (longterm max at mean depth)&quot;     
+##  [40] &quot;Chlorophyll concentration (longterm max at min depth)&quot;      
+##  [41] &quot;Chlorophyll concentration (longterm min at max depth)&quot;      
+##  [42] &quot;Chlorophyll concentration (longterm min at min depth)&quot;      
+##  [43] &quot;Current velocity (maximum at max depth)&quot;                    
+##  [44] &quot;Current velocity (maximum at mean depth)&quot;                   
+##  [45] &quot;Current velocity (maximum at min depth)&quot;                    
+##  [46] &quot;Current velocity (mean at max depth)&quot;                       
+##  [47] &quot;Current velocity (mean at mean depth)&quot;                      
+##  [48] &quot;Current velocity (mean at min depth)&quot;                       
+##  [49] &quot;Current velocity (minimum at max depth)&quot;                    
+##  [50] &quot;Current velocity (minimum at mean depth)&quot;                   
+##  [51] &quot;Current velocity (minimum at min depth)&quot;                    
+##  [52] &quot;Current velocity (range at max depth)&quot;                      
+##  [53] &quot;Current velocity (range at mean depth)&quot;                     
+##  [54] &quot;Current velocity (range at min depth)&quot;                      
+##  [55] &quot;Current velocity (longterm max at max depth)&quot;               
+##  [56] &quot;Current velocity (longterm max at mean depth)&quot;              
+##  [57] &quot;Current velocity (longterm max at min depth)&quot;               
+##  [58] &quot;Current velocity (longterm min at max depth)&quot;               
+##  [59] &quot;Current velocity (longterm min at min depth)&quot;               
+##  [60] &quot;Dissolved oxygen concentration (maximum at max depth)&quot;      
+##  [61] &quot;Dissolved oxygen concentration (maximum at mean depth)&quot;     
+##  [62] &quot;Dissolved oxygen concentration (maximum at min depth)&quot;      
+##  [63] &quot;Dissolved oxygen concentration (mean at max depth)&quot;         
+##  [64] &quot;Dissolved oxygen concentration (mean at mean depth)&quot;        
+##  [65] &quot;Dissolved oxygen concentration (mean at min depth)&quot;         
+##  [66] &quot;Dissolved oxygen concentration (minimum at max depth)&quot;      
+##  [67] &quot;Dissolved oxygen concentration (minimum at mean depth)&quot;     
+##  [68] &quot;Dissolved oxygen concentration (minimum at min depth)&quot;      
+##  [69] &quot;Dissolved oxygen concentration (range at max depth)&quot;        
+##  [70] &quot;Dissolved oxygen concentration (range at mean depth)&quot;       
+##  [71] &quot;Dissolved oxygen concentration (range at min depth)&quot;        
+##  [72] &quot;Dissolved oxygen concentration (longterm max at max depth)&quot; 
+##  [73] &quot;Dissolved oxygen concentration (longterm max at mean depth)&quot;
+##  [74] &quot;Dissolved oxygen concentration (longterm max at min depth)&quot; 
+##  [75] &quot;Dissolved oxygen concentration (longterm min at max depth)&quot; 
+##  [76] &quot;Dissolved oxygen concentration (longterm min at min depth)&quot; 
+##  [77] &quot;Iron concentration (maximum at max depth)&quot;                  
+##  [78] &quot;Iron concentration (maximum at mean depth)&quot;                 
+##  [79] &quot;Iron concentration (maximum at min depth)&quot;                  
+##  [80] &quot;Iron concentration (mean at max depth)&quot;                     
+##  [81] &quot;Iron concentration (mean at mean depth)&quot;                    
+##  [82] &quot;Iron concentration (mean at min depth)&quot;                     
+##  [83] &quot;Iron concentration (minimum at max depth)&quot;                  
+##  [84] &quot;Iron concentration (minimum at mean depth)&quot;                 
+##  [85] &quot;Iron concentration (minimum at min depth)&quot;                  
+##  [86] &quot;Iron concentration (range at max depth)&quot;                    
+##  [87] &quot;Iron concentration (range at mean depth)&quot;                   
+##  [88] &quot;Iron concentration (range at min depth)&quot;                    
+##  [89] &quot;Iron concentration (longterm max at max depth)&quot;             
+##  [90] &quot;Iron concentration (longterm max at mean depth)&quot;            
+##  [91] &quot;Iron concentration (longterm max at min depth)&quot;             
+##  [92] &quot;Iron concentration (longterm min at max depth)&quot;             
+##  [93] &quot;Iron concentration (longterm min at min depth)&quot;             
+##  [94] &quot;Phosphate concentration (maximum at max depth)&quot;             
+##  [95] &quot;Phosphate concentration (maximum at mean depth)&quot;            
+##  [96] &quot;Phosphate concentration (maximum at min depth)&quot;             
+##  [97] &quot;Phosphate concentration (mean at max depth)&quot;                
+##  [98] &quot;Phosphate concentration (mean at mean depth)&quot;               
+##  [99] &quot;Phosphate concentration (mean at min depth)&quot;                
+## [100] &quot;Phosphate concentration (minimum at max depth)&quot;             
+## [101] &quot;Phosphate concentration (minimum at mean depth)&quot;            
+## [102] &quot;Phosphate concentration (minimum at min depth)&quot;             
+## [103] &quot;Phosphate concentration (range at max depth)&quot;               
+## [104] &quot;Phosphate concentration (range at mean depth)&quot;              
+## [105] &quot;Phosphate concentration (range at min depth)&quot;               
+## [106] &quot;Phosphate concentration (longterm max at max depth)&quot;        
+## [107] &quot;Phosphate concentration (longterm max at mean depth)&quot;       
+## [108] &quot;Phosphate concentration (longterm max at min depth)&quot;        
+## [109] &quot;Phosphate concentration (longterm min at max depth)&quot;        
+## [110] &quot;Phosphate concentration (longterm min at min depth)&quot;        
+## [111] &quot;Light at bottom (maximum at max depth)&quot;                     
+## [112] &quot;Light at bottom (maximum at mean depth)&quot;                    
+## [113] &quot;Light at bottom (maximum at min depth)&quot;                     
+## [114] &quot;Light at bottom (mean at max depth)&quot;                        
+## [115] &quot;Light at bottom (mean at mean depth)&quot;                       
+## [116] &quot;Light at bottom (mean at min depth)&quot;                        
+## [117] &quot;Light at bottom (minimum at max depth)&quot;                     
+## [118] &quot;Light at bottom (minimum at mean depth)&quot;                    
+## [119] &quot;Light at bottom (minimum at min depth)&quot;                     
+## [120] &quot;Light at bottom (range at max depth)&quot;                       
+## [121] &quot;Light at bottom (range at mean depth)&quot;                      
+## [122] &quot;Light at bottom (range at min depth)&quot;                       
+## [123] &quot;Light at bottom (longterm max at max depth)&quot;                
+## [124] &quot;Light at bottom (longterm max at mean depth)&quot;               
+## [125] &quot;Light at bottom (longterm max at min depth)&quot;                
+## [126] &quot;Light at bottom (longterm min at max depth)&quot;                
+## [127] &quot;Light at bottom (longterm min at min depth)&quot;                
+## [128] &quot;Nitrate concentration (maximum at max depth)&quot;               
+## [129] &quot;Nitrate concentration (maximum at mean depth)&quot;              
+## [130] &quot;Nitrate concentration (maximum at min depth)&quot;               
+## [131] &quot;Nitrate concentration (mean at max depth)&quot;                  
+## [132] &quot;Nitrate concentration (mean at mean depth)&quot;                 
+## [133] &quot;Nitrate concentration (mean at min depth)&quot;                  
+## [134] &quot;Nitrate concentration (minimum at max depth)&quot;               
+## [135] &quot;Nitrate concentration (minimum at mean depth)&quot;              
+## [136] &quot;Nitrate concentration (minimum at min depth)&quot;               
+## [137] &quot;Nitrate concentration (range at max depth)&quot;                 
+## [138] &quot;Nitrate concentration (range at mean depth)&quot;                
+## [139] &quot;Nitrate concentration (range at min depth)&quot;                 
+## [140] &quot;Nitrate concentration (longterm max at max depth)&quot;          
+## [141] &quot;Nitrate concentration (longterm max at mean depth)&quot;         
+## [142] &quot;Nitrate concentration (longterm max at min depth)&quot;          
+## [143] &quot;Nitrate concentration (longterm min at max depth)&quot;          
+## [144] &quot;Nitrate concentration (longterm min at min depth)&quot;          
+## [145] &quot;Sea water temperature (maximum at max depth)&quot;               
+## [146] &quot;Sea water temperature (maximum at mean depth)&quot;              
+## [147] &quot;Sea water temperature (maximum at min depth)&quot;               
+## [148] &quot;Sea water temperature (mean at max depth)&quot;                  
+## [149] &quot;Sea water temperature (mean at mean depth)&quot;                 
+## [150] &quot;Sea water temperature (mean at min depth)&quot;                  
+## [151] &quot;Sea water temperature (minimum at max depth)&quot;               
+## [152] &quot;Sea water temperature (minimum at mean depth)&quot;              
+## [153] &quot;Sea water temperature (minimum at min depth)&quot;               
+## [154] &quot;Sea water temperature (range at max depth)&quot;                 
+## [155] &quot;Sea water temperature (range at mean depth)&quot;                
+## [156] &quot;Sea water temperature (range at min depth)&quot;                 
+## [157] &quot;Sea water temperature (longterm max at max depth)&quot;          
+## [158] &quot;Sea water temperature (longterm max at mean depth)&quot;         
+## [159] &quot;Sea water temperature (longterm max at min depth)&quot;          
+## [160] &quot;Sea water temperature (longterm min at max depth)&quot;          
+## [161] &quot;Sea water temperature (longterm min at min depth)&quot;          
+## [162] &quot;Carbon phytoplankton biomass (maximum at max depth)&quot;        
+## [163] &quot;Carbon phytoplankton biomass (maximum at mean depth)&quot;       
+## [164] &quot;Carbon phytoplankton biomass (maximum at min depth)&quot;        
+## [165] &quot;Carbon phytoplankton biomass (mean at max depth)&quot;           
+## [166] &quot;Carbon phytoplankton biomass (mean at mean depth)&quot;          
+## [167] &quot;Carbon phytoplankton biomass (mean at min depth)&quot;           
+## [168] &quot;Carbon phytoplankton biomass (minimum at max depth)&quot;        
+## [169] &quot;Carbon phytoplankton biomass (minimum at mean depth)&quot;       
+## [170] &quot;Carbon phytoplankton biomass (minimum at min depth)&quot;        
+## [171] &quot;Carbon phytoplankton biomass (range at max depth)&quot;          
+## [172] &quot;Carbon phytoplankton biomass (range at mean depth)&quot;         
+## [173] &quot;Carbon phytoplankton biomass (range at min depth)&quot;          
+## [174] &quot;Carbon phytoplankton biomass (longterm max at max depth)&quot;   
+## [175] &quot;Carbon phytoplankton biomass (longterm max at mean depth)&quot;  
+## [176] &quot;Carbon phytoplankton biomass (longterm max at min depth)&quot;   
+## [177] &quot;Carbon phytoplankton biomass (longterm min at max depth)&quot;   
+## [178] &quot;Carbon phytoplankton biomass (longterm min at min depth)&quot;   
+## [179] &quot;Primary production (maximum at max depth)&quot;                  
+## [180] &quot;Primary production (maximum at mean depth)&quot;                 
+## [181] &quot;Primary production (maximum at min depth)&quot;                  
+## [182] &quot;Primary production (mean at max depth)&quot;                     
+## [183] &quot;Primary production (mean at mean depth)&quot;                    
+## [184] &quot;Primary production (mean at min depth)&quot;                     
+## [185] &quot;Primary production (minimum at max depth)&quot;                  
+## [186] &quot;Primary production (minimum at mean depth)&quot;                 
+## [187] &quot;Primary production (minimum at min depth)&quot;                  
+## [188] &quot;Primary production (range at max depth)&quot;                    
+## [189] &quot;Primary production (range at mean depth)&quot;                   
+## [190] &quot;Primary production (range at min depth)&quot;                    
+## [191] &quot;Primary production (longterm max at max depth)&quot;             
+## [192] &quot;Primary production (longterm max at mean depth)&quot;            
+## [193] &quot;Primary production (longterm max at min depth)&quot;             
+## [194] &quot;Primary production (longterm min at max depth)&quot;             
+## [195] &quot;Primary production (longterm min at min depth)&quot;             
+## [196] &quot;Sea water salinity (maximum at max depth)&quot;                  
+## [197] &quot;Sea water salinity (maximum at mean depth)&quot;                 
+## [198] &quot;Sea water salinity (maximum at min depth)&quot;                  
+## [199] &quot;Sea water salinity (mean at max depth)&quot;                     
+## [200] &quot;Sea water salinity (mean at mean depth)&quot;                    
+## [201] &quot;Sea water salinity (mean at min depth)&quot;                     
+## [202] &quot;Sea water salinity (minimum at max depth)&quot;                  
+## [203] &quot;Sea water salinity (minimum at mean depth)&quot;                 
+## [204] &quot;Sea water salinity (minimum at min depth)&quot;                  
+## [205] &quot;Sea water salinity (range at max depth)&quot;                    
+## [206] &quot;Sea water salinity (range at mean depth)&quot;                   
+## [207] &quot;Sea water salinity (range at min depth)&quot;                    
+## [208] &quot;Sea water salinity (longterm max at max depth)&quot;             
+## [209] &quot;Sea water salinity (longterm max at mean depth)&quot;            
+## [210] &quot;Sea water salinity (longterm max at min depth)&quot;             
+## [211] &quot;Sea water salinity (longterm min at max depth)&quot;             
+## [212] &quot;Sea water salinity (longterm min at min depth)&quot;             
+## [213] &quot;Silicate concentration (maximum at max depth)&quot;              
+## [214] &quot;Silicate concentration (maximum at mean depth)&quot;             
+## [215] &quot;Silicate concentration (maximum at min depth)&quot;              
+## [216] &quot;Silicate concentration (mean at max depth)&quot;                 
+## [217] &quot;Silicate concentration (mean at mean depth)&quot;                
+## [218] &quot;Silicate concentration (mean at min depth)&quot;                 
+## [219] &quot;Silicate concentration (minimum at max depth)&quot;              
+## [220] &quot;Silicate concentration (minimum at mean depth)&quot;             
+## [221] &quot;Silicate concentration (minimum at min depth)&quot;              
+## [222] &quot;Silicate concentration (range at max depth)&quot;                
+## [223] &quot;Silicate concentration (range at mean depth)&quot;               
+## [224] &quot;Silicate concentration (range at min depth)&quot;                
+## [225] &quot;Silicate concentration (longterm max at max depth)&quot;         
+## [226] &quot;Silicate concentration (longterm max at mean depth)&quot;        
+## [227] &quot;Silicate concentration (longterm max at min depth)&quot;         
+## [228] &quot;Silicate concentration (longterm min at max depth)&quot;         
+## [229] &quot;Silicate concentration (longterm min at min depth)&quot;         
+## [230] &quot;Sea ice concentration (longterm max)&quot;                       
+## [231] &quot;Sea ice concentration (longterm min)&quot;                       
+## [232] &quot;Sea ice concentration (maximum)&quot;                            
+## [233] &quot;Sea ice concentration (mean)&quot;                               
+## [234] &quot;Sea ice concentration (minimum)&quot;                            
+## [235] &quot;Sea ice concentration (range)&quot;                              
+## [236] &quot;Sea ice thickness (longterm max)&quot;                           
+## [237] &quot;Sea ice thickness (longterm min)&quot;                           
+## [238] &quot;Sea ice thickness (maximum)&quot;                                
+## [239] &quot;Sea ice thickness (mean)&quot;                                   
+## [240] &quot;Sea ice thickness (minimum)&quot;                                
+## [241] &quot;Sea ice thickness (range)&quot;                                  
+## [242] &quot;Sea surface temperature (longterm max)&quot;                     
+## [243] &quot;Sea surface temperature (longterm min)&quot;                     
+## [244] &quot;Chlorophyll concentration (maximum)&quot;                        
+## [245] &quot;Chlorophyll concentration (mean)&quot;                           
+## [246] &quot;Chlorophyll concentration (minimum)&quot;                        
+## [247] &quot;Chlorophyll concentration (range)&quot;                          
+## [248] &quot;Chlorophyll concentration (longterm max)&quot;                   
+## [249] &quot;Chlorophyll concentration (longterm min)&quot;                   
+## [250] &quot;Current velocity (maximum)&quot;                                 
+## [251] &quot;Current velocity (mean)&quot;                                    
+## [252] &quot;Current velocity (minimum)&quot;                                 
+## [253] &quot;Current velocity (range)&quot;                                   
+## [254] &quot;Current velocity (longterm max)&quot;                            
+## [255] &quot;Current velocity (longterm min)&quot;                            
+## [256] &quot;Dissolved oxygen concentration (maximum)&quot;                   
+## [257] &quot;Dissolved oxygen concentration (mean)&quot;                      
+## [258] &quot;Dissolved oxygen concentration (minimum)&quot;                   
+## [259] &quot;Dissolved oxygen concentration (range)&quot;                     
+## [260] &quot;Dissolved oxygen concentration (longterm max)&quot;              
+## [261] &quot;Dissolved oxygen concentration (longterm min)&quot;              
+## [262] &quot;Iron concentration (maximum)&quot;                               
+## [263] &quot;Iron concentration (mean)&quot;                                  
+## [264] &quot;Iron concentration (minimum)&quot;                               
+## [265] &quot;Iron concentration (range)&quot;                                 
+## [266] &quot;Iron concentration (longterm max)&quot;                          
+## [267] &quot;Iron concentration (longterm min)&quot;                          
+## [268] &quot;Phosphate concentration (maximum)&quot;                          
+## [269] &quot;Phosphate concentration (mean)&quot;                             
+## [270] &quot;Phosphate concentration (minimum)&quot;                          
+## [271] &quot;Phosphate concentration (range)&quot;                            
+## [272] &quot;Phosphate concentration (longterm max)&quot;                     
+## [273] &quot;Phosphate concentration (longterm min)&quot;                     
+## [274] &quot;Nitrate concentration (maximum)&quot;                            
+## [275] &quot;Nitrate concentration (mean)&quot;                               
+## [276] &quot;Nitrate concentration (minimum)&quot;                            
+## [277] &quot;Nitrate concentration (range)&quot;                              
+## [278] &quot;Nitrate concentration (longterm max)&quot;                       
+## [279] &quot;Nitrate concentration (longterm min)&quot;                       
+## [280] &quot;Carbon phytoplankton biomass (maximum)&quot;                     
+## [281] &quot;Carbon phytoplankton biomass (mean)&quot;                        
+## [282] &quot;Carbon phytoplankton biomass (minimum)&quot;                     
+## [283] &quot;Carbon phytoplankton biomass (range)&quot;                       
+## [284] &quot;Carbon phytoplankton biomass (longterm max)&quot;                
+## [285] &quot;Carbon phytoplankton biomass (longterm min)&quot;                
+## [286] &quot;Primary production (maximum)&quot;                               
+## [287] &quot;Primary production (mean)&quot;                                  
+## [288] &quot;Primary production (minimum)&quot;                               
+## [289] &quot;Primary production (range)&quot;                                 
+## [290] &quot;Primary production (longterm max)&quot;                          
+## [291] &quot;Primary production (longterm min)&quot;                          
+## [292] &quot;Sea surface salinity (maximum)&quot;                             
+## [293] &quot;Sea surface salinity (mean)&quot;                                
+## [294] &quot;Sea surface salinity (minimum)&quot;                             
+## [295] &quot;Sea surface salinity (range)&quot;                               
+## [296] &quot;Sea surface salinity (longterm max)&quot;                        
+## [297] &quot;Sea surface salinity (longterm min)&quot;                        
+## [298] &quot;Silicate concentration (maximum)&quot;                           
+## [299] &quot;Silicate concentration (mean)&quot;                              
+## [300] &quot;Silicate concentration (minimum)&quot;                           
+## [301] &quot;Silicate concentration (range)&quot;                             
+## [302] &quot;Silicate concentration (longterm max)&quot;                      
+## [303] &quot;Silicate concentration (longterm min)&quot;                      
+## [304] &quot;Cloud fraction (maximum)&quot;                                   
+## [305] &quot;BO_damax&quot;                                                   
+## [306] &quot;BO_damean&quot;                                                  
+## [307] &quot;BO_damin&quot;                                                   
+## [308] &quot;BO_parmax&quot;                                                  
+## [309] &quot;BO_parmean&quot;                                                 
+## [310] &quot;BO_ph&quot;
+</code></pre>
+
+<p>Let&#39;s choose one dataset (e.g. WorldClim) and 
+one particular set of variables 
+(e.g. altitude and the bioclimatic ones, 
+which are in rows 1 to 20):</p>
+
+<pre><code class="r">layers_choice &lt;- unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, c(&quot;name&quot;, &quot;layer_code&quot;)])
+layers_choice
+</code></pre>
+
+<pre><code>##                                   name layer_code
+## 1                             Altitude     WC_alt
+## 2              Annual mean temperature    WC_bio1
+## 3       Mean diurnal temperature range    WC_bio2
+## 4                        Isothermality    WC_bio3
+## 5              Temperature seasonality    WC_bio4
+## 6                  Maximum temperature    WC_bio5
+## 7                  Minimum temperature    WC_bio6
+## 8             Annual temperature range    WC_bio7
+## 9  Mean temperature of wettest quarter    WC_bio8
+## 10  Mean temperature of driest quarter    WC_bio9
+## 11 Mean temperature of warmest quarter   WC_bio10
+## 12 Mean temperature of coldest quarter   WC_bio11
+## 13                Annual precipitation   WC_bio12
+## 14      Precipitation of wettest month   WC_bio13
+## 15       Precipitation of driest month   WC_bio14
+## 16           Precipitation seasonality   WC_bio15
+## 17    Precipitation of wettest quarter   WC_bio16
+## 18     Precipitation of driest quarter   WC_bio17
+## 19    Precipitation of warmest quarter   WC_bio18
+## 20    Precipitation of coldest quarter   WC_bio19
+## 21             Precipitation (January)   WC_prec1
+## 22            Precipitation (February)   WC_prec2
+## 23               Precipitation (March)   WC_prec3
+## 24               Precipitation (April)   WC_prec4
+## 25                 Precipitation (May)   WC_prec5
+## 26                Precipitation (June)   WC_prec6
+## 27                Precipitation (July)   WC_prec7
+## 28              Precipitation (August)   WC_prec8
+## 29           Precipitation (September)   WC_prec9
+## 30             Precipitation (October)  WC_prec10
+## 31            Precipitation (November)  WC_prec11
+## 32            Precipitation (December)  WC_prec12
+## 33       Maximum temperature (January)   WC_tmax1
+## 34      Maximum temperature (February)   WC_tmax2
+## 35         Maximum temperature (March)   WC_tmax3
+## 36         Maximum temperature (April)   WC_tmax4
+## 37           Maximum temperature (May)   WC_tmax5
+## 38          Maximum temperature (June)   WC_tmax6
+## 39          Maximum temperature (July)   WC_tmax7
+## 40        Maximum temperature (August)   WC_tmax8
+## 41     Maximum temperature (September)   WC_tmax9
+## 42       Maximum temperature (October)  WC_tmax10
+## 43      Maximum temperature (November)  WC_tmax11
+## 44      Maximum temperature (December)  WC_tmax12
+## 45          Mean temperature (January)  WC_tmean1
+## 46         Mean temperature (February)  WC_tmean2
+## 47            Mean temperature (March)  WC_tmean3
+## 48            Mean temperature (April)  WC_tmean4
+## 49              Mean temperature (May)  WC_tmean5
+## 50             Mean temperature (June)  WC_tmean6
+## 51             Mean temperature (July)  WC_tmean7
+## 52           Mean temperature (August)  WC_tmean8
+## 53        Mean temperature (September)  WC_tmean9
+## 54          Mean temperature (October) WC_tmean10
+## 55         Mean temperature (November) WC_tmean11
+## 56         Mean temperature (December) WC_tmean12
+## 57       Minimum temperature (January)   WC_tmin1
+## 58      Minimum temperature (February)   WC_tmin2
+## 59         Minimum temperature (March)   WC_tmin3
+## 60         Minimum temperature (April)   WC_tmin4
+## 61           Minimum temperature (May)   WC_tmin5
+## 62          Minimum temperature (June)   WC_tmin6
+## 63          Minimum temperature (July)   WC_tmin7
+## 64        Minimum temperature (August)   WC_tmin8
+## 65     Minimum temperature (September)   WC_tmin9
+## 66       Minimum temperature (October)  WC_tmin10
+## 67      Minimum temperature (November)  WC_tmin11
+## 68      Minimum temperature (December)  WC_tmin12
+</code></pre>
+
+<pre><code class="r">layers_choice &lt;- layers_choice[1:4, ]
+layers_choice
+</code></pre>
+
+<pre><code>##                             name layer_code
+## 1                       Altitude     WC_alt
+## 2        Annual mean temperature    WC_bio1
+## 3 Mean diurnal temperature range    WC_bio2
+## 4                  Isothermality    WC_bio3
+</code></pre>
+
+<p>Define folder for downloading the map layers:</p>
+
+<pre><code class="r">options(sdmpredictors_datadir = &quot;../outputs/sdmpredictors&quot;)
+</code></pre>
+
+<p>load the layers to the current R session 
+(downloading them if they aren&#39;t already in the folder defined above):</p>
+
+<pre><code class="r">layers &lt;- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
+layers
+</code></pre>
+
+<pre><code>## $WC_alt
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_alt_lonlat.tif 
+## names      : WC_alt 
+## values     : -415, 6485  (min, max)
+## 
+## 
+## $WC_bio1
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio1_lonlat.tif 
+## names      : WC_bio1 
+## values     : -27.4, 31.6  (min, max)
+## 
+## 
+## $WC_bio2
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio2_lonlat.tif 
+## names      : WC_bio2 
+## values     : 0.9, 21.3  (min, max)
+## 
+## 
+## $WC_bio3
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_bio3_lonlat.tif 
+## names      : WC_bio3 
+## values     : 0.08, 0.96  (min, max)
+</code></pre>
+
+<pre><code class="r"># see how many elements in &#39;layers&#39;:
+length(layers)
+</code></pre>
+
+<pre><code>## [1] 4
+</code></pre>
+
+<pre><code class="r"># plot a couple of layers to see how they look:
+names(layers)
+</code></pre>
+
+<pre><code>## [1] &quot;WC_alt&quot;  &quot;WC_bio1&quot; &quot;WC_bio2&quot; &quot;WC_bio3&quot;
+</code></pre>
+
+<pre><code class="r">plot(layers[[1]], main = names(layers)[1])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(layers[[2]], main = names(layers)[2])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># find out if your layers have different extents or resolutions:
+unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, ]$cellsize_lonlat)  
+</code></pre>
+
+<pre><code>## [1] 0.08333333
+</code></pre>
+
+<pre><code class="r"># 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
+unique(sapply(layers, raster::extent))
+</code></pre>
+
+<pre><code>## [[1]]
+## class      : Extent 
+## xmin       : -180 
+## xmax       : 180 
+## ymin       : -60 
+## ymax       : 90
+</code></pre>
+
+<pre><code class="r"># if you get more than one extent (which doesn&#39;t happen with WorldClim, 
+# but may happen with other datasets), you&#39;ll have to crop all layers to the 
+# minimum common extent before proceeding. 
+# For example, if the first layer has the smallest extent:
+#layers &lt;- lapply(layers, crop, extent(layers[[1]]))
+</code></pre>
+
+<p>Once all layers have the same extent and resolution, 
+you can stack them in a single multi-layer Raster object and plot some to check</p>
+
+<pre><code class="r">layers &lt;- raster::stack(layers)
+plot(layers[[1:4]])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<hr/>
+
+<h2>4. Define study area and extent of possible range</h2>
+
+<p>Select the study area, e.g. (if your species is terrestrial) 
+using the countries where your species has occurrence points 
+(which means it was surveyed in those countries)</p>
+
+<p>Mind there are several other ways of delimiting the study area, 
+e.g. using ecoregions or other biogeographic units)</p>
+
+<p>First, convert the species occurrences to a spatial object 
+(like when you import a delimited text file into a GIS, 
+you need to specify which columns contain the spatial coordinates and 
+what is the cartographic projection / coordinate reference system):</p>
+
+<pre><code class="r">names(presences)
+</code></pre>
+
+<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;              &quot;decimalLatitude&quot;              
+## [4] &quot;coordinateUncertaintyInMeters&quot; &quot;uniqueID&quot;
+</code></pre>
+
+<pre><code class="r">pres_spat_vect &lt;- vect(presences, 
+                       geom = c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;), 
+                       crs = &quot;+proj=longlat&quot;)
+</code></pre>
+
+<p>Then get the country polygons that contain presence points:</p>
+
+<pre><code class="r">pres_countries &lt;- countries[pres_spat_vect, ]
+plot(pres_countries)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># if your species is terrestrial and you see that in some countries it is clearly under-surveyed, you can select only particular countries where the survey was better distributed, for example:
+#names(pres_countries)
+#unique(pres_countries$NAME)
+#chosen_countries &lt;- subset(pres_countries, pres_countries$NAME %in% c(&quot;United States of America&quot;, &quot;Canada&quot; ))
+#plot(chosen_countries)
+</code></pre>
+
+<p>Then also buffer your points with reasonable distance</p>
+
+<pre><code class="r">pres_buff &lt;- terra::aggregate(terra::buffer(pres_spat_vect, width = 50000))
+plot(pres_buff, lwd = 2)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(countries, border = &quot;tan&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<p>Finally, define study area as the area within buffer but also 
+within countries (e.g., not ocean)</p>
+
+<pre><code class="r">studyarea &lt;- intersect(pres_buff, countries)
+plot(studyarea, border = &quot;red&quot;, lwd = 3, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; is a list, but does not have components &#39;x&#39; and &#39;y&#39;
+</code></pre>
+
+<pre><code class="r">studyarea &lt;- as(studyarea, &quot;Spatial&quot;)
+</code></pre>
+
+<pre><code>## Error in as(studyarea, &quot;Spatial&quot;): no method or default for coercing &quot;list&quot; to &quot;Spatial&quot;
+</code></pre>
+
+<pre><code class="r"># IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
+# you need to intersect or crop with that too:
+#studyarea &lt;- intersect(studyarea, mywindow)
+#plot(studyarea, border = &quot;green&quot;, add = TRUE)
+</code></pre>
+
+<p>Cut the variable maps with the limits of the study area:</p>
+
+<pre><code class="r">layers_cut &lt;- terra::crop(terra::mask(layers, studyarea), studyarea)
+</code></pre>
+
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;crop&#39;: unable to find an inherited method for function &#39;mask&#39; for signature &#39;&quot;RasterStack&quot;, &quot;list&quot;&#39;
+</code></pre>
+
+<pre><code class="r">plot(layers_cut[[1]])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<p>Remember, the spatial resolution of the variables should be 
+adequate to the data and study area!</p>
+
+<p>Closely inspect your species data vs. the size of the variables&#39; pixels:</p>
+
+<pre><code class="r">plot(layers_cut[[1]])
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, cex = 0.1, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># plot within smaller x/y limits if necessary to see if presence point 
+# resolution matches pixel resolution:
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the &#39;fact&#39; value that best matches your presence data resolution to your variables&#39; resolution):
+# layers_aggr &lt;- terra::aggregate(layers_cut, fact = 5, fun = mean)
+# res(layers_aggr)
+# plot(layers_aggr[[1]], xlim = range(presences$decimalLongitude), ylim = range(presences$decimalLatitude))
+# plot(pres_spatial, col = &quot;blue&quot;, cex = 0.1, add = TRUE)
+
+# run the command below only if you did need to aggregate the layers:
+#layers_cut &lt;- layers_aggr
+</code></pre>
+
+<p>Have to add in non-presence data</p>
+
+<pre><code class="r">dat &lt;- fuzzySim::gridRecords(rst = layers_cut, 
+                             pres.coords = presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)])
+head(dat)
+</code></pre>
+
+<pre><code>##   presence         x        y cells WC_alt WC_bio1 WC_bio2 WC_bio3
+## 1        1 -83.20833 41.62500 43656    173     9.9    10.3    0.27
+## 2        1 -83.12500 41.79167 42713    172     9.7     9.6    0.26
+## 3        1 -84.45833 42.79167 37033    260     8.1    11.0    0.28
+## 4        1 -80.70833 43.04167 35662    305     7.1    10.1    0.27
+## 5        1 -71.37500 42.45833 39078     56     9.0    11.8    0.31
+## 6        1 -84.45833 42.62500 37977    271     8.2    11.0    0.28
+</code></pre>
+
+<pre><code class="r">table(dat$presence)
+</code></pre>
+
+<pre><code>## 
+##     0     1 
+## 15002  1537
+</code></pre>
+
+<p>Map these data</p>
+
+<pre><code class="r">plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r"># plot the absences (pixels without presence records):
+points(dat[dat$presence == 0, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;red&quot;, cex = 0.5)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<pre><code class="r"># plot the presences (pixels with presence records):
+points(dat[dat$presence == 1, c(&quot;x&quot;, &quot;y&quot;)], col = &quot;blue&quot;, cex = 0.7)
+</code></pre>
+
+<pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
+</code></pre>
+
+<p>Now, convert back to a spatial data frame</p>
+
+<pre><code class="r">dat_spat &lt;- SpatialPointsDataFrame(coords = dat[,c(&quot;x&quot;, &quot;y&quot;)],
+                                   data = dat,
+                                   proj4string = crs(&quot;+proj=longlat&quot;))
+</code></pre>
+
+<p>Finally, make a dataframe (which you&#39;ll need for modelling) of the species 
+occurrence data gridded (thinned) to the resolution of the raster variables<br/>
+(i.e., one row per pixel with the values of the variables 
+and the presence/absence of the species):</p>
+
+<pre><code class="r">df.sdm &lt;- sdm::sdmData(formula = presence ~ .,
+                       train = dat_spat,
+                       predictors = layers_cut[[1:2]])
+df.sdm
+</code></pre>
+
+<pre><code>## class                                 : sdmdata 
+## =========================================================== 
+## number of species                     :  1 
+## species names                         :  presence 
+## number of features                    :  7 
+## feature names                         :  cells, WC_bio2, WC_bio3, ... 
+## type                                  :  Presence-Absence 
+## has independet test data?             :  FALSE 
+## number of records                     :  16539 
+## has Coordinates?                      :  TRUE
+</code></pre>
+
+<hr/>
+
+<h2>5. Run models and create a predicted distribution map</h2>
+
+<pre><code class="r">m1 &lt;- sdm(presence ~ WC_alt + WC_bio1, 
+          data = df.sdm, 
+          methods = c(&quot;glm&quot;))
+m1
+</code></pre>
+
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model performance (per species), using training test dataset:
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.66    |     0.15    |     0.25    |     0.6
+</code></pre>
+
+<p>Prediction map</p>
+
+<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, 
+              filename=&#39;Jenna/output/figures/p1.img&#39;, 
+              overwrite=T) 
+plot(studyarea, border = &quot;red&quot;, lwd = 3)
+</code></pre>
+
+<pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; is a list, but does not have components &#39;x&#39; and &#39;y&#39;
+</code></pre>
+
+<pre><code class="r">plot(countries, border = &quot;tan&quot;, add = T)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">plot(p1, add = T)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<p>Variable importance</p>
+
+<pre><code class="r">vi &lt;- getVarImp(m1)
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code class="r">vi
+</code></pre>
+
+<pre><code>## Relative Variable Importance 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  2 
+## variable names      :  WC_alt, WC_bio1 
+## ============================================================= 
+## Relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_alt              : ********************************************* (89.9 %) 
+## WC_bio1             : ********* (17.8 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_alt              : ************** (28.7 %) 
+## WC_bio1             : *** (6.1 %) 
+## =============================================================
+</code></pre>
+
+<pre><code class="r">plot(vi)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<p>View Coefficients</p>
+
+<pre><code class="r">plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+</code></pre>
+
+<pre><code>## (Intercept)      WC_alt     WC_bio1 
+##   0.3945660   0.4988805   0.4746689
+</code></pre>
+
+<pre><code class="r"># sensical scales
+</code></pre>
+
+<p>Variable selection?</p>
+
+<pre><code class="r">m2.select &lt;- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c(&quot;glm&quot;), var.selection = T)
+getModelObject(m2.select)[[1]]
+</code></pre>
+
+<pre><code>##   (Intercept)        WC_alt   WC_alt.quad       WC_bio1  WC_bio1.quad 
+## -3.426071e+00 -5.804697e-03  2.643988e-06  9.103674e-01 -7.520883e-02
+</code></pre>
+
+<pre><code class="r">getVarImp(m2.select)
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code>## Relative Variable Importance 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  4 
+## variable names      :  WC_alt, WC_alt.quad, WC_bio1, WC_bio1.quad, ... 
+## ============================================================= 
+## Relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_alt              : ************************************************** (100 %) 
+## WC_alt.quad         : ***************** (34 %) 
+## WC_bio1             : ************************************ (73 %) 
+## WC_bio1.quad        : ************************************************** (100 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_alt              : ***************** (33.7 %) 
+## WC_alt.quad         : * (1.9 %) 
+## WC_bio1             : *********** (21.6 %) 
+## WC_bio1.quad        : ****************** (36.3 %) 
+## =============================================================
+</code></pre>
+
+<pre><code class="r">plot(getVarImp(m2.select))
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">m2.select
+</code></pre>
+
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model performance (per species), using training test dataset:
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.68    |     0.17    |     0.27    |     0.59
+</code></pre>
+
+<p>Based on these results, I will remove quadratic altitude term</p>
+
+<pre><code class="r">m2.noaltquad &lt;- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                    data = df.sdm, methods = c(&quot;glm&quot;), var.selection = F)
+m2.noaltquad
+</code></pre>
+
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model performance (per species), using training test dataset:
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.68    |     0.18    |     0.27    |     0.59
+</code></pre>
+
+<pre><code class="r">getVarImp(m2.noaltquad)
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code>## Relative Variable Importance 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  3 
+## variable names      :  WC_alt, WC_bio1, WC_bio1.quad 
+## ============================================================= 
+## Relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_alt              : ******************************** (63.2 %) 
+## WC_bio1             : ************************************* (73.2 %) 
+## WC_bio1.quad        : ************************************************** (100 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_alt              : *********** (22.4 %) 
+## WC_bio1             : *********** (22.2 %) 
+## WC_bio1.quad        : ****************** (36.1 %) 
+## =============================================================
+</code></pre>
+
+<p>Cross-validation</p>
+
+<pre><code class="r">m3.cv &lt;- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c(&quot;glm&quot;), 
+             replication = &quot;cv&quot;, cv.folds = 4, n = 2) # n = 5 for your assignment
+m3.cv
+</code></pre>
+
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## replicate.methods (data partitioning) :  cross_validation 
+## number of replicates (each method)    :  2 
+## toral number of replicates per model  :  8 (per species) 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model Mean performance (per species), using test dataset (generated using partitioning):
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.68    |     0.18    |     0.28    |     0.59
+</code></pre>
+
+<pre><code class="r">plogis(getModelObject(m3.cv, id = 1)[[1]])
+</code></pre>
+
+<pre><code>##  (Intercept)       WC_alt      WC_bio1 WC_bio1.quad 
+##   0.02509466   0.49896225   0.71630099   0.48076378
+</code></pre>
+
+<pre><code class="r">getVarImp(m3.cv)
+</code></pre>
+
+<pre><code>## 
+## The variable importance for all the models are combined (averaged)...
+</code></pre>
+
+<pre><code>## Relative Variable Importance List 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  3 
+## variable names      :  WC_alt, WC_bio1, WC_bio1.quad 
+## number of models    :  8 
+## ============================================================= 
+## Summary of relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_alt              : ******************************[*] (63.3 %) 
+## WC_bio1             : **********************************[**] (73.7 %) 
+## WC_bio1.quad        : *************************************************] (100 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_alt              : **********[] (22.7 %) 
+## WC_bio1             : *********[] (21.9 %) 
+## WC_bio1.quad        : ***************[**-] (36 %) 
+## =============================================================
+</code></pre>
+
+<pre><code class="r">roc(m3.cv)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-36"/></p>
+
+<hr/>
+
+<h3>Footer</h3>
+
+<p>spin this with:
+ezspin(file = &ldquo;Jenna/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;Jenna/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+
+</body>
+
+</html>

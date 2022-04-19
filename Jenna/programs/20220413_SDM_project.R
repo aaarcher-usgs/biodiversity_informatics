@@ -96,6 +96,20 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
        pch = 20, 
        col = "blue")
 
+#' Blanding's turtle is NOT located in southern states. We need to also
+#' remove records from areas that are not possible.
+#' 
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+
+#' Double check: Did the number of records make sense??
+#' 
+
+#' Map the cleaned occurrence records on top of the raw ones:
+points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+       pch = 20, 
+       col = "red")
+
 
 #' _____________________________________________________________________________
 #' 
@@ -128,7 +142,7 @@ layers_choice <- unique(pred_layers[
         pred_layers$dataset_code %in% c("WorldClim", "ENVIREM"),
         c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5", "WC_bio12", "ER_climaticMoistureIndex", "WC_bio19", "WC_bio1"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1"), ]
 layers_choice
 
 
@@ -147,7 +161,7 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[2]], main = names(layers)[2])
+plot(layers[[5]], main = names(layers)[5])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat) 
@@ -164,7 +178,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[c("WC_bio5", "WC_bio12", "ER_climaticMoistureIndex", "WC_bio19", "WC_bio1"),]])
+plot(layers[[c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1"),]])
 
 #' _____________________________________________________________________________
 #' 
@@ -203,6 +217,7 @@ plot(pres_buff, lwd = 2)
 plot(pres_spat_vect, col = "blue", add = TRUE)
 plot(countries, border = "tan", add = TRUE)
 
+
 #' Finally, define study area as the area within buffer but also 
 #' within countries (e.g., not ocean)
 studyarea <- intersect(pres_buff, countries)
@@ -212,8 +227,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-#studyarea <- intersect(studyarea, mywindow)
-#plot(studyarea, border = "green", add = TRUE)
+# studyarea <- intersect(studyarea, mywindow)
+# plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -276,7 +291,7 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio5 + WC_bio12 + ER_climaticMoistureIndex + WC_bio19 + WC_bio1,
+m1 <- sdm(presence ~ WC_bio5 + WC_bio12 + ER_thermicityIndex + WC_bio19 + WC_bio1,
           data = df.sdm, 
           methods = c("glm"))
 m1
@@ -305,7 +320,8 @@ plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1 + ER_climaticMoistureIndex, 
+m2.select <- sdm(presence ~ WC_bio5 + I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + ER_thermicityIndex +
+                         I(ER_thermicityIndex^2) + WC_bio19 + I(WC_bio19^2) + WC_bio1 + I(WC_bio1^2),
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
@@ -313,7 +329,7 @@ plot(getVarImp(m2.select))
 m2.select
 
 #' Based on these results, I will remove quadratic altitude term
-m2.noaltquad <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1, 
+m2.noaltquad <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
                     data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
@@ -321,7 +337,7 @@ getVarImp(m2.noaltquad)
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_bio12 + WC_bio19 + WC_bio1, 
+m3.cv <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
              data = df.sdm, methods = c("glm"), 
              replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
 m3.cv

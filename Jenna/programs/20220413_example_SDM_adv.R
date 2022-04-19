@@ -25,7 +25,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Lycaeides melissa samuelis"
+myspecies <- "Emydoidea blandingii"
 
 #' 
 #' Download the data using rgbif library
@@ -85,7 +85,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
 #' 
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
 remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
-                                   complete.cases(presences)]
+                                         complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
@@ -138,13 +138,9 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
-# layers_choice <- unique(pred_layers[
-# pred_layers$dataset_code %in% c("WorldClim", "Bio-ORACLE"),
-# c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio5" , "WC_bio12"), ]
+layers_choice <- layers_choice[1:4, ]
 layers_choice
-
 
 
 #' Define folder for downloading the map layers:
@@ -177,7 +173,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[c("WC_bio5" , "WC_bio12"),]])
+plot(layers[[1:4]])
 
 #' _____________________________________________________________________________
 #' 
@@ -196,8 +192,8 @@ plot(layers[[c("WC_bio5" , "WC_bio12"),]])
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                     geom = c("decimalLongitude", "decimalLatitude"), 
-                     crs = "+proj=longlat")
+                       geom = c("decimalLongitude", "decimalLatitude"), 
+                       crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -241,7 +237,7 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-130, 60), ylim = c(41, 44))
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
@@ -257,7 +253,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
@@ -281,7 +277,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                  predictors = layers_cut[[1:2]])
+                       predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -289,7 +285,7 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio5 + WC_bio12,
+m1 <- sdm(presence ~ WC_alt + WC_bio1, 
           data = df.sdm, 
           methods = c("glm"))
 m1
@@ -297,7 +293,7 @@ m1
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
-              filename='aaarcher/output/figures/p1.img', 
+              filename='Jenna/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
@@ -326,7 +322,7 @@ m2.select
 
 #' Based on these results, I will remove quadratic altitude term
 m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
-                 data = df.sdm, methods = c("glm"), var.selection = F)
+                    data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
 
@@ -348,4 +344,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Jenna/programs/20220413_example_SDM_adv.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
