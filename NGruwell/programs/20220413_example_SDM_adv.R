@@ -140,8 +140,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_tmin4", "WC_prec11" , "WC_bio1", "WC_prec10", "WC_bio4" , "WC_bio6", "WC_prec3", "WC_tmax4", "WC_prec4", "WC_tmax3", "WC_tmin10", "WC_tmax10",  "WC_tmin11"
-,"WC_bio12" , "WC_bio13", "WC_bio17" , "WC_alt" , "WC_tmean4" , "WC_bio17", "WC_bio7" , "WC_bio2"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio1","WC_bio12" , "WC_alt" , "WC_bio15"), ]
 layers_choice 
 
 
@@ -279,7 +278,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                  predictors = layers_cut[[1:2]])
+                  predictors = layers_cut)
 df.sdm
 
 
@@ -315,6 +314,25 @@ m5 <- sdm(presence ~ WC_bio12 + WC_bio1 ,
           methods = c("glm" ))
 m5
 getVarImp(m5)
+
+m6 <- sdm(presence ~ WC_bio15 + WC_bio1 + WC_bio12 + WC_alt ,
+          data = df.sdm, 
+          methods = c("glm" ))
+m6
+getVarImp(m6)
+
+m7 <- sdm(presence ~ WC_bio12 + WC_alt + WC_bio12:WC_alt ,
+          data = df.sdm, 
+          methods = c("glm" ))
+m7
+getVarImp(m7)
+
+m8 <- sdm(presence ~ WC_bio12 + WC_alt + WC_bio12:WC_alt + I(WC_alt^2) ,
+          data = df.sdm, 
+          methods = c("glm" ))
+m8
+getVarImp(m8)
+
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
