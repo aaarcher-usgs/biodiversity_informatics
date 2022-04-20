@@ -133,14 +133,19 @@ unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$name)
 # example of marine variables dataset
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)  
 
+
 #' 
 #' Let's choose one dataset (e.g. WorldClim) and 
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[
+              pred_layers$dataset_code %in% c("Bio-ORACLE"), 
+              c("name","layer_code")])
 layers_choice
-layers_choice <- layers_choice[c(" BO_sstmin")]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("BO22_ph",
+                                                      "BO2_salinityltmin_bdmin",
+                                                      "BO22_salinityltmin_bdmin"),]
 layers_choice
 
 
@@ -159,9 +164,10 @@ length(layers)
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
 plot(layers[[2]], main = names(layers)[2])
+plot(layers[[3]], main = names(layers)[3])
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
+unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
 unique(sapply(layers, raster::extent))
 
@@ -174,7 +180,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:3]])
 
 #' _____________________________________________________________________________
 #' 
