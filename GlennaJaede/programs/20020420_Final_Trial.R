@@ -91,24 +91,27 @@ length(remove.IDs) # how many to remove? How many should be left?
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
-# map the cleaned occurrence records on top of the raw ones:
+#" map the cleaned occurrence records on top of the raw ones:
 points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
        pch = 20, 
        col = "blue")
 
+
+#' I dont think I need this part but Im keeping it just in case.
+#' 
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
-presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+#'remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+#'presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
 #' 
 
 #' Map the cleaned occurrence records on top of the raw ones:
-points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
-       pch = 20, 
-       col = "red")
+#'points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+#'       pch = 20, 
+#'       col = "red")
 
 #' _____________________________________________________________________________
 #' 
@@ -137,9 +140,11 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
+#' 
+#' Trying to add the different types of code to the maps
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio12","WC_bio1"), ]
 layers_choice
 
 
@@ -153,7 +158,8 @@ layers
 
 # see how many elements in 'layers':
 length(layers)
-
+#' 2
+#' 
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
