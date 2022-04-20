@@ -92,23 +92,28 @@ presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
 # map the cleaned occurrence records on top of the raw ones:
-points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
-       pch = 20, 
-       col = "blue")
+#' points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+#'       pch = 20, 
+#'      col = "blue")
 
+
+
+
+
+#' I dont think I need this part
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
-presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+#'remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+#'presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
 #' 
 
 #' Map the cleaned occurrence records on top of the raw ones:
-points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
-       pch = 20, 
-       col = "red")
+#'points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+#'       pch = 20, 
+#'       col = "red")
 
 #' _____________________________________________________________________________
 #' 
@@ -137,9 +142,11 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
+#' 
+#' Trying to add the different types of code to the maps
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio12,WC_bio1,WC_bio11"), ]
 layers_choice
 
 
