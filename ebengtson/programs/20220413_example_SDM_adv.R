@@ -139,10 +139,14 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim", "Freshwater"), c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("FW_soil_avg_02","WC_alt","WC_bio18","WC_bio1"),]
-layers_choice
+layers_choiceWC <- layers_choice[layers_choice$layer_code %in% c(
+                                                               "WC_alt",
+                                                               "WC_bio18",
+                                                               "WC_bio1"),]
+layers_choiceWC
 
-
+layers_choiceAcid <- layers_choice[layers_choice$layer_code == "FW_soil_avg_02",]
+layers_choiceAcid
 
 
 #' Define folder for downloading the map layers:
@@ -150,26 +154,26 @@ options(sdmpredictors_datadir = "../outputs/sdmpredictors")
 
 #' load the layers to the current R session 
 #' (downloading them if they aren't already in the folder defined above):
-layers <- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
-layers
+layersWC <- load_layers(layers_choiceWC$layer_code, rasterstack = FALSE)  
+layersWC
 
-extentNA <- extent(-145, -50,0, 60)
-layer1.NA <- crop(layers[[1]], extentNA)
-plot(layer1.NA)
+layersAcid <- load_layers(layers_choiceAcid$layer_code, rasterstack = FALSE)  
+layersAcid
 
-layers.NA <- lapply(layers, crop, extent(extentNA))
+#extentNA <- extent(-145, -50,0, 60)
+#layer1.NA <- crop(layers[[1]], extentNA)
+#plot(layer1.NA)
+
+#layers.NA <- lapply(layers, crop, extent(extentNA))
 
 # see how many elements in 'layers':
 length(layers)
 
 # plot a couple of layers to see how they look:
-names(layers)
-plot(layers.NA[[1]], main = names(layers)[1])
-plot(layers.NA[[2]], main = names(layers)[2])
-plot(layers.NA[[3]], main = names(layers)[3])
-plot(layers.NA[[4]], main = names(layers)[4])
-
-layers.NA
+names(layersWC)
+plot(layersWC[[1]], main = names(layersWC)[1])
+plot(layersWC[[2]], main = names(layersWC)[2])
+plot(layersWC[[3]], main = names(layersWC)[3])
 
 
 # find out if your layers have different extents or resolutions:
@@ -186,23 +190,23 @@ unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim","Freshwater"), ]$
 #layersExtent <- layers
 #layersExtent[[4]] <- extend(layers[[4]], extent(layers[[1]]))
 #unique(sapply(layersExtent, raster::extent))
-layers.NA.rast <- list(NULL)
-layers.NA.rast[[1]] <- rast(layers.NA[[1]])
-layers.NA.rast[[2]] <- rast(layers.NA[[2]])
-layers.NA.rast[[3]] <- rast(layers.NA[[3]])
-layers.NA.rast[[4]] <- rast(layers.NA[[4]])
+# layers.NA.rast <- list(NULL)
+# layers.NA.rast[[1]] <- rast(layers.NA[[1]])
+# layers.NA.rast[[2]] <- rast(layers.NA[[2]])
+# layers.NA.rast[[3]] <- rast(layers.NA[[3]])
+# layers.NA.rast[[4]] <- rast(layers.NA[[4]])
 
 #layers.NA.rast[[4]] <- #terra::resample(x = layers.NA.rast[[4]], res(layers.NA.rast[[1]]))
 #  disaggregate(layers.NA.rast[[4]], 10)
   
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
-layersClim <- raster::stack(layers.NA[[1]], layers.NA[[2]], layers.NA[[3]])
+layersClim <- raster::stack(layersWC)
 plot(layersClim)
 
 #' Soil pH layers
 #' 
-layerAcidity <- layers.NA.rast[[4]]
+layerAcidity <- raster::stack(layersAcid)
 plot(layerAcidity)
 
 #' _____________________________________________________________________________
@@ -257,7 +261,10 @@ studyarea <- as(studyarea, "Spatial")
 
 #' Cut the variable maps with the limits of the study area:
 layers_cut <- terra::crop(terra::mask(layersClim, studyarea), studyarea)
-plot(layers_cut[[1]])
+plot(layers_cut)
+
+layers_cutAcid <- terra::crop(terra::mask(layerAcidity, studyarea), studyarea)
+plot(layers_cutAcid)
 
 #' Remember, the spatial resolution of the variables should be 
 #' adequate to the data and study area!
