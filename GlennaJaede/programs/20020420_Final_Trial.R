@@ -2,9 +2,9 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' April 6, 2022
+#' April 20, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Glenna Jaede
 #' 
 #' ### Header
 #' 
@@ -24,8 +24,8 @@ remove(list = ls())
 #' 
 #' ## 1. Download data
 #' 
-#' Scientific name of the species
-myspecies <- "Aeshna sitchensis"
+#' Scientific name of the species Trap Jaw Ants
+myspecies <- "Odontomachus brunneus"
 
 #' 
 #' Download the data using rgbif library
@@ -137,16 +137,10 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim", "Freshwater"), c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choiceWC <- layers_choice[layers_choice$layer_code %in% c(
-                                                               "WC_alt",
-                                                               "WC_bio18",
-                                                               "WC_bio1"),]
-layers_choiceWC
-
-layers_choiceAcid <- layers_choice[layers_choice$layer_code == "FW_soil_avg_02",]
-layers_choiceAcid
+layers_choice <- layers_choice[1:4, ]
+layers_choice
 
 
 #' Define folder for downloading the map layers:
@@ -154,60 +148,32 @@ options(sdmpredictors_datadir = "../outputs/sdmpredictors")
 
 #' load the layers to the current R session 
 #' (downloading them if they aren't already in the folder defined above):
-layersWC <- load_layers(layers_choiceWC$layer_code, rasterstack = FALSE)  
-layersWC
-
-layersAcid <- load_layers(layers_choiceAcid$layer_code, rasterstack = FALSE)  
-layersAcid
-
-#extentNA <- extent(-145, -50,0, 60)
-#layer1.NA <- crop(layers[[1]], extentNA)
-#plot(layer1.NA)
-
-#layers.NA <- lapply(layers, crop, extent(extentNA))
+layers <- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
+layers
 
 # see how many elements in 'layers':
 length(layers)
 
 # plot a couple of layers to see how they look:
-names(layersWC)
-plot(layersWC[[1]], main = names(layersWC)[1])
-plot(layersWC[[2]], main = names(layersWC)[2])
-plot(layersWC[[3]], main = names(layersWC)[3])
-
+names(layers)
+plot(layers[[1]], main = names(layers)[1])
+plot(layers[[2]], main = names(layers)[2])
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim","Freshwater"), ]$cellsize_lonlat)  
+unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
-#unique(sapply(layers.NA, raster::extent))
+unique(sapply(layers, raster::extent))
 
 # if you get more than one extent (which doesn't happen with WorldClim, 
 # but may happen with other datasets), you'll have to crop all layers to the 
 # minimum common extent before proceeding. 
 # For example, if the first layer has the smallest extent:
-#layers <- lapply(layers, crop, extent(layers[[4]]))
-#unique(sapply(layers, raster::extent))
-#layersExtent <- layers
-#layersExtent[[4]] <- extend(layers[[4]], extent(layers[[1]]))
-#unique(sapply(layersExtent, raster::extent))
-# layers.NA.rast <- list(NULL)
-# layers.NA.rast[[1]] <- rast(layers.NA[[1]])
-# layers.NA.rast[[2]] <- rast(layers.NA[[2]])
-# layers.NA.rast[[3]] <- rast(layers.NA[[3]])
-# layers.NA.rast[[4]] <- rast(layers.NA[[4]])
+#layers <- lapply(layers, crop, extent(layers[[1]]))
 
-#layers.NA.rast[[4]] <- #terra::resample(x = layers.NA.rast[[4]], res(layers.NA.rast[[1]]))
-#  disaggregate(layers.NA.rast[[4]], 10)
-  
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
-layersClim <- raster::stack(layersWC)
-plot(layersClim)
-
-#' Soil pH layers
-#' 
-layerAcidity <- raster::stack(layersAcid)
-plot(layerAcidity)
+layers <- raster::stack(layers)
+plot(layers[[1:4]])
 
 #' _____________________________________________________________________________
 #' 
@@ -226,8 +192,8 @@ plot(layerAcidity)
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                     geom = c("decimalLongitude", "decimalLatitude"), 
-                     crs = "+proj=longlat")
+                       geom = c("decimalLongitude", "decimalLatitude"), 
+                       crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -260,11 +226,8 @@ studyarea <- as(studyarea, "Spatial")
 
 
 #' Cut the variable maps with the limits of the study area:
-layers_cut <- terra::crop(terra::mask(layersClim, studyarea), studyarea)
-plot(layers_cut)
-
-layers_cutAcid <- terra::crop(terra::mask(layerAcidity, studyarea), studyarea)
-plot(layers_cutAcid)
+layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
+plot(layers_cut[[1]])
 
 #' Remember, the spatial resolution of the variables should be 
 #' adequate to the data and study area!
@@ -290,7 +253,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
@@ -314,7 +277,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                  predictors = layers_cut[[1:2]])
+                       predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -359,7 +322,7 @@ m2.select
 
 #' Based on these results, I will remove quadratic altitude term
 m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
-                 data = df.sdm, methods = c("glm"), var.selection = F)
+                    data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
 
@@ -381,4 +344,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220420_Final_Trial.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
