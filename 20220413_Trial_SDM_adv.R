@@ -2,9 +2,9 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' April 20, 2022
+#' April 6, 2022
 #' 
-#' Programmer: Glenna Jaede
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
@@ -192,8 +192,8 @@ plot(layers[[1:4]])
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                       geom = c("decimalLongitude", "decimalLatitude"), 
-                       crs = "+proj=longlat")
+                     geom = c("decimalLongitude", "decimalLatitude"), 
+                     crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -253,7 +253,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
@@ -277,7 +277,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                       predictors = layers_cut[[1:2]])
+                  predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -322,7 +322,7 @@ m2.select
 
 #' Based on these results, I will remove quadratic altitude term
 m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
-                    data = df.sdm, methods = c("glm"), var.selection = F)
+                 data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
 
@@ -344,4 +344,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "GlennaJaede/programs/20220413_Final_Trial.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
