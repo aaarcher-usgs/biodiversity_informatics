@@ -139,7 +139,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio25", "WC_bio26"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio1", "WC_bio5"), ]
 layers_choice
 
 
@@ -173,7 +173,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[c("WC_bio25", "WC_bio26"),]])
+plot(layers[[c("WC_bio1", "WC_bio5"),]])
 
 #' _____________________________________________________________________________
 #' 
@@ -285,7 +285,7 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_bio25 + WC_bio26, 
+m1 <- sdm(presence ~ WC_bio1 + WC_bio5, 
           data = df.sdm, 
           methods = c("glm"))
 m1
@@ -313,7 +313,7 @@ plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_bio25 + WC_bio26, 
+m2.select <- sdm(presence ~ WC_bio1 + WC_bio5, 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
@@ -321,7 +321,7 @@ plot(getVarImp(m2.select))
 m2.select
 
 #' Based on these results, I will remove quadratic altitude term
-m2.noaltquad <- sdm(presence ~ WC_bio25 + WC_bio26,
+m2.noaltquad <- sdm(presence ~ WC_bio1 + WC_bio5,
                  data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
@@ -329,7 +329,7 @@ getVarImp(m2.noaltquad)
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_bio25 + WC_bio26,
+m3.cv <- sdm(presence ~ WC_bio1 + WC_bio5,
              data = df.sdm, methods = c("glm"), 
              replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
 m3.cv
