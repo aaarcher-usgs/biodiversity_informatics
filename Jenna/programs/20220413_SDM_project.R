@@ -96,10 +96,10 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
        pch = 20, 
        col = "blue")
 
-#' Blanding's turtle is NOT located in southern states. We need to also
+#' Karner Blue is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 41.5]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -179,6 +179,14 @@ unique(sapply(layers, raster::extent))
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
 plot(layers[[c("WC_bio5", "WC_bio12", "ER_thermicityIndex", "WC_bio19", "WC_bio1"),]])
+
+# ER_aridityIndexThornthwaite : Index of the degree of water deficit below water need
+# ER_thermicityIndex :  weighs and quantifies the intensity of the winter cold
+# WC_bio5 : Maximum temperature of the warmest month (drought factor)
+# WC_bio12 : Annual precipitation (drought factor)
+# WC_bio1 : Annual mean temperature
+# WC_bio19 : Precipitation of coldest quarter (winter freezing affects larva)
+
 
 #' _____________________________________________________________________________
 #' 
@@ -328,8 +336,8 @@ getVarImp(m2.select)
 plot(getVarImp(m2.select))
 m2.select
 
-#' Based on these results, I will remove quadratic altitude term
-m2.noaltquad <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
+#' Remove insignificant layers
+m2.noaltquad <- sdm(presence ~ WC_bio5 + WC_bio19 + I(WC_bio19^2) + WC_bio1, 
                     data = df.sdm, methods = c("glm"), var.selection = F)
 m2.noaltquad
 getVarImp(m2.noaltquad)
@@ -337,7 +345,7 @@ getVarImp(m2.noaltquad)
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ I(WC_bio5^2) + WC_bio12 + I(WC_bio12^2) + WC_bio19 + WC_bio1, 
+m3.cv <- sdm(presence ~ WC_bio1 + WC_bio19 + WC_bio1:WC_bio19,
              data = df.sdm, methods = c("glm"), 
              replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
 m3.cv
