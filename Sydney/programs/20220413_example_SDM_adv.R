@@ -164,6 +164,7 @@ length(layers)
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
 plot(layers[[2]], main = names(layers)[2])
+plot(layers[[3]], main = names(layers)[3])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$cellsize_lonlat)  
