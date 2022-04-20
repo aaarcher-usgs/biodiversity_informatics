@@ -295,13 +295,14 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ BO2_tempmean_bdmean + BO2_ppmean_bdmean , 
+          data = df.sdm, methods = c("glm"))
 m1
 
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
-              filename='aaarcher/output/figures/p1.img', 
+              filename='Sydney/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
@@ -319,7 +320,7 @@ getModelObject(m1)[[1]]
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_alt^2), 
+m2.select <- sdm(presence ~ BO2_ppmean_bdmean + I(BO2_ppmean_bdmean^2) + BO2_tempmean_bdmean + I(BO2_tempmean_bdmean^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
@@ -327,7 +328,7 @@ plot(getVarImp(m2.select))
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+m3.cv <- sdm(presence ~ BO2_ppmean_bdmean + I(BO2_ppmean_bdmean^2) + BO2_tempmean_bdmean + I(BO2_tempmean_bdmean^2), 
              data = df.sdm, methods = c("glm"), 
              replication = "cv", cv.folds = 4, n = 5)
 m3.cv
