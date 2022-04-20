@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Emma Kuechle and Nicole Gruwell 
+#' Programmer: AAA
 #' 
 #' ### Header
 #' 
@@ -25,13 +25,13 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Morpho menelaus"
+myspecies <- "Aeshna sitchensis"
 
 #' 
 #' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20200)
+                      limit = 20000)
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -60,8 +60,8 @@ points(gbif_data$data[ , c("decimalLongitude", "decimalLatitude")],
        pch = 20, 
        col = "green")
 
-#' Notice that two red dots shows up in Europe and Asia. This species does NOT
-#' occur in either!
+#' Notice that one green dot shows up in Europe. This species does NOT
+#' occur in Europe!
 #' 
 #' How can you find out which one is the outlier?
 presences <- gbif_data$data[ , c("key","decimalLongitude", 
@@ -99,8 +99,8 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-#remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
-#presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
 #' 
@@ -137,11 +137,12 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim", "Freshwater"), c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio1","WC_bio12" , "WC_alt" , "WC_bio15"), ]
-layers_choice 
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("FW_soil_avg_02","WC_alt","WC_bio18","WC_bio1"),]
+layers_choice
+
+
 
 
 #' Define folder for downloading the map layers:
@@ -152,29 +153,57 @@ options(sdmpredictors_datadir = "../outputs/sdmpredictors")
 layers <- load_layers(layers_choice$layer_code, rasterstack = FALSE)  
 layers
 
+extentNA <- extent(-145, -50,0, 60)
+layer1.NA <- crop(layers[[1]], extentNA)
+plot(layer1.NA)
+
+layers.NA <- lapply(layers, crop, extent(extentNA))
+
 # see how many elements in 'layers':
 length(layers)
 
 # plot a couple of layers to see how they look:
 names(layers)
-plot(layers[[1]], main = names(layers)[1])
-plot(layers[[2]], main = names(layers)[2])
+plot(layers.NA[[1]], main = names(layers)[1])
+plot(layers.NA[[2]], main = names(layers)[2])
+plot(layers.NA[[3]], main = names(layers)[3])
+plot(layers.NA[[4]], main = names(layers)[4])
+
+layers.NA
+
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
+unique(pred_layers[pred_layers$dataset_code %in% c("WorldClim","Freshwater"), ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
-unique(sapply(layers, raster::extent))
+#unique(sapply(layers.NA, raster::extent))
 
 # if you get more than one extent (which doesn't happen with WorldClim, 
 # but may happen with other datasets), you'll have to crop all layers to the 
 # minimum common extent before proceeding. 
 # For example, if the first layer has the smallest extent:
-#layers <- lapply(layers, crop, extent(layers[[1]]))
+#layers <- lapply(layers, crop, extent(layers[[4]]))
+#unique(sapply(layers, raster::extent))
+#layersExtent <- layers
+#layersExtent[[4]] <- extend(layers[[4]], extent(layers[[1]]))
+#unique(sapply(layersExtent, raster::extent))
+layers.NA.rast <- list(NULL)
+layers.NA.rast[[1]] <- rast(layers.NA[[1]])
+layers.NA.rast[[2]] <- rast(layers.NA[[2]])
+layers.NA.rast[[3]] <- rast(layers.NA[[3]])
+layers.NA.rast[[4]] <- rast(layers.NA[[4]])
 
+#layers.NA.rast[[4]] <- #terra::resample(x = layers.NA.rast[[4]], res(layers.NA.rast[[1]]))
+#  disaggregate(layers.NA.rast[[4]], 10)
+  
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
-layers <- raster::stack(layers)
-plot(layers[[1:3]])
+layersClim <- raster::stack(layers.NA[[1]], layers.NA[[2]], layers.NA[[3]])
+plot(layersClim)
+
+#' Soil pH layers
+#' 
+layerAcidity <- layers.NA.rast[[4]]
+plot(layerAcidity)
 
 #' _____________________________________________________________________________
 #' 
@@ -208,7 +237,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #plot(chosen_countries)
 
 #' Then also buffer your points with reasonable distance
-pres_buff <- terra::aggregate(terra::buffer(pres_spat_vect, width = 25000))
+pres_buff <- terra::aggregate(terra::buffer(pres_spat_vect, width = 50000))
 plot(pres_buff, lwd = 2)
 plot(pres_spat_vect, col = "blue", add = TRUE)
 plot(countries, border = "tan", add = TRUE)
@@ -227,7 +256,7 @@ studyarea <- as(studyarea, "Spatial")
 
 
 #' Cut the variable maps with the limits of the study area:
-layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
+layers_cut <- terra::crop(terra::mask(layersClim, studyarea), studyarea)
 plot(layers_cut[[1]])
 
 #' Remember, the spatial resolution of the variables should be 
@@ -238,8 +267,8 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-#plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
-#plot(pres_spat_vect, col = "blue", add = TRUE)
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
 # layers_aggr <- terra::aggregate(layers_cut, fact = 5, fun = mean)
@@ -260,7 +289,7 @@ table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-90, -35), ylim = c(-30, 15))
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -278,7 +307,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                  predictors = layers_cut)
+                  predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -286,57 +315,15 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-#' 
-
-m1 <- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2) ,
+m1 <- sdm(presence ~ WC_alt + WC_bio1, 
           data = df.sdm, 
-          methods = c("glm" ))
+          methods = c("glm"))
 m1
-getVarImp(m1)
-
-m2 <- sdm(presence ~ WC_bio12 ,
-          data = df.sdm, 
-          methods = c("glm" ))
-m2
-getVarImp(m2)
-m3 <- sdm(presence ~  WC_bio1 + I(WC_bio1^2) ,
-          data = df.sdm, 
-          methods = c("glm" ))
-m3
-
-m4 <- sdm(presence ~  WC_bio1 ,
-          data = df.sdm, 
-          methods = c("glm" ))
-m4
-
-m5 <- sdm(presence ~ WC_bio12 + WC_bio1 ,
-          data = df.sdm, 
-          methods = c("glm" ))
-m5
-getVarImp(m5)
-
-m6 <- sdm(presence ~ WC_bio15 + WC_bio1 + WC_bio12 + WC_alt ,
-          data = df.sdm, 
-          methods = c("glm" ))
-m6
-getVarImp(m6)
-
-m7 <- sdm(presence ~ WC_bio12 + WC_alt + WC_bio12:WC_alt ,
-          data = df.sdm, 
-          methods = c("glm" ))
-m7
-getVarImp(m7)
-
-m8 <- sdm(presence ~ WC_bio12 + WC_alt + WC_bio12:WC_alt + I(WC_alt^2) ,
-          data = df.sdm, 
-          methods = c("glm" ))
-m8
-getVarImp(m8)
 
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
-              filename= 'NGruwell/output/figures/p1.img', 
+              filename='aaarcher/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
@@ -356,7 +343,7 @@ plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2), 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
@@ -372,9 +359,9 @@ getVarImp(m2.noaltquad)
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2), 
+m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
              data = df.sdm, methods = c("glm"), 
-             replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
 m3.cv
 plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
@@ -387,4 +374,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "NGruwell/programs/20220413_example_SDM_adv.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
