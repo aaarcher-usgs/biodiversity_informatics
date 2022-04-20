@@ -4,7 +4,7 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: AAA
+#' Programmer: Mariah Simones
 #' 
 #' ### Header
 #' 
@@ -25,7 +25,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Perovskia atriplicifolia"
 
 #' 
 #' Download the data
@@ -68,7 +68,7 @@ presences <- gbif_data$data[ , c("key","decimalLongitude",
                                  "decimalLatitude", 
                                  "coordinateUncertaintyInMeters")]
 presences$uniqueID <- 1:nrow(presences)
-presences <- presences[presences$decimalLongitude < 0,]
+presences <- presences[presences$decimalLongitude > 60,]
 
 #' 
 #' Let's re-plot the map within the coordinates of our presence points:
@@ -99,7 +99,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude > 20]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -139,8 +139,9 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[1:20,]
 layers_choice
+
 
 
 #' Define folder for downloading the map layers:
@@ -157,7 +158,10 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
+plot(layers[[7]], main = names(layers)[7])
+plot(layers[[8]], main = names(layers)[8])
+plot(layers[[15]],main = names(layers)[15])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
@@ -173,7 +177,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:5]])
 
 #' _____________________________________________________________________________
 #' 
@@ -201,10 +205,10 @@ plot(pres_countries)
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # if your species is terrestrial and you see that in some countries it is clearly under-surveyed, you can select only particular countries where the survey was better distributed, for example:
-#names(pres_countries)
-#unique(pres_countries$NAME)
-#chosen_countries <- subset(pres_countries, pres_countries$NAME %in% c("United States of America", "Canada" ))
-#plot(chosen_countries)
+names(pres_countries)
+unique(pres_countries$NAME)
+chosen_countries <- subset(pres_countries, pres_countries$NAME %in% c("Pakistan", "Afghanistan", "Tajikistan", "Kazakhstan", "India" ))
+plot(chosen_countries)
 
 #' Then also buffer your points with reasonable distance
 pres_buff <- terra::aggregate(terra::buffer(pres_spat_vect, width = 50000))
@@ -301,4 +305,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "mariahsimones/programs/20220413_example_SDM.R",out_dir = "mariahsimones/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
