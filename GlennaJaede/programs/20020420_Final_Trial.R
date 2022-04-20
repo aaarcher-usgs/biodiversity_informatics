@@ -179,7 +179,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:2]])
 
 #' _____________________________________________________________________________
 #' 
@@ -234,17 +234,21 @@ studyarea <- as(studyarea, "Spatial")
 #' Cut the variable maps with the limits of the study area:
 layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
 plot(layers_cut[[1]])
+layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
+plot(layers_cut[[2]])
 
 #' Remember, the spatial resolution of the variables should be 
 #' adequate to the data and study area!
 #' 
 #' Closely inspect your species data vs. the size of the variables' pixels:
+#' Went with smaller currently
+#' 
 plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
-plot(pres_spat_vect, col = "blue", add = TRUE)
+# plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+# plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
 # layers_aggr <- terra::aggregate(layers_cut, fact = 5, fun = mean)
