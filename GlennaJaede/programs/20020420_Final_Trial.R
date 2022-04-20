@@ -91,16 +91,14 @@ length(remove.IDs) # how many to remove? How many should be left?
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
-# map the cleaned occurrence records on top of the raw ones:
-#' points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
-#'       pch = 20, 
-#'      col = "blue")
+#" map the cleaned occurrence records on top of the raw ones:
+points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+       pch = 20, 
+       col = "blue")
 
 
-
-
-
-#' I dont think I need this part
+#' I dont think I need this part but Im keeping it just in case.
+#' 
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
@@ -146,7 +144,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' Trying to add the different types of code to the maps
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio12,WC_bio1,WC_bio11"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio12","WC_bio1"), ]
 layers_choice
 
 
@@ -160,7 +158,8 @@ layers
 
 # see how many elements in 'layers':
 length(layers)
-
+#' 2
+#' 
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
@@ -180,7 +179,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:2]])
 
 #' _____________________________________________________________________________
 #' 
@@ -235,17 +234,21 @@ studyarea <- as(studyarea, "Spatial")
 #' Cut the variable maps with the limits of the study area:
 layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
 plot(layers_cut[[1]])
+layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
+plot(layers_cut[[2]])
 
 #' Remember, the spatial resolution of the variables should be 
 #' adequate to the data and study area!
 #' 
 #' Closely inspect your species data vs. the size of the variables' pixels:
+#' Went with smaller currently
+#' 
 plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
-plot(pres_spat_vect, col = "blue", add = TRUE)
+# plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+# plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
 # layers_aggr <- terra::aggregate(layers_cut, fact = 5, fun = mean)
