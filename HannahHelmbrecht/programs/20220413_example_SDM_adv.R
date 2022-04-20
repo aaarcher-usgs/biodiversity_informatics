@@ -2,9 +2,9 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' April 20, 2022
+#' April 13, 2022
 #' 
-#' Programmer: Glenna Jaede
+#' Programmer: Sydney
 #' 
 #' ### Header
 #' 
@@ -25,13 +25,13 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Trichechus manatus manatus"
 
 #' 
 #' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                      limit = 1000)
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -88,6 +88,7 @@ remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000
                                    complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
+
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
@@ -99,7 +100,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 0]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -132,14 +133,19 @@ unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$name)
 # example of marine variables dataset
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)  
 
+
 #' 
 #' Let's choose one dataset (e.g. WorldClim) and 
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[
+              pred_layers$dataset_code %in% c("Bio-ORACLE"), 
+              c("name","layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("BO22_ph",
+                                                      "BO2_salinityltmin_bdmin",
+                                                      "BO22_salinityltmin_bdmin"),]
 layers_choice
 
 
@@ -160,7 +166,7 @@ plot(layers[[1]], main = names(layers)[1])
 plot(layers[[2]], main = names(layers)[2])
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
+unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
 unique(sapply(layers, raster::extent))
 
@@ -173,7 +179,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:3]])
 
 #' _____________________________________________________________________________
 #' 
@@ -192,8 +198,8 @@ plot(layers[[1:4]])
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                       geom = c("decimalLongitude", "decimalLatitude"), 
-                       crs = "+proj=longlat")
+                     geom = c("decimalLongitude", "decimalLatitude"), 
+                     crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -253,7 +259,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
@@ -277,7 +283,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                       predictors = layers_cut[[1:2]])
+                  predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -285,9 +291,7 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, 
-          data = df.sdm, 
-          methods = c("glm"))
+m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
 m1
 
 #' Prediction map
@@ -302,40 +306,30 @@ plot(p1, add = T)
 #' Variable importance
 #' 
 vi <- getVarImp(m1)
-vi
 plot(vi)
 
 #' View Coefficients
 #' 
-plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
-# sensical scales
+getModelObject(m1)[[1]]
 
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_alt^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
 plot(getVarImp(m2.select))
-m2.select
-
-#' Based on these results, I will remove quadratic altitude term
-m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
-                    data = df.sdm, methods = c("glm"), var.selection = F)
-m2.noaltquad
-getVarImp(m2.noaltquad)
-
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+m3.cv <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
              data = df.sdm, methods = c("glm"), 
-             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
+             replication = "cv", cv.folds = 4, n = 5)
 m3.cv
-plogis(getModelObject(m3.cv, id = 1)[[1]])
+getModelObject(m3.cv, id = 1)[[1]]
 getVarImp(m3.cv)
-roc(m3.cv)
+
 
 
 
@@ -344,4 +338,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "GlennaJaede/programs/20220413_Final_Trial.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Sydney/programs/202204013_example_SDM_adv.R",out_dir = "Sydney/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
