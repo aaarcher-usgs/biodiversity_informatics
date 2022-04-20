@@ -24,8 +24,8 @@ remove(list = ls())
 #' 
 #' ## 1. Download data
 #' 
-#' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+#' Scientific name of the species Trap Jaw Ants
+myspecies <- "Odontomachus brunneus"
 
 #' 
 #' Download the data using rgbif library
@@ -344,4 +344,4 @@ roc(m3.cv)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "GlennaJaede/programs/20220413_Final_Trial.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "GlennaJaede/programs/20220420_Final_Trial.R",out_dir = "GlennaJaede/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
