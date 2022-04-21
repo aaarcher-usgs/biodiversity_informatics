@@ -4,13 +4,12 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Erin Bengtson
+#' Programmer: Jenna Butler
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-
 library(ezknitr)
 library(rgbif)
 library(terra)
@@ -26,10 +25,10 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Aeshna sitchensis"
+myspecies <- "Emydoidea blandingii"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
                       limit = 20000)
@@ -86,7 +85,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude")],
 #' 
 range(presences$coordinateUncertaintyInMeters, na.rm = T)
 remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000 &
-                                   complete.cases(presences)]
+                                         complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
@@ -140,7 +139,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[1:4, ]
 layers_choice
 
 
@@ -158,7 +157,7 @@ length(layers)
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
@@ -193,8 +192,8 @@ plot(layers[[1:4]])
 #' what is the cartographic projection / coordinate reference system):
 names(presences)
 pres_spat_vect <- vect(presences, 
-                     geom = c("decimalLongitude", "decimalLatitude"), 
-                     crs = "+proj=longlat")
+                       geom = c("decimalLongitude", "decimalLatitude"), 
+                       crs = "+proj=longlat")
 
 #' Then get the country polygons that contain presence points:
 pres_countries <- countries[pres_spat_vect, ]
@@ -254,7 +253,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 #' Have to add in non-presence data
 #' 
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
-                   pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
+                             pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
 table(dat$presence)
 
@@ -278,7 +277,7 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
 #' and the presence/absence of the species):
 df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
-                  predictors = layers_cut[[1:2]])
+                       predictors = layers_cut[[1:2]])
 df.sdm
 
 
@@ -286,15 +285,58 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ WC_alt + WC_bio1, 
+          data = df.sdm, 
+          methods = c("glm"))
 m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='ebengtson/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, 
+              filename='Jenna/output/figures/p1.img', 
+              overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+#' Variable importance
+#' 
+vi <- getVarImp(m1)
+vi
+plot(vi)
+
+#' View Coefficients
+#' 
+plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+# sensical scales
+
+
+#' Variable selection?
+#' 
+m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = T)
+getModelObject(m2.select)[[1]]
+getVarImp(m2.select)
+plot(getVarImp(m2.select))
+m2.select
+
+#' Based on these results, I will remove quadratic altitude term
+m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                    data = df.sdm, methods = c("glm"), var.selection = F)
+m2.noaltquad
+getVarImp(m2.noaltquad)
+
+
+#' Cross-validation
+#' 
+m3.cv <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c("glm"), 
+             replication = "cv", cv.folds = 4, n = 2) # n = 5 for your assignment
+m3.cv
+plogis(getModelObject(m3.cv, id = 1)[[1]])
+getVarImp(m3.cv)
+roc(m3.cv)
+
 
 
 #' _____________________________________________________________________________
@@ -302,4 +344,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Jenna/programs/20220413_example_SDM_adv.R",out_dir = "Jenna/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

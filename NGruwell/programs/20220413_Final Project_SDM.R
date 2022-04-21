@@ -4,14 +4,13 @@
 #' 
 #' April 6, 2022
 #' 
-#' Programmer: Erin Bengtson
+#' Programmer: Nicole Gruwell and Emma Kuechle 
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
 
-library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -20,19 +19,19 @@ library(sdm)
 library(raster)
 
 remove(list = ls())
-
+install.packages('sdm')
 #' _____________________________________________________________________________
 #' 
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Aeshna sitchensis"
+myspecies <- "Morpho menelaus"
 
 #' 
 #' Download the data
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                      limit = 20200)
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -42,7 +41,6 @@ gbif_data
 #' can properly cite your data sources on the final presentation.
 #' 
 # gbif_citation(gbif_data)
-
 
 #' _____________________________________________________________________________
 #' 
@@ -238,7 +236,7 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]], xlim = c(-90, -40), ylim = c(-30, 20))
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
@@ -291,7 +289,7 @@ m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='ebengtson/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, filename='NGruwell/output/figures/p1.img') 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
@@ -302,4 +300,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "NGruwell/programs/20220406_example_SDM.R",out_dir = "NGruwell/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

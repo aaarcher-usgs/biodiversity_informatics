@@ -2,15 +2,14 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' April 6, 2022
+#' April 13, 2022
 #' 
-#' Programmer: Erin Bengtson
+#' Programmer: Sydney
 #' 
 #' ### Header
 #' 
 #' 
 # Load Libraries
-
 library(ezknitr)
 library(rgbif)
 library(terra)
@@ -26,13 +25,13 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Aeshna sitchensis"
+myspecies <- "Trichechus manatus manatus"
 
 #' 
-#' Download the data
+#' Download the data using rgbif library
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                      limit = 1000)
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -52,6 +51,7 @@ gbif_data
 #'
 #' Download shapefiles of world countries
 countries <- terra::vect("data/countries/world_countries.shp")
+ocean <- terra::vect("../ne_10m_ocean/ne_10m_ocean.shp")
 
 
 #' 
@@ -89,6 +89,7 @@ remove.IDs <- presences$uniqueID[presences$coordinateUncertaintyInMeters > 70000
                                    complete.cases(presences)]
 length(remove.IDs) # how many to remove? How many should be left?
 
+
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
@@ -100,7 +101,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < -10]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -133,14 +134,18 @@ unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$name)
 # example of marine variables dataset
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)  
 
+
 #' 
 #' Let's choose one dataset (e.g. WorldClim) and 
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[
+              pred_layers$dataset_code %in% c("Bio-ORACLE"), 
+              c("name","layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:20, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("BO2_tempmean_bdmean",
+                                                              "BO2_ppmean_bdmean"),]
 layers_choice
 
 
@@ -155,13 +160,15 @@ layers
 # see how many elements in 'layers':
 length(layers)
 
+
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
-plot(layers[[5]], main = names(layers)[5])
+plot(layers[[2]], main = names(layers)[2])
+
 
 # find out if your layers have different extents or resolutions:
-unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$cellsize_lonlat)  
+unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$cellsize_lonlat)  
 # 0.08333333 - spatial resolution can then be coarsened as adequate for your species data and study area (see below)
 unique(sapply(layers, raster::extent))
 
@@ -174,7 +181,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:2]])
 
 #' _____________________________________________________________________________
 #' 
@@ -215,7 +222,9 @@ plot(countries, border = "tan", add = TRUE)
 
 #' Finally, define study area as the area within buffer but also 
 #' within countries (e.g., not ocean)
-studyarea <- intersect(pres_buff, countries)
+#studyarea <- intersect(pres_buff,)
+
+studyarea <- crop(pres_buff, ocean)
 plot(studyarea, border = "red", lwd = 3, add = TRUE)
 
 studyarea <- as(studyarea, "Spatial")
@@ -286,15 +295,47 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ BO2_tempmean_bdmean + BO2_ppmean_bdmean , 
+          data = df.sdm, methods = c("glm"))
 m1
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, filename='ebengtson/output/figures/p1.img') 
+p1 <- predict(m1, newdata = layers_cut, 
+              filename='Sydney/output/figures/p1.img', 
+              overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+#' Variable importance
+#' 
+vi <- getVarImp(m1)
+plot(vi)
+
+#' View Coefficients
+#' 
+getModelObject(m1)[[1]]
+
+
+#' Variable selection?
+#' 
+m2.select <- sdm(presence ~ BO2_ppmean_bdmean + I(BO2_ppmean_bdmean^2) + BO2_tempmean_bdmean + I(BO2_tempmean_bdmean^2), 
+                 data = df.sdm, methods = c("glm"), var.selection = T)
+getModelObject(m2.select)[[1]]
+getVarImp(m2.select)
+plot(getVarImp(m2.select))
+
+#' Cross-validation
+#' 
+m3.cv <- sdm(presence ~ BO2_ppmean_bdmean + I(BO2_ppmean_bdmean^2) + BO2_tempmean_bdmean + I(BO2_tempmean_bdmean^2), 
+             data = df.sdm, methods = c("glm"), 
+             replication = "cv", cv.folds = 4, n = 5)
+m3.cv
+getModelObject(m3.cv, id = 1)[[1]]
+getVarImp(m3.cv)
+
+
 
 
 #' _____________________________________________________________________________
@@ -302,4 +343,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "aaarcher/programs/20220406_example_SDM.R",out_dir = "aaarcher/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+#' ezspin(file = "Sydney/programs/202204013_example_SDM_adv.R",out_dir = "Sydney/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

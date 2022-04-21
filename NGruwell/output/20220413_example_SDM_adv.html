@@ -207,12 +207,12 @@ hr {
 
 <p>April 6, 2022</p>
 
-<p>Programmer: Nicole Gruwell and Emma Kuechle </p>
+<p>Programmer: Emma Kuechle and Nicole Gruwell </p>
 
 <h3>Header</h3>
 
 <pre><code class="r"># Load Libraries
-
+library(ezknitr)
 library(rgbif)
 library(terra)
 library(sdmpredictors)
@@ -229,14 +229,14 @@ remove(list = ls())
 
 <p>Scientific name of the species</p>
 
-<pre><code class="r">myspecies &lt;- &quot;Emydoidea blandingii&quot;
+<pre><code class="r">myspecies &lt;- &quot;Morpho menelaus&quot;
 </code></pre>
 
-<p>Download the data</p>
+<p>Download the data using rgbif library</p>
 
 <pre><code class="r">gbif_data &lt;- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                      limit = 20200)
 </code></pre>
 
 <p>See if &ldquo;Records returned&rdquo; is smaller than &ldquo;Records found&rdquo;, in which case you need to re-run &#39;occ_data&#39; with a larger &#39;limit&#39; above</p>
@@ -244,29 +244,30 @@ remove(list = ls())
 <pre><code class="r">gbif_data  
 </code></pre>
 
-<pre><code>## Records found [3350] 
-## Records returned [3350] 
-## Args [hasCoordinate=TRUE, limit=20000, offset=0, scientificName=Emydoidea blandingii] 
-## # A tibble: 3,350 x 142
-##    key        scientificName    decimalLatitude decimalLongitude issues datasetKey publishingOrgKey
-##    &lt;chr&gt;      &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;           
-##  1 3747173794 Emydoidea blandi~            41.6            -83.2 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  2 3059016268 Emydoidea blandi~            41.8            -83.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  3 3067885721 Emydoidea blandi~            42.8            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  4 3068028225 Emydoidea blandi~            43.1            -80.7 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  5 3068070749 Emydoidea blandi~            42.5            -71.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  6 3068096788 Emydoidea blandi~            42.6            -84.4 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  7 3068129441 Emydoidea blandi~            43.4            -89.8 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  8 3070362510 Emydoidea blandi~            42.8            -84.5 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-##  9 3070380118 Emydoidea blandi~            44.4            -65.1 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## 10 3070397669 Emydoidea blandi~            44.0            -77.3 cdrou~ 50c9509d-~ 28eb1a3f-1c15-4~
-## # ... with 3,340 more rows, and 135 more variables: installationKey &lt;chr&gt;,
-## #   publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
-## #   hostingOrganizationKey &lt;chr&gt;, basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;,
-## #   kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;,
-## #   genusKey &lt;int&gt;, speciesKey &lt;int&gt;, acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;,
-## #   kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
-## #   genericName &lt;chr&gt;, specificEpithet &lt;chr&gt;, taxonRank &lt;chr&gt;, taxonomicStatus &lt;chr&gt;, ...
+<pre><code>## Records found [791] 
+## Records returned [791] 
+## Args [hasCoordinate=TRUE, limit=20200, offset=0, scientificName=Morpho
+##      menelaus] 
+## # A tibble: 791 x 154
+##    key        scientificName decimalLatitude decimalLongitude issues datasetKey
+##    &lt;chr&gt;      &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     
+##  1 3455887643 Morpho menela~            9.64            -82.6 cdrou~ 50c9509d-~
+##  2 3457217712 Morpho menela~            9.63            -82.6 cdrou~ 50c9509d-~
+##  3 3466079282 Morpho menela~            9.64            -82.6 cdrou~ 50c9509d-~
+##  4 3466349213 Morpho menela~            4.17            -59.1 cdrou~ 50c9509d-~
+##  5 3466391924 Morpho menela~           -3.47            -79.8 cdrou~ 50c9509d-~
+##  6 3747252595 Morpho menela~           -3.12            -60.0 cdrou~ 50c9509d-~
+##  7 3090753318 Morpho menela~          -20.2             -44.3 cdrou~ 50c9509d-~
+##  8 3058954340 Morpho menela~            8.64            -83.7 cdrou~ 50c9509d-~
+##  9 3090742771 Morpho menela~            8.83            -80.6 cdrou~ 50c9509d-~
+## 10 3124556431 Morpho menela~            4.64            -52.3 cdrou~ 50c9509d-~
+## # ... with 781 more rows, and 148 more variables: publishingOrgKey &lt;chr&gt;,
+## #   installationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;,
+## #   lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
+## #   hostingOrganizationKey &lt;chr&gt;, basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;,
+## #   taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;,
+## #   orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;, speciesKey &lt;int&gt;,
+## #   acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;, kingdom &lt;chr&gt;, ...
 </code></pre>
 
 <p>Citations for data. Run this once, only after analysis so that you 
@@ -302,8 +303,8 @@ can properly cite your data sources on the final presentation.</p>
 <pre><code>## Error in plot.xy(xy.coords(x, y), type = type, ...): plot.new has not been called yet
 </code></pre>
 
-<p>Notice that one green dot shows up in Europe. This species does NOT
-occur in Europe!</p>
+<p>Notice that two red dots shows up in Europe and Asia. This species does NOT
+occur in either!</p>
 
 <p>How can you find out which one is the outlier?</p>
 
@@ -337,7 +338,7 @@ very uncertain coordinates (&gt;70,000 m)</p>
 <pre><code class="r">range(presences$coordinateUncertaintyInMeters, na.rm = T)
 </code></pre>
 
-<pre><code>## [1]      10 2931895
+<pre><code>## [1]       1 2359900
 </code></pre>
 
 <pre><code class="r">remove.IDs &lt;- presences$uniqueID[presences$coordinateUncertaintyInMeters &gt; 70000 &amp;
@@ -345,29 +346,29 @@ very uncertain coordinates (&gt;70,000 m)</p>
 length(remove.IDs) # how many to remove? How many should be left?
 </code></pre>
 
-<pre><code>## [1] 17
+<pre><code>## [1] 24
 </code></pre>
 
 <pre><code class="r">presences &lt;- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 </code></pre>
 
-<pre><code>##      key            decimalLongitude  decimalLatitude coordinateUncertaintyInMeters
-##  Length:3332        Min.   :-101.91   Min.   :33.52   Min.   :   10                
-##  Class :character   1st Qu.: -83.53   1st Qu.:42.60   1st Qu.:27190                
-##  Mode  :character   Median : -79.43   Median :44.43   Median :27285                
-##                     Mean   : -80.61   Mean   :43.99   Mean   :25667                
-##                     3rd Qu.: -76.55   3rd Qu.:45.03   3rd Qu.:27537                
-##                     Max.   : -63.76   Max.   :48.85   Max.   :70000                
-##                                                       NA&#39;s   :329                  
-##     uniqueID     
-##  Min.   :   1.0  
-##  1st Qu.: 835.8  
-##  Median :1670.5  
-##  Mean   :1672.6  
-##  3rd Qu.:2510.2  
-##  Max.   :3350.0  
-## 
+<pre><code>##      key            decimalLongitude decimalLatitude   
+##  Length:764         Min.   :-91.09   Min.   :-27.5969  
+##  Class :character   1st Qu.:-79.85   1st Qu.: -2.4497  
+##  Mode  :character   Median :-70.43   Median :  0.8870  
+##                     Mean   :-67.34   Mean   :  0.6246  
+##                     3rd Qu.:-52.30   3rd Qu.:  8.5240  
+##                     Max.   :-34.81   Max.   : 15.3195  
+##                                                        
+##  coordinateUncertaintyInMeters    uniqueID    
+##  Min.   :    1                 Min.   :  1.0  
+##  1st Qu.:  150                 1st Qu.:194.8  
+##  Median :  977                 Median :385.5  
+##  Mean   : 4571                 Mean   :388.1  
+##  3rd Qu.: 3036                 3rd Qu.:577.2  
+##  Max.   :66042                 Max.   :791.0  
+##  NA&#39;s   :393
 </code></pre>
 
 <pre><code class="r"># map the cleaned occurrence records on top of the raw ones:
@@ -382,8 +383,8 @@ points(presences[ , c(&quot;decimalLongitude&quot;, &quot;decimalLatitude&quot;)
 <p>Blanding&#39;s turtle is NOT located in southern states. We need to also
 remove records from areas that are not possible.</p>
 
-<pre><code class="r">remove.IDs.SE &lt;- presences$uniqueID[presences$decimalLatitude &lt; 39]
-presences &lt;- presences[! presences$uniqueID %in% remove.IDs.SE,]
+<pre><code class="r">#remove.IDs.SE &lt;- presences$uniqueID[presences$decimalLatitude &lt; 39]
+#presences &lt;- presences[! presences$uniqueID %in% remove.IDs.SE,]
 </code></pre>
 
 <p>Double check: Did the number of records make sense??</p>
@@ -434,40 +435,74 @@ unique(pred_layers$dataset_code)
 unique(pred_layers[pred_layers$dataset_code == &quot;WorldClim&quot;, ]$name)  
 </code></pre>
 
-<pre><code>##  [1] &quot;Altitude&quot;                            &quot;Annual mean temperature&quot;            
-##  [3] &quot;Mean diurnal temperature range&quot;      &quot;Isothermality&quot;                      
-##  [5] &quot;Temperature seasonality&quot;             &quot;Maximum temperature&quot;                
-##  [7] &quot;Minimum temperature&quot;                 &quot;Annual temperature range&quot;           
-##  [9] &quot;Mean temperature of wettest quarter&quot; &quot;Mean temperature of driest quarter&quot; 
-## [11] &quot;Mean temperature of warmest quarter&quot; &quot;Mean temperature of coldest quarter&quot;
-## [13] &quot;Annual precipitation&quot;                &quot;Precipitation of wettest month&quot;     
-## [15] &quot;Precipitation of driest month&quot;       &quot;Precipitation seasonality&quot;          
-## [17] &quot;Precipitation of wettest quarter&quot;    &quot;Precipitation of driest quarter&quot;    
-## [19] &quot;Precipitation of warmest quarter&quot;    &quot;Precipitation of coldest quarter&quot;   
-## [21] &quot;Precipitation (January)&quot;             &quot;Precipitation (February)&quot;           
-## [23] &quot;Precipitation (March)&quot;               &quot;Precipitation (April)&quot;              
-## [25] &quot;Precipitation (May)&quot;                 &quot;Precipitation (June)&quot;               
-## [27] &quot;Precipitation (July)&quot;                &quot;Precipitation (August)&quot;             
-## [29] &quot;Precipitation (September)&quot;           &quot;Precipitation (October)&quot;            
-## [31] &quot;Precipitation (November)&quot;            &quot;Precipitation (December)&quot;           
-## [33] &quot;Maximum temperature (January)&quot;       &quot;Maximum temperature (February)&quot;     
-## [35] &quot;Maximum temperature (March)&quot;         &quot;Maximum temperature (April)&quot;        
-## [37] &quot;Maximum temperature (May)&quot;           &quot;Maximum temperature (June)&quot;         
-## [39] &quot;Maximum temperature (July)&quot;          &quot;Maximum temperature (August)&quot;       
-## [41] &quot;Maximum temperature (September)&quot;     &quot;Maximum temperature (October)&quot;      
-## [43] &quot;Maximum temperature (November)&quot;      &quot;Maximum temperature (December)&quot;     
-## [45] &quot;Mean temperature (January)&quot;          &quot;Mean temperature (February)&quot;        
-## [47] &quot;Mean temperature (March)&quot;            &quot;Mean temperature (April)&quot;           
-## [49] &quot;Mean temperature (May)&quot;              &quot;Mean temperature (June)&quot;            
-## [51] &quot;Mean temperature (July)&quot;             &quot;Mean temperature (August)&quot;          
-## [53] &quot;Mean temperature (September)&quot;        &quot;Mean temperature (October)&quot;         
-## [55] &quot;Mean temperature (November)&quot;         &quot;Mean temperature (December)&quot;        
-## [57] &quot;Minimum temperature (January)&quot;       &quot;Minimum temperature (February)&quot;     
-## [59] &quot;Minimum temperature (March)&quot;         &quot;Minimum temperature (April)&quot;        
-## [61] &quot;Minimum temperature (May)&quot;           &quot;Minimum temperature (June)&quot;         
-## [63] &quot;Minimum temperature (July)&quot;          &quot;Minimum temperature (August)&quot;       
-## [65] &quot;Minimum temperature (September)&quot;     &quot;Minimum temperature (October)&quot;      
-## [67] &quot;Minimum temperature (November)&quot;      &quot;Minimum temperature (December)&quot;
+<pre><code>##  [1] &quot;Altitude&quot;                           
+##  [2] &quot;Annual mean temperature&quot;            
+##  [3] &quot;Mean diurnal temperature range&quot;     
+##  [4] &quot;Isothermality&quot;                      
+##  [5] &quot;Temperature seasonality&quot;            
+##  [6] &quot;Maximum temperature&quot;                
+##  [7] &quot;Minimum temperature&quot;                
+##  [8] &quot;Annual temperature range&quot;           
+##  [9] &quot;Mean temperature of wettest quarter&quot;
+## [10] &quot;Mean temperature of driest quarter&quot; 
+## [11] &quot;Mean temperature of warmest quarter&quot;
+## [12] &quot;Mean temperature of coldest quarter&quot;
+## [13] &quot;Annual precipitation&quot;               
+## [14] &quot;Precipitation of wettest month&quot;     
+## [15] &quot;Precipitation of driest month&quot;      
+## [16] &quot;Precipitation seasonality&quot;          
+## [17] &quot;Precipitation of wettest quarter&quot;   
+## [18] &quot;Precipitation of driest quarter&quot;    
+## [19] &quot;Precipitation of warmest quarter&quot;   
+## [20] &quot;Precipitation of coldest quarter&quot;   
+## [21] &quot;Precipitation (January)&quot;            
+## [22] &quot;Precipitation (February)&quot;           
+## [23] &quot;Precipitation (March)&quot;              
+## [24] &quot;Precipitation (April)&quot;              
+## [25] &quot;Precipitation (May)&quot;                
+## [26] &quot;Precipitation (June)&quot;               
+## [27] &quot;Precipitation (July)&quot;               
+## [28] &quot;Precipitation (August)&quot;             
+## [29] &quot;Precipitation (September)&quot;          
+## [30] &quot;Precipitation (October)&quot;            
+## [31] &quot;Precipitation (November)&quot;           
+## [32] &quot;Precipitation (December)&quot;           
+## [33] &quot;Maximum temperature (January)&quot;      
+## [34] &quot;Maximum temperature (February)&quot;     
+## [35] &quot;Maximum temperature (March)&quot;        
+## [36] &quot;Maximum temperature (April)&quot;        
+## [37] &quot;Maximum temperature (May)&quot;          
+## [38] &quot;Maximum temperature (June)&quot;         
+## [39] &quot;Maximum temperature (July)&quot;         
+## [40] &quot;Maximum temperature (August)&quot;       
+## [41] &quot;Maximum temperature (September)&quot;    
+## [42] &quot;Maximum temperature (October)&quot;      
+## [43] &quot;Maximum temperature (November)&quot;     
+## [44] &quot;Maximum temperature (December)&quot;     
+## [45] &quot;Mean temperature (January)&quot;         
+## [46] &quot;Mean temperature (February)&quot;        
+## [47] &quot;Mean temperature (March)&quot;           
+## [48] &quot;Mean temperature (April)&quot;           
+## [49] &quot;Mean temperature (May)&quot;             
+## [50] &quot;Mean temperature (June)&quot;            
+## [51] &quot;Mean temperature (July)&quot;            
+## [52] &quot;Mean temperature (August)&quot;          
+## [53] &quot;Mean temperature (September)&quot;       
+## [54] &quot;Mean temperature (October)&quot;         
+## [55] &quot;Mean temperature (November)&quot;        
+## [56] &quot;Mean temperature (December)&quot;        
+## [57] &quot;Minimum temperature (January)&quot;      
+## [58] &quot;Minimum temperature (February)&quot;     
+## [59] &quot;Minimum temperature (March)&quot;        
+## [60] &quot;Minimum temperature (April)&quot;        
+## [61] &quot;Minimum temperature (May)&quot;          
+## [62] &quot;Minimum temperature (June)&quot;         
+## [63] &quot;Minimum temperature (July)&quot;         
+## [64] &quot;Minimum temperature (August)&quot;       
+## [65] &quot;Minimum temperature (September)&quot;    
+## [66] &quot;Minimum temperature (October)&quot;      
+## [67] &quot;Minimum temperature (November)&quot;     
+## [68] &quot;Minimum temperature (December)&quot;
 </code></pre>
 
 <pre><code class="r"># example of marine variables dataset
@@ -866,31 +901,32 @@ layers_choice
 ## 68      Minimum temperature (December)  WC_tmin12
 </code></pre>
 
-<pre><code class="r">layers_choice &lt;- layers_choice[1:20, ]
-layers_choice
+<pre><code class="r">layers_choice &lt;- layers_choice[layers_choice$layer_code %in% c(&quot;WC_tmin4&quot;, &quot;WC_prec11&quot; , &quot;WC_bio1&quot;, &quot;WC_prec10&quot;, &quot;WC_bio4&quot; , &quot;WC_bio6&quot;, &quot;WC_prec3&quot;, &quot;WC_tmax4&quot;, &quot;WC_prec4&quot;, &quot;WC_tmax3&quot;, &quot;WC_tmin10&quot;, &quot;WC_tmax10&quot;,  &quot;WC_tmin11&quot;
+,&quot;WC_bio12&quot; , &quot;WC_bio13&quot;, &quot;WC_bio17&quot; , &quot;WC_alt&quot; , &quot;WC_tmean4&quot; , &quot;WC_bio17&quot;, &quot;WC_bio7&quot; , &quot;WC_bio2&quot;), ]
+layers_choice 
 </code></pre>
 
-<pre><code>##                                   name layer_code
-## 1                             Altitude     WC_alt
-## 2              Annual mean temperature    WC_bio1
-## 3       Mean diurnal temperature range    WC_bio2
-## 4                        Isothermality    WC_bio3
-## 5              Temperature seasonality    WC_bio4
-## 6                  Maximum temperature    WC_bio5
-## 7                  Minimum temperature    WC_bio6
-## 8             Annual temperature range    WC_bio7
-## 9  Mean temperature of wettest quarter    WC_bio8
-## 10  Mean temperature of driest quarter    WC_bio9
-## 11 Mean temperature of warmest quarter   WC_bio10
-## 12 Mean temperature of coldest quarter   WC_bio11
-## 13                Annual precipitation   WC_bio12
-## 14      Precipitation of wettest month   WC_bio13
-## 15       Precipitation of driest month   WC_bio14
-## 16           Precipitation seasonality   WC_bio15
-## 17    Precipitation of wettest quarter   WC_bio16
-## 18     Precipitation of driest quarter   WC_bio17
-## 19    Precipitation of warmest quarter   WC_bio18
-## 20    Precipitation of coldest quarter   WC_bio19
+<pre><code>##                               name layer_code
+## 1                         Altitude     WC_alt
+## 2          Annual mean temperature    WC_bio1
+## 3   Mean diurnal temperature range    WC_bio2
+## 5          Temperature seasonality    WC_bio4
+## 7              Minimum temperature    WC_bio6
+## 8         Annual temperature range    WC_bio7
+## 13            Annual precipitation   WC_bio12
+## 14  Precipitation of wettest month   WC_bio13
+## 18 Precipitation of driest quarter   WC_bio17
+## 23           Precipitation (March)   WC_prec3
+## 24           Precipitation (April)   WC_prec4
+## 30         Precipitation (October)  WC_prec10
+## 31        Precipitation (November)  WC_prec11
+## 35     Maximum temperature (March)   WC_tmax3
+## 36     Maximum temperature (April)   WC_tmax4
+## 42   Maximum temperature (October)  WC_tmax10
+## 48        Mean temperature (April)  WC_tmean4
+## 60     Minimum temperature (April)   WC_tmin4
+## 66   Minimum temperature (October)  WC_tmin10
+## 67  Minimum temperature (November)  WC_tmin11
 </code></pre>
 
 <p>Define folder for downloading the map layers:</p>
@@ -938,17 +974,6 @@ layers
 ## values     : 0.9, 21.3  (min, max)
 ## 
 ## 
-## $WC_bio3
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio3_lonlat.tif 
-## names      : WC_bio3 
-## values     : 0.08, 0.96  (min, max)
-## 
-## 
 ## $WC_bio4
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
@@ -958,17 +983,6 @@ layers
 ## source     : WC_bio4_lonlat.tif 
 ## names      : WC_bio4 
 ## values     : 0.72, 226.92  (min, max)
-## 
-## 
-## $WC_bio5
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio5_lonlat.tif 
-## names      : WC_bio5 
-## values     : -7.3, 48.9  (min, max)
 ## 
 ## 
 ## $WC_bio6
@@ -993,50 +1007,6 @@ layers
 ## values     : 5.3, 72.5  (min, max)
 ## 
 ## 
-## $WC_bio8
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio8_lonlat.tif 
-## names      : WC_bio8 
-## values     : -27.3, 37.6  (min, max)
-## 
-## 
-## $WC_bio9
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio9_lonlat.tif 
-## names      : WC_bio9 
-## values     : -49.1, 36.5  (min, max)
-## 
-## 
-## $WC_bio10
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio10_lonlat.tif 
-## names      : WC_bio10 
-## values     : -11.4, 38.1  (min, max)
-## 
-## 
-## $WC_bio11
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio11_lonlat.tif 
-## names      : WC_bio11 
-## values     : -49.7, 28.9  (min, max)
-## 
-## 
 ## $WC_bio12
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
@@ -1059,39 +1029,6 @@ layers
 ## values     : 0, 2198  (min, max)
 ## 
 ## 
-## $WC_bio14
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio14_lonlat.tif 
-## names      : WC_bio14 
-## values     : 0, 666  (min, max)
-## 
-## 
-## $WC_bio15
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio15_lonlat.tif 
-## names      : WC_bio15 
-## values     : 0, 265  (min, max)
-## 
-## 
-## $WC_bio16
-## class      : RasterLayer 
-## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
-## resolution : 0.08333333, 0.08333333  (x, y)
-## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
-## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio16_lonlat.tif 
-## names      : WC_bio16 
-## values     : 0, 5691  (min, max)
-## 
-## 
 ## $WC_bio17
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
@@ -1103,26 +1040,125 @@ layers
 ## values     : 0, 2212  (min, max)
 ## 
 ## 
-## $WC_bio18
+## $WC_prec3
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
 ## resolution : 0.08333333, 0.08333333  (x, y)
 ## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
 ## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio18_lonlat.tif 
-## names      : WC_bio18 
-## values     : 0, 4372  (min, max)
+## source     : WC_prec3_lonlat.tif 
+## names      : WC_prec3 
+## values     : 0, 733  (min, max)
 ## 
 ## 
-## $WC_bio19
+## $WC_prec4
 ## class      : RasterLayer 
 ## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
 ## resolution : 0.08333333, 0.08333333  (x, y)
 ## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
 ## crs        : +proj=longlat +datum=WGS84 +no_defs 
-## source     : WC_bio19_lonlat.tif 
-## names      : WC_bio19 
-## values     : 0, 4282  (min, max)
+## source     : WC_prec4_lonlat.tif 
+## names      : WC_prec4 
+## values     : 0, 829  (min, max)
+## 
+## 
+## $WC_prec10
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_prec10_lonlat.tif 
+## names      : WC_prec10 
+## values     : 0, 1055  (min, max)
+## 
+## 
+## $WC_prec11
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_prec11_lonlat.tif 
+## names      : WC_prec11 
+## values     : 0, 928  (min, max)
+## 
+## 
+## $WC_tmax3
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmax3_lonlat.tif 
+## names      : WC_tmax3 
+## values     : -42.7, 42.2  (min, max)
+## 
+## 
+## $WC_tmax4
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmax4_lonlat.tif 
+## names      : WC_tmax4 
+## values     : -34.1, 42.9  (min, max)
+## 
+## 
+## $WC_tmax10
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmax10_lonlat.tif 
+## names      : WC_tmax10 
+## values     : -26.9, 40.2  (min, max)
+## 
+## 
+## $WC_tmean4
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmean4_lonlat.tif 
+## names      : WC_tmean4 
+## values     : -36.2, 34.3  (min, max)
+## 
+## 
+## $WC_tmin4
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmin4_lonlat.tif 
+## names      : WC_tmin4 
+## values     : -38.3, 28.5  (min, max)
+## 
+## 
+## $WC_tmin10
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmin10_lonlat.tif 
+## names      : WC_tmin10 
+## values     : -30.5, 27.2  (min, max)
+## 
+## 
+## $WC_tmin11
+## class      : RasterLayer 
+## dimensions : 1800, 4320, 7776000  (nrow, ncol, ncell)
+## resolution : 0.08333333, 0.08333333  (x, y)
+## extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## crs        : +proj=longlat +datum=WGS84 +no_defs 
+## source     : WC_tmin11_lonlat.tif 
+## names      : WC_tmin11 
+## values     : -45.8, 26.8  (min, max)
 </code></pre>
 
 <pre><code class="r"># see how many elements in &#39;layers&#39;:
@@ -1136,9 +1172,10 @@ length(layers)
 names(layers)
 </code></pre>
 
-<pre><code>##  [1] &quot;WC_alt&quot;   &quot;WC_bio1&quot;  &quot;WC_bio2&quot;  &quot;WC_bio3&quot;  &quot;WC_bio4&quot;  &quot;WC_bio5&quot;  &quot;WC_bio6&quot;  &quot;WC_bio7&quot; 
-##  [9] &quot;WC_bio8&quot;  &quot;WC_bio9&quot;  &quot;WC_bio10&quot; &quot;WC_bio11&quot; &quot;WC_bio12&quot; &quot;WC_bio13&quot; &quot;WC_bio14&quot; &quot;WC_bio15&quot;
-## [17] &quot;WC_bio16&quot; &quot;WC_bio17&quot; &quot;WC_bio18&quot; &quot;WC_bio19&quot;
+<pre><code>##  [1] &quot;WC_alt&quot;    &quot;WC_bio1&quot;   &quot;WC_bio2&quot;   &quot;WC_bio4&quot;   &quot;WC_bio6&quot;   &quot;WC_bio7&quot;  
+##  [7] &quot;WC_bio12&quot;  &quot;WC_bio13&quot;  &quot;WC_bio17&quot;  &quot;WC_prec3&quot;  &quot;WC_prec4&quot;  &quot;WC_prec10&quot;
+## [13] &quot;WC_prec11&quot; &quot;WC_tmax3&quot;  &quot;WC_tmax4&quot;  &quot;WC_tmax10&quot; &quot;WC_tmean4&quot; &quot;WC_tmin4&quot; 
+## [19] &quot;WC_tmin10&quot; &quot;WC_tmin11&quot;
 </code></pre>
 
 <pre><code class="r">plot(layers[[1]], main = names(layers)[1])
@@ -1147,7 +1184,7 @@ names(layers)
 <pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
 
-<pre><code class="r">plot(layers[[5]], main = names(layers)[5])
+<pre><code class="r">plot(layers[[2]], main = names(layers)[2])
 </code></pre>
 
 <pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
@@ -1183,7 +1220,7 @@ unique(sapply(layers, raster::extent))
 you can stack them in a single multi-layer Raster object and plot some to check</p>
 
 <pre><code class="r">layers &lt;- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers[[1:3]])
 </code></pre>
 
 <pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
@@ -1208,8 +1245,9 @@ what is the cartographic projection / coordinate reference system):</p>
 <pre><code class="r">names(presences)
 </code></pre>
 
-<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;              &quot;decimalLatitude&quot;              
-## [4] &quot;coordinateUncertaintyInMeters&quot; &quot;uniqueID&quot;
+<pre><code>## [1] &quot;key&quot;                           &quot;decimalLongitude&quot;             
+## [3] &quot;decimalLatitude&quot;               &quot;coordinateUncertaintyInMeters&quot;
+## [5] &quot;uniqueID&quot;
 </code></pre>
 
 <pre><code class="r">pres_spat_vect &lt;- vect(presences, 
@@ -1315,19 +1353,10 @@ adequate to the data and study area!</p>
 
 <pre><code class="r"># plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
-</code></pre>
+#plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+#plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
 
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
-</code></pre>
-
-<pre><code class="r">plot(pres_spat_vect, col = &quot;blue&quot;, add = TRUE)
-</code></pre>
-
-<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
-</code></pre>
-
-<pre><code class="r"># IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the &#39;fact&#39; value that best matches your presence data resolution to your variables&#39; resolution):
+# IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the &#39;fact&#39; value that best matches your presence data resolution to your variables&#39; resolution):
 # layers_aggr &lt;- terra::aggregate(layers_cut, fact = 5, fun = mean)
 # res(layers_aggr)
 # plot(layers_aggr[[1]], xlim = range(presences$decimalLongitude), ylim = range(presences$decimalLatitude))
@@ -1344,26 +1373,40 @@ plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
 head(dat)
 </code></pre>
 
-<pre><code>##     presence         x        y cells WC_bio17 WC_bio19 WC_prec4 WC_prec11
-## 79         0 -85.12500 15.70833    78      276      523       93       283
-## 80         0 -85.04167 15.70833    79      292      529       99       307
-## 81         0 -84.95833 15.70833    80      302      520       99       316
-## 82         0 -84.87500 15.70833    81      322      562       98       332
-## 83         0 -84.79167 15.70833    82      335      583       95       342
-## 759        0 -85.20833 15.62500   758      226      374       71       202
+<pre><code>##   presence         x          y  cells WC_alt WC_bio1 WC_bio2 WC_bio4 WC_bio6
+## 4        1 -59.12500   4.208333  94368    289    25.9     8.9    5.36    20.7
+## 5        1 -79.79167  -3.458333 156772    501    23.7     9.9    5.31    18.1
+## 6        1 -60.04167  -3.125000 154285     25    27.5     8.3    4.47    22.9
+## 7        1 -44.29167 -20.208333 294079    839    20.9    13.0   19.33     9.9
+## 8        1 -83.70833   8.625000  57980    114    25.9    11.1    7.58    19.1
+## 9        1 -80.62500   8.875000  55974    117    26.4     7.7    6.94    21.8
+##   WC_bio7 WC_bio12 WC_bio13 WC_bio17 WC_prec3 WC_prec4 WC_prec10 WC_prec11
+## 4    11.1     1763      346      183       89      149        46        56
+## 5    11.6     1050      199       63      192      149        31        36
+## 6    10.1     2159      296      212      296      284       125       166
+## 7    19.3     1362      292       33      149       57       123       235
+## 8    14.4     4654      786      263      127      210       786       580
+## 9    10.1     3290      390      351       80      231       379       362
+##   WC_tmax3 WC_tmax4 WC_tmax10 WC_tmean4 WC_tmin4 WC_tmin10 WC_tmin11
+## 4     30.3     30.4      31.8      25.9     21.5      22.1      21.8
+## 5     29.4     29.7      28.0      24.6     19.6      18.5      18.4
+## 6     30.9     31.0      32.3      27.2     23.4      23.8      23.6
+## 7     28.3     26.8      28.2      20.2     13.7      16.3      17.0
+## 8     33.5     33.3      30.0      27.3     21.4      20.4      20.0
+## 9     31.8     31.9      29.3      27.7     23.5      21.9      22.1
 </code></pre>
 
 <pre><code class="r">table(dat$presence)
 </code></pre>
 
 <pre><code>## 
-##     0 
-## 14423
+##     0     1 
+## 14146   277
 </code></pre>
 
 <p>Map these data</p>
 
-<pre><code class="r">plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+<pre><code class="r">plot(layers_cut[[1]], xlim = c(-90, -35), ylim = c(-30, 15))
 </code></pre>
 
 <pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
@@ -1405,9 +1448,9 @@ df.sdm
 ## =========================================================== 
 ## number of species                     :  1 
 ## species names                         :  presence 
-## number of features                    :  7 
-## feature names                         :  cells, WC_prec4, WC_prec11, ... 
-## type                                  :  Absence-Only! 
+## number of features                    :  23 
+## feature names                         :  cells, WC_bio2, WC_bio4, ... 
+## type                                  :  Presence-Absence 
 ## has independet test data?             :  FALSE 
 ## number of records                     :  14423 
 ## has Coordinates?                      :  TRUE
@@ -1417,13 +1460,10 @@ df.sdm
 
 <h2>5. Run models and create a predicted distribution map</h2>
 
-<pre><code class="r">m1 &lt;- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c(&quot;glm&quot;))
-</code></pre>
-
-<pre><code>## Error in `[.data.frame`(data, , n, drop = FALSE): undefined columns selected
-</code></pre>
-
-<pre><code class="r">m1
+<pre><code class="r">m1 &lt;- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2),
+          data = df.sdm, 
+          methods = c(&quot;glm&quot;))
+m1
 </code></pre>
 
 <pre><code>## class                                 : sdmModels 
@@ -1447,18 +1487,15 @@ df.sdm
 ## 
 ## methods    :     AUC     |     COR     |     TSS     |     Deviance 
 ## -------------------------------------------------------------------------
-## glm        :     0.6     |     0.06    |     0.16    |     0.19
+## glm        :     0.62    |     0.05    |     0.19    |     0.19
 </code></pre>
 
 <p>Prediction map</p>
 
-<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, filename=&#39;NGruwell/output/figures/p1.img&#39;) 
-</code></pre>
-
-<pre><code>## Error in .getGDALtransient(x, filename = filename, options = options, : filename exists; use overwrite=TRUE
-</code></pre>
-
-<pre><code class="r">plot(studyarea, border = &quot;red&quot;, lwd = 3)
+<pre><code class="r">p1 &lt;- predict(m1, newdata = layers_cut, 
+              filename= &#39;NGruwell/output/figures/p1.img&#39;, 
+              overwrite=T) 
+plot(studyarea, border = &quot;red&quot;, lwd = 3)
 </code></pre>
 
 <pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; is a list, but does not have components &#39;x&#39; and &#39;y&#39;
@@ -1473,15 +1510,281 @@ df.sdm
 <pre><code class="r">plot(p1, add = T)
 </code></pre>
 
-<pre><code>## Error in plot(p1, add = T): object &#39;p1&#39; not found
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
 </code></pre>
+
+<p>Variable importance</p>
+
+<pre><code class="r">vi &lt;- getVarImp(m1)
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code class="r">vi
+</code></pre>
+
+<pre><code>## Relative Variable Importance 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  3 
+## variable names      :  WC_bio12, WC_bio1, WC_bio1.quad 
+## ============================================================= 
+## Relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_bio12            : ******************************************* (86.4 %) 
+## WC_bio1             : ************************************************** (100 %) 
+## WC_bio1.quad        : ************************************* (73.7 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_bio12            : ********* (17.9 %) 
+## WC_bio1             : *********** (21.5 %) 
+## WC_bio1.quad        : ****** (12.6 %) 
+## =============================================================
+</code></pre>
+
+<pre><code class="r">plot(vi)
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<p>View Coefficients</p>
+
+<pre><code class="r">plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+</code></pre>
+
+<pre><code>##  (Intercept)     WC_bio12      WC_bio1 WC_bio1.quad 
+## 0.0007243411 0.5000906068 0.5564987157 0.4987225350
+</code></pre>
+
+<pre><code class="r"># sensical scales
+</code></pre>
+
+<p>Variable selection?</p>
+
+<pre><code class="r">m2.select &lt;- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c(&quot;glm&quot;), var.selection = T)
+getModelObject(m2.select)[[1]]
+</code></pre>
+
+<pre><code>##  (Intercept)     WC_bio12      WC_bio1 WC_bio1.quad 
+## -7.229523501  0.000362427  0.226964165 -0.005109871
+</code></pre>
+
+<pre><code class="r">getVarImp(m2.select)
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code>## Relative Variable Importance 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  3 
+## variable names      :  WC_bio12, WC_bio1, WC_bio1.quad 
+## ============================================================= 
+## Relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_bio12            : ******************************************* (86.9 %) 
+## WC_bio1             : ************************************************** (100 %) 
+## WC_bio1.quad        : ************************************* (74.1 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_bio12            : ********** (19.9 %) 
+## WC_bio1             : *********** (21.3 %) 
+## WC_bio1.quad        : ****** (11.2 %) 
+## =============================================================
+</code></pre>
+
+<pre><code class="r">plot(getVarImp(m2.select))
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code>## Error in as.double(y): cannot coerce type &#39;S4&#39; to vector of type &#39;double&#39;
+</code></pre>
+
+<pre><code class="r">m2.select
+</code></pre>
+
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model performance (per species), using training test dataset:
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.62    |     0.05    |     0.19    |     0.19
+</code></pre>
+
+<p>Based on these results, I will remove quadratic altitude term</p>
+
+<pre><code class="r">m2.noaltquad &lt;- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
+                 data = df.sdm, methods = c(&quot;glm&quot;), var.selection = F)
+m2.noaltquad
+</code></pre>
+
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model performance (per species), using training test dataset:
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.56    |     0.03    |     0.13    |     0.19
+</code></pre>
+
+<pre><code class="r">getVarImp(m2.noaltquad)
+</code></pre>
+
+<pre><code>## 
+## The values of relative variable importance are generated from 1 models...
+</code></pre>
+
+<pre><code>## Relative Variable Importance 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  3 
+## variable names      :  WC_alt, WC_bio1, WC_bio1.quad 
+## ============================================================= 
+## Relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_alt              : ***** (10 %) 
+## WC_bio1             : ************************************************** (100 %) 
+## WC_bio1.quad        : **************************************** (80.7 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_alt              : * (2.7 %) 
+## WC_bio1             : ********* (17.8 %) 
+## WC_bio1.quad        : **** (7.2 %) 
+## =============================================================
+</code></pre>
+
+<p>Cross-validation</p>
+
+<pre><code class="r">m3.cv &lt;- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2), 
+             data = df.sdm, methods = c(&quot;glm&quot;), 
+             replication = &quot;cv&quot;, cv.folds = 4, n = 5) # n = 5 for your assignment
+m3.cv
+</code></pre>
+
+<pre><code>## class                                 : sdmModels 
+## ======================================================== 
+## number of species                     :  1 
+## number of modelling methods           :  1 
+## names of modelling methods            :  glm 
+## replicate.methods (data partitioning) :  cross_validation 
+## number of replicates (each method)    :  5 
+## toral number of replicates per model  :  20 (per species) 
+## ------------------------------------------
+## model run success percentage (per species)  :
+## ------------------------------------------
+## method          presence         
+## ---------------------- 
+## glm        :        100   %
+## 
+## ###################################################################
+## model Mean performance (per species), using test dataset (generated using partitioning):
+## -------------------------------------------------------------------------------
+## 
+##  ## species   :  presence 
+## =========================
+## 
+## methods    :     AUC     |     COR     |     TSS     |     Deviance 
+## -------------------------------------------------------------------------
+## glm        :     0.61    |     0.05    |     0.21    |     0.19
+</code></pre>
+
+<pre><code class="r">plogis(getModelObject(m3.cv, id = 1)[[1]])
+</code></pre>
+
+<pre><code>##  (Intercept)     WC_bio12      WC_bio1 WC_bio1.quad 
+## 0.0002713302 0.5000773121 0.5788947347 0.4982613249
+</code></pre>
+
+<pre><code class="r">getVarImp(m3.cv)
+</code></pre>
+
+<pre><code>## 
+## The variable importance for all the models are combined (averaged)...
+</code></pre>
+
+<pre><code>## Relative Variable Importance List 
+## ============================================================= 
+## method              : Permutation based on two metrics (Pearson Correlation and AUC)
+## number of variables :  3 
+## variable names      :  WC_bio12, WC_bio1, WC_bio1.quad 
+## number of models    :  20 
+## ============================================================= 
+## Summary of relative variable importance 
+## ---------------------------------------------- 
+## Based on Correlation metric: 
+## ---------------------------------------------- 
+## WC_bio12            : **************************************[****--] (85.2 %) 
+## WC_bio1             : ****************************************[*******------] (95.1 %) 
+## WC_bio1.quad        : *************************[*********-------] (69.6 %) 
+## ============================================================= 
+## Based on AUC metric: 
+## ---------------------------------------------- 
+## WC_bio12            : ******[***--] (19.6 %) 
+## WC_bio1             : ******[****--] (21.2 %) 
+## WC_bio1.quad        : **[***-] (11.3 %) 
+## =============================================================
+</code></pre>
+
+<pre><code class="r">roc(m3.cv)
+</code></pre>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-36"/></p>
 
 <hr/>
 
 <h3>Footer</h3>
 
 <p>spin this with:
-ezspin(file = &ldquo;NGruwell/programs/20220406_example_SDM.R&rdquo;,out_dir = &ldquo;NGruwell/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
+ezspin(file = &ldquo;NGruwell/programs/20220413_example_SDM_adv.R&rdquo;,out_dir = &ldquo;NGruwell/output&rdquo;, fig_dir = &ldquo;figures&rdquo;,keep_md = FALSE, keep_rmd = FALSE)</p>
 
 </body>
 
