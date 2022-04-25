@@ -25,7 +25,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species Trap Jaw Ants
-myspecies <- "Odontomachus brunneus"
+myspecies <- "Atelopus varius"
 
 #' 
 #' Download the data using rgbif library
@@ -97,21 +97,20 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
        col = "blue")
 
 
-#' I dont think I need this part but Im keeping it just in case.
 #' 
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-#'remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
-#'presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
 #' 
 
 #' Map the cleaned occurrence records on top of the raw ones:
-#'points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
-#'       pch = 20, 
-#'       col = "red")
+points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+       pch = 20, 
+       col = "red")
 
 #' _____________________________________________________________________________
 #' 
@@ -144,7 +143,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' Trying to add the different types of code to the maps
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio12","WC_bio1"), ]
+layers_choice <- layers_choice[1:4, ]
 layers_choice
 
 
@@ -179,7 +178,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:2]])
+plot(layers[[1:4]])
 
 #' _____________________________________________________________________________
 #' 
@@ -234,8 +233,6 @@ studyarea <- as(studyarea, "Spatial")
 #' Cut the variable maps with the limits of the study area:
 layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
 plot(layers_cut[[1]])
-layers_cut <- terra::crop(terra::mask(layers, studyarea), studyarea)
-plot(layers_cut[[2]])
 
 #' Remember, the spatial resolution of the variables should be 
 #' adequate to the data and study area!
@@ -247,8 +244,8 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-# plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
-# plot(pres_spat_vect, col = "blue", add = TRUE)
+plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
 # layers_aggr <- terra::aggregate(layers_cut, fact = 5, fun = mean)
@@ -280,7 +277,6 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
                                    data = dat,
                                    proj4string = crs("+proj=longlat"))
 
-
 #' Finally, make a dataframe (which you'll need for modelling) of the species 
 #' occurrence data gridded (thinned) to the resolution of the raster variables  
 #' (i.e., one row per pixel with the values of the variables 
@@ -289,7 +285,6 @@ df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
                        predictors = layers_cut[[1:2]])
 df.sdm
-
 
 
 #' _____________________________________________________________________________
@@ -346,8 +341,6 @@ m3.cv
 plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
 roc(m3.cv)
-
-
 
 #' _____________________________________________________________________________
 #' 
