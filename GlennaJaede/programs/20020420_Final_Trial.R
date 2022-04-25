@@ -101,16 +101,16 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
-presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+#' remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+#' presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
 #' 
 
-#' Map the cleaned occurrence records on top of the raw ones:
-points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
-       pch = 20, 
-       col = "red")
+ Map the cleaned occurrence records on top of the raw ones:
+ points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+              pch = 20, 
+              col = "red")
 
 #' _____________________________________________________________________________
 #' 
