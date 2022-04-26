@@ -140,7 +140,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio1","WC_bio12" , "WC_alt" , "WC_bio15"), ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio12" , "WC_alt" ,"WC_bio1","WC_prec4" ), ]
 layers_choice 
 
 
@@ -335,7 +335,7 @@ getVarImp(m8)
 
 #' Prediction map
 #' 
-p1 <- predict(m1, newdata = layers_cut, 
+p1 <- predict(m8, newdata = layers_cut, 
               filename= 'NGruwell/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
@@ -344,24 +344,24 @@ plot(p1, add = T)
 
 #' Variable importance
 #' 
-vi <- getVarImp(m1)
+vi <- getVarImp(m8)
 vi
 plot(vi)
 
 #' View Coefficients
 #' 
-plogis(getModelObject(m1)[[1]]) # transforming out of logit scale to more 
+plogis(getModelObject(m8)[[1]]) # transforming out of logit scale to more 
 # sensical scales
 
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2), 
+m8.select <- sdm(presence ~ WC_bio12 + WC_alt + WC_bio12:WC_alt + I(WC_alt^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
-getModelObject(m2.select)[[1]]
-getVarImp(m2.select)
-plot(getVarImp(m2.select))
-m2.select
+getModelObject(m8.select)[[1]]
+getVarImp(m8.select)
+plot(getVarImp(m8.select))
+m8.select
 
 #' Based on these results, I will remove quadratic altitude term
 m2.noaltquad <- sdm(presence ~ WC_alt + WC_bio1 + I(WC_bio1^2), 
@@ -372,13 +372,13 @@ getVarImp(m2.noaltquad)
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_bio12 + WC_bio1 + I(WC_bio1^2), 
+m8.cv <- sdm(presence ~ WC_bio12 + WC_alt + WC_bio12:WC_alt + I(WC_alt^2), 
              data = df.sdm, methods = c("glm"), 
              replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
-m3.cv
-plogis(getModelObject(m3.cv, id = 1)[[1]])
-getVarImp(m3.cv)
-roc(m3.cv)
+m8.cv
+plogis(getModelObject(m8.cv, id = 1)[[1]])
+getVarImp(m8.cv)
+roc(m8.cv)
 
 
 

@@ -25,7 +25,7 @@ remove(list = ls())
 #' ## 1. Download data
 #' 
 #' Scientific name of the species Trap Jaw Ants
-myspecies <- "Odontomachus brunneus"
+myspecies <- "Atelopus varius"
 
 #' 
 #' Download the data using rgbif library
@@ -91,24 +91,26 @@ length(remove.IDs) # how many to remove? How many should be left?
 presences <- presences[! presences$uniqueID %in% remove.IDs,]
 summary(presences)
 
-# map the cleaned occurrence records on top of the raw ones:
+#" map the cleaned occurrence records on top of the raw ones:
 points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
        pch = 20, 
        col = "blue")
 
+
+#' 
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
-presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
+#' remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 39]
+#' presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
 #' 
 
-#' Map the cleaned occurrence records on top of the raw ones:
-points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
-       pch = 20, 
-       col = "red")
+ Map the cleaned occurrence records on top of the raw ones:
+ points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
+              pch = 20, 
+              col = "red")
 
 #' _____________________________________________________________________________
 #' 
@@ -137,6 +139,8 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
+#' 
+#' Trying to add the different types of code to the maps
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
 layers_choice <- layers_choice[1:4, ]
@@ -153,7 +157,8 @@ layers
 
 # see how many elements in 'layers':
 length(layers)
-
+#' 2
+#' 
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
@@ -233,6 +238,8 @@ plot(layers_cut[[1]])
 #' adequate to the data and study area!
 #' 
 #' Closely inspect your species data vs. the size of the variables' pixels:
+#' Went with smaller currently
+#' 
 plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
@@ -270,7 +277,6 @@ dat_spat <- SpatialPointsDataFrame(coords = dat[,c("x", "y")],
                                    data = dat,
                                    proj4string = crs("+proj=longlat"))
 
-
 #' Finally, make a dataframe (which you'll need for modelling) of the species 
 #' occurrence data gridded (thinned) to the resolution of the raster variables  
 #' (i.e., one row per pixel with the values of the variables 
@@ -279,7 +285,6 @@ df.sdm <- sdm::sdmData(formula = presence ~ .,
                        train = dat_spat,
                        predictors = layers_cut[[1:2]])
 df.sdm
-
 
 
 #' _____________________________________________________________________________
@@ -336,8 +341,6 @@ m3.cv
 plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
 roc(m3.cv)
-
-
 
 #' _____________________________________________________________________________
 #' 

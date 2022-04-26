@@ -51,6 +51,7 @@ gbif_data
 #'
 #' Download shapefiles of world countries
 countries <- terra::vect("data/countries/world_countries.shp")
+ocean <- terra::vect("../ne_10m_ocean/ne_10m_ocean.shp")
 
 
 #' 
@@ -100,7 +101,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 0]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < -10]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -143,9 +144,8 @@ layers_choice <- unique(pred_layers[
               pred_layers$dataset_code %in% c("Bio-ORACLE"), 
               c("name","layer_code")])
 layers_choice
-layers_choice <- layers_choice[layers_choice$layer_code %in% c("BO22_ph",
-                                                      "BO2_salinityltmin_bdmin",
-                                                      "BO22_salinityltmin_bdmin"),]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("BO2_tempmean_bdmean",
+                                                              "BO2_ppmean_bdmean"),]
 layers_choice
 
 
@@ -160,11 +160,12 @@ layers
 # see how many elements in 'layers':
 length(layers)
 
+
 # plot a couple of layers to see how they look:
 names(layers)
 plot(layers[[1]], main = names(layers)[1])
 plot(layers[[2]], main = names(layers)[2])
-plot(layers[[3]], main = names(layers)[3])
+
 
 # find out if your layers have different extents or resolutions:
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$cellsize_lonlat)  
@@ -180,7 +181,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:3]])
+plot(layers[[1:2]])
 
 #' _____________________________________________________________________________
 #' 
@@ -221,7 +222,9 @@ plot(countries, border = "tan", add = TRUE)
 
 #' Finally, define study area as the area within buffer but also 
 #' within countries (e.g., not ocean)
-studyarea <- intersect(pres_buff, countries)
+#studyarea <- intersect(pres_buff,)
+
+studyarea <- crop(pres_buff, ocean)
 plot(studyarea, border = "red", lwd = 3, add = TRUE)
 
 studyarea <- as(studyarea, "Spatial")
@@ -292,13 +295,14 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, data = df.sdm, methods = c("glm"))
+m1 <- sdm(presence ~ BO2_tempmean_bdmean + BO2_ppmean_bdmean , 
+          data = df.sdm, methods = c("glm"))
 m1
 
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
-              filename='aaarcher/output/figures/p1.img', 
+              filename='Sydney/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
@@ -316,7 +320,7 @@ getModelObject(m1)[[1]]
 
 #' Variable selection?
 #' 
-m2.select <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_alt^2), 
+m2.select <- sdm(presence ~ BO2_ppmean_bdmean + I(BO2_ppmean_bdmean^2) + BO2_tempmean_bdmean + I(BO2_tempmean_bdmean^2), 
                  data = df.sdm, methods = c("glm"), var.selection = T)
 getModelObject(m2.select)[[1]]
 getVarImp(m2.select)
@@ -324,7 +328,7 @@ plot(getVarImp(m2.select))
 
 #' Cross-validation
 #' 
-m3.cv <- sdm(presence ~ WC_alt + I(WC_alt^2) + WC_bio1 + I(WC_bio1^2), 
+m3.cv <- sdm(presence ~ BO2_ppmean_bdmean + I(BO2_ppmean_bdmean^2) + BO2_tempmean_bdmean + I(BO2_tempmean_bdmean^2), 
              data = df.sdm, methods = c("glm"), 
              replication = "cv", cv.folds = 4, n = 5)
 m3.cv
