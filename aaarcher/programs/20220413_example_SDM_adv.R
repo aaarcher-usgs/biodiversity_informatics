@@ -132,14 +132,18 @@ unique(pred_layers[pred_layers$dataset_code == "WorldClim", ]$name)
 # example of marine variables dataset
 unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)  
 
+unique(pred_layers[pred_layers$dataset_code == "Freshwater", ]$name) 
+
 #' 
 #' Let's choose one dataset (e.g. WorldClim) and 
 #' one particular set of variables 
 #' (e.g. altitude and the bioclimatic ones, 
 #' which are in rows 1 to 20):
-layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
+layers_choice <- unique(pred_layers[
+        pred_layers$dataset_code %in% c("WorldClim", "Freshwater", "BIO-Oracle"), 
+        c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[layers_choice$layer_code %in% c("WC_bio1","WC_alt"), ]
 layers_choice
 
 
@@ -337,6 +341,11 @@ plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
 roc(m3.cv)
 
+#' Mapping the "niche"
+#' 
+niche(x = df.sdm, 
+      h = m2.noaltquad,
+      c("WC_bio2", "WC_alt"))
 
 
 #' _____________________________________________________________________________
