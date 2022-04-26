@@ -107,7 +107,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Double check: Did the number of records make sense??
 #' 
 
- Map the cleaned occurrence records on top of the raw ones:
+ #'  the cleaned occurrence records on top of the raw ones:
  points(presences[ , c("decimalLongitude", "decimalLatitude"),], 
               pch = 20, 
               col = "red")
@@ -143,7 +143,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' Trying to add the different types of code to the maps
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[1:4, ]
+layers_choice <- layers_choice[c(1,2,13),]
 layers_choice
 
 
@@ -178,7 +178,7 @@ unique(sapply(layers, raster::extent))
 #' Once all layers have the same extent and resolution, 
 #' you can stack them in a single multi-layer Raster object and plot some to check
 layers <- raster::stack(layers)
-plot(layers[[1:4]])
+plot(layers)
 
 #' _____________________________________________________________________________
 #' 
@@ -244,7 +244,7 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
@@ -258,7 +258,7 @@ plot(pres_spat_vect, col = "blue", add = TRUE)
 
 
 #' Have to add in non-presence data
-#' 
+#' takes pres and conv cells into 1s, creating 0s for all cells without point. Fills in 0s
 dat <- fuzzySim::gridRecords(rst = layers_cut, 
                              pres.coords = presences[ , c("decimalLongitude", "decimalLatitude")])
 head(dat)
@@ -266,7 +266,7 @@ table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]])
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -289,20 +289,49 @@ df.sdm
 
 #' _____________________________________________________________________________
 #' 
-#' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt + WC_bio1, 
+#' ## 5. Run models and create a predicted distribution map 
+m1 <- sdm(presence ~ WC_alt + WC_bio1 + WC_bio12,
           data = df.sdm, 
           methods = c("glm"))
 m1
+getVarImp(m1)
+rcurve(m1)
+#' shows strong relationship with alt, low with prec, and temp. Put in slides
+#' showing that alt is much more important. bio 1 least good, take out bio1
 
+m2 <- sdm(presence ~ WC_alt + WC_bio12,
+          data = df.sdm, 
+          methods = c("glm"))
+m2
+getVarImp(m2)
+
+m3 <- sdm(presence ~ WC_alt,
+          data = df.sdm, 
+          methods = c("glm"))
+m3
+getVarImp(m3)
+rcurve(m3)
+#' overall affect of alt on pres
+#' 
+#' 
+#' 
 #' Prediction map
 #' 
 p1 <- predict(m1, newdata = layers_cut, 
-              filename='aaarcher/output/figures/p1.img', 
+              filename='GlennaJaede/output/figures/p1.img', 
               overwrite=T) 
 plot(studyarea, border = "red", lwd = 3)
 plot(countries, border = "tan", add = T)
 plot(p1, add = T)
+
+
+
+p2 <- predict(m3, newdata = layers_cut, 
+              filename='GlennaJaede/output/figures/p2.img', 
+              overwrite=T) 
+plot(studyarea, border = "red", lwd = 3)
+plot(countries, border = "tan", add = T)
+plot(p2, add = T)
 
 #' Variable importance
 #' 
