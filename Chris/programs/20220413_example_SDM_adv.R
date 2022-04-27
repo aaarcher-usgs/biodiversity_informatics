@@ -138,7 +138,7 @@ unique(pred_layers[pred_layers$dataset_code == "Bio-ORACLE", ]$name)
 #' which are in rows 1 to 20):
 layers_choice <- unique(pred_layers[pred_layers$dataset_code == "WorldClim", c("name", "layer_code")])
 layers_choice
-layers_choice <- layers_choice[c(1,5,15), ]
+layers_choice <- layers_choice[c(1:20), ]
 layers_choice
 
 
@@ -284,11 +284,45 @@ df.sdm
 #' _____________________________________________________________________________
 #' 
 #' ## 5. Run models and create a predicted distribution map
-m1 <- sdm(presence ~ WC_alt  + WC_bio14, 
+m1 <- sdm(presence ~ WC_alt  + I(WC_alt^2) + I(WC_bio14^2), 
           data = df.sdm, 
           methods = c("glm"))
 m1
 getVarImp(m1)
+rcurve(m1)
+
+
+m3 <- sdm(presence ~ WC_alt  + I(WC_alt^2) + WC_bio8 + WC_bio9 + I(WC_bio9^2) + WC_bio10 + I(WC_bio10^2) + WC_bio11 + I(WC_bio11^2), 
+          data = df.sdm, 
+          methods = c("glm"))
+m3
+getVarImp(m3)
+rcurve(m3)
+plogis(getModelObject(m3, id = 1)[[1]])
+getVarImp(m3)
+roc(m3)
+#prediction map M3
+p1 <- predict(m3, newdata = layers_cut, 
+              filename='Chris/output/figures/p1.img', 
+              overwrite=T) 
+plot(studyarea, border = "red", lwd = 3)
+plot(countries, border = "tan", add = T)
+plot(p1, add = T)
+
+#' Variable importance m3
+#' 
+vi <- getVarImp(m3)
+vi
+plot(vi)
+#' View Coefficients m3
+#' 
+plogis(getModelObject(m3)[[1]])
+
+m1.quad <- sdm(presence ~ WC_alt  + WC_bio14 + WC_alt^2 + WC_Bio14^2, 
+          data = df.sdm, 
+          methods = c("glm"))
+m1.quad
+getVarImp(m1.quad)
 
 m4 <- sdm(presence ~ WC_alt + WC_bio4 + WC_bio14, 
           data = df.sdm,
