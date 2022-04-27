@@ -269,7 +269,7 @@ table(dat$presence)
 
 
 #' Map these data
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]], xlim = c(-95, -55), ylim = c(0, 25))
 # plot the absences (pixels without presence records):
 points(dat[dat$presence == 0, c("x", "y")], col = "red", cex = 0.5)
 # plot the presences (pixels with presence records):
@@ -335,9 +335,16 @@ m3.cv
 getModelObject(m3.cv, id = 1)[[1]]
 getVarImp(m3.cv)
 
+rcurve(m3.cv)
 
 
-
+#' 
+p2 <- predict(m2.select, newdata = layers_cut, 
+              filename='Sydney/output/figures/p2.img', 
+              overwrite=T) 
+plot(studyarea, border = "red", lwd = 2, xlim = c(-95, -55), ylim = c(0, 25))
+plot(countries, border = "tan", add = T)
+plot(p2, add = T)
 #' _____________________________________________________________________________
 #' 
 #' ### Footer
