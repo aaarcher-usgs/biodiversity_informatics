@@ -317,6 +317,56 @@ plot(vi)
 #' View Coefficients m3
 #' 
 plogis(getModelObject(m3)[[1]])
+#' m4 variable testing new high of AUC: .824 
+
+
+m4 <- sdm(presence ~  WC_alt  + WC_bio10  + I(WC_bio10^2)  + WC_bio11 + I(WC_bio12^2) + WC_bio1 + I(WC_bio1^2) + WC_bio18 + I(WC_bio18^2)  + WC_bio15 + I(WC_bio15^2) , 
+          data = df.sdm, 
+          methods = c("glm"))
+m4
+getVarImp(m4)
+roc(m4)
+#' m5 variable testing works with or without WC_bio10 new high of .828
+m5 <- sdm(presence ~  WC_alt + I(WC_bio10^2)  + WC_bio11 + I(WC_bio12^2) + WC_bio1 + I(WC_bio1^2) + WC_bio18 + I(WC_bio18^2)  + WC_bio15 + I(WC_bio15^2) + WC_bio14 + I(WC_bio14^2) , 
+          data = df.sdm, 
+          methods = c("glm"))
+m5
+getVarImp(m5)
+roc(m5)
+#' m6 variable testing new high AUC: .829
+m6 <- sdm(presence ~  WC_alt  + WC_bio1  + I(WC_bio1^2) + WC_bio11 + WC_bio18 + I(WC_bio18^2) + I(WC_bio15^2) + WC_bio12 + I(WC_bio12^2)+ WC_bio2 +I(WC_bio2^2), 
+          data = df.sdm, 
+          methods = c("glm"))
+m6
+getVarImp(m6)
+roc(m6)
+
+#' m7 variable testing NEW HIGH AUC: .836 need to cull variables down from 13
+m7 <- sdm(presence ~  WC_alt  + WC_bio1 + WC_bio4  + I(WC_bio1^2) + WC_bio5 +I(WC_bio5^2)+ WC_bio18 + I(WC_bio18^2) + I(WC_bio15^2) + WC_bio12 + I(WC_bio12^2)+ WC_bio2 +I(WC_bio2^2), 
+        data = df.sdm, 
+        methods = c("glm"))
+m7
+getVarImp(m7)
+roc(m7)
+
+#' attempting to cull variables while maintain auc of .836. Removing WC_bio12^2 increase by .001
+m8 <- sdm(presence ~ WC_alt +  WC_bio1  + I(WC_bio1^2)+ WC_bio4  + WC_bio5 +I(WC_bio5^2)+ WC_bio12  + I(WC_bio15^2)+ WC_bio18+ I(WC_bio18^2)  + WC_bio2 +I(WC_bio2^2), 
+          data = df.sdm, 
+          methods = c("glm"))
+m8
+getVarImp(m8)
+roc(m8)
+#' m9 further cull attempts: was able to reduce to 11 variables and maintain .837 AUC
+m9 <- sdm(presence ~ WC_alt +  WC_bio1  + I(WC_bio1^2)+ WC_bio4 +I(WC_bio5^2)+I(WC_bio15^2)+ WC_bio12  + WC_bio18 + I(WC_bio18^2)+ WC_bio2 +I(WC_bio2^2) , 
+          data = df.sdm, 
+          methods = c("glm"))
+m9
+getVarImp(m9)
+roc(m9)
+
+
+
+
 
 m1.quad <- sdm(presence ~ WC_alt  + WC_bio14 + WC_alt^2 + WC_Bio14^2, 
           data = df.sdm, 
