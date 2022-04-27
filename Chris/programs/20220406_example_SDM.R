@@ -17,6 +17,7 @@ library(sdmpredictors)
 library(fuzzySim)
 library(sdm)
 library(raster)
+library(ezknitr)
 
 remove(list = ls())
 
@@ -30,7 +31,7 @@ myspecies <- "Emydoidea blandingii"
 #' 
 #' Download the data
 gbif_data <- occ_data(scientificName = myspecies, 
-                      hasCoordinate = TRUE, 
+                    hasCoordinate = TRUE, 
                       limit = 20000)
 
 #'
@@ -221,8 +222,8 @@ studyarea <- as(studyarea, "Spatial")
 
 # IF YOU USED A LIMITED WINDOW OF COORDINATES to download the occurrence data, 
 # you need to intersect or crop with that too:
-#studyarea <- intersect(studyarea, mywindow)
-#plot(studyarea, border = "green", add = TRUE)
+studyarea <- intersect(studyarea, mywindow)
+plot(studyarea, border = "green", add = TRUE)
 
 
 #' Cut the variable maps with the limits of the study area:
@@ -301,4 +302,4 @@ plot(p1, add = T)
 #' ### Footer
 #' 
 #' spin this with:
-#' ezspin(file = "Chris/programs/20220406_example_SDM.R",out_dir = "Chris/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)
+ezspin(file = "Chris/programs/20220406_example_SDM.R",out_dir = "Chris/output", fig_dir = "figures",keep_md = FALSE, keep_rmd = FALSE)

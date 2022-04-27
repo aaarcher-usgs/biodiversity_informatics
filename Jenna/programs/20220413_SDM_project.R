@@ -347,7 +347,7 @@ getVarImp(m2.noaltquad)
 #' 
 m3.cv <- sdm(presence ~ WC_bio1 + WC_bio19 + WC_bio1:WC_bio19,
              data = df.sdm, methods = c("glm"), 
-             replication = "cv", cv.folds = 4, n = 5) # n = 5 for your assignment
+             replication = "cv", cv.folds = 5, n = 5) # n = 5 for your assignment
 m3.cv
 plogis(getModelObject(m3.cv, id = 1)[[1]])
 getVarImp(m3.cv)
