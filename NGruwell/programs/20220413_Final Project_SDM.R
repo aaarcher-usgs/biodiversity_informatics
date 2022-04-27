@@ -19,19 +19,19 @@ library(sdm)
 library(raster)
 
 remove(list = ls())
-
+install.packages('sdm')
 #' _____________________________________________________________________________
 #' 
 #' ## 1. Download data
 #' 
 #' Scientific name of the species
-myspecies <- "Emydoidea blandingii"
+myspecies <- "Morpho menelaus"
 
 #' 
 #' Download the data
 gbif_data <- occ_data(scientificName = myspecies, 
                       hasCoordinate = TRUE, 
-                      limit = 20000)
+                      limit = 20200)
 
 #'
 #' See if "Records returned" is smaller than "Records found", in which case you need to re-run 'occ_data' with a larger 'limit' above
@@ -41,7 +41,6 @@ gbif_data
 #' can properly cite your data sources on the final presentation.
 #' 
 # gbif_citation(gbif_data)
-
 
 #' _____________________________________________________________________________
 #' 
@@ -237,7 +236,7 @@ plot(layers_cut[[1]])
 plot(pres_spat_vect, col = "blue", cex = 0.1, add = TRUE)
 # plot within smaller x/y limits if necessary to see if presence point 
 # resolution matches pixel resolution:
-plot(layers_cut[[1]], xlim = c(-84.5, -81.5), ylim = c(41, 44))
+plot(layers_cut[[1]], xlim = c(-90, -40), ylim = c(-30, 20))
 plot(pres_spat_vect, col = "blue", add = TRUE)
 
 # IF NECESSARY, you can aggregate the layers, to e.g. a 5-times coarser resolution (choose the 'fact' value that best matches your presence data resolution to your variables' resolution):
