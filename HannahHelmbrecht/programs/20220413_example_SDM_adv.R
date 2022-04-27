@@ -2,9 +2,9 @@
 #' 
 #' Biodiversity Informatics (BIOL 475/575)
 #' 
-#' April 13, 2022
+#' April 20, 2022
 #' 
-#' Programmer: Sydney
+#' Programmer: Hannah
 #' 
 #' ### Header
 #' 
@@ -100,7 +100,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 0]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < -10]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
