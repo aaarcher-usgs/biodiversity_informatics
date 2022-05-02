@@ -67,7 +67,7 @@ presences <- gbif_data$data[ , c("key","decimalLongitude",
                                  "coordinateUncertaintyInMeters", 
                                  "year")]
 presences$uniqueID <- 1:nrow(presences)
-presences <- presences[presences$decimalLongitude < 0 & presences$decimalLongitude > -100 & presences$year > 2000,]
+presences <- presences[presences$decimalLongitude < 0 & presences$decimalLongitude > -105 & presences$year > 1999,]
 
 #' 
 #' Let's re-plot the map within the coordinates of our presence points:
@@ -98,7 +98,7 @@ points(presences[ , c("decimalLongitude", "decimalLatitude"),],
 #' Blanding's turtle is NOT located in southern states. We need to also
 #' remove records from areas that are not possible.
 #' 
-remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 31]
+remove.IDs.SE <- presences$uniqueID[presences$decimalLatitude < 25]
 presences <- presences[! presences$uniqueID %in% remove.IDs.SE,]
 
 #' Double check: Did the number of records make sense??
@@ -293,15 +293,14 @@ rcurve(m1)
 
 #' .80 with just 5 variables
 
-m3 <- sdm(presence ~ WC_alt   + WC_bio9 + WC_bio10 + I(WC_bio10^2) + I(WC_bio11^2), 
+m3 <- sdm(presence ~  WC_alt  +   WC_bio9 + WC_bio10 + I(WC_bio10^2) + I(WC_bio11^2), 
           data = df.sdm, 
           methods = c("glm"))
 m3
 getVarImp(m3)
 rcurve(m3)
 plogis(getModelObject(m3, id = 1)[[1]])
-getVarImp(m3)
-roc(m3)
+ roc(m3)
 #prediction map M3
 p1 <- predict(m3, newdata = layers_cut, 
               filename='Chris/output/figures/p1.img', 
