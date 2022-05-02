@@ -143,7 +143,7 @@ layers_choice
 
 
 #' Define folder for downloading the map layers:
-options(sdmpredictors_datadir = "../outputs/sdmpredictors")
+options(sdmpredictors_datadir = "Andy/outputs/sdmpredictors")
 
 #' load the layers to the current R session 
 #' (downloading them if they aren't already in the folder defined above):
