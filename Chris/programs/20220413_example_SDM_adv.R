@@ -291,8 +291,9 @@ m1
 getVarImp(m1)
 rcurve(m1)
 
+#' .80 with just 5 variables
 
-m3 <- sdm(presence ~ WC_alt  + I(WC_alt^2) + WC_bio8 + WC_bio9 + I(WC_bio9^2) + WC_bio10 + I(WC_bio10^2) + WC_bio11 + I(WC_bio11^2), 
+m3 <- sdm(presence ~ WC_alt   + WC_bio9 + WC_bio10 + I(WC_bio10^2) + I(WC_bio11^2), 
           data = df.sdm, 
           methods = c("glm"))
 m3
